@@ -1,0 +1,9 @@
+---
+layout: layouts/base
+title: Rahma Benali — Boulangère Artisane
+description: "Rahma Benali, boulangère artisane chez Nimara Genève."
+permalink: /equipe/rahma/
+memberId: rahma
+---
+{% set member = team | findByAttr("id", memberId) %}
+{% include "partials/team-profile.njk" %}

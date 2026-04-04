@@ -1,0 +1,488 @@
+{
+  "categories": [
+    { "id": "pains", "label": { "fr": "Pains", "en": "Breads" }, "icon": "🍞" },
+    { "id": "viennoiseries", "label": { "fr": "Viennoiseries", "en": "Pastries" }, "icon": "🥐" },
+    { "id": "patisseries", "label": { "fr": "Pâtisseries", "en": "Confections" }, "icon": "🎂" },
+    { "id": "traiteur", "label": { "fr": "Traiteur Salé", "en": "Savoury Catering" }, "icon": "🍱" },
+    { "id": "formules", "label": { "fr": "Formules", "en": "Packages" }, "icon": "🎉" }
+  ],
+  "allergenKeys": {
+    "gluten": { "fr": "Gluten", "en": "Gluten" },
+    "lactose": { "fr": "Lactose", "en": "Lactose" },
+    "oeufs": { "fr": "Œufs", "en": "Eggs" },
+    "fruits_a_coque": { "fr": "Fruits à coque", "en": "Tree nuts" },
+    "sesame": { "fr": "Sésame", "en": "Sesame" },
+    "soja": { "fr": "Soja", "en": "Soy" },
+    "arachides": { "fr": "Arachides", "en": "Peanuts" },
+    "celeri": { "fr": "Céleri", "en": "Celery" },
+    "moutarde": { "fr": "Moutarde", "en": "Mustard" },
+    "poisson": { "fr": "Poisson", "en": "Fish" }
+  },
+  "products": [
+    {
+      "id": 1,
+      "category": "pains",
+      "name": { "fr": "Pain au Levain", "en": "Sourdough Loaf" },
+      "description": { "fr": "Fermentation longue 48h, croûte épaisse et mie alvéolée. Notre signature.", "en": "48h slow fermentation, thick crust and open crumb. Our signature." },
+      "price": 9.50,
+      "unit": "pièce",
+      "weight": "800g",
+      "allergens": ["gluten"],
+      "available": true,
+      "badge": "Signature"
+    },
+    {
+      "id": 2,
+      "category": "pains",
+      "name": { "fr": "Pain de Campagne", "en": "Country Bread" },
+      "description": { "fr": "Mélange de farines de blé et seigle, légèrement acidulé.", "en": "Blend of wheat and rye flour, lightly tangy." },
+      "price": 8.00,
+      "unit": "pièce",
+      "weight": "750g",
+      "allergens": ["gluten"],
+      "available": true
+    },
+    {
+      "id": 3,
+      "category": "pains",
+      "name": { "fr": "Pain Complet", "en": "Wholemeal Bread" },
+      "description": { "fr": "Farine complète T110, riche en fibres et minéraux.", "en": "Wholemeal flour T110, rich in fibre and minerals." },
+      "price": 7.50,
+      "unit": "pièce",
+      "weight": "700g",
+      "allergens": ["gluten"],
+      "available": true
+    },
+    {
+      "id": 4,
+      "category": "pains",
+      "name": { "fr": "Pain aux Noix", "en": "Walnut Bread" },
+      "description": { "fr": "Noix de Grenoble AOP, levain de seigle, parfait avec les fromages.", "en": "AOP Grenoble walnuts, rye sourdough. Perfect with cheese." },
+      "price": 10.50,
+      "unit": "pièce",
+      "weight": "700g",
+      "allergens": ["gluten", "fruits_a_coque"],
+      "available": true
+    },
+    {
+      "id": 5,
+      "category": "pains",
+      "name": { "fr": "Pain aux Olives & Romarin", "en": "Olive & Rosemary Bread" },
+      "description": { "fr": "Olives Kalamata, romarin frais, huile d'olive extra-vierge.", "en": "Kalamata olives, fresh rosemary, extra-virgin olive oil." },
+      "price": 9.50,
+      "unit": "pièce",
+      "weight": "650g",
+      "allergens": ["gluten"],
+      "available": true
+    },
+    {
+      "id": 6,
+      "category": "pains",
+      "name": { "fr": "Pain de Seigle", "en": "Rye Bread" },
+      "description": { "fr": "100% seigle, fermentation naturelle, dense et savoureux.", "en": "100% rye, natural fermentation, dense and flavourful." },
+      "price": 8.50,
+      "unit": "pièce",
+      "weight": "600g",
+      "allergens": ["gluten"],
+      "available": true
+    },
+    {
+      "id": 7,
+      "category": "pains",
+      "name": { "fr": "Baguette Tradition", "en": "Traditional Baguette" },
+      "description": { "fr": "Farine de tradition française, cuite sur sole de pierre.", "en": "French tradition flour, baked on a stone sole." },
+      "price": 3.00,
+      "unit": "pièce",
+      "weight": "250g",
+      "allergens": ["gluten"],
+      "available": true
+    },
+    {
+      "id": 8,
+      "category": "pains",
+      "name": { "fr": "Pain Brioche Mousseline", "en": "Mousseline Brioche" },
+      "description": { "fr": "Brioche ultra-moelleuse pur beurre, légère comme un nuage.", "en": "Ultra-soft butter brioche, light as a cloud." },
+      "price": 11.00,
+      "unit": "pièce",
+      "weight": "500g",
+      "allergens": ["gluten", "lactose", "oeufs"],
+      "available": true
+    },
+    {
+      "id": 9,
+      "category": "viennoiseries",
+      "name": { "fr": "Croissant Pur Beurre", "en": "All-Butter Croissant" },
+      "description": { "fr": "27 couches feuilletées, beurre AOP Charentes-Poitou. Croustillant à souhait.", "en": "27 flaky layers, AOP Charentes-Poitou butter. Perfectly crispy." },
+      "price": 4.20,
+      "unit": "pièce",
+      "allergens": ["gluten", "lactose", "oeufs"],
+      "available": true,
+      "badge": "Bestseller"
+    },
+    {
+      "id": 10,
+      "category": "viennoiseries",
+      "name": { "fr": "Pain au Chocolat", "en": "Chocolate Croissant" },
+      "description": { "fr": "Double barre Valrhona 70%, pâte feuilletée pur beurre.", "en": "Double Valrhona 70% bar, all-butter pastry dough." },
+      "price": 4.50,
+      "unit": "pièce",
+      "allergens": ["gluten", "lactose", "oeufs", "soja"],
+      "available": true,
+      "badge": "Bestseller"
+    },
+    {
+      "id": 11,
+      "category": "viennoiseries",
+      "name": { "fr": "Croissant aux Amandes", "en": "Almond Croissant" },
+      "description": { "fr": "Croissant repassé, crème d'amandes, amandes effilées grillées.", "en": "Twice-baked croissant, almond cream, toasted flaked almonds." },
+      "price": 5.00,
+      "unit": "pièce",
+      "allergens": ["gluten", "lactose", "oeufs", "fruits_a_coque"],
+      "available": true
+    },
+    {
+      "id": 12,
+      "category": "viennoiseries",
+      "name": { "fr": "Pain aux Raisins", "en": "Pain aux Raisins" },
+      "description": { "fr": "Crème pâtissière vanille Bourbon, raisins de Corinthe, pâte feuilletée.", "en": "Bourbon vanilla pastry cream, Corinth raisins, flaky dough." },
+      "price": 4.20,
+      "unit": "pièce",
+      "allergens": ["gluten", "lactose", "oeufs"],
+      "available": true
+    },
+    {
+      "id": 13,
+      "category": "viennoiseries",
+      "name": { "fr": "Chausson aux Pommes", "en": "Apple Turnover" },
+      "description": { "fr": "Pommes Golden caramélisées, compotées à la cannelle.", "en": "Caramelised Golden apples, slow-cooked with cinnamon." },
+      "price": 4.00,
+      "unit": "pièce",
+      "allergens": ["gluten", "lactose", "oeufs"],
+      "available": true
+    },
+    {
+      "id": 14,
+      "category": "viennoiseries",
+      "name": { "fr": "Kouign-Amann", "en": "Kouign-Amann" },
+      "description": { "fr": "Spécialité bretonne caramélisée, croustillante et fondante à la fois.", "en": "Caramelised Breton speciality, crispy and melting at once." },
+      "price": 5.50,
+      "unit": "pièce",
+      "allergens": ["gluten", "lactose", "oeufs"],
+      "available": true
+    },
+    {
+      "id": 15,
+      "category": "viennoiseries",
+      "name": { "fr": "Brioche Tressée", "en": "Braided Brioche" },
+      "description": { "fr": "Brioche viennoise tressée, zestes d'orange, fleur d'oranger.", "en": "Viennese braided brioche, orange zest, orange blossom." },
+      "price": 12.00,
+      "unit": "pièce",
+      "weight": "450g",
+      "allergens": ["gluten", "lactose", "oeufs"],
+      "available": true
+    },
+    {
+      "id": 16,
+      "category": "viennoiseries",
+      "name": { "fr": "Escargot Cannelle", "en": "Cinnamon Roll" },
+      "description": { "fr": "Roulé viennois à la cannelle, glaçage cream cheese, noix de pécan.", "en": "Viennese cinnamon swirl, cream cheese glaze, pecans." },
+      "price": 5.00,
+      "unit": "pièce",
+      "allergens": ["gluten", "lactose", "oeufs", "fruits_a_coque"],
+      "available": true,
+      "badge": "Nouveau"
+    },
+    {
+      "id": 17,
+      "category": "patisseries",
+      "name": { "fr": "Tarte aux Fraises", "en": "Strawberry Tart" },
+      "description": { "fr": "Fraises Gariguette, crème mousseline vanille, pâte sucrée maison.", "en": "Gariguette strawberries, vanilla mousseline cream, house sweet pastry." },
+      "price": 7.50,
+      "unit": "part",
+      "allergens": ["gluten", "lactose", "oeufs"],
+      "available": true
+    },
+    {
+      "id": 18,
+      "category": "patisseries",
+      "name": { "fr": "Éclair au Chocolat", "en": "Chocolate Éclair" },
+      "description": { "fr": "Pâte à choux, ganache Valrhona Guanaja 70%, glaçage brillant.", "en": "Choux pastry, Valrhona Guanaja 70% ganache, mirror glaze." },
+      "price": 6.00,
+      "unit": "pièce",
+      "allergens": ["gluten", "lactose", "oeufs", "soja"],
+      "available": true
+    },
+    {
+      "id": 19,
+      "category": "patisseries",
+      "name": { "fr": "Paris-Brest", "en": "Paris-Brest" },
+      "description": { "fr": "Choux praliné noisette, crème légère, éclats de pralin.", "en": "Hazelnut praline choux, light cream, pralin shards." },
+      "price": 7.00,
+      "unit": "pièce",
+      "allergens": ["gluten", "lactose", "oeufs", "fruits_a_coque"],
+      "available": true,
+      "badge": "Signature"
+    },
+    {
+      "id": 20,
+      "category": "patisseries",
+      "name": { "fr": "Mille-feuille Vanille", "en": "Vanilla Millefeuille" },
+      "description": { "fr": "1000 feuilles caramélisées, crème diplomate vanille Tahiti.", "en": "1000 caramelised layers, Tahitian vanilla diplomat cream." },
+      "price": 7.50,
+      "unit": "pièce",
+      "allergens": ["gluten", "lactose", "oeufs"],
+      "available": true
+    },
+    {
+      "id": 21,
+      "category": "patisseries",
+      "name": { "fr": "Tarte Citron Meringuée", "en": "Lemon Meringue Tart" },
+      "description": { "fr": "Curd citron de Menton, meringue italienne flambée, sablé breton.", "en": "Menton lemon curd, flambéed Italian meringue, Breton shortbread." },
+      "price": 7.00,
+      "unit": "part",
+      "allergens": ["gluten", "lactose", "oeufs"],
+      "available": true
+    },
+    {
+      "id": 22,
+      "category": "patisseries",
+      "name": { "fr": "Financier Pistache", "en": "Pistachio Financier" },
+      "description": { "fr": "Beurre noisette, pistaches de Sicile, moelleux intense.", "en": "Brown butter, Sicilian pistachios, intensely moist." },
+      "price": 4.50,
+      "unit": "pièce",
+      "allergens": ["gluten", "lactose", "oeufs", "fruits_a_coque"],
+      "available": true
+    },
+    {
+      "id": 23,
+      "category": "patisseries",
+      "name": { "fr": "Macarons (assortiment)", "en": "Macarons (assorted)" },
+      "description": { "fr": "Coques amande, ganaches maison : framboise, pistache, vanille, caramel.", "en": "Almond shells, house ganaches: raspberry, pistachio, vanilla, caramel." },
+      "price": 3.50,
+      "unit": "pièce",
+      "allergens": ["oeufs", "fruits_a_coque"],
+      "available": true,
+      "badge": "Bestseller"
+    },
+    {
+      "id": 24,
+      "category": "patisseries",
+      "name": { "fr": "Opéra", "en": "Opéra Cake" },
+      "description": { "fr": "Classique français : joconde café, ganache chocolat, crème au beurre.", "en": "French classic: coffee joconde, chocolate ganache, buttercream." },
+      "price": 7.50,
+      "unit": "part",
+      "allergens": ["gluten", "lactose", "oeufs", "fruits_a_coque"],
+      "available": true
+    },
+    {
+      "id": 25,
+      "category": "patisseries",
+      "name": { "fr": "Fraisier", "en": "Fraisier" },
+      "description": { "fr": "Génoise légère, crème mousseline, fraises entières, gelée rosée.", "en": "Light sponge, mousseline cream, whole strawberries, rosé jelly." },
+      "price": 7.50,
+      "unit": "part",
+      "allergens": ["gluten", "lactose", "oeufs"],
+      "available": true
+    },
+    {
+      "id": 26,
+      "category": "patisseries",
+      "name": { "fr": "Banana Bread Oh Martine", "en": "Oh Martine Banana Bread" },
+      "description": { "fr": "Bananes caramélisées, noix, chocolat noir, recette signature Oh Martine.", "en": "Caramelised bananas, walnuts, dark chocolate. Oh Martine signature." },
+      "price": 5.00,
+      "unit": "tranche",
+      "allergens": ["gluten", "lactose", "oeufs", "fruits_a_coque"],
+      "available": true,
+      "badge": "Oh Martine"
+    },
+    {
+      "id": 27,
+      "category": "traiteur",
+      "name": { "fr": "Quiche Lorraine", "en": "Quiche Lorraine" },
+      "description": { "fr": "Lardons fumés, crème fraîche, œufs fermiers, pâte brisée maison.", "en": "Smoked lardons, crème fraîche, farm eggs, house shortcrust." },
+      "price": 6.50,
+      "unit": "part",
+      "allergens": ["gluten", "lactose", "oeufs"],
+      "available": true
+    },
+    {
+      "id": 28,
+      "category": "traiteur",
+      "name": { "fr": "Tarte Méditerranéenne", "en": "Mediterranean Tart" },
+      "description": { "fr": "Légumes grillés, chèvre, tapenade, herbes de Provence.", "en": "Grilled vegetables, goat cheese, tapenade, Provence herbs." },
+      "price": 6.50,
+      "unit": "part",
+      "allergens": ["gluten", "lactose", "oeufs"],
+      "available": true
+    },
+    {
+      "id": 29,
+      "category": "traiteur",
+      "name": { "fr": "Cake Salé Jambon-Fromage", "en": "Ham & Cheese Savoury Cake" },
+      "description": { "fr": "Jambon cuit, emmental, olives vertes. Parfait pour les pique-niques.", "en": "Cooked ham, emmental, green olives. Perfect for picnics." },
+      "price": 5.00,
+      "unit": "tranche",
+      "allergens": ["gluten", "lactose", "oeufs"],
+      "available": true
+    },
+    {
+      "id": 30,
+      "category": "traiteur",
+      "name": { "fr": "Feuilleté au Fromage", "en": "Cheese Puff" },
+      "description": { "fr": "Feuilletage pur beurre, fondu de fromages alpins, sésame doré.", "en": "Butter puff pastry, melted alpine cheeses, golden sesame." },
+      "price": 4.50,
+      "unit": "pièce",
+      "allergens": ["gluten", "lactose", "oeufs", "sesame"],
+      "available": true
+    },
+    {
+      "id": 31,
+      "category": "traiteur",
+      "name": { "fr": "Samosa Légumes & Menthe", "en": "Vegetable & Mint Samosa" },
+      "description": { "fr": "Feuille de brick croustillante, farce pommes de terre-petits pois-épices.", "en": "Crispy brick pastry, potato-pea-spice filling." },
+      "price": 3.50,
+      "unit": "pièce",
+      "allergens": ["gluten", "moutarde"],
+      "available": true,
+      "badge": "Chavannes"
+    },
+    {
+      "id": 32,
+      "category": "traiteur",
+      "name": { "fr": "Pakora Épinards-Oignon", "en": "Spinach & Onion Pakora" },
+      "description": { "fr": "Beignets de farine de pois chiche, épinards frais, cumin.", "en": "Chickpea flour fritters, fresh spinach, cumin." },
+      "price": 3.00,
+      "unit": "pièce",
+      "allergens": ["celeri"],
+      "available": true,
+      "badge": "Chavannes"
+    },
+    {
+      "id": 33,
+      "category": "traiteur",
+      "name": { "fr": "Naan Beurre & Ail", "en": "Garlic Butter Naan" },
+      "description": { "fr": "Naan façon tandoor, beurre clarifié, ail confit, coriandre.", "en": "Tandoor-style naan, clarified butter, confit garlic, coriander." },
+      "price": 3.50,
+      "unit": "pièce",
+      "allergens": ["gluten", "lactose"],
+      "available": true,
+      "badge": "Chavannes"
+    },
+    {
+      "id": 34,
+      "category": "traiteur",
+      "name": { "fr": "Wraps Végétariens", "en": "Vegetarian Wraps" },
+      "description": { "fr": "Galette de blé, houmous, taboulé, légumes croquants, sauce tahini.", "en": "Wheat wrap, houmous, tabbouleh, crunchy veg, tahini sauce." },
+      "price": 9.00,
+      "unit": "pièce",
+      "allergens": ["gluten", "sesame", "celeri"],
+      "available": true
+    },
+    {
+      "id": 35,
+      "category": "traiteur",
+      "name": { "fr": "Sandwich Saumon-Avocat", "en": "Salmon & Avocado Sandwich" },
+      "description": { "fr": "Pain de mie au levain, saumon fumé Faroe, avocat, aneth, citron.", "en": "Sourdough sandwich bread, Faroe smoked salmon, avocado, dill." },
+      "price": 11.00,
+      "unit": "pièce",
+      "allergens": ["gluten", "poisson"],
+      "available": true
+    },
+    {
+      "id": 36,
+      "category": "traiteur",
+      "name": { "fr": "Plateau Fromages Suisses", "en": "Swiss Cheese Board" },
+      "description": { "fr": "Gruyère AOP, Raclette du Valais, Appenzeller, accompagnements.", "en": "AOP Gruyère, Valais Raclette, Appenzeller, accompaniments." },
+      "price": 28.00,
+      "unit": "plateau/4 pers.",
+      "allergens": ["lactose"],
+      "available": true
+    },
+    {
+      "id": 37,
+      "category": "traiteur",
+      "name": { "fr": "Bircher Muesli Oh Martine", "en": "Oh Martine Bircher Muesli" },
+      "description": { "fr": "Overnight oats, fruits frais de saison, yaourt, miel suisse, noix.", "en": "Overnight oats, seasonal fresh fruit, yoghurt, Swiss honey, nuts." },
+      "price": 7.50,
+      "unit": "portion",
+      "allergens": ["gluten", "lactose", "fruits_a_coque"],
+      "available": true,
+      "badge": "Oh Martine"
+    },
+    {
+      "id": 38,
+      "category": "traiteur",
+      "name": { "fr": "Mini-Brochettes Mezze", "en": "Mezze Mini-Skewers" },
+      "description": { "fr": "Halloumi grillé, tomates cerises confites, olives Kalamata.", "en": "Grilled halloumi, confit cherry tomatoes, Kalamata olives." },
+      "price": 3.50,
+      "unit": "brochette",
+      "allergens": ["lactose"],
+      "available": true
+    },
+    {
+      "id": 39,
+      "category": "traiteur",
+      "name": { "fr": "Cake Figues & Noix", "en": "Fig & Walnut Cake" },
+      "description": { "fr": "Figues séchées, noix de Grenoble, miel du Valais, thym.", "en": "Dried figs, Grenoble walnuts, Valais honey, thyme." },
+      "price": 5.50,
+      "unit": "tranche",
+      "allergens": ["gluten", "lactose", "oeufs", "fruits_a_coque"],
+      "available": true
+    },
+    {
+      "id": 40,
+      "category": "traiteur",
+      "name": { "fr": "Assiette Charcuterie Ibérique", "en": "Iberian Charcuterie Platter" },
+      "description": { "fr": "Jamón ibérico, chorizo, lomo, manchego, crackers maison.", "en": "Ibérico jamón, chorizo, lomo, manchego, house crackers." },
+      "price": 32.00,
+      "unit": "plateau/4 pers.",
+      "allergens": ["gluten"],
+      "available": true
+    },
+    {
+      "id": 41,
+      "category": "formules",
+      "name": { "fr": "Box Petit-Déjeuner (10 pers.)", "en": "Breakfast Box (10 pax)" },
+      "description": { "fr": "Birchers Oh Martine, Banana Bread, Cinnamon Rolls, Croissants pur beurre, Pains au chocolat. Parfait pour vos meetings matinaux.", "en": "Oh Martine Birchers, Banana Bread, Cinnamon Rolls, Croissants, Chocolate Croissants. Perfect for morning meetings." },
+      "price": 145.00,
+      "unit": "box / 10 pers.",
+      "allergens": ["gluten", "lactose", "oeufs", "fruits_a_coque"],
+      "available": true,
+      "badge": "Popular"
+    },
+    {
+      "id": 42,
+      "category": "formules",
+      "name": { "fr": "Formule Déjeuner (20 pers.)", "en": "Lunch Package (20 pax)" },
+      "description": { "fr": "Sandwichs assortis (4 variétés), quiches, salade taboulé, plateau fromages, pâtisseries. Livraison Genève incluse.", "en": "Assorted sandwiches (4 varieties), quiches, tabbouleh salad, cheese board, pastries. Geneva delivery included." },
+      "price": 580.00,
+      "unit": "formule / 20 pers.",
+      "allergens": ["gluten", "lactose", "oeufs", "poisson"],
+      "available": true,
+      "badge": "Corporate"
+    },
+    {
+      "id": 43,
+      "category": "formules",
+      "name": { "fr": "Formule Cocktail Chavannes (30 pers.)", "en": "Chavannes Cocktail Package (30 pax)" },
+      "description": { "fr": "Samosas, pakoras, naans, wraps végé, mini-brochettes, pâtisseries Oh Martine. Service traiteur inclus.", "en": "Samosas, pakoras, naans, veggie wraps, mini-skewers, Oh Martine pastries. Catering service included." },
+      "price": 780.00,
+      "unit": "formule / 30 pers.",
+      "allergens": ["gluten", "lactose", "oeufs", "celeri", "sesame"],
+      "available": true,
+      "badge": "Événement"
+    },
+    {
+      "id": 44,
+      "category": "formules",
+      "name": { "fr": "Buffet Complet (50 pers.)", "en": "Full Buffet (50 pax)" },
+      "description": { "fr": "Buffet froid & chaud complet : entrées, plats, fromages, desserts. Sur devis selon saison et régime.", "en": "Full hot & cold buffet: starters, mains, cheeses, desserts. Quote based on season and dietary needs." },
+      "price": null,
+      "priceLabel": { "fr": "Sur devis", "en": "On quote" },
+      "unit": "formule / 50 pers.",
+      "allergens": [],
+      "available": true,
+      "badge": "Sur Mesure"
+    }
+  ]
+}

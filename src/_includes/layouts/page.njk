@@ -1,0 +1,14 @@
+---
+layout: layouts/base
+---
+{% if pageHero !== false %}
+<section class="page-hero{% if heroClass %} {{ heroClass }}{% endif %}">
+  <div class="container">
+    {% if eyebrow %}<span class="eyebrow">{{ eyebrow }}</span>{% endif %}
+    <h1>{{ title }}</h1>
+    {% if subtitle %}<p class="page-hero__subtitle">{{ subtitle }}</p>{% endif %}
+  </div>
+</section>
+{% endif %}
+
+{{ content | safe }}

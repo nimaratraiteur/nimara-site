@@ -1,0 +1,112 @@
+---
+layout: layouts/page
+title: Chavannes
+subtitle: "Saveurs du monde, esprit Nimara — une table de buffet qui voyage."
+description: "Le buffet Chavannes de Nimara : samosas, pakoras, naans, wraps végétariens et spécialités asiatiques. Traiteur événementiel Genève."
+eyebrow: "Traiteur · Saveurs du Monde"
+heroClass: chavannes-hero
+permalink: /chavannes/
+---
+
+<section class="section">
+  <div class="container">
+    <div class="grid-2" style="align-items:center;gap:4rem;margin-bottom:4rem">
+      <div>
+        <span class="eyebrow">L'histoire Chavannes</span>
+        <h2>Quand le monde entier<br>se retrouve à votre table</h2>
+        <p style="margin-bottom:1rem">
+          Chavannes est née d'une idée simple : pourquoi choisir entre les saveurs quand on peut tout avoir ?
+          Inga, notre Chef Traiteur, a voyagé à travers l'Asie du Sud et le Moyen-Orient pour composer
+          une carte de buffet qui surprend et réunit.
+        </p>
+        <p style="margin-bottom:1.5rem">
+          Samosas croustillants, pakoras épinards-oignon, naans beurre-ail façon tandoor, curries parfumés —
+          chaque bouchée est une invitation au voyage, préparée avec les produits frais du marché genevois.
+        </p>
+        <a href="https://wa.me/{{ site.whatsapp }}?text={{ site.whatsappMessage | urlencode }}"
+           class="btn btn-whatsapp" target="_blank" rel="noopener noreferrer">
+          Commander le buffet Chavannes
+        </a>
+      </div>
+      <div style="background:linear-gradient(135deg,#0f0820,#4c1d95);border-radius:20px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;font-size:6rem;">
+        🌍
+      </div>
+    </div>
+
+    <!-- Spices / items -->
+    <div class="section-header">
+      <span class="eyebrow">Au menu Chavannes</span>
+      <h2>Nos spécialités</h2>
+    </div>
+    <div class="spice-grid" style="background:var(--dark);padding:2rem;border-radius:20px">
+      {% set chavannesItems = [
+        { icon: "🥟", name: "Samosas Légumes", desc: "Feuille de brick, pommes de terre, petits pois, épices" },
+        { icon: "🫓", name: "Pakoras Épinards", desc: "Farine de pois chiche, épinards frais, cumin" },
+        { icon: "🫓", name: "Naans Beurre-Ail", desc: "Façon tandoor, beurre clarifié, ail confit, coriandre" },
+        { icon: "🍛", name: "Curry Pois Chiches", desc: "Chana masala doux, lait de coco, coriandre fraîche" },
+        { icon: "🌯", name: "Wraps Végétariens", desc: "Houmous, taboulé, légumes croquants, tahini" },
+        { icon: "🍢", name: "Brochettes Halloumi", desc: "Halloumi grillé, tomates confites, olives Kalamata" },
+        { icon: "🥗", name: "Raïta Concombre", desc: "Yaourt grec, menthe, graines de moutarde" },
+        { icon: "🫙", name: "Chutneys Maison", desc: "Mangue douce, coriandre-menthe, tamarin" }
+      ] %}
+      {% for item in chavannesItems %}
+      <div class="spice-card animate-fade-up">
+        <div class="spice-card__icon">{{ item.icon }}</div>
+        <div class="spice-card__name">{{ item.name }}</div>
+        <div class="spice-card__desc">{{ item.desc }}</div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section section--cream">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">Formules Chavannes</span>
+      <h2>Pour tous vos événements</h2>
+      <p>Du cocktail d'entreprise au séminaire, le buffet Chavannes s'adapte à vos besoins.</p>
+    </div>
+    <div class="grid-3">
+      {% set formules = [
+        { icon: "🎉", title: "Cocktail (30 pers.)", price: "CHF 780", features: ["Samosas, pakoras, naans", "Wraps végé & brochettes", "Chutneys maison", "Service inclus"] },
+        { icon: "🏢", title: "Séminaire (50 pers.)", price: "CHF 1'280", features: ["Buffet complet chaud/froid", "Entrées + plats + desserts Oh Martine", "Matériel de service", "Livraison & mise en place"] },
+        { icon: "✨", title: "Sur Mesure (50+ pers.)", price: "Sur devis", features: ["Menu personnalisé", "Thème culinaire au choix", "Chef présent sur site", "Coordination événement"] }
+      ] %}
+      {% for f in formules %}
+      <div class="card animate-fade-up">
+        <div class="card-body" style="padding:1.75rem">
+          <div style="font-size:2.5rem;margin-bottom:1rem">{{ f.icon }}</div>
+          <h3 style="margin-bottom:.25rem">{{ f.title }}</h3>
+          <div style="font-size:1.4rem;font-weight:700;color:var(--violet);margin-bottom:1.25rem">{{ f.price }}</div>
+          <ul style="display:flex;flex-direction:column;gap:.4rem;margin-bottom:1.5rem">
+            {% for feat in f.features %}
+            <li style="font-size:.88rem;color:var(--gray-500);display:flex;gap:.4rem;align-items:center">
+              <span style="color:var(--lavender)">✓</span> {{ feat }}
+            </li>
+            {% endfor %}
+          </ul>
+          <a href="https://wa.me/{{ site.whatsapp }}?text={{ site.whatsappMessage | urlencode }}"
+             class="btn btn-primary" style="width:100%;justify-content:center"
+             target="_blank" rel="noopener noreferrer">Demander un devis</a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="cta-banner">
+  <div class="container">
+    <span class="eyebrow" style="color:var(--lavender-lt)">Organisez votre événement</span>
+    <h2>Prêt pour le voyage ?</h2>
+    <p>Contactez Inga et son équipe pour organiser votre buffet Chavannes. Réponse sous 2h.</p>
+    <div class="btn-actions">
+      <a href="https://wa.me/{{ site.whatsapp }}?text={{ site.whatsappMessage | urlencode }}"
+         class="btn btn-whatsapp" target="_blank" rel="noopener noreferrer">
+        Commander sur WhatsApp
+      </a>
+      <a href="/carte/#traiteur" class="btn btn-light">Voir tous les plats</a>
+    </div>
+  </div>
+</section>
