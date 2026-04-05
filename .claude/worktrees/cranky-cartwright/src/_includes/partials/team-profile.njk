@@ -1,0 +1,109 @@
+{# team-profile.njk — included by each /equipe/<slug>.njk page
+   Expects `member` to be set before inclusion, e.g.:
+   {% set member = team | selectattr("id","equalto","marine") | first %}
+#}
+
+{% if member %}
+
+<!-- ══ PROFILE HERO ════════════════════════════ -->
+<div class="team-profile">
+  <div class="container">
+    <div class="team-profile__hero">
+
+      <!-- Photo -->
+      <div class="team-profile__photo">
+        <img src="{{ member.image }}"
+             alt="{{ member.name }}"
+             loading="lazy"
+             onerror="this.style.display='none'">
+        <span aria-hidden="true">{{ member.name[0] }}</span>
+      </div>
+
+      <!-- Info -->
+      <div class="team-profile__info">
+        <span class="eyebrow">Notre équipe</span>
+        <h1>{{ member.name }}</h1>
+        <p class="team-card__role">{{ member.role }}</p>
+
+        <blockquote class="team-card__quote">
+          "{{ member.quote }}"
+        </blockquote>
+
+        <p class="team-card__bio">{{ member.bio }}</p>
+
+        <div style="margin-top:1.5rem">
+          <h4 style="font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gray-500);margin-bottom:.6rem">Spécialités</h4>
+          <div class="team-card__specialties">
+            {% for s in member.specialties %}
+            <span class="specialty-tag">{{ s }}</span>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div style="margin-top:2rem;display:flex;flex-wrap:wrap;gap:.75rem">
+          {% if member.instagram %}
+          <a href="{{ member.instagram }}" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+              <circle cx="12" cy="12" r="5"/>
+              <circle cx="17.5" cy="6.5" r="0.7" fill="currentColor" stroke="none"/>
+            </svg>
+            Instagram
+          </a>
+          {% endif %}
+          <a href="https://wa.me/{{ site.whatsapp }}" class="btn btn-whatsapp" target="_blank" rel="noopener noreferrer">
+            Contacter Nimara
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══ TEAM NAVIGATION ════════════════════════ -->
+<section class="section section--cream">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">L'équipe Nimara</span>
+      <h2>Rencontrez nos artisans</h2>
+    </div>
+    <div class="grid-4">
+      {% for m in team %}
+      <a href="/equipe/{{ m.id }}/"
+         class="team-card{% if m.id == member.id %} team-card--active{% endif %}"
+         style="text-decoration:none;display:block">
+        <div class="team-card__photo">{{ m.name[0] }}</div>
+        <div class="team-card__body">
+          <h3 class="team-card__name">{{ m.name }}</h3>
+          <p class="team-card__role">{{ m.role }}</p>
+          <p class="team-card__bio" style="display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">{{ m.bio }}</p>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA ════════════════════════════════════ -->
+<section class="cta-banner">
+  <div class="container">
+    <h2>Envie de goûter notre travail ?</h2>
+    <p>Passez commande et faites la connaissance de toute l'équipe à la boutique.</p>
+    <div class="btn-actions">
+      <a href="https://wa.me/{{ site.whatsapp }}?text={{ site.whatsappMessage | urlencode }}"
+         class="btn btn-whatsapp"
+         target="_blank" rel="noopener noreferrer">
+        Commander sur WhatsApp
+      </a>
+      <a href="/carte/" class="btn btn-light">Voir la carte</a>
+    </div>
+  </div>
+</section>
+
+{% else %}
+<div class="container" style="padding-top:calc(var(--header-h) + 4rem);padding-bottom:4rem;text-align:center">
+  <p>Membre de l'équipe introuvable.</p>
+  <a href="/" class="btn btn-primary" style="margin-top:1rem">Retour à l'accueil</a>
+</div>
+{% endif %}

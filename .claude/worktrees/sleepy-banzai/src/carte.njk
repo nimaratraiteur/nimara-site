@@ -1,0 +1,100 @@
+---
+layout: layouts/page
+title: Notre Carte
+subtitle: "44 produits artisanaux — pains, viennoiseries, pâtisseries, traiteur et formules."
+description: "La carte complète de Nimara : pains au levain, viennoiseries pur beurre, pâtisseries, traiteur salé et formules événementielles à Genève."
+eyebrow: "Boulangerie · Pâtisserie · Traiteur"
+permalink: /carte/
+---
+
+<section class="section" id="carte-section">
+  <div class="container">
+
+    <!-- Controls -->
+    <div class="menu-controls">
+      <div class="filter-tabs">
+        <button class="filter-tab is-active" data-filter="all">Tout voir</button>
+        {% for cat in menu.categories %}
+        <button class="filter-tab" data-filter="{{ cat.id }}">{{ cat.icon }} {{ cat.label.fr }}</button>
+        {% endfor %}
+      </div>
+      <div class="lang-toggle" role="group" aria-label="Langue">
+        <button class="lang-btn is-active" data-lang="fr">FR</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+      </div>
+    </div>
+
+    <!-- Menu sections by category -->
+    {% for cat in menu.categories %}
+    <div class="menu-section" data-category="{{ cat.id }}" id="{{ cat.id }}">
+      <h2 class="menu-section-title">
+        <span>{{ cat.icon }}</span>
+        <span data-lang-fr="{{ cat.label.fr }}" data-lang-en="{{ cat.label.en }}">{{ cat.label.fr }}</span>
+      </h2>
+      <div class="menu-grid">
+        {% for product in menu.products %}
+        {% if product.category == cat.id %}
+        <article class="menu-card" data-category="{{ product.category }}">
+          {% if product.badge %}
+          <span class="menu-badge {{ product.badge | lower | replace(' ', '-') | replace('é', 'e') | replace('è', 'e') }}">{{ product.badge }}</span>
+          {% endif %}
+          <div class="menu-card__header">
+            <h3 class="menu-card__name"
+                data-lang-fr="{{ product.name.fr }}"
+                data-lang-en="{{ product.name.en }}">{{ product.name.fr }}</h3>
+            <span class="menu-card__price">
+              {% if product.price %}
+                CHF {{ product.price | chf | replace("CHF ", "") }}
+              {% else %}
+                {{ product.priceLabel.fr }}
+              {% endif %}
+            </span>
+          </div>
+          <p class="menu-card__desc"
+             data-lang-fr="{{ product.description.fr }}"
+             data-lang-en="{{ product.description.en }}">{{ product.description.fr }}</p>
+          <div class="menu-card__footer">
+            <div class="menu-card__allergens">
+              {% for a in product.allergens %}
+              <span class="allergen-pill" title="{{ menu.allergenKeys[a].fr }}">{{ menu.allergenKeys[a].fr }}</span>
+              {% endfor %}
+            </div>
+            {% if product.weight %}
+            <span style="font-size:.72rem;color:var(--gray-500)">{{ product.weight }}</span>
+            {% endif %}
+          </div>
+        </article>
+        {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+    {% endfor %}
+
+    <!-- Allergen legend -->
+    <div style="margin-top:3rem;padding:1.5rem;background:var(--gray-100);border-radius:12px">
+      <h4 style="margin-bottom:.75rem;font-size:.85rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gray-500)">Allergènes</h4>
+      <div style="display:flex;flex-wrap:wrap;gap:.4rem">
+        {% for key, labels in menu.allergenKeys %}
+        <span class="allergen-pill">{{ labels.fr }}</span>
+        {% endfor %}
+      </div>
+      <p style="font-size:.78rem;color:var(--gray-500);margin-top:.75rem;max-width:none">
+        Notre atelier manipule gluten, lactose, fruits à coque, œufs, sésame et autres allergènes. En cas d'allergie sévère, contactez-nous avant de commander.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<section class="cta-banner">
+  <div class="container">
+    <h2>Une question ? Une commande ?</h2>
+    <p>Envoyez-nous un message WhatsApp, nous répondons sous 15 minutes.</p>
+    <div class="btn-actions">
+      <a href="https://wa.me/{{ site.whatsapp }}?text={{ site.whatsappMessage | urlencode }}"
+         class="btn btn-whatsapp" target="_blank" rel="noopener noreferrer">
+        Commander sur WhatsApp
+      </a>
+    </div>
+  </div>
+</section>

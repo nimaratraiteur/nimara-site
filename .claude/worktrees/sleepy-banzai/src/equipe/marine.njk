@@ -1,0 +1,9 @@
+---
+layout: layouts/base
+title: Marine Dubois — Chef Pâtissière
+description: "Marine Dubois, fondatrice et chef pâtissière de Nimara Genève."
+permalink: /equipe/marine/
+memberId: marine
+---
+{% set member = team | findByAttr("id", memberId) %}
+{% include "partials/team-profile.njk" %}

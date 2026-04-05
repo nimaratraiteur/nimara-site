@@ -1,0 +1,100 @@
+---
+layout: layouts/page
+title: Nos Douceurs
+subtitle: "La collection de pâtisseries signature de Nimara — préparées chaque matin dans notre atelier."
+description: "Les pâtisseries artisanales Nimara : Banana Bread, Brookie, Brownie, Cheesecake Spéculos, Cinnamon Roll, Carrot Cake, Pecan Pie et toute la gamme sucrée de Genève."
+eyebrow: "Pâtisserie · Atelier Nimara"
+permalink: /delices/
+---
+
+<section class="section">
+  <div class="container">
+
+    <div class="section-header">
+      <span class="eyebrow">La collection</span>
+      <h2>Nos Douceurs</h2>
+      <p>
+        Des pâtisseries créées et assemblées à la main dans notre atelier genevois chaque matin.
+        Des recettes qui portent une émotion, des textures qui font revenir.
+      </p>
+    </div>
+
+    <div class="delices-grid">
+      {% set delices = [
+        { emoji: "🍌", name: "Banana Bread", desc: "Moelleux, caramélisé, pépites de chocolat. Notre recette signature absolue.", price: "", badge: "Signature" },
+        { emoji: "🫐", name: "Bircher Muesli (framboise & mangue)", desc: "Frais, yaourt, fruits de saison, miel artisanal.", price: "", badge: "" },
+        { emoji: "🍫", name: "Brookie", desc: "Le meilleur du brownie et du cookie réunis. Fondant dedans, croustillant dehors.", price: "", badge: "Nouveau" },
+        { emoji: "🍫", name: "Brownie", desc: "Fondant, chocolat noir intense. Croûte légèrement craquante, cœur irrésistible.", price: "", badge: "Bestseller" },
+        { emoji: "🍋", name: "Cake Citron", desc: "Acidulé, glaçage subtil. Zestes de citron frais, légèreté garantie.", price: "", badge: "" },
+        { emoji: "🎂", name: "Cake Marbré", desc: "Vanille & chocolat, moelleux. Un classique revisité avec soin.", price: "", badge: "" },
+        { emoji: "🍎", name: "Cake Pomme", desc: "Pommes caramélisées, cannelle. Réconfortant à souhait.", price: "", badge: "" },
+        { emoji: "🥕", name: "Carrot Cake", desc: "Épices douces, cream cheese onctueux. Carottes fraîches râpées.", price: "", badge: "" },
+        { emoji: "🍰", name: "Cheesecake Spéculos", desc: "Onctueux, base croustillante spéculos. Vanille douce, texture parfaite.", price: "", badge: "Bestseller" },
+        { emoji: "🌀", name: "Cinnamon Roll", desc: "Cannelle, glaçage vanille. Pâte briochée filante, généreusement garni.", price: "", badge: "" },
+        { emoji: "🥜", name: "Pecan Pie", desc: "Caramel, noix de pécan. Fond croustillant, garniture dorée et fondante.", price: "", badge: "" }
+      ] %}
+      {% for d in delices %}
+      <div class="delice-card">
+        <div class="delice-card__emoji">{{ d.emoji }}</div>
+        <div class="delice-card__body">
+          {% if d.badge %}<span style="font-size:.65rem;font-weight:700;background:rgba(167,139,250,.3);color:var(--lavender-lt);padding:2px 8px;border-radius:10px;letter-spacing:.06em;text-transform:uppercase;display:inline-block;margin-bottom:.4rem">{{ d.badge }}</span>{% endif %}
+          <div class="delice-card__name">{{ d.name }}</div>
+          <div class="delice-card__desc">{{ d.desc }}</div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+
+<section class="section section--cream">
+  <div class="container">
+    <div class="grid-2" style="align-items:center;gap:4rem">
+      <div>
+        <span class="eyebrow">Commander</span>
+        <h2>Vos Douceurs<br>livrées ou à emporter</h2>
+        <p style="margin-bottom:1rem">
+          Toutes nos pâtisseries sont disponibles à la commande pour les particuliers et les entreprises.
+          Boîtes cadeaux, coffrets assortis, personnalisés — on s'adapte à vos envies.
+        </p>
+        <ul style="display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.5rem">
+          {% for item in ["Coffrets cadeaux sur mesure", "Box pâtisseries pour les équipes", "Assortiments personnalisés", "Livraison dans tout Genève"] %}
+          <li style="font-size:.9rem;color:var(--gray-500);display:flex;gap:.4rem;align-items:center">
+            <span style="color:var(--violet)">🎁</span> {{ item }}
+          </li>
+          {% endfor %}
+        </ul>
+        <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+          <a href="https://wa.me/{{ site.whatsapp }}?text={{ site.whatsappMessage | urlencode }}"
+             class="btn btn-whatsapp" target="_blank" rel="noopener noreferrer">
+            Commander mes Douceurs
+          </a>
+          <a href="/carte/#sucre" class="btn btn-outline">Voir la carte complète</a>
+        </div>
+      </div>
+      <div style="background:linear-gradient(135deg,var(--violet-dark),var(--violet-mid));border-radius:20px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;font-size:6rem">
+        🍰
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">Notre équipe</span>
+      <h2>L'atelier derrière<br>chaque Douceur</h2>
+    </div>
+    <div style="max-width:640px;margin-inline:auto;text-align:center">
+      <div style="width:80px;height:80px;background:linear-gradient(135deg,var(--lavender),var(--violet));border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:2rem;color:white;margin:0 auto 1.5rem">M</div>
+      <p style="font-family:var(--font-display);font-style:italic;font-size:1.25rem;color:var(--violet);margin-bottom:1rem;max-width:none">
+        "Chaque pâtisserie est une lettre d'amour à ceux qui la dégustent."
+      </p>
+      <p style="color:var(--gray-500);margin-inline:auto">
+        Diplômée de l'École Ferrandi Paris, notre chef pâtissière a passé 12 ans dans les meilleures maisons de Paris et Genève avant de fonder Nimara en 2018. Une vision simple : des pâtisseries qui portent une émotion.
+      </p>
+      <a href="/equipe/marine/" class="btn btn-outline" style="margin-top:1.5rem">Découvrir l'équipe</a>
+    </div>
+  </div>
+</section>

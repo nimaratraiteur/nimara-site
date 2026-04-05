@@ -1,0 +1,147 @@
+---
+pagination:
+  data: menu.products
+  size: 1
+  alias: product
+  addAllPagesToCollections: true
+permalink: "/produits/{{ product.name.fr | slugify }}/index.html"
+layout: layouts/base
+eleventyComputed:
+  title: "{{ product.name.fr }} — Nimara"
+  description: "{{ product.description.fr }} Disponible chez Nimara, boulangerie-traiteur à Genève."
+---
+
+{% set categoryLabel = "" %}
+{% for cat in menu.categories %}
+  {% if cat.id == product.category %}
+    {% set categoryLabel = cat.label.fr %}
+    {% set categoryIcon = cat.icon %}
+  {% endif %}
+{% endfor %}
+
+<article style="padding-top:var(--header-h)">
+
+  <!-- ── Breadcrumb ────────────────────────── -->
+  <div class="container" style="padding-top:1.5rem;padding-bottom:0">
+    <nav aria-label="Fil d'Ariane" style="font-size:.82rem;color:var(--gray-500)">
+      <a href="/" style="color:var(--gray-500)">Accueil</a>
+      <span style="margin:0 .4rem">›</span>
+      <a href="/carte/" style="color:var(--gray-500)">Notre Carte</a>
+      <span style="margin:0 .4rem">›</span>
+      <a href="/carte/#{{ product.category }}" style="color:var(--gray-500)">{{ categoryLabel }}</a>
+      <span style="margin:0 .4rem">›</span>
+      <span style="color:var(--violet)">{{ product.name.fr }}</span>
+    </nav>
+  </div>
+
+  <!-- ── Hero ──────────────────────────────── -->
+  <section style="background:linear-gradient(135deg,var(--dark),var(--violet-dark));padding-block:3rem 4rem;margin-top:1rem">
+    <div class="container">
+      <div style="display:grid;grid-template-columns:auto 1fr;gap:2.5rem;align-items:center;max-width:860px">
+        <!-- Photo placeholder -->
+        <div style="width:180px;height:180px;border-radius:16px;background:rgba(167,139,250,.15);border:1px solid rgba(167,139,250,.2);display:flex;align-items:center;justify-content:center;font-size:5rem;flex-shrink:0">
+          {{ categoryIcon }}
+        </div>
+        <div>
+          <span class="eyebrow" style="color:var(--lavender-lt)">{{ categoryIcon }} {{ categoryLabel }}</span>
+          <h1 style="color:white;margin-bottom:.5rem">{{ product.name.fr }}</h1>
+          <p style="color:rgba(255,255,255,.65);font-size:.9rem;margin-bottom:0;font-style:italic">{{ product.name.en }}</p>
+          {% if product.badge %}
+          <span style="display:inline-block;margin-top:.75rem;font-size:.72rem;font-weight:700;padding:.25rem .75rem;background:rgba(167,139,250,.2);color:var(--lavender-lt);border-radius:20px;letter-spacing:.06em;text-transform:uppercase">{{ product.badge }}</span>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Details ────────────────────────────── -->
+  <section class="section">
+    <div class="container" style="max-width:860px">
+      <div style="display:grid;grid-template-columns:2fr 1fr;gap:3rem;align-items:start">
+
+        <!-- Left -->
+        <div>
+          <span class="eyebrow">Description</span>
+          <h2 style="margin-bottom:1rem">{{ product.name.fr }}</h2>
+          <p style="font-size:1rem;line-height:1.8;color:var(--gray-700);margin-bottom:1.5rem">{{ product.description.fr }}</p>
+          <p style="font-size:.9rem;color:var(--gray-500);margin-bottom:2rem;font-style:italic">{{ product.description.en }}</p>
+
+          {% if product.allergens.length > 0 %}
+          <div style="margin-bottom:1.5rem">
+            <h4 style="font-size:.8rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gray-500);margin-bottom:.6rem">Allergènes</h4>
+            <div style="display:flex;flex-wrap:wrap;gap:.4rem">
+              {% for a in product.allergens %}
+              <span class="allergen-pill">{{ menu.allergenKeys[a].fr }}</span>
+              {% endfor %}
+            </div>
+            <p style="font-size:.72rem;color:var(--gray-400,#9ca3af);margin-top:.5rem">Notre atelier manipule également d'autres allergènes. Contactez-nous pour tout besoin spécifique.</p>
+          </div>
+          {% endif %}
+
+          <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+            <a href="https://wa.me/{{ site.whatsapp }}?text={{ ('Bonjour Nimara, je souhaite commander : ' + product.name.fr) | urlencode }}"
+               class="btn btn-whatsapp" target="_blank" rel="noopener noreferrer"
+               data-wa-track="product-{{ product.id }}">
+              Commander ce produit
+            </a>
+            <a href="/carte/#{{ product.category }}" class="btn btn-outline">Voir toute la gamme</a>
+          </div>
+        </div>
+
+        <!-- Right: card -->
+        <div style="position:sticky;top:calc(var(--header-h) + 1rem)">
+          <div style="background:var(--cream);border:1px solid rgba(91,44,141,.08);border-radius:16px;padding:1.5rem">
+            <div style="font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gray-500);margin-bottom:.5rem">Prix</div>
+            <div style="font-size:2rem;font-family:var(--font-display);color:var(--violet);margin-bottom:1.25rem">
+              {% if product.price %}
+                CHF {{ product.price | chf | replace("CHF ","") }}
+                <span style="font-size:1rem;color:var(--gray-500);font-family:var(--font-body);font-weight:400">/ {{ product.unit }}</span>
+              {% else %}
+                {{ product.priceLabel.fr }}
+              {% endif %}
+            </div>
+
+            {% if product.weight %}
+            <div class="calc-breakdown-row" style="border:none;padding:.3rem 0;font-size:.83rem;color:var(--gray-500)">Poids : {{ product.weight }}</div>
+            {% endif %}
+
+            <div style="font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gray-500);margin-top:.75rem;margin-bottom:.35rem">Disponibilité</div>
+            <div style="display:flex;align-items:center;gap:.4rem;font-size:.85rem;{% if product.available %}color:#15803d{% else %}color:var(--red,#f87171){% endif %}">
+              {% if product.available %}✓ Disponible{% else %}✗ Temporairement indisponible{% endif %}
+            </div>
+
+            <hr style="border:none;border-top:1px solid rgba(91,44,141,.08);margin:1rem 0">
+
+            <a href="/calculateur/" class="btn btn-outline" style="width:100%;justify-content:center;font-size:.82rem;padding:.55rem 1rem">
+              🧮 Calculer un devis événement
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Related products ───────────────────── -->
+  <section class="section section--cream">
+    <div class="container">
+      <span class="eyebrow">{{ categoryLabel }}</span>
+      <h2 style="margin-bottom:1.5rem">Dans la même gamme</h2>
+      <div class="menu-grid">
+        {% for p in menu.products %}
+        {% if p.category == product.category and p.id != product.id %}
+        <a href="/produits/{{ p.name.fr | slugify }}/"
+           class="menu-card" style="text-decoration:none;color:inherit">
+          <div class="menu-card__header">
+            <h3 class="menu-card__name">{{ p.name.fr }}</h3>
+            <span class="menu-card__price">{% if p.price %}CHF {{ p.price | chf | replace("CHF ","") }}{% else %}{{ p.priceLabel.fr }}{% endif %}</span>
+          </div>
+          <p class="menu-card__desc">{{ p.description.fr }}</p>
+        </a>
+        {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+</article>

@@ -1,0 +1,13 @@
+{
+  "name": "nimara-site",
+  "version": "1.0.0",
+  "description": "Nimara Boulangerie-Traiteur Genève — Eleventy static site",
+  "scripts": {
+    "start": "eleventy --serve --port 8080",
+    "build": "eleventy",
+    "debug": "DEBUG=Eleventy* eleventy"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^2.0.1"
+  }
+}

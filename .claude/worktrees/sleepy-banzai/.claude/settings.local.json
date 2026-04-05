@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git init:*)",
+      "Bash(/Users/nishaniejayamaha/Documents/nimara-site/.gitignore:*)",
+      "Bash(git add:*)",
+      "Bash(curl -sS https://webi.sh/gh)",
+      "Bash(sh)"
+    ]
+  }
+}

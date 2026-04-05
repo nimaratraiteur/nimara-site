@@ -1,0 +1,67 @@
+<!-- ══ VANESSA CHATBOT WIDGET ══════════════════
+     Public-facing AI persona floating on all pages.
+     Replace the mock JS with your Vapi / n8n endpoint.
+     ════════════════════════════════════════════ -->
+
+<!-- Trigger Button -->
+<button class="van-trigger" id="van-trigger" aria-label="Parler à Vanessa" aria-expanded="false" aria-controls="van-panel">
+  <img src="/assets/images/vanessa-avatar.png" alt="Vanessa" class="van-trigger-avatar" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+  <span class="van-trigger-fallback" aria-hidden="true">V</span>
+  <span class="van-trigger-status"></span>
+  <span class="van-trigger-label">Vanessa</span>
+</button>
+
+<!-- Chat Panel -->
+<div class="van-panel" id="van-panel" role="dialog" aria-modal="true" aria-label="Chat avec Vanessa" hidden>
+
+  <!-- Header -->
+  <div class="van-panel-head">
+    <div class="van-panel-identity">
+      <img src="/assets/images/vanessa-avatar.png" alt="Vanessa" class="van-head-avatar" onerror="this.style.display='none'">
+      <div>
+        <div class="van-head-name">Vanessa</div>
+        <div class="van-head-role">Directrice IA · Nimara</div>
+      </div>
+    </div>
+    <div class="van-head-actions">
+      <div class="van-online-badge">
+        <span class="van-dot-live"></span> En ligne
+      </div>
+      <button class="van-close" id="van-close" aria-label="Fermer le chat">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+          <line x1="1" y1="1" x2="13" y2="13"/><line x1="13" y1="1" x2="1" y2="13"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Messages -->
+  <div class="van-messages" id="van-messages" role="log" aria-live="polite" aria-atomic="false"></div>
+
+  <!-- Quick reply buttons -->
+  <div class="van-quick-replies" id="van-quick-replies"></div>
+
+  <!-- Input area -->
+  <form class="van-input-area" id="van-input-form" autocomplete="off">
+    <input
+      type="text"
+      id="van-input"
+      class="van-input"
+      placeholder="Écrivez votre message…"
+      maxlength="300"
+      aria-label="Message à Vanessa"
+    >
+    <button type="submit" class="van-send" aria-label="Envoyer">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="22" y1="2" x2="11" y2="13"/>
+        <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+      </svg>
+    </button>
+  </form>
+
+  <!-- Footer note -->
+  <div class="van-panel-foot">
+    Propulsé par <strong>Nimara AI</strong> · <a href="/vanessa/" style="color:var(--lavender)">Voir analytics</a>
+  </div>
+
+</div>

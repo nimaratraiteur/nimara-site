@@ -1,0 +1,69 @@
+{
+  "eventTypes": [
+    {
+      "id": "apero",
+      "label": { "fr": "Apéritif / Cocktail", "en": "Aperitif / Cocktail" },
+      "icon": "🥂",
+      "minPerPax": 16,
+      "maxPerPax": 28,
+      "drinksPerPax": 7,
+      "description": { "fr": "Bouchées, mini-sandwichs, pâtisseries à partager", "en": "Bites, mini sandwiches, sharing pastries" },
+      "includes": ["samosas", "pakoras", "croissant-pur-beurre", "macaron-assortiment", "financier-pistache"]
+    },
+    {
+      "id": "dejeuner",
+      "label": { "fr": "Déjeuner / Lunch Box", "en": "Lunch / Lunch Box" },
+      "icon": "🍱",
+      "minPerPax": 12,
+      "maxPerPax": 24,
+      "drinksPerPax": 5,
+      "description": { "fr": "Sandwichs, quiches, salades, pâtisseries", "en": "Sandwiches, quiches, salads, pastries" },
+      "includes": ["quiche-lorraine", "sandwich-saumon-avocat", "wraps-vegetariens", "tarte-aux-fraises"]
+    },
+    {
+      "id": "buffet",
+      "label": { "fr": "Buffet Complet", "en": "Full Buffet" },
+      "icon": "🎉",
+      "minPerPax": 22,
+      "maxPerPax": 42,
+      "drinksPerPax": 10,
+      "description": { "fr": "Entrées chaudes/froides, plats, fromages, desserts", "en": "Hot/cold starters, mains, cheeses, desserts" },
+      "includes": ["samosas", "naan-beurre-ail", "plateau-fromages-suisses", "paris-brest", "macaron-assortiment"]
+    },
+    {
+      "id": "coffee-break",
+      "label": { "fr": "Pause Café / Coffee Break", "en": "Coffee Break" },
+      "icon": "☕",
+      "minPerPax": 12,
+      "maxPerPax": 18,
+      "drinksPerPax": 4,
+      "description": { "fr": "Viennoiseries, pâtisseries, boissons chaudes", "en": "Pastries, confections, hot beverages" },
+      "includes": ["croissant-pur-beurre", "pain-au-chocolat", "financier-pistache", "macaron-assortiment", "banana-bread-oh-martine"]
+    },
+    {
+      "id": "petit-dejeuner",
+      "label": { "fr": "Petit-Déjeuner d'Équipe", "en": "Team Breakfast" },
+      "icon": "🥐",
+      "minPerPax": 10,
+      "maxPerPax": 18,
+      "drinksPerPax": 4,
+      "description": { "fr": "Birchers, viennoiseries, banana bread, pains", "en": "Birchers, pastries, banana bread, breads" },
+      "includes": ["bircher-muesli-oh-martine", "croissant-pur-beurre", "pain-au-chocolat", "banana-bread-oh-martine", "pain-au-levain"]
+    }
+  ],
+  "options": {
+    "drinks": {
+      "id": "drinks",
+      "label": { "fr": "Boissons (café, thé, jus)", "en": "Drinks (coffee, tea, juice)" },
+      "icon": "☕"
+    },
+    "delivery": {
+      "label": { "fr": "Livraison Genève", "en": "Geneva Delivery" },
+      "icon": "🚚",
+      "flat": 30,
+      "freeAbove": 500
+    }
+  },
+  "guestRanges": [10, 20, 30, 50, 75, 100, 150, 200],
+  "currency": "CHF"
+}

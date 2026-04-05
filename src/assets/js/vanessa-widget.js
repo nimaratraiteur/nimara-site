@@ -154,7 +154,7 @@
   const RESPONSES = [
     {
       triggers: ['petit-déjeuner', 'breakfast', 'matin', 'box', 'bircher', 'croissant'],
-      reply: 'Parfait ! Nos box petit-déjeuner Oh Martine sont disponibles dès 10 personnes : Birchers, Banana Bread, Cinnamon Rolls, Croissants pur beurre. Vous souhaitez commander ou recevoir un devis ?',
+      reply: 'Parfait ! Nos box petit-déjeuner Nimara sont disponibles dès 10 personnes : Birchers, Banana Bread, Cinnamon Rolls, Croissants pur beurre. Vous souhaitez commander ou recevoir un devis ?',
       buttons: [
         { label: '📋 Demander un devis', value: 'Je souhaite recevoir un devis pour une box petit-déjeuner' },
         { label: '🛒 Commander sur WhatsApp', value: 'commander_whatsapp' },
@@ -172,7 +172,7 @@
     },
     {
       triggers: ['buffet', 'événement', 'event', 'séminaire', 'cocktail', 'fête', 'anniversaire'],
-      reply: 'Nimara excelle dans les événements ! Du cocktail Chavannes aux saveurs du monde au buffet desserts Oh Martine. Pour combien de personnes et quelle date envisagez-vous ?',
+      reply: 'Nimara excelle dans les événements ! Du cocktail Chavannes aux saveurs du monde au buffet desserts Nimara. Pour combien de personnes et quelle date envisagez-vous ?',
       buttons: [
         { label: '📋 Demander un devis', value: 'Je veux un devis pour un buffet événement' },
         { label: '📞 Être rappelé', value: 'Je souhaite être rappelé pour discuter de mon événement' },
@@ -216,7 +216,7 @@
     },
     {
       triggers: ['délices', 'pâtisserie', 'gâteau', 'macaron', 'tarte', 'cake'],
-      reply: 'Nos Délices Oh Martine sont la signature de Marine : Paris-Brest praliné, Macarons assortis, Éclair Valrhona, Banana Bread… Chaque pièce est une invitation à la gourmandise.',
+      reply: 'Nos Délices Nimara sont la signature de Marine : Paris-Brest praliné, Macarons assortis, Éclair Valrhona, Banana Bread… Chaque pièce est une invitation à la gourmandise.',
       buttons: [
         { label: '🎂 Voir les Délices', value: 'Je veux voir la gamme délices complète' },
         { label: '🛒 Commander', value: 'commander_whatsapp' },

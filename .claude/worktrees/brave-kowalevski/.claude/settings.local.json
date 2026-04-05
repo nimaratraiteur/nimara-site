@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git init:*)",
+      "Bash(/Users/nishaniejayamaha/Documents/nimara-site/.gitignore:*)",
+      "Bash(git add:*)",
+      "Bash(PATH=\"/opt/homebrew/bin:$PATH\" npx eleventy)"
+    ]
+  }
+}

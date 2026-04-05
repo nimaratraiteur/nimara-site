@@ -1,0 +1,42 @@
+[
+  {
+    "id": "marine",
+    "name": "Marine Dubois",
+    "role": "Fondatrice & Chef Pâtissière",
+    "bio": "Marine a fondé Nimara après 12 ans dans les meilleures maisons pâtissières de Paris et Genève. Passionnée par les produits locaux et les techniques artisanales, elle crée des pâtisseries qui racontent une histoire. Diplômée de l'École Ferrandi Paris, elle apporte à Nimara une rigueur française et une créativité sans limites.",
+    "specialties": ["Entremets", "Macarons", "Pâte feuilletée"],
+    "quote": "Chaque pâtisserie est une lettre d'amour à ceux qui la dégustent.",
+    "image": "/assets/images/team/marine.jpg",
+    "instagram": "https://instagram.com/marine_nimara"
+  },
+  {
+    "id": "rahma",
+    "name": "Rahma Benali",
+    "role": "Boulangère Artisane",
+    "bio": "Rahma est la gardienne du levain chez Nimara. Formée à Lyon, elle maîtrise l'art du pain longue fermentation et des viennoiseries pur beurre. Son pain au levain, fruit de 48h de travail, est devenu la signature de la maison. Elle explore constamment de nouveaux farines et céréales locales.",
+    "specialties": ["Pain au levain", "Viennoiseries", "Pains spéciaux"],
+    "quote": "Le bon pain, ça ne se fait pas vite. Ça se mérite.",
+    "image": "/assets/images/team/rahma.jpg",
+    "instagram": "https://instagram.com/rahma_nimara"
+  },
+  {
+    "id": "inga",
+    "name": "Inga Müller",
+    "role": "Chef Traiteur",
+    "bio": "Originaire de Zürich, Inga a traversé la Suisse pour rejoindre Nimara et y développer le pôle traiteur. Avec 15 ans d'expérience dans l'événementiel gastronomique, elle orchestre buffets, cocktails et déjeuners d'entreprise avec une précision d'orfèvre. Chaque plateau est une œuvre, chaque événement une célébration.",
+    "specialties": ["Buffets événementiels", "Cuisine fusion", "Plateaux entreprises"],
+    "quote": "Un événement réussi commence toujours par ce qu'on met dans l'assiette.",
+    "image": "/assets/images/team/inga.jpg",
+    "instagram": "https://instagram.com/inga_nimara"
+  },
+  {
+    "id": "nino",
+    "name": "Nino Kapanadze",
+    "role": "Responsable Accueil & Ventes",
+    "bio": "Nino, originaire de Tbilissi, est le visage chaleureux de Nimara. Polyglotte (FR, EN, DE, GE), il accueille chaque client comme un invité de marque. Sa connaissance parfaite de la carte et son sens du service ont fidélisé une clientèle exigeante. Il gère également les commandes sur-mesure et les partenariats avec les entreprises genevoises.",
+    "specialties": ["Accueil client", "Commandes sur-mesure", "Partenariats B2B"],
+    "quote": "La boulangerie, c'est l'endroit où la journée commence bien.",
+    "image": "/assets/images/team/nino.jpg",
+    "instagram": "https://instagram.com/nino_nimara"
+  }
+]

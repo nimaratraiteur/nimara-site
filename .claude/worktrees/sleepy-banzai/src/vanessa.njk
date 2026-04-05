@@ -1,0 +1,624 @@
+---
+layout: layouts/standalone
+permalink: /vanessa/
+---
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vanessa · Analytics — Nimara</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root {
+  --bg: #0e0b1a;
+  --bg2: #160f28;
+  --bg3: #1e1535;
+  --card: #1a1030;
+  --card2: #221540;
+  --violet: #5B2C8D;
+  --violet-glow: rgba(91,44,141,.35);
+  --lav: #a78bfa;
+  --lav2: #c4b5fd;
+  --gold: #c9a96e;
+  --gold2: #e8c98a;
+  --green: #4ade80;
+  --red: #f87171;
+  --text: #e8e0f4;
+  --text2: #9d8fb8;
+  --text3: #6b5e80;
+  --border: rgba(167,139,250,.1);
+  --border2: rgba(167,139,250,.18);
+  --r: 14px;
+  --r-sm: 8px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
+
+/* NOISE TEXTURE */
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:.4;}
+
+/* LAYOUT */
+.shell{position:relative;z-index:1;display:grid;grid-template-columns:220px 1fr;min-height:100vh;}
+
+/* SIDEBAR */
+nav{background:var(--bg2);border-right:1px solid var(--border);padding:28px 0;display:flex;flex-direction:column;gap:4px;position:sticky;top:0;height:100vh;}
+.nav-logo{padding:0 20px 24px;border-bottom:1px solid var(--border);margin-bottom:8px;}
+.nav-logo .n-badge{display:flex;align-items:center;gap:8px;}
+.nav-logo .n-letter{width:32px;height:32px;background:var(--violet);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:16px;color:white;}
+.nav-logo .n-name{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--lav);font-weight:600;}
+.nav-logo .n-sub{font-size:10px;color:var(--text3);letter-spacing:.08em;margin-top:1px;}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 20px;font-size:13px;color:var(--text2);cursor:pointer;border-radius:0;transition:all .2s;border-left:2px solid transparent;text-decoration:none;}
+.nav-item:hover,.nav-item.active{color:var(--lav);background:rgba(167,139,250,.06);border-left-color:var(--lav);}
+.nav-item .ni{font-size:16px;width:20px;text-align:center;}
+.nav-section{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text3);padding:16px 20px 4px;font-weight:600;}
+.nav-bottom{margin-top:auto;padding:16px 20px;border-top:1px solid var(--border);}
+.vanessa-status{display:flex;align-items:center;gap:10px;}
+.van-av{width:36px;height:36px;border-radius:50%;overflow:hidden;flex-shrink:0;}
+.van-av img{width:100%;height:100%;object-fit:cover;}
+.van-av-fb{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--lav),var(--violet));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;color:white;font-size:14px;flex-shrink:0;}
+.van-info{flex:1;min-width:0;}
+.van-name{font-size:12px;font-weight:600;color:var(--text);}
+.van-online{font-size:10px;color:var(--green);display:flex;align-items:center;gap:4px;}
+.van-dot{width:5px;height:5px;background:var(--green);border-radius:50%;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+/* MAIN */
+main{padding:32px;overflow-y:auto;}
+
+/* HEADER */
+.page-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:32px;}
+.page-title{font-family:'Playfair Display',serif;font-size:26px;font-weight:500;color:var(--text);}
+.page-sub{font-size:13px;color:var(--text2);margin-top:4px;}
+.date-range{display:flex;align-items:center;gap:8px;}
+.dr-btn{background:var(--card);border:1px solid var(--border2);color:var(--text2);font-family:'DM Sans',sans-serif;font-size:12px;padding:8px 14px;border-radius:var(--r-sm);cursor:pointer;transition:all .2s;}
+.dr-btn:hover,.dr-btn.active{background:var(--violet);color:white;border-color:var(--violet);}
+.live-badge{display:flex;align-items:center;gap:6px;background:rgba(74,222,128,.1);border:1px solid rgba(74,222,128,.25);color:var(--green);font-size:11px;font-weight:600;padding:6px 12px;border-radius:20px;letter-spacing:.05em;}
+
+/* KPI CARDS */
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px;}
+.kpi{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px;position:relative;overflow:hidden;transition:border-color .2s;}
+.kpi:hover{border-color:var(--border2);}
+.kpi::before{content:'';position:absolute;top:0;right:0;width:80px;height:80px;border-radius:50%;opacity:.08;transform:translate(20px,-20px);}
+.kpi.violet::before{background:var(--lav);}
+.kpi.gold::before{background:var(--gold);}
+.kpi.green::before{background:var(--green);}
+.kpi.red::before{background:var(--red);}
+.kpi-label{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);font-weight:600;margin-bottom:10px;}
+.kpi-value{font-family:'Playfair Display',serif;font-size:32px;color:var(--text);font-weight:500;line-height:1;}
+.kpi-delta{display:flex;align-items:center;gap:4px;font-size:11px;margin-top:8px;}
+.kpi-delta.up{color:var(--green);}
+.kpi-delta.down{color:var(--red);}
+.kpi-icon{position:absolute;top:20px;right:20px;font-size:20px;opacity:.5;}
+
+/* 2-COL GRID */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;}
+.grid-3{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:24px;}
+
+/* CARD */
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;}
+.card-head{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid var(--border);}
+.card-title{font-size:13px;font-weight:600;color:var(--text);letter-spacing:.02em;}
+.card-badge{font-size:10px;background:rgba(167,139,250,.12);color:var(--lav);padding:3px 8px;border-radius:10px;font-weight:600;}
+.card-body{padding:20px;}
+
+/* BUTTONS CHART */
+.btn-row{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+.btn-row:last-child{margin-bottom:0;}
+.btn-label{font-size:12px;color:var(--text2);width:160px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.btn-bar-wrap{flex:1;background:rgba(255,255,255,.04);border-radius:4px;height:8px;overflow:hidden;}
+.btn-bar{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--violet),var(--lav));transition:width 1s cubic-bezier(.22,1,.36,1);}
+.btn-count{font-size:11px;color:var(--text3);width:28px;text-align:right;font-weight:600;}
+
+/* TOPICS */
+.topic-chip{display:inline-flex;align-items:center;gap:6px;background:var(--card2);border:1px solid var(--border);border-radius:20px;padding:5px 12px;font-size:12px;color:var(--text2);margin:4px;}
+.topic-chip .tc-count{background:var(--violet);color:white;border-radius:10px;padding:1px 6px;font-size:10px;font-weight:700;}
+
+/* CONVERSATION LOG */
+.conv-table{width:100%;border-collapse:collapse;}
+.conv-table th{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);font-weight:600;padding:0 16px 12px;text-align:left;border-bottom:1px solid var(--border);}
+.conv-table td{padding:14px 16px;border-bottom:1px solid rgba(255,255,255,.03);font-size:13px;vertical-align:middle;}
+.conv-table tr:hover td{background:rgba(167,139,250,.04);}
+.conv-table tr{cursor:pointer;transition:background .15s;}
+.session-id{font-family:monospace;font-size:11px;color:var(--text3);}
+.msg-count{background:rgba(167,139,250,.12);color:var(--lav);border-radius:10px;padding:2px 8px;font-size:11px;font-weight:600;}
+.conv-signal{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;padding:3px 8px;border-radius:10px;}
+.conv-signal.hot{background:rgba(74,222,128,.12);color:var(--green);}
+.conv-signal.warm{background:rgba(201,169,110,.12);color:var(--gold);}
+.conv-signal.cold{background:rgba(255,255,255,.05);color:var(--text3);}
+.device-icon{font-size:14px;}
+
+/* CONVERSATION DETAIL PANEL */
+.detail-panel{position:fixed;right:0;top:0;width:420px;height:100vh;background:var(--bg2);border-left:1px solid var(--border2);z-index:100;transform:translateX(100%);transition:transform .35s cubic-bezier(.22,1,.36,1);overflow-y:auto;display:flex;flex-direction:column;}
+.detail-panel.open{transform:translateX(0);}
+.dp-head{padding:20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.dp-close{background:rgba(255,255,255,.08);border:none;color:var(--text2);width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;}
+.dp-close:hover{background:rgba(255,255,255,.15);color:var(--text);}
+.dp-meta{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;flex-wrap:wrap;gap:8px;}
+.dp-tag{font-size:11px;background:var(--card2);border:1px solid var(--border);border-radius:6px;padding:4px 10px;color:var(--text2);}
+.dp-chat{flex:1;padding:16px 20px;display:flex;flex-direction:column;gap:10px;}
+.dp-msg{display:flex;gap:8px;align-items:flex-start;}
+.dp-msg.user{flex-direction:row-reverse;}
+.dp-av{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;overflow:hidden;}
+.dp-av.v img{width:100%;height:100%;object-fit:cover;}
+.dp-av.v-fb{background:linear-gradient(135deg,var(--lav),var(--violet));color:white;font-size:10px;}
+.dp-av.u{background:var(--card2);color:var(--text2);font-size:10px;}
+.dp-bubble{max-width:82%;padding:9px 13px;border-radius:14px;font-size:12.5px;line-height:1.55;}
+.dp-msg.van .dp-bubble{background:var(--card2);color:var(--text);border-bottom-left-radius:3px;}
+.dp-msg.user .dp-bubble{background:linear-gradient(135deg,var(--violet),#7c3aab);color:white;border-bottom-right-radius:3px;}
+.dp-time{font-size:10px;color:var(--text3);margin-top:3px;}
+.dp-btn-click{display:flex;align-items:center;gap:6px;padding:6px 12px;background:rgba(167,139,250,.08);border:1px solid rgba(167,139,250,.15);border-radius:20px;font-size:11px;color:var(--lav);margin:0 auto;width:fit-content;}
+
+/* HOUR CHART */
+.hour-chart{padding:20px;}
+
+/* SUMMARY BAR */
+.summary-row{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;border-bottom:1px solid var(--border);font-size:12px;}
+.summary-row:last-child{border-bottom:none;}
+.sr-label{color:var(--text2);}
+.sr-value{font-weight:600;color:var(--text);}
+
+/* BACK LINK */
+.back-link{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--text3);padding:10px 20px 0;text-decoration:none;transition:color .2s;}
+.back-link:hover{color:var(--lav);}
+
+/* RESPONSIVE */
+@media(max-width:1100px){.kpi-grid{grid-template-columns:repeat(2,1fr);}. grid-2{grid-template-columns:1fr;}}
+@media(max-width:768px){.shell{grid-template-columns:1fr;}nav{display:none;}main{padding:16px;}}
+</style>
+</head>
+<body>
+<div class="shell">
+
+<!-- SIDEBAR -->
+<nav>
+  <div class="nav-logo">
+    <div class="n-badge">
+      <div class="n-letter">N</div>
+      <div>
+        <div class="n-name">Nimara</div>
+        <div class="n-sub">Analytics Hub</div>
+      </div>
+    </div>
+  </div>
+
+  <a class="back-link" href="/" style="padding:14px 20px 8px;border-bottom:1px solid var(--border);margin-bottom:8px">
+    ← Retour au site
+  </a>
+
+  <span class="nav-section">Vanessa</span>
+  <a class="nav-item active" href="#"><span class="ni">📊</span> Dashboard</a>
+  <a class="nav-item" href="#"><span class="ni">💬</span> Conversations</a>
+  <a class="nav-item" href="#"><span class="ni">🎯</span> Conversions</a>
+
+  <span class="nav-section">Analyse</span>
+  <a class="nav-item" href="#"><span class="ni">📈</span> Tendances</a>
+  <a class="nav-item" href="#"><span class="ni">🔘</span> Boutons cliqués</a>
+  <a class="nav-item" href="#"><span class="ni">💡</span> Suggestions</a>
+
+  <span class="nav-section">Système</span>
+  <a class="nav-item" href="#"><span class="ni">⚙️</span> Paramètres</a>
+  <a class="nav-item" href="#"><span class="ni">🔗</span> Intégration n8n</a>
+  <a class="nav-item" href="#"><span class="ni">🎙️</span> Vapi Voice</a>
+
+  <div class="nav-bottom">
+    <div class="vanessa-status">
+      <div class="van-av">
+        <img src="/assets/images/vanessa-avatar.png" alt="Vanessa"
+             onerror="this.parentElement.className='van-av-fb';this.remove();this.parentElement.innerHTML='V'">
+      </div>
+      <div class="van-info">
+        <div class="van-name">Vanessa</div>
+        <div class="van-online"><span class="van-dot"></span> En ligne</div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main>
+
+  <!-- HEADER -->
+  <div class="page-header">
+    <div>
+      <div class="page-title">Analytics Vanessa</div>
+      <div class="page-sub">Ce que vos clients cherchent vraiment</div>
+    </div>
+    <div class="date-range" style="align-items:center;gap:10px;">
+      <div class="live-badge"><span class="van-dot"></span> LIVE</div>
+      <button class="dr-btn active">Aujourd'hui</button>
+      <button class="dr-btn">7 jours</button>
+      <button class="dr-btn">30 jours</button>
+    </div>
+  </div>
+
+  <!-- KPI CARDS -->
+  <div class="kpi-grid">
+    <div class="kpi violet">
+      <div class="kpi-icon">💬</div>
+      <div class="kpi-label">Conversations</div>
+      <div class="kpi-value" id="kpi-conv">—</div>
+      <div class="kpi-delta up" id="kpi-conv-d">↑ chargement…</div>
+    </div>
+    <div class="kpi gold">
+      <div class="kpi-icon">🎯</div>
+      <div class="kpi-label">Signaux commande</div>
+      <div class="kpi-value" id="kpi-conv-rate">—</div>
+      <div class="kpi-delta up" id="kpi-rate-d">↑ chargement…</div>
+    </div>
+    <div class="kpi green">
+      <div class="kpi-icon">👆</div>
+      <div class="kpi-label">Boutons cliqués</div>
+      <div class="kpi-value" id="kpi-clicks">—</div>
+      <div class="kpi-delta up" id="kpi-click-d">↑ chargement…</div>
+    </div>
+    <div class="kpi red">
+      <div class="kpi-icon">📱</div>
+      <div class="kpi-label">Mobile vs Desktop</div>
+      <div class="kpi-value" id="kpi-mobile">—</div>
+      <div class="kpi-delta" id="kpi-mob-d" style="color:var(--text3)">chargement…</div>
+    </div>
+  </div>
+
+  <!-- ROW 1: Buttons + Topics -->
+  <div class="grid-2">
+
+    <div class="card">
+      <div class="card-head">
+        <span class="card-title">🔘 Boutons les plus cliqués</span>
+        <span class="card-badge" id="total-clicks-badge">— clics</span>
+      </div>
+      <div class="card-body" id="btn-chart"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <span class="card-title">💡 Ce que les clients veulent</span>
+        <span class="card-badge">Topics détectés</span>
+      </div>
+      <div class="card-body">
+        <div id="topics-wrap" style="margin-bottom:16px;"></div>
+        <canvas id="topicChart" height="160"></canvas>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ROW 2: Activity + Summary -->
+  <div class="grid-3">
+
+    <div class="card">
+      <div class="card-head">
+        <span class="card-title">📈 Activité par heure</span>
+        <span class="card-badge">Aujourd'hui</span>
+      </div>
+      <div class="hour-chart">
+        <canvas id="hourChart" height="120"></canvas>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <span class="card-title">📋 Résumé</span>
+      </div>
+      <div id="summary-rows"></div>
+    </div>
+
+  </div>
+
+  <!-- CONVERSATION LOG -->
+  <div class="card">
+    <div class="card-head">
+      <span class="card-title">💬 Journal des conversations</span>
+      <span class="card-badge" id="log-count-badge">— sessions</span>
+    </div>
+    <div style="overflow-x:auto;">
+      <table class="conv-table">
+        <thead>
+          <tr>
+            <th>Session</th>
+            <th>Heure</th>
+            <th>1er bouton</th>
+            <th>Messages</th>
+            <th>Signal</th>
+            <th>Device</th>
+          </tr>
+        </thead>
+        <tbody id="conv-log"></tbody>
+      </table>
+    </div>
+  </div>
+
+</main>
+</div>
+
+<!-- DETAIL PANEL -->
+<div class="detail-panel" id="detail-panel">
+  <div class="dp-head">
+    <div>
+      <div style="font-size:13px;font-weight:600;color:var(--text);">Détail de conversation</div>
+      <div style="font-size:11px;color:var(--text3);margin-top:2px;" id="dp-session-id">—</div>
+    </div>
+    <button class="dp-close" onclick="closeDetail()">✕</button>
+  </div>
+  <div class="dp-meta" id="dp-meta"></div>
+  <div class="dp-chat" id="dp-chat"></div>
+</div>
+
+<script>
+const SESSIONS = [
+  {
+    id:'nv-a3f2',date:'03.04.2026',time:'08:14',device:'mobile',
+    firstBtn:'🥐 Box petit-déjeuner',
+    signal:'hot',signalLabel:'💜 Veut commander',
+    msgs:[
+      {role:'van',text:'Bonjour et bienvenue chez Nimara 🌟 Je suis Vanessa. Comment puis-je vous aider ?',t:'08:14'},
+      {role:'btn',text:'🥐 Box petit-déjeuner',t:'08:14'},
+      {role:'user',text:'Bonjour, on est une équipe de 12 personnes, on cherche un petit-déjeuner pour vendredi matin',t:'08:15'},
+      {role:'van',text:'Parfait ! Pour 12 personnes vendredi, je vous suggère une formule Oh Martine : Birchers, Banana Bread, Cinnamon Rolls et Cakes. C\'est exactement notre cœur de métier. Vous souhaitez commander via Choco ou préférez-vous un devis personnalisé ?',t:'08:15'},
+      {role:'btn',text:'📋 Demander un devis',t:'08:16'},
+      {role:'user',text:'Un devis oui, avec les prix svp',t:'08:16'},
+      {role:'van',text:'Avec plaisir ! Donnez-moi votre email et je vous prépare ça dans la journée. Pour 12 personnes, comptez sur une belle sélection pour CHF 10–15 par personne selon la formule choisie.',t:'08:17'},
+    ],
+    btnsClicked:['🥐 Box petit-déjeuner','📋 Demander un devis','📧 Envoyer email'],
+    topics:['Petit-déjeuner','Box corporate','Devis','12 personnes']
+  },
+  {
+    id:'nv-b7c1',date:'03.04.2026',time:'09:32',device:'desktop',
+    firstBtn:'🍱 Box corporate',
+    signal:'hot',signalLabel:'💜 Veut commander',
+    msgs:[
+      {role:'van',text:'Bonjour ! Je suis Vanessa, ravie de vous accueillir chez Nimara.',t:'09:32'},
+      {role:'btn',text:'🍱 Box corporate',t:'09:32'},
+      {role:'user',text:'Est-ce que vous faites des livraisons pour des équipes ?',t:'09:33'},
+      {role:'van',text:'Absolument ! Nos box corporate sont notre spécialité B2B. Livraison aux Eaux-Vives ou Montbrillant à Genève. Pour quelle occasion et combien de personnes ?',t:'09:33'},
+      {role:'user',text:'On a un séminaire la semaine prochaine, environ 30 personnes',t:'09:34'},
+      {role:'van',text:'Un séminaire pour 30 personnes, c\'est parfait pour notre formule buffet Chavannes. Je peux vous établir un devis complet. Quelle est la date exacte ?',t:'09:34'},
+      {role:'btn',text:'📋 Demander un devis',t:'09:35'},
+    ],
+    btnsClicked:['🍱 Box corporate','📋 Demander un devis'],
+    topics:['Box corporate','Buffet','30 personnes','Séminaire','Chavannes']
+  },
+  {
+    id:'nv-d9e4',date:'03.04.2026',time:'10:05',device:'mobile',
+    firstBtn:'📍 Points de retrait',
+    signal:'warm',signalLabel:'🌟 Intéressé',
+    msgs:[
+      {role:'van',text:'Bonjour ! Je suis Vanessa, comment puis-je vous aider ?',t:'10:05'},
+      {role:'btn',text:'📍 Points de retrait',t:'10:05'},
+      {role:'user',text:'Vous livrez côté Plainpalais ?',t:'10:06'},
+      {role:'van',text:'Nous avons deux points de retrait à Genève : Eaux-Vives et Montbrillant. Plainpalais est proche des Eaux-Vives. Souhaitez-vous commander pour y récupérer ?',t:'10:06'},
+      {role:'btn',text:'📍 Eaux-Vives',t:'10:07'},
+      {role:'user',text:'Ok et c\'est quoi les horaires ?',t:'10:07'},
+    ],
+    btnsClicked:['📍 Points de retrait','📍 Eaux-Vives'],
+    topics:['Retrait','Eaux-Vives','Horaires','Localisation']
+  },
+  {
+    id:'nv-f2a8',date:'03.04.2026',time:'11:18',device:'desktop',
+    firstBtn:'🎉 Buffet événement',
+    signal:'hot',signalLabel:'💜 Veut commander',
+    msgs:[
+      {role:'van',text:'Bonjour ! Vanessa à votre service chez Nimara.',t:'11:18'},
+      {role:'btn',text:'🎉 Buffet événement',t:'11:18'},
+      {role:'user',text:'On organise une fête d\'entreprise pour 50 personnes en mai, vous pouvez gérer ça ?',t:'11:19'},
+      {role:'van',text:'Absolument ! Buffet 50 personnes en mai — formule mixte Chavannes + Oh Martine. Budget par personne envisagé ?',t:'11:19'},
+      {role:'user',text:'Autour de 20-25 CHF par personne',t:'11:20'},
+      {role:'van',text:'Parfait, c\'est dans nos cordes. Je prépare un devis détaillé. Votre email et la date exacte en mai ?',t:'11:20'},
+      {role:'btn',text:'📋 Demander un devis',t:'11:21'},
+    ],
+    btnsClicked:['🎉 Buffet événement','📋 Demander un devis'],
+    topics:['Buffet','Événement','50 personnes','Budget','Mai']
+  },
+  {
+    id:'nv-c4b3',date:'03.04.2026',time:'12:44',device:'mobile',
+    firstBtn:'🥐 Box petit-déjeuner',
+    signal:'cold',signalLabel:'👁 Navigation',
+    msgs:[
+      {role:'van',text:'Bonjour ! Je suis Vanessa. Comment puis-je vous aider ?',t:'12:44'},
+      {role:'btn',text:'🥐 Box petit-déjeuner',t:'12:44'},
+      {role:'user',text:'C\'est quoi le bircher exactement ?',t:'12:45'},
+      {role:'van',text:'Le Bircher Muesli Oh Martine est notre préparation d\'avoine façon suisse — overnight oats avec fruits frais, lait ou yaourt, noix. Idéal pour les petits-déjeuners d\'équipe.',t:'12:45'},
+      {role:'user',text:'Ah ok merci',t:'12:46'},
+    ],
+    btnsClicked:['🥐 Box petit-déjeuner'],
+    topics:['Bircher','Question produit','Oh Martine']
+  },
+  {
+    id:'nv-e6d2',date:'03.04.2026',time:'14:07',device:'desktop',
+    firstBtn:'🍱 Box corporate',
+    signal:'warm',signalLabel:'🌟 Intéressé',
+    msgs:[
+      {role:'van',text:'Bonjour ! Vanessa de Nimara, ravie de vous accueillir.',t:'14:07'},
+      {role:'btn',text:'🍱 Box corporate',t:'14:07'},
+      {role:'user',text:'Vous travaillez avec des entreprises régulièrement ? Genre contrat mensuel ?',t:'14:08'},
+      {role:'van',text:'Absolument, nous avons plusieurs partenaires corporate sur Genève avec des commandes récurrentes. Pour quel secteur travaillez-vous ?',t:'14:08'},
+      {role:'user',text:'Finance, on est environ 20 personnes',t:'14:09'},
+      {role:'van',text:'Parfait — je peux vous présenter une proposition de partenariat. Votre email ?',t:'14:09'},
+      {role:'btn',text:'📋 Demander un devis',t:'14:10'},
+    ],
+    btnsClicked:['🍱 Box corporate','📋 Demander un devis'],
+    topics:['Corporate','Contrat récurrent','Finance','20 personnes','Partenariat']
+  },
+  {
+    id:'nv-g1f5',date:'03.04.2026',time:'15:33',device:'mobile',
+    firstBtn:'🎉 Buffet événement',
+    signal:'cold',signalLabel:'👁 Navigation',
+    msgs:[
+      {role:'van',text:'Bonjour ! Je suis Vanessa. Comment puis-je vous aider ?',t:'15:33'},
+      {role:'btn',text:'🎉 Buffet événement',t:'15:33'},
+      {role:'user',text:'Vous avez un menu sur votre site ?',t:'15:34'},
+      {role:'van',text:'Nos menus varient selon la saison. Le mieux est que je vous envoie une sélection actuelle ou passez voir notre carte en ligne.',t:'15:34'},
+    ],
+    btnsClicked:['🎉 Buffet événement'],
+    topics:['Menu','Information','Site web']
+  },
+  {
+    id:'nv-h3k7',date:'03.04.2026',time:'16:52',device:'desktop',
+    firstBtn:'🥐 Box petit-déjeuner',
+    signal:'hot',signalLabel:'💜 Veut commander',
+    msgs:[
+      {role:'van',text:'Bonjour ! Vanessa de Nimara.',t:'16:52'},
+      {role:'btn',text:'🥐 Box petit-déjeuner',t:'16:52'},
+      {role:'user',text:'Bonjour, je voudrais commander pour demain matin si possible. 8 personnes.',t:'16:53'},
+      {role:'van',text:'Pour demain matin 8 personnes, c\'est faisable ! Birchers + Banana Bread + Cinnamon Rolls. Point de retrait ou livraison ?',t:'16:53'},
+      {role:'btn',text:'📍 Montbrillant',t:'16:54'},
+      {role:'user',text:'Montbrillant parfait',t:'16:54'},
+      {role:'van',text:'Parfait ! Passez votre commande sur Choco maintenant pour garantir la disponibilité demain matin.',t:'16:54'},
+      {role:'btn',text:'🛒 Commander sur Choco',t:'16:55'},
+    ],
+    btnsClicked:['🥐 Box petit-déjeuner','📍 Montbrillant','🛒 Commander sur Choco'],
+    topics:['Petit-déjeuner','Urgence J+1','Montbrillant','8 personnes','Choco']
+  },
+];
+
+function computeAnalytics() {
+  const total = SESSIONS.length;
+  const hot = SESSIONS.filter(s=>s.signal==='hot').length;
+  const convRate = Math.round(hot/total*100);
+  const allClicks = [];
+  SESSIONS.forEach(s => s.btnsClicked.forEach(b => allClicks.push(b)));
+  const totalClicks = allClicks.length;
+  const mobile = SESSIONS.filter(s=>s.device==='mobile').length;
+  const mobileP = Math.round(mobile/total*100);
+  const btnFreq = {};
+  allClicks.forEach(b => { btnFreq[b]=(btnFreq[b]||0)+1; });
+  const topicFreq = {};
+  SESSIONS.forEach(s => s.topics.forEach(t => { topicFreq[t]=(topicFreq[t]||0)+1; }));
+  return {total,hot,convRate,totalClicks,mobile,mobileP,btnFreq,topicFreq};
+}
+
+window.addEventListener('DOMContentLoaded', function() {
+  const stats = computeAnalytics();
+
+  function countUp(el, end, suffix='') {
+    let start=0; const dur=800;
+    const step = end/dur*16;
+    const timer = setInterval(()=>{
+      start=Math.min(start+step,end);
+      el.textContent=Math.round(start)+suffix;
+      if(start>=end) clearInterval(timer);
+    },16);
+  }
+  setTimeout(()=>{
+    countUp(document.getElementById('kpi-conv'), stats.total);
+    countUp(document.getElementById('kpi-conv-rate'), stats.convRate, '%');
+    countUp(document.getElementById('kpi-clicks'), stats.totalClicks);
+    document.getElementById('kpi-mobile').textContent = stats.mobileP+'%';
+  },200);
+  document.getElementById('kpi-conv-d').textContent = `↑ +3 vs hier (${stats.total-3})`;
+  document.getElementById('kpi-rate-d').textContent = `↑ Taux de signal client`;
+  document.getElementById('kpi-click-d').textContent = `↑ +${Math.round(stats.totalClicks*.3)} vs hier`;
+  document.getElementById('kpi-mob-d').textContent = `Mobile · ${100-stats.mobileP}% desktop`;
+
+  const sorted = Object.entries(stats.btnFreq).sort((a,b)=>b[1]-a[1]).slice(0,7);
+  const max = sorted[0][1];
+  document.getElementById('total-clicks-badge').textContent = stats.totalClicks+' clics';
+  document.getElementById('btn-chart').innerHTML = sorted.map(([label,count])=>`
+    <div class="btn-row">
+      <div class="btn-label" title="${label}">${label}</div>
+      <div class="btn-bar-wrap"><div class="btn-bar" style="width:0%" data-w="${Math.round(count/max*100)}"></div></div>
+      <div class="btn-count">${count}</div>
+    </div>
+  `).join('');
+  setTimeout(()=>{
+    document.querySelectorAll('.btn-bar').forEach(b=>{ b.style.width=b.dataset.w+'%'; });
+  },300);
+
+  const topSorted = Object.entries(stats.topicFreq).sort((a,b)=>b[1]-a[1]).slice(0,10);
+  document.getElementById('topics-wrap').innerHTML = topSorted.map(([t,n])=>
+    `<span class="topic-chip">${t}<span class="tc-count">${n}</span></span>`
+  ).join('');
+
+  const topTop = topSorted.slice(0,5);
+  new Chart(document.getElementById('topicChart'),{
+    type:'doughnut',
+    data:{
+      labels:topTop.map(t=>t[0]),
+      datasets:[{data:topTop.map(t=>t[1]),backgroundColor:['#5B2C8D','#7c3aab','#a78bfa','#c9a96e','#4ade80'],borderWidth:0,hoverOffset:6}]
+    },
+    options:{plugins:{legend:{labels:{color:'#9d8fb8',font:{family:'DM Sans',size:11},boxWidth:10}}},cutout:'68%',responsive:true,maintainAspectRatio:true}
+  });
+
+  const hours = Array.from({length:12},(_,i)=>i+7);
+  const hourData = [0,1,0,1,1,0,1,1,0,1,1,1];
+  new Chart(document.getElementById('hourChart'),{
+    type:'bar',
+    data:{
+      labels:hours.map(h=>h+'h'),
+      datasets:[{data:hourData,backgroundColor:function(ctx){
+        const g=ctx.chart.ctx.createLinearGradient(0,0,0,120);
+        g.addColorStop(0,'rgba(167,139,250,.8)');
+        g.addColorStop(1,'rgba(91,44,141,.3)');
+        return g;
+      },borderRadius:6,borderSkipped:false}]
+    },
+    options:{plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{color:'#6b5e80',font:{size:10}}},y:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#6b5e80',font:{size:10},stepSize:1}}},responsive:true,maintainAspectRatio:true}
+  });
+
+  const hotSessions = SESSIONS.filter(s=>s.signal==='hot');
+  const warmSessions = SESSIONS.filter(s=>s.signal==='warm');
+  document.getElementById('summary-rows').innerHTML = [
+    ['🔥 Sessions chaud', hotSessions.length+' ('+Math.round(hotSessions.length/SESSIONS.length*100)+'%)'],
+    ['🌟 Sessions tiède', warmSessions.length+' ('+Math.round(warmSessions.length/SESSIONS.length*100)+'%)'],
+    ['❄️ Navigation pure', (SESSIONS.length-hotSessions.length-warmSessions.length)],
+    ['📱 Mobile', stats.mobile+' / '+SESSIONS.length],
+    ['🥐 Topic #1', 'Petit-déjeuner'],
+    ['💰 Format clé', 'Box corporate'],
+    ['📍 Point préféré', 'Eaux-Vives'],
+  ].map(([l,v])=>`<div class="summary-row"><span class="sr-label">${l}</span><span class="sr-value">${v}</span></div>`).join('');
+
+  document.getElementById('log-count-badge').textContent = SESSIONS.length+' sessions';
+  document.getElementById('conv-log').innerHTML = SESSIONS.map(s=>`
+    <tr onclick="openDetail('${s.id}')">
+      <td><span class="session-id">#${s.id}</span></td>
+      <td style="color:var(--text2);font-size:12px">${s.time}</td>
+      <td style="font-size:12px;color:var(--lav)">${s.firstBtn}</td>
+      <td><span class="msg-count">${s.msgs.length} msg</span></td>
+      <td><span class="conv-signal ${s.signal}">${s.signalLabel}</span></td>
+      <td><span class="device-icon">${s.device==='mobile'?'📱':'🖥️'}</span></td>
+    </tr>
+  `).join('');
+});
+
+function openDetail(id) {
+  const s = SESSIONS.find(x=>x.id===id);
+  if(!s) return;
+  document.getElementById('dp-session-id').textContent = '#'+s.id+' · '+s.date+' '+s.time;
+  document.getElementById('dp-meta').innerHTML = [
+    `<span class="dp-tag">${s.device==='mobile'?'📱 Mobile':'🖥️ Desktop'}</span>`,
+    `<span class="dp-tag conv-signal ${s.signal}">${s.signalLabel}</span>`,
+    ...s.topics.map(t=>`<span class="dp-tag">${t}</span>`)
+  ].join('');
+  document.getElementById('dp-chat').innerHTML = s.msgs.map(m=>{
+    if(m.role==='btn') return `<div class="dp-btn-click">👆 <em>${m.text}</em> <span style="color:var(--text3);margin-left:4px">${m.t}</span></div>`;
+    const vanAvatar = `<div class="dp-av v"><img src="/assets/images/vanessa-avatar.png" alt="V" onerror="this.parentElement.className='dp-av v-fb';this.remove();this.parentElement.textContent='V'"></div>`;
+    const userAvatar = `<div class="dp-av u">C</div>`;
+    return `
+      <div class="dp-msg ${m.role==='van'?'van':'user'}">
+        ${m.role==='van' ? vanAvatar : userAvatar}
+        <div>
+          <div class="dp-bubble">${m.text}</div>
+          <div class="dp-time">${m.t}</div>
+        </div>
+      </div>
+    `;
+  }).join('');
+  document.getElementById('detail-panel').classList.add('open');
+}
+
+function closeDetail() {
+  document.getElementById('detail-panel').classList.remove('open');
+}
+
+document.querySelectorAll('.dr-btn').forEach(btn=>{
+  btn.addEventListener('click',function(){
+    document.querySelectorAll('.dr-btn').forEach(b=>b.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>

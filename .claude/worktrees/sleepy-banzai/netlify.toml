@@ -1,0 +1,55 @@
+[build]
+  command   = "npm run build"
+  publish   = "_site"
+
+[build.environment]
+  NODE_VERSION = "18"
+
+[[redirects]]
+  from   = "/menu"
+  to     = "/carte/"
+  status = 301
+
+[[redirects]]
+  from   = "/en/menu"
+  to     = "/carte/"
+  status = 301
+
+# Team page short-links (flat URL → /equipe/<slug>/)
+[[redirects]]
+  from   = "/marine"
+  to     = "/equipe/marine/"
+  status = 301
+
+[[redirects]]
+  from   = "/rahma"
+  to     = "/equipe/rahma/"
+  status = 301
+
+[[redirects]]
+  from   = "/inga"
+  to     = "/equipe/inga/"
+  status = 301
+
+[[redirects]]
+  from   = "/nino"
+  to     = "/equipe/nino/"
+  status = 301
+
+# Alias: /equipe → first team member
+[[redirects]]
+  from   = "/equipe"
+  to     = "/equipe/marine/"
+  status = 301
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options        = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy        = "strict-origin-when-cross-origin"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
