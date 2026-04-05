@@ -21,7 +21,7 @@
       "badges": ["signature"],
       "vegetarian": true, "vegan": false, "halal": false,
       "batch": 12,
-      "image": "https://images.unsplash.com/photo-1605090930601-14490a2afcdb?w=600"
+      "image": "/assets/images/products/banana-bread.png"
     },
     {
       "id": 2, "category": "sucre",
@@ -32,7 +32,7 @@
       "badges": [],
       "vegetarian": true, "vegan": false, "halal": false,
       "batch": 42,
-      "image": "https://images.unsplash.com/photo-1571748982800-fa51082c2224?w=600"
+      "image": "/assets/images/products/bircher-muesli.png"
     },
     {
       "id": 3, "category": "sucre",
@@ -43,7 +43,7 @@
       "badges": ["populaire"],
       "vegetarian": true, "vegan": false, "halal": false,
       "batch": 9,
-      "image": "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=600"
+      "image": "/assets/images/products/brookie.png"
     },
     {
       "id": 4, "category": "sucre",
@@ -54,7 +54,7 @@
       "badges": [],
       "vegetarian": true, "vegan": false, "halal": false,
       "batch": 8,
-      "image": "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=600"
+      "image": "/assets/images/products/brownie.png"
     },
     {
       "id": 5, "category": "sucre",
@@ -65,7 +65,7 @@
       "badges": [],
       "vegetarian": true, "vegan": false, "halal": false,
       "batch": 12,
-      "image": "https://images.unsplash.com/photo-1519869325930-281384f726a4?w=600"
+      "image": "/assets/images/products/cake-citron.png"
     },
     {
       "id": 6, "category": "sucre",
@@ -76,7 +76,7 @@
       "badges": [],
       "vegetarian": true, "vegan": false, "halal": false,
       "batch": 12,
-      "image": "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=600"
+      "image": "/assets/images/products/cake-marbre.png"
     },
     {
       "id": 7, "category": "sucre",
@@ -87,7 +87,7 @@
       "badges": [],
       "vegetarian": true, "vegan": false, "halal": false,
       "batch": 11,
-      "image": "https://images.unsplash.com/photo-1568571780765-9276ac8b75a2?w=600"
+      "image": "/assets/images/products/cake-pomme-orange.png"
     },
     {
       "id": 8, "category": "sucre",
@@ -98,7 +98,7 @@
       "badges": [],
       "vegetarian": true, "vegan": false, "halal": false,
       "batch": 10,
-      "image": "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600"
+      "image": "/assets/images/products/carrot-cake.png"
     },
     {
       "id": 9, "category": "sucre",
@@ -109,7 +109,7 @@
       "badges": ["populaire"],
       "vegetarian": true, "vegan": false, "halal": false,
       "batch": 10,
-      "image": "https://images.unsplash.com/photo-1524351199678-941a58a3df50?w=600"
+      "image": "/assets/images/products/cheesecake-speculos.png"
     },
     {
       "id": 10, "category": "sucre",
@@ -120,7 +120,7 @@
       "badges": [],
       "vegetarian": true, "vegan": false, "halal": false,
       "batch": 10,
-      "image": "https://images.unsplash.com/photo-1509365390695-33aee754301f?w=600"
+      "image": "/assets/images/products/cinnamon-roll.png"
     },
     {
       "id": 11, "category": "sucre",
@@ -131,7 +131,7 @@
       "badges": ["prestige"],
       "vegetarian": true, "vegan": false, "halal": false,
       "batch": 10,
-      "image": "https://images.unsplash.com/photo-1574085733277-851d9d856a3a?w=600"
+      "image": "/assets/images/products/pecan-pie.png"
     },
     {
       "id": 12, "category": "sale",
@@ -153,7 +153,7 @@
       "badges": [],
       "vegetarian": true, "vegan": false, "halal": true,
       "batch": 30,
-      "image": "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=600"
+      "image": "/assets/images/products/samosa-legumes.png"
     },
     {
       "id": 14, "category": "sale",
@@ -164,7 +164,7 @@
       "badges": [],
       "vegetarian": true, "vegan": true, "halal": true,
       "batch": 20,
-      "image": "https://images.unsplash.com/photo-1567337710282-00832b415979?w=600"
+      "image": "/assets/images/products/pakora.png"
     },
     {
       "id": 15, "category": "sale",
@@ -252,7 +252,7 @@
       "badges": [],
       "vegetarian": true, "vegan": true, "halal": true,
       "batch": 1,
-      "image": "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=600"
+      "image": "/assets/images/products/saag-epinards.png"
     },
     {
       "id": 23, "category": "sale",
@@ -263,7 +263,7 @@
       "badges": [],
       "vegetarian": true, "vegan": true, "halal": true,
       "batch": 1,
-      "image": "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=600"
+      "image": "/assets/images/products/dal-rouge.png"
     },
     {
       "id": 24, "category": "sale",
@@ -285,7 +285,7 @@
       "badges": [],
       "vegetarian": true, "vegan": false, "halal": false,
       "batch": 10,
-      "image": "https://images.unsplash.com/photo-1555244162-803834f70033?w=600"
+      "image": "/assets/images/products/hero-patisseries.png"
     },
     {
       "id": 26, "category": "formules",
@@ -296,7 +296,7 @@
       "badges": [],
       "vegetarian": false, "vegan": false, "halal": true,
       "batch": 15,
-      "image": "https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?w=600"
+      "image": "/assets/images/products/curry-poulet-epices.png"
     },
     {
       "id": 27, "category": "formules",
@@ -307,7 +307,7 @@
       "badges": ["prestige"],
       "vegetarian": false, "vegan": false, "halal": false,
       "batch": 20,
-      "image": "https://images.unsplash.com/photo-1511578314322-379afb476865?w=600"
+      "image": "/assets/images/products/plat-indien-fumant.png"
     },
     {
       "id": 28, "category": "formules",
@@ -318,7 +318,7 @@
       "badges": [],
       "vegetarian": false, "vegan": false, "halal": true,
       "batch": 30,
-      "image": "https://images.unsplash.com/photo-1555244162-803834f70033?w=600"
+      "image": "/assets/images/products/hero-patisseries.png"
     }
   ]
 }
