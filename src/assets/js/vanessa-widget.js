@@ -137,12 +137,12 @@
       const typing = showTyping();
       setTimeout(() => {
         removeTyping();
-        appendMessage('van', 'Bonjour et bienvenue chez Nimara 🌟 Je suis Vanessa, Directrice IA. Comment puis-je vous aider ?');
+        appendMessage('van', 'Bonjour et bienvenue chez Nimara 🌟 Je suis Vanessa, votre guide gourmand. Dites-moi ce qui vous ferait plaisir !');
         setQuickReplies([
-          { label: '🥐 Box petit-déjeuner', value: 'Je voudrais commander une box petit-déjeuner' },
-          { label: '🍱 Box corporate', value: 'Je cherche une box corporate pour mon équipe' },
-          { label: '🎉 Buffet événement', value: 'Je prépare un événement et je cherche un service traiteur' },
-          { label: '📍 Points de retrait', value: 'Où puis-je récupérer ma commande ?' },
+          { label: '🍛 Découvrir notre carte', value: 'Je veux voir ce que vous proposez' },
+          { label: '🎉 Organiser un événement', value: 'Je prépare un événement et je cherche un service traiteur' },
+          { label: '🏪 Venir au stand Délices', value: 'Je veux venir au stand' },
+          { label: '🍰 Les pâtisseries Oh Martine', value: 'Parlez-moi des pâtisseries' },
         ]);
         trackEvent('greeted', { sessionId: SESSION_ID });
       }, 900);
@@ -153,75 +153,95 @@
   /* TODO: Replace with fetch() to your n8n/OpenAI/Vapi endpoint */
   const RESPONSES = [
     {
-      triggers: ['petit-déjeuner', 'breakfast', 'matin', 'box', 'bircher', 'croissant'],
-      reply: 'Parfait ! Nos box petit-déjeuner Nimara sont disponibles dès 10 personnes : Birchers, Banana Bread, Cinnamon Rolls, Croissants pur beurre. Vous souhaitez commander ou recevoir un devis ?',
+      triggers: ['voir', 'carte', 'menu', 'proposez', 'quoi'],
+      reply: 'Avec plaisir ! Notre carte mélange deux univers : la cuisine indienne authentique Chavannes (samosas, naans, curries…) et les pâtisseries maison Oh Martine (banana bread, cheesecake, brownies…). Tout est fait maison à Genève !',
       buttons: [
-        { label: '📋 Demander un devis', value: 'Je souhaite recevoir un devis pour une box petit-déjeuner' },
-        { label: '🛒 Commander sur WhatsApp', value: 'commander_whatsapp' },
+        { label: '🍛 Voir la carte complète', value: 'voir_carte' },
+        { label: '🍰 Les pâtisseries', value: 'Parlez-moi des pâtisseries' },
+        { label: '🎉 Pour un événement', value: 'Je prépare un événement et je cherche un service traiteur' },
+      ],
+      signal: 'warm',
+    },
+    {
+      triggers: ['petit-déjeuner', 'breakfast', 'matin', 'box', 'bircher', 'croissant'],
+      reply: 'Nos box petit-déjeuner sont parfaites dès 10 personnes : Birchers, Banana Bread, Cinnamon Rolls… Tout frais du matin ! Vous pouvez calculer votre budget directement sur notre carte.',
+      buttons: [
+        { label: '🧮 Calculer mon budget', value: 'voir_calculateur' },
+        { label: '🍰 Voir les pâtisseries', value: 'Parlez-moi des pâtisseries' },
       ],
       signal: 'hot',
     },
     {
       triggers: ['corporate', 'entreprise', 'bureau', 'équipe', 'team', 'lunch', 'déjeuner'],
-      reply: 'Excellent choix ! Nos box corporate sont livrées dans tout Genève. Pour combien de personnes et à quelle fréquence ? Nous avons des formules récurrentes hebdomadaires très populaires.',
+      reply: 'Nos formules corporate sont livrées dans tout Genève : lunch box individuelles, buffets d\'équipe, coffee breaks… Le mieux c\'est de lancer le calculateur pour voir les options et les prix !',
       buttons: [
-        { label: '📋 Demander un devis', value: 'Je souhaite un devis corporate' },
-        { label: '📱 Contacter par WhatsApp', value: 'commander_whatsapp' },
+        { label: '🧮 Calculer mon budget', value: 'voir_calculateur' },
+        { label: '🍛 Voir le menu salé', value: 'voir_carte' },
       ],
       signal: 'hot',
     },
     {
-      triggers: ['buffet', 'événement', 'event', 'séminaire', 'cocktail', 'fête', 'anniversaire'],
-      reply: 'Nimara excelle dans les événements ! Du cocktail Chavannes aux saveurs du monde au buffet desserts Nimara. Pour combien de personnes et quelle date envisagez-vous ?',
+      triggers: ['buffet', 'événement', 'event', 'séminaire', 'cocktail', 'fête', 'anniversaire', 'traiteur'],
+      reply: 'Super ! Notre calculateur d\'événements vous guide pas à pas : choisissez l\'occasion, le nombre d\'invités, vos préférences… et recevez un récap complet avec estimation. Essayez-le !',
       buttons: [
-        { label: '📋 Demander un devis', value: 'Je veux un devis pour un buffet événement' },
-        { label: '📞 Être rappelé', value: 'Je souhaite être rappelé pour discuter de mon événement' },
+        { label: '🧮 Lancer le calculateur', value: 'voir_calculateur' },
+        { label: '🍛 Voir la carte d\'abord', value: 'voir_carte' },
       ],
       signal: 'hot',
     },
     {
-      triggers: ['retrait', 'livraison', 'adresse', 'où', 'lieu', 'eaux-vives', 'montbrillant', 'chavannes'],
-      reply: 'Nous avons deux points de retrait à Genève : Eaux-Vives et Montbrillant. Livraison disponible dans tout le canton. Quel point vous convient ?',
+      triggers: ['stand', 'retrait', 'venir', 'adresse', 'où', 'lieu', 'délices'],
+      reply: 'Notre stand se trouve au Rue des Délices 3, 1203 Genève ! Vous y trouverez nos pâtisseries Oh Martine et notre cuisine indienne Chavannes à emporter. Venez nous voir !',
       buttons: [
-        { label: '📍 Eaux-Vives', value: 'Eaux-Vives me convient mieux' },
-        { label: '📍 Montbrillant', value: 'Montbrillant est plus pratique pour moi' },
+        { label: '🏪 Voir la page du stand', value: 'voir_delices' },
+        { label: '🍛 Voir la carte', value: 'voir_carte' },
       ],
       signal: 'warm',
     },
     {
       triggers: ['devis', 'prix', 'tarif', 'combien', 'cost'],
-      reply: 'Pour vous établir un devis précis, pouvez-vous me préciser le nombre de personnes, le type de prestation (petit-déjeuner, déjeuner, buffet) et la date ? Je vous reviens sous 2h.',
+      reply: 'Le plus simple pour avoir une estimation : utilisez notre calculateur d\'événements. Vous choisissez vos options et recevez un récap avec prix que vous pourrez nous envoyer directement.',
       buttons: [
-        { label: '📧 Envoyer par email', value: 'Je vais vous envoyer les détails par email' },
-        { label: '💬 Continuer sur WhatsApp', value: 'commander_whatsapp' },
+        { label: '🧮 Calculer mon budget', value: 'voir_calculateur' },
+        { label: '🍛 Voir les prix à la carte', value: 'voir_carte' },
       ],
       signal: 'hot',
     },
     {
       triggers: ['allergie', 'allergène', 'sans gluten', 'vegan', 'végétarien', 'halal', 'intolérance'],
-      reply: 'Nous prenons les allergies très au sérieux. Notre atelier manipule gluten, lactose, fruits à coque, œufs et sésame. Pour des besoins spécifiques, contactez-nous directement pour une adaptation sur mesure.',
+      reply: 'Bonne question ! Toutes nos viandes sont Halal. Nos brownies sont sans gluten. Notre atelier manipule gluten, lactose, fruits à coque, œufs et sésame. Pour des besoins spécifiques, n\'hésitez pas à nous contacter.',
       buttons: [
-        { label: '📱 Parler à l\'équipe', value: 'commander_whatsapp' },
+        { label: '🍛 Voir la carte (allergènes indiqués)', value: 'voir_carte' },
+        { label: '💬 Nous contacter', value: 'commander_whatsapp' },
       ],
       signal: 'warm',
     },
     {
-      triggers: ['chavannes', 'inde', 'indien', 'pakora', 'samosa', 'naan', 'épices'],
-      reply: 'Le buffet Chavannes est notre offre saveurs du monde : samosas légumes, pakoras épinards, naans beurre-ail, wraps végé… Un voyage culinaire idéal pour vos événements multiculturels !',
+      triggers: ['chavannes', 'inde', 'indien', 'pakora', 'samosa', 'naan', 'épices', 'curry', 'salé'],
+      reply: 'Notre cuisine indienne Chavannes, c\'est des recettes familiales authentiques : samosas, pakoras, naans, butter chicken, dal, poulet tikka masala… Tout est cuisiné avec amour par notre cheffe Inga.',
       buttons: [
-        { label: '🍛 Voir le menu Chavannes', value: 'Montrez-moi le menu Chavannes complet' },
-        { label: '📋 Demander un devis', value: 'Je veux un devis pour le buffet Chavannes' },
+        { label: '🍛 Voir la carte complète', value: 'voir_carte' },
+        { label: '🎉 Pour un événement', value: 'Je prépare un événement' },
       ],
       signal: 'warm',
     },
     {
-      triggers: ['délices', 'pâtisserie', 'gâteau', 'macaron', 'tarte', 'cake'],
-      reply: 'Nos Délices Nimara sont la signature de Marine : Paris-Brest praliné, Macarons assortis, Éclair Valrhona, Banana Bread… Chaque pièce est une invitation à la gourmandise.',
+      triggers: ['pâtisserie', 'gâteau', 'macaron', 'tarte', 'cake', 'sucré', 'banana', 'brownie', 'cheesecake', 'cinnamon', 'brookie', 'pecan', 'martine'],
+      reply: 'Les pâtisseries Oh Martine, c\'est notre fierté ! Banana bread, cheesecake spéculoos, pecan pie, brownies sans gluten, brookies, cinnamon rolls… Tout est fait maison chaque jour.',
       buttons: [
-        { label: '🎂 Voir les Délices', value: 'Je veux voir la gamme délices complète' },
-        { label: '🛒 Commander', value: 'commander_whatsapp' },
+        { label: '🍰 Voir les pâtisseries', value: 'voir_carte' },
+        { label: '🏪 Venir au stand', value: 'voir_delices' },
       ],
       signal: 'warm',
+    },
+    {
+      triggers: ['commander', 'commande', 'whatsapp', 'contact', 'contacter', 'appeler', 'téléphone'],
+      reply: 'Prêt à commander ? Le mieux c\'est de d\'abord jeter un œil à notre carte pour choisir ce qui vous fait envie, et ensuite nous envoyer votre sélection !',
+      buttons: [
+        { label: '🍛 Voir la carte', value: 'voir_carte' },
+        { label: '💬 J\'ai déjà choisi, WhatsApp', value: 'commander_whatsapp' },
+      ],
+      signal: 'hot',
     },
   ];
 
@@ -231,9 +251,11 @@
       if (r.triggers.some((t) => lower.includes(t))) return r;
     }
     return {
-      reply: 'Merci pour votre message ! Pour vous répondre au mieux, le plus simple est de nous contacter directement par WhatsApp. Notre équipe répond sous 15 minutes.',
+      reply: 'Bonne question ! Le mieux c\'est de découvrir notre carte pour voir tout ce qu\'on propose. Si vous avez une demande spéciale, on est là pour vous aider.',
       buttons: [
-        { label: '💬 WhatsApp maintenant', value: 'commander_whatsapp' },
+        { label: '🍛 Découvrir la carte', value: 'voir_carte' },
+        { label: '🎉 Organiser un événement', value: 'voir_calculateur' },
+        { label: '💬 Parler à l\'équipe', value: 'commander_whatsapp' },
       ],
       signal: 'cold',
     };
@@ -243,10 +265,22 @@
   function handleUserMessage(text, isButton = false) {
     if (!isButton) appendMessage('user', text);
 
-    // Special: redirect to WhatsApp
+    // Special: navigation actions
     if (text === 'commander_whatsapp') {
       const waUrl = 'https://wa.me/41225576020?text=Bonjour%20Nimara%2C%20je%20souhaite%20passer%20une%20commande%20%F0%9F%A5%90';
       window.open(waUrl, '_blank', 'noopener,noreferrer');
+      return;
+    }
+    if (text === 'voir_carte') {
+      window.location.href = '/carte/';
+      return;
+    }
+    if (text === 'voir_calculateur') {
+      window.location.href = '/carte/#routing';
+      return;
+    }
+    if (text === 'voir_delices') {
+      window.location.href = '/delices/';
       return;
     }
 
