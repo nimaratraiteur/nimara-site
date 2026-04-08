@@ -46,7 +46,9 @@ bodyClass: page-home
     </div>
     <div class="grid-3">
       <div class="card animate-fade-up">
-        <div class="card-img">🍫</div>
+        <div class="card-img" style="padding:0;background:none">
+          <img src="/carte/images/1000511681.png" alt="Brownie Sans Gluten aux Noix" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
         <div class="card-body">
           <span class="card-tag">Pâtisseries Oh Martine</span>
           <h3 class="card-title">Brownie Sans Gluten aux Noix</h3>
@@ -58,7 +60,9 @@ bodyClass: page-home
         </div>
       </div>
       <div class="card animate-fade-up" style="transition-delay:.1s">
-        <div class="card-img">🍪</div>
+        <div class="card-img" style="padding:0;background:none">
+          <img src="/carte/images/1000511658.png" alt="Brookie" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
         <div class="card-body">
           <span class="card-tag">Pâtisseries Oh Martine</span>
           <h3 class="card-title">Brookie</h3>
@@ -70,7 +74,9 @@ bodyClass: page-home
         </div>
       </div>
       <div class="card animate-fade-up" style="transition-delay:.2s">
-        <div class="card-img">🥐</div>
+        <div class="card-img" style="padding:0;background:none">
+          <img src="/carte/images/1000511693.png" alt="Cinnamon Roll" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
         <div class="card-body">
           <span class="card-tag">Pâtisseries Oh Martine</span>
           <h3 class="card-title">Cinnamon Roll</h3>
@@ -139,17 +145,19 @@ bodyClass: page-home
         </div>
       </div>
       <div class="grid-2" style="gap:.75rem">
-        {% set dishes = [
-          { icon: "🥐", label: "Box petit-déj", desc: "Dès 10 pers." },
-          { icon: "🍱", label: "Box corporate", desc: "Déjeuners bureau" },
-          { icon: "🎉", label: "Buffet Chavannes", desc: "Saveurs du monde" },
-          { icon: "🎂", label: "Desserts Nos Douceurs", desc: "Sucreries de fête" }
+        {% set dishPhotos = [
+          { img: "/carte/images/1000511879.png", label: "Butter Chicken", desc: "Le classique indien" },
+          { img: "/carte/images/1000511882.png", label: "Samosas", desc: "Entrées croustillantes" },
+          { img: "/carte/images/1000511681.png", label: "Brownie Sans Gluten", desc: "Pâtisseries Oh Martine" },
+          { img: "/carte/images/1000511693.png", label: "Cinnamon Roll", desc: "Douceurs maison" }
         ] %}
-        {% for d in dishes %}
-        <div style="background:rgba(255,255,255,.06);border:1px solid rgba(167,139,250,.12);border-radius:12px;padding:1.25rem;text-align:center;">
-          <div style="font-size:2.5rem;margin-bottom:.5rem">{{ d.icon }}</div>
-          <div style="font-weight:600;font-size:.9rem;color:white;margin-bottom:.2rem">{{ d.label }}</div>
-          <div style="font-size:.78rem;color:rgba(255,255,255,.45)">{{ d.desc }}</div>
+        {% for d in dishPhotos %}
+        <div style="background:rgba(255,255,255,.06);border:1px solid rgba(167,139,250,.12);border-radius:12px;overflow:hidden;text-align:center;">
+          <img src="{{ d.img }}" alt="{{ d.label }}" style="width:100%;height:120px;object-fit:cover;display:block">
+          <div style="padding:.75rem">
+            <div style="font-weight:600;font-size:.9rem;color:white;margin-bottom:.2rem">{{ d.label }}</div>
+            <div style="font-size:.78rem;color:rgba(255,255,255,.45)">{{ d.desc }}</div>
+          </div>
         </div>
         {% endfor %}
       </div>
