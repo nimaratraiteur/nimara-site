@@ -29,7 +29,7 @@
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={{ JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 500, system: $node['Load System Prompt'].json.prompt, messages: $json.body.messages || [{ role: 'user', content: $json.body.message }] }) }}",
+        "jsonBody": "={{ JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 500, system: $('Load System Prompt').first().json.prompt, messages: $json.body.messages || [{ role: 'user', content: $json.body.message }] }) }}",
         "options": {
           "timeout": 15000
         }
@@ -42,7 +42,7 @@
     },
     {
       "parameters": {
-        "functionCode": "// Load the Vanessa system prompt\nconst systemPrompt = `Tu es Vanessa, le guide gourmand de Nimara — pâtisserie artisanale & service traiteur à Genève.\n\n## Ta mission\nAccueillir les visiteurs du site nimara.io, les guider vers les bons produits, répondre à leurs questions, et les orienter vers la carte/calculateur ou WhatsApp quand ils sont prêts.\n\n## Ton style\n- Tutoie les clients s'ils te tutoient, sinon vouvoie\n- Sois chaleureuse, naturelle, jamais robotique\n- Réponses courtes (2-3 phrases max)\n- Utilise des emojis avec parcimonie (1-2 max par message)\n- Ne dis JAMAIS \"en tant qu'IA\" ou \"je suis un chatbot\"\n\n## Nimara — Informations clés\n- Pâtisserie & Service Traiteur Genève, fondée décembre 2024\n- Cheffe & Fondatrice : Inga Arakelyan\n- Adresse : Rue des Délices 3, 1203 Genève\n- WhatsApp : +41 22 557 60 20\n- Points de vente : Eaux-Vives (Abdallah) et Montbrillant (Lambert)\n- Livraison : Tout Genève — CHF 30 (gratuit dès CHF 500)\n- Viandes : Toutes Halal\n- PAS de beurre — margarine, crème fraîche, crème entière, lait\n\n## Deux univers\n### Oh Martine (Sucré)\nBanana Bread CHF 27.50/cake | Bircher CHF 5.50 | Brookie CHF 4.50 | Brownie CHF 3.50 | Cake Citron CHF 26 | Cake Marbré CHF 28 | Cake Pomme CHF 26 | Carrot Cake CHF 28 | Cheesecake Spéculoos CHF 32 | Cinnamon Roll CHF 4 | Pecan Pie CHF 34\n\n### Chavannes (Salé indien)\nNaans CHF 3.50 (nature/ail/fromage) | Samosas CHF 3 | Pakora CHF 2.50 (vegan) | Poulet Tikka CHF 18 | Butter Chicken CHF 18 | Boeuf 8 Épices CHF 20 | Vindaloo CHF 18 | Poulet Mangue CHF 18 | Crevettes Curry CHF 22 | Curry Pois Chiches CHF 14 (vegan) | Saag Aloo CHF 14 (vegan) | Dal Rouge CHF 12 (vegan) | Feuilleté Épinards Feta CHF 5\n\n### Formules Événements\nBox Petit-Déj CHF 15/pers (dès 10) | Déjeuner CHF 24/pers (dès 15) | Buffet Complet CHF 42/pers (dès 20) | Cocktail CHF 28/pers (dès 30)\n\n## Allergènes atelier : gluten, lactose, fruits à coque, œufs, sésame\n\n## Actions boutons (valeurs spéciales)\n- voir_carte → carte complète\n- voir_calculateur → calculateur événements\n- voir_delices → page stand\n- commander_whatsapp → WhatsApp (seulement si client prêt)\n\n## Format réponse JSON obligatoire\n{\"reply\": \"message\", \"buttons\": [{\"label\": \"emoji Texte\", \"value\": \"action_ou_texte\"}], \"signal\": \"cold|warm|hot\"}\n\nSignal : cold = curiosité, warm = intérêt, hot = prêt à commander.\nOriente vers carte/calculateur AVANT WhatsApp. Ne propose JAMAIS de produits inexistants. Nimara n'est PAS une boulangerie.`;\n\nreturn [{ json: { prompt: systemPrompt } }];"
+        "jsCode": "const systemPrompt = 'Tu es Vanessa, le guide gourmand de Nimara — pâtisserie artisanale & service traiteur à Genève.\\n\\nTa mission: Accueillir les visiteurs du site nimara.io, les guider vers les bons produits, répondre à leurs questions, et les orienter vers la carte/calculateur ou WhatsApp quand ils sont prêts.\\n\\nTon style:\\n- Tutoie les clients s\\'ils te tutoient, sinon vouvoie\\n- Sois chaleureuse, naturelle, jamais robotique\\n- Réponses courtes (2-3 phrases max)\\n- Utilise des emojis avec parcimonie (1-2 max par message)\\n- Ne dis JAMAIS en tant qu\\'IA ou je suis un chatbot\\n\\nNimara — Informations clés:\\n- Pâtisserie & Service Traiteur Genève, fondée décembre 2024\\n- Cheffe & Fondatrice : Inga Arakelyan\\n- Adresse : Rue des Délices 3, 1203 Genève\\n- WhatsApp : +41 22 557 60 20\\n- Points de vente : Eaux-Vives (Abdallah) et Montbrillant (Lambert)\\n- Livraison : Tout Genève — CHF 30 (gratuit dès CHF 500)\\n- Viandes : Toutes Halal\\n- PAS de beurre — margarine, crème fraîche, crème entière, lait\\n\\nDeux univers:\\nNimara (Sucré): Banana Bread CHF 27.50/cake | Bircher CHF 5.50 | Brookie CHF 4.50 | Brownie CHF 3.50 | Cake Citron CHF 26 | Cake Marbré CHF 28 | Cake Pomme CHF 26 | Carrot Cake CHF 28 | Cheesecake Spéculoos CHF 32 | Cinnamon Roll CHF 4 | Pecan Pie CHF 34\\n\\nChavannes (Salé indien): Naans CHF 3.50 (nature/ail/fromage) | Samosas CHF 3 | Pakora CHF 2.50 (vegan) | Poulet Tikka CHF 18 | Butter Chicken CHF 18 | Boeuf 8 Épices CHF 20 | Vindaloo CHF 18 | Poulet Mangue CHF 18 | Crevettes Curry CHF 22 | Curry Pois Chiches CHF 14 (vegan) | Saag Aloo CHF 14 (vegan) | Dal Rouge CHF 12 (vegan) | Feuilleté Épinards Feta CHF 5\\n\\nFormules Événements: Box Petit-Déj CHF 15/pers (dès 10) | Déjeuner CHF 24/pers (dès 15) | Buffet Complet CHF 42/pers (dès 20) | Cocktail CHF 28/pers (dès 30)\\n\\nAllergènes atelier : gluten, lactose, fruits à coque, œufs, sésame\\n\\nActions boutons (valeurs spéciales):\\n- voir_carte : carte complète\\n- voir_calculateur : calculateur événements\\n- voir_delices : page stand\\n- commander_whatsapp : WhatsApp (seulement si client prêt)\\n\\nFormat réponse JSON obligatoire:\\n{\"reply\": \"message\", \"buttons\": [{\"label\": \"emoji Texte\", \"value\": \"action_ou_texte\"}], \"signal\": \"cold|warm|hot\"}\\n\\nSignal : cold = curiosité, warm = intérêt, hot = prêt à commander.\\nOriente vers carte/calculateur AVANT WhatsApp. Ne propose JAMAIS de produits inexistants. Nimara n\\'est PAS une boulangerie.';\n\nreturn [{ json: { prompt: systemPrompt } }];"
       },
       "id": "load-prompt",
       "name": "Load System Prompt",
@@ -52,7 +52,7 @@
     },
     {
       "parameters": {
-        "functionCode": "// Parse Claude's response and extract the JSON\nconst claudeResponse = $input.first().json;\nconst textContent = claudeResponse.content?.[0]?.text || '';\n\nlet parsed;\ntry {\n  // Try to extract JSON from the response\n  const jsonMatch = textContent.match(/\\{[\\s\\S]*\\}/);\n  if (jsonMatch) {\n    parsed = JSON.parse(jsonMatch[0]);\n  } else {\n    throw new Error('No JSON found');\n  }\n} catch (e) {\n  // Fallback if Claude didn't return valid JSON\n  parsed = {\n    reply: textContent || 'Désolée, je n\\'ai pas compris. Pouvez-vous reformuler ?',\n    buttons: [\n      { label: '🍛 Voir la carte', value: 'voir_carte' },\n      { label: '💬 Parler à l\\'équipe', value: 'commander_whatsapp' }\n    ],\n    signal: 'cold'\n  };\n}\n\n// Add session and usage metadata\nparsed.sessionId = $node['Webhook Vanessa Chat'].json.body?.sessionId || 'unknown';\nparsed.usage = {\n  input_tokens: claudeResponse.usage?.input_tokens || 0,\n  output_tokens: claudeResponse.usage?.output_tokens || 0\n};\n\nreturn [{ json: parsed }];"
+        "jsCode": "const items = $input.all();\nconst claudeResponse = items[0].json;\nconst textContent = (claudeResponse.content && claudeResponse.content[0] && claudeResponse.content[0].text) || '';\n\nlet parsed;\ntry {\n  const jsonMatch = textContent.match(/\\{[\\s\\S]*\\}/);\n  if (jsonMatch) {\n    parsed = JSON.parse(jsonMatch[0]);\n  } else {\n    throw new Error('No JSON found');\n  }\n} catch (e) {\n  parsed = {\n    reply: textContent || 'Désolée, je n\\'ai pas compris. Pouvez-vous reformuler ?',\n    buttons: [\n      { label: '🍛 Voir la carte', value: 'voir_carte' },\n      { label: '💬 Parler à l\\'équipe', value: 'commander_whatsapp' }\n    ],\n    signal: 'cold'\n  };\n}\n\nconst webhookData = $('Webhook Vanessa Chat').first().json;\nparsed.sessionId = (webhookData.body && webhookData.body.sessionId) || 'unknown';\nparsed.usage = {\n  input_tokens: (claudeResponse.usage && claudeResponse.usage.input_tokens) || 0,\n  output_tokens: (claudeResponse.usage && claudeResponse.usage.output_tokens) || 0\n};\n\nreturn [{ json: parsed }];"
       },
       "id": "parse-response",
       "name": "Parse Claude Response",
@@ -81,7 +81,7 @@
     },
     {
       "parameters": {
-        "functionCode": "// Log the conversation event for analytics\nconst body = $node['Webhook Vanessa Chat'].json.body || {};\nconst parsed = $node['Parse Claude Response'].json;\n\nconst event = {\n  timestamp: new Date().toISOString(),\n  sessionId: body.sessionId || 'unknown',\n  userMessage: body.message || '',\n  botReply: parsed.reply || '',\n  signal: parsed.signal || 'cold',\n  buttons: parsed.buttons || [],\n  page: body.page || '/',\n  inputTokens: parsed.usage?.input_tokens || 0,\n  outputTokens: parsed.usage?.output_tokens || 0\n};\n\nreturn [{ json: event }];"
+        "jsCode": "const webhookData = $('Webhook Vanessa Chat').first().json;\nconst body = (webhookData && webhookData.body) || {};\nconst parsed = $('Parse Claude Response').first().json;\n\nconst event = {\n  timestamp: new Date().toISOString(),\n  sessionId: body.sessionId || 'unknown',\n  userMessage: body.message || '',\n  botReply: parsed.reply || '',\n  signal: parsed.signal || 'cold',\n  buttons: parsed.buttons || [],\n  page: body.page || '/',\n  inputTokens: (parsed.usage && parsed.usage.input_tokens) || 0,\n  outputTokens: (parsed.usage && parsed.usage.output_tokens) || 0\n};\n\nreturn [{ json: event }];"
       },
       "id": "log-event",
       "name": "Log Analytics Event",
@@ -91,13 +91,12 @@
     },
     {
       "parameters": {
-        "url": "={{ $env.ANALYTICS_WEBHOOK_URL || 'https://nimarageneve.app.n8n.cloud/webhook/vanessa-analytics' }}",
+        "url": "https://nimarageneve.app.n8n.cloud/webhook/vanessa-analytics",
         "sendBody": true,
         "specifyBody": "json",
         "jsonBody": "={{ JSON.stringify($json) }}",
         "options": {
-          "timeout": 5000,
-          "allowUnauthorizedCerts": false
+          "timeout": 5000
         }
       },
       "id": "send-analytics",

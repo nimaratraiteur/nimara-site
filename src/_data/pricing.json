@@ -27,7 +27,7 @@
       "minPerPax": 22,
       "maxPerPax": 42,
       "drinksPerPax": 10,
-      "description": { "fr": "Entrées, plats indiens, desserts Oh Martine", "en": "Starters, Indian mains, Oh Martine desserts" },
+      "description": { "fr": "Entrées, plats indiens, desserts Nimara", "en": "Starters, Indian mains, Nimara desserts" },
       "includes": ["samosas", "naan-ail", "butter-chicken", "cheesecake-speculoos", "brownie-sans-gluten"]
     },
     {
@@ -37,8 +37,8 @@
       "minPerPax": 12,
       "maxPerPax": 18,
       "drinksPerPax": 4,
-      "description": { "fr": "Pâtisseries Oh Martine et boissons", "en": "Oh Martine pastries and beverages" },
-      "includes": ["cinnamon-roll", "brownie-sans-gluten", "brookie", "banana-bread-oh-martine", "pecan-pie"]
+      "description": { "fr": "Pâtisseries Nimara et boissons", "en": "Nimara pastries and beverages" },
+      "includes": ["cinnamon-roll", "brownie-sans-gluten", "brookie", "banana-bread-nimara", "pecan-pie"]
     },
     {
       "id": "petit-dejeuner",
@@ -48,7 +48,7 @@
       "maxPerPax": 18,
       "drinksPerPax": 4,
       "description": { "fr": "Birchers, cinnamon rolls, banana bread, pâtisseries", "en": "Birchers, cinnamon rolls, banana bread, pastries" },
-      "includes": ["bircher-muesli-oh-martine", "cinnamon-roll", "banana-bread-oh-martine", "brookie"]
+      "includes": ["bircher-muesli-nimara", "cinnamon-roll", "banana-bread-nimara", "brookie"]
     }
   ],
   "options": {

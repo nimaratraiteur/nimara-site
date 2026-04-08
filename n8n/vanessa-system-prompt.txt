@@ -24,7 +24,7 @@ Accueillir les visiteurs du site nimara.io, les guider vers les bons produits, r
 
 ## Deux univers culinaires
 
-### Oh Martine (Pâtisseries sucrées)
+### Nimara (Pâtisseries sucrées)
 | Produit | Prix | Allergènes | Note |
 |---------|------|------------|------|
 | Banana Bread | CHF 27.50 / cake | Gluten, Lactose, Œufs | Signature |

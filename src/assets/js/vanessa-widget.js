@@ -157,7 +157,7 @@
           { label: '🍛 Découvrir notre carte', value: 'Je veux voir ce que vous proposez' },
           { label: '🎉 Organiser un événement', value: 'Je prépare un événement et je cherche un service traiteur' },
           { label: '🏪 Venir au stand Délices', value: 'Je veux venir au stand' },
-          { label: '🍰 Les pâtisseries Oh Martine', value: 'Parlez-moi des pâtisseries' },
+          { label: '🍰 Les pâtisseries Nimara', value: 'Parlez-moi des pâtisseries' },
         ]);
         trackEvent('greeted', { sessionId: SESSION_ID });
       }, 900);
@@ -210,7 +210,7 @@
   const FALLBACK_RESPONSES = [
     {
       triggers: ['voir', 'carte', 'menu', 'proposez', 'quoi'],
-      reply: 'Avec plaisir ! Notre carte mélange deux univers : la cuisine indienne authentique Chavannes et les pâtisseries maison Oh Martine. Tout est fait maison à Genève !',
+      reply: 'Avec plaisir ! Notre carte mélange deux univers : la cuisine indienne authentique Chavannes et les pâtisseries maison Nimara. Tout est fait maison à Genève !',
       buttons: [
         { label: '🍛 Voir la carte complète', value: 'voir_carte' },
         { label: '🍰 Les pâtisseries', value: 'Parlez-moi des pâtisseries' },
@@ -247,7 +247,7 @@
     },
     {
       triggers: ['stand', 'retrait', 'venir', 'adresse', 'où', 'lieu', 'délices'],
-      reply: 'Notre stand se trouve au Rue des Délices 3, 1203 Genève ! Pâtisseries Oh Martine et cuisine indienne Chavannes à emporter.',
+      reply: 'Notre stand se trouve au Rue des Délices 3, 1203 Genève ! Pâtisseries Nimara et cuisine indienne Chavannes à emporter.',
       buttons: [
         { label: '🏪 Voir la page du stand', value: 'voir_delices' },
         { label: '🍛 Voir la carte', value: 'voir_carte' },
@@ -282,8 +282,8 @@
       signal: 'warm',
     },
     {
-      triggers: ['pâtisserie', 'gâteau', 'cake', 'sucré', 'banana', 'brownie', 'cheesecake', 'cinnamon', 'brookie', 'pecan', 'martine'],
-      reply: 'Les pâtisseries Oh Martine : banana bread, cheesecake spéculoos, pecan pie, brownies sans gluten, brookies, cinnamon rolls… Tout fait maison chaque jour !',
+      triggers: ['pâtisserie', 'gâteau', 'cake', 'sucré', 'banana', 'brownie', 'cheesecake', 'cinnamon', 'brookie', 'pecan'],
+      reply: 'Les pâtisseries Nimara : banana bread, cheesecake spéculoos, pecan pie, brownies sans gluten, brookies, cinnamon rolls… Tout fait maison chaque jour !',
       buttons: [
         { label: '🍰 Voir les pâtisseries', value: 'voir_carte' },
         { label: '🏪 Venir au stand', value: 'voir_delices' },
