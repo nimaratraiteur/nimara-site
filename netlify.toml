@@ -36,10 +36,15 @@
   to     = "/equipe/nino/"
   status = 301
 
-# Alias: /equipe → first team member
+[[redirects]]
+  from   = "/emma"
+  to     = "/equipe/emma/"
+  status = 301
+
+# Alias: /equipe → fondatrice
 [[redirects]]
   from   = "/equipe"
-  to     = "/equipe/marine/"
+  to     = "/equipe/inga/"
   status = 301
 
 [[headers]]

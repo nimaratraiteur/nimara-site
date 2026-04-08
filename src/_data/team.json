@@ -1,42 +1,52 @@
 [
   {
+    "id": "inga",
+    "name": "Inga Arakelyan",
+    "role": "Cheffe Cuisinière & Fondatrice",
+    "bio": "Inga a fondé Nimara et dirige la production avec passion. Experte en pâtisserie artisanale et cuisine indienne, elle crée des recettes uniques qui mêlent tradition et créativité. Chaque produit Nimara porte sa signature.",
+    "specialties": ["Pâtisserie artisanale", "Cuisine indienne", "Création de recettes"],
+    "quote": "Chaque plat raconte une histoire, chaque pâtisserie est un moment de bonheur.",
+    "image": "/assets/images/team/inga.jpg",
+    "instagram": "https://instagram.com/nimara_geneve"
+  },
+  {
     "id": "marine",
-    "name": "Marine Dubois",
-    "role": "Fondatrice & Chef Pâtissière",
-    "bio": "Marine a fondé Nimara après 12 ans dans les meilleures maisons pâtissières de Paris et Genève. Passionnée par les produits locaux et les techniques artisanales, elle crée des pâtisseries qui racontent une histoire. Diplômée de l'École Ferrandi Paris, elle apporte à Nimara une rigueur française et une créativité sans limites.",
-    "specialties": ["Entremets", "Macarons", "Pâte feuilletée"],
-    "quote": "Chaque pâtisserie est une lettre d'amour à ceux qui la dégustent.",
+    "name": "Marine Bedoshvili",
+    "role": "Vendeuse",
+    "bio": "Marine accueille les clients avec le sourire au point de vente. Sa connaissance de la carte et son sens du service font de chaque visite une expérience chaleureuse.",
+    "specialties": ["Accueil client", "Vente", "Conseil produit"],
+    "quote": "Le meilleur moment, c'est quand un client revient avec le sourire.",
     "image": "/assets/images/team/marine.jpg",
-    "instagram": "https://instagram.com/marine_nimara"
+    "instagram": ""
   },
   {
     "id": "rahma",
-    "name": "Rahma Benali",
-    "role": "Boulangère Artisane",
-    "bio": "Rahma est la gardienne du levain chez Nimara. Formée à Lyon, elle maîtrise l'art du pain longue fermentation et des viennoiseries pur beurre. Son pain au levain, fruit de 48h de travail, est devenu la signature de la maison. Elle explore constamment de nouveaux farines et céréales locales.",
-    "specialties": ["Pain au levain", "Viennoiseries", "Pains spéciaux"],
-    "quote": "Le bon pain, ça ne se fait pas vite. Ça se mérite.",
+    "name": "Rahma Hezgui",
+    "role": "Vendeuse",
+    "bio": "Rahma assure la vente et le contact client avec énergie et bienveillance. Elle connaît chaque produit et sait guider les clients dans leurs choix.",
+    "specialties": ["Vente", "Relation client", "Conseil"],
+    "quote": "Chaque client mérite une attention particulière.",
     "image": "/assets/images/team/rahma.jpg",
-    "instagram": "https://instagram.com/rahma_nimara"
+    "instagram": ""
   },
   {
-    "id": "inga",
-    "name": "Inga Müller",
-    "role": "Chef Traiteur",
-    "bio": "Originaire de Zürich, Inga a traversé la Suisse pour rejoindre Nimara et y développer le pôle traiteur. Avec 15 ans d'expérience dans l'événementiel gastronomique, elle orchestre buffets, cocktails et déjeuners d'entreprise avec une précision d'orfèvre. Chaque plateau est une œuvre, chaque événement une célébration.",
-    "specialties": ["Buffets événementiels", "Cuisine fusion", "Plateaux entreprises"],
-    "quote": "Un événement réussi commence toujours par ce qu'on met dans l'assiette.",
-    "image": "/assets/images/team/inga.jpg",
-    "instagram": "https://instagram.com/inga_nimara"
+    "id": "emma",
+    "name": "Emma Gadaeva",
+    "role": "Aide Cuisinière",
+    "bio": "Emma est un pilier de la production chez Nimara. Elle assiste en cuisine avec rigueur et efficacité, contribuant à la qualité constante de chaque produit.",
+    "specialties": ["Préparation", "Production", "Mise en place"],
+    "quote": "La qualité, c'est dans les détails.",
+    "image": "/assets/images/team/emma.jpg",
+    "instagram": ""
   },
   {
     "id": "nino",
-    "name": "Nino Kapanadze",
-    "role": "Responsable Accueil & Ventes",
-    "bio": "Nino, originaire de Tbilissi, est le visage chaleureux de Nimara. Polyglotte (FR, EN, DE, GE), il accueille chaque client comme un invité de marque. Sa connaissance parfaite de la carte et son sens du service ont fidélisé une clientèle exigeante. Il gère également les commandes sur-mesure et les partenariats avec les entreprises genevoises.",
-    "specialties": ["Accueil client", "Commandes sur-mesure", "Partenariats B2B"],
-    "quote": "La boulangerie, c'est l'endroit où la journée commence bien.",
+    "name": "Nino Bistadze",
+    "role": "Aide Cuisinière",
+    "bio": "Nino apporte son énergie et sa précision à l'équipe de production. Elle participe à la préparation des plats et pâtisseries avec soin et dévouement.",
+    "specialties": ["Préparation", "Production", "Aide en cuisine"],
+    "quote": "Travailler en équipe, c'est ce qui fait la force de Nimara.",
     "image": "/assets/images/team/nino.jpg",
-    "instagram": "https://instagram.com/nino_nimara"
+    "instagram": ""
   }
 ]

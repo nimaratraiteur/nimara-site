@@ -3,6 +3,10 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/assets");
   eleventyConfig.addPassthroughCopy({ "src/favicon.ico": "favicon.ico" });
 
+  // Pass through carte & delices (standalone HTML + images at repo root)
+  eleventyConfig.addPassthroughCopy({ "carte": "carte" });
+  eleventyConfig.addPassthroughCopy({ "delices": "delices" });
+
   // Watch CSS and JS for changes during dev
   eleventyConfig.addWatchTarget("src/assets/css/");
   eleventyConfig.addWatchTarget("src/assets/js/");

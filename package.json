@@ -1,7 +1,7 @@
 {
   "name": "nimara-site",
   "version": "1.0.0",
-  "description": "Nimara Boulangerie-Traiteur Genève — Eleventy static site",
+  "description": "Nimara Pâtisserie & Service Traiteur Genève — Eleventy static site",
   "scripts": {
     "start": "eleventy --serve --port 8080",
     "build": "eleventy",
