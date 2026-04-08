@@ -142,7 +142,7 @@
       "badges": [],
       "vegetarian": true, "vegan": false, "halal": true,
       "batch": 20,
-      "image": "/assets/images/products/naan.jpeg"
+      "image": "/assets/images/products/Naan nature.jpeg"
     },
     {
       "id": 13, "category": "sale",
@@ -153,7 +153,7 @@
       "badges": [],
       "vegetarian": true, "vegan": false, "halal": true,
       "batch": 30,
-      "image": "/assets/images/products/samosa-legumes.png"
+      "image": "/assets/images/products/Samosa aux légumes.jpeg"
     },
     {
       "id": 14, "category": "sale",
@@ -164,7 +164,7 @@
       "badges": [],
       "vegetarian": true, "vegan": true, "halal": true,
       "batch": 20,
-      "image": "/assets/images/products/pakora.png"
+      "image": "/assets/images/products/Pakora aux legumes.jpeg"
     },
     {
       "id": 15, "category": "sale",
@@ -175,7 +175,7 @@
       "badges": ["signature"],
       "vegetarian": false, "vegan": false, "halal": true,
       "batch": 1,
-      "image": "/assets/images/products/poulet-tikka-masala.jpeg"
+      "image": "/assets/images/products/tandoori chicken.jpeg"
     },
     {
       "id": 16, "category": "sale",
@@ -274,7 +274,7 @@
       "badges": [],
       "vegetarian": true, "vegan": false, "halal": true,
       "batch": 1,
-      "image": "/assets/images/products/pate-feuilletee-epinards-feta.png"
+      "image": "/assets/images/products/Triangle feta miel.jpeg"
     },
     {
       "id": 25, "category": "formules",
