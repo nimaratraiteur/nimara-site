@@ -1,0 +1,150 @@
+{
+  "name": "Vanessa Chat – Nimara",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "vanessa-chat",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "https://nimara.io,https://www.nimara.io,http://localhost:8080"
+        }
+      },
+      "id": "webhook-trigger",
+      "name": "Webhook Vanessa Chat",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [220, 300]
+    },
+    {
+      "parameters": {
+        "url": "https://api.anthropic.com/v1/messages",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "x-api-key", "value": "={{ $env.ANTHROPIC_API_KEY }}" },
+            { "name": "anthropic-version", "value": "2023-06-01" },
+            { "name": "content-type", "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 500, system: $node['Load System Prompt'].json.prompt, messages: $json.body.messages || [{ role: 'user', content: $json.body.message }] }) }}",
+        "options": {
+          "timeout": 15000
+        }
+      },
+      "id": "claude-api",
+      "name": "Claude API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [660, 300]
+    },
+    {
+      "parameters": {
+        "functionCode": "// Load the Vanessa system prompt\nconst systemPrompt = `Tu es Vanessa, le guide gourmand de Nimara — pâtisserie artisanale & service traiteur à Genève.\n\n## Ta mission\nAccueillir les visiteurs du site nimara.io, les guider vers les bons produits, répondre à leurs questions, et les orienter vers la carte/calculateur ou WhatsApp quand ils sont prêts.\n\n## Ton style\n- Tutoie les clients s'ils te tutoient, sinon vouvoie\n- Sois chaleureuse, naturelle, jamais robotique\n- Réponses courtes (2-3 phrases max)\n- Utilise des emojis avec parcimonie (1-2 max par message)\n- Ne dis JAMAIS \"en tant qu'IA\" ou \"je suis un chatbot\"\n\n## Nimara — Informations clés\n- Pâtisserie & Service Traiteur Genève, fondée décembre 2024\n- Cheffe & Fondatrice : Inga Arakelyan\n- Adresse : Rue des Délices 3, 1203 Genève\n- WhatsApp : +41 22 557 60 20\n- Points de vente : Eaux-Vives (Abdallah) et Montbrillant (Lambert)\n- Livraison : Tout Genève — CHF 30 (gratuit dès CHF 500)\n- Viandes : Toutes Halal\n- PAS de beurre — margarine, crème fraîche, crème entière, lait\n\n## Deux univers\n### Oh Martine (Sucré)\nBanana Bread CHF 27.50/cake | Bircher CHF 5.50 | Brookie CHF 4.50 | Brownie CHF 3.50 | Cake Citron CHF 26 | Cake Marbré CHF 28 | Cake Pomme CHF 26 | Carrot Cake CHF 28 | Cheesecake Spéculoos CHF 32 | Cinnamon Roll CHF 4 | Pecan Pie CHF 34\n\n### Chavannes (Salé indien)\nNaans CHF 3.50 (nature/ail/fromage) | Samosas CHF 3 | Pakora CHF 2.50 (vegan) | Poulet Tikka CHF 18 | Butter Chicken CHF 18 | Boeuf 8 Épices CHF 20 | Vindaloo CHF 18 | Poulet Mangue CHF 18 | Crevettes Curry CHF 22 | Curry Pois Chiches CHF 14 (vegan) | Saag Aloo CHF 14 (vegan) | Dal Rouge CHF 12 (vegan) | Feuilleté Épinards Feta CHF 5\n\n### Formules Événements\nBox Petit-Déj CHF 15/pers (dès 10) | Déjeuner CHF 24/pers (dès 15) | Buffet Complet CHF 42/pers (dès 20) | Cocktail CHF 28/pers (dès 30)\n\n## Allergènes atelier : gluten, lactose, fruits à coque, œufs, sésame\n\n## Actions boutons (valeurs spéciales)\n- voir_carte → carte complète\n- voir_calculateur → calculateur événements\n- voir_delices → page stand\n- commander_whatsapp → WhatsApp (seulement si client prêt)\n\n## Format réponse JSON obligatoire\n{\"reply\": \"message\", \"buttons\": [{\"label\": \"emoji Texte\", \"value\": \"action_ou_texte\"}], \"signal\": \"cold|warm|hot\"}\n\nSignal : cold = curiosité, warm = intérêt, hot = prêt à commander.\nOriente vers carte/calculateur AVANT WhatsApp. Ne propose JAMAIS de produits inexistants. Nimara n'est PAS une boulangerie.`;\n\nreturn [{ json: { prompt: systemPrompt } }];"
+      },
+      "id": "load-prompt",
+      "name": "Load System Prompt",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [440, 300]
+    },
+    {
+      "parameters": {
+        "functionCode": "// Parse Claude's response and extract the JSON\nconst claudeResponse = $input.first().json;\nconst textContent = claudeResponse.content?.[0]?.text || '';\n\nlet parsed;\ntry {\n  // Try to extract JSON from the response\n  const jsonMatch = textContent.match(/\\{[\\s\\S]*\\}/);\n  if (jsonMatch) {\n    parsed = JSON.parse(jsonMatch[0]);\n  } else {\n    throw new Error('No JSON found');\n  }\n} catch (e) {\n  // Fallback if Claude didn't return valid JSON\n  parsed = {\n    reply: textContent || 'Désolée, je n\\'ai pas compris. Pouvez-vous reformuler ?',\n    buttons: [\n      { label: '🍛 Voir la carte', value: 'voir_carte' },\n      { label: '💬 Parler à l\\'équipe', value: 'commander_whatsapp' }\n    ],\n    signal: 'cold'\n  };\n}\n\n// Add session and usage metadata\nparsed.sessionId = $node['Webhook Vanessa Chat'].json.body?.sessionId || 'unknown';\nparsed.usage = {\n  input_tokens: claudeResponse.usage?.input_tokens || 0,\n  output_tokens: claudeResponse.usage?.output_tokens || 0\n};\n\nreturn [{ json: parsed }];"
+      },
+      "id": "parse-response",
+      "name": "Parse Claude Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [880, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json) }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              { "name": "Access-Control-Allow-Origin", "value": "*" },
+              { "name": "Access-Control-Allow-Headers", "value": "Content-Type" }
+            ]
+          }
+        }
+      },
+      "id": "respond-webhook",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [1100, 300]
+    },
+    {
+      "parameters": {
+        "functionCode": "// Log the conversation event for analytics\nconst body = $node['Webhook Vanessa Chat'].json.body || {};\nconst parsed = $node['Parse Claude Response'].json;\n\nconst event = {\n  timestamp: new Date().toISOString(),\n  sessionId: body.sessionId || 'unknown',\n  userMessage: body.message || '',\n  botReply: parsed.reply || '',\n  signal: parsed.signal || 'cold',\n  buttons: parsed.buttons || [],\n  page: body.page || '/',\n  inputTokens: parsed.usage?.input_tokens || 0,\n  outputTokens: parsed.usage?.output_tokens || 0\n};\n\nreturn [{ json: event }];"
+      },
+      "id": "log-event",
+      "name": "Log Analytics Event",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1100, 520]
+    },
+    {
+      "parameters": {
+        "url": "={{ $env.ANALYTICS_WEBHOOK_URL || 'https://nimarageneve.app.n8n.cloud/webhook/vanessa-analytics' }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}",
+        "options": {
+          "timeout": 5000,
+          "allowUnauthorizedCerts": false
+        }
+      },
+      "id": "send-analytics",
+      "name": "Send to Analytics",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1320, 520]
+    }
+  ],
+  "connections": {
+    "Webhook Vanessa Chat": {
+      "main": [
+        [{ "node": "Load System Prompt", "type": "main", "index": 0 }]
+      ]
+    },
+    "Load System Prompt": {
+      "main": [
+        [{ "node": "Claude API", "type": "main", "index": 0 }]
+      ]
+    },
+    "Claude API": {
+      "main": [
+        [
+          { "node": "Parse Claude Response", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Parse Claude Response": {
+      "main": [
+        [
+          { "node": "Respond to Webhook", "type": "main", "index": 0 },
+          { "node": "Log Analytics Event", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Log Analytics Event": {
+      "main": [
+        [{ "node": "Send to Analytics", "type": "main", "index": 0 }]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": [
+    { "name": "vanessa" },
+    { "name": "chat" },
+    { "name": "production" }
+  ]
+}

@@ -256,7 +256,7 @@ main{padding:32px;overflow-y:auto;}
     </div>
     <div class="kpi red">
       <div class="kpi-icon">📱</div>
-      <div class="kpi-label">Mobile vs Desktop</div>
+      <div class="kpi-label">Msg / Session</div>
       <div class="kpi-value" id="kpi-mobile">—</div>
       <div class="kpi-delta" id="kpi-mob-d" style="color:var(--text3)">chargement…</div>
     </div>
@@ -348,276 +348,233 @@ main{padding:32px;overflow-y:auto;}
 </div>
 
 <script>
-const SESSIONS = [
-  {
-    id:'nv-a3f2',date:'03.04.2026',time:'08:14',device:'mobile',
-    firstBtn:'🥐 Box petit-déjeuner',
-    signal:'hot',signalLabel:'💜 Veut commander',
-    msgs:[
-      {role:'van',text:'Bonjour et bienvenue chez Nimara 🌟 Je suis Vanessa. Comment puis-je vous aider ?',t:'08:14'},
-      {role:'btn',text:'🥐 Box petit-déjeuner',t:'08:14'},
-      {role:'user',text:'Bonjour, on est une équipe de 12 personnes, on cherche un petit-déjeuner pour vendredi matin',t:'08:15'},
-      {role:'van',text:'Parfait ! Pour 12 personnes vendredi, je vous suggère une formule Nimara : Birchers, Banana Bread, Cinnamon Rolls et Cakes. C\'est exactement notre cœur de métier. Vous souhaitez commander via Choco ou préférez-vous un devis personnalisé ?',t:'08:15'},
-      {role:'btn',text:'📋 Demander un devis',t:'08:16'},
-      {role:'user',text:'Un devis oui, avec les prix svp',t:'08:16'},
-      {role:'van',text:'Avec plaisir ! Donnez-moi votre email et je vous prépare ça dans la journée. Pour 12 personnes, comptez sur une belle sélection pour CHF 10–15 par personne selon la formule choisie.',t:'08:17'},
-    ],
-    btnsClicked:['🥐 Box petit-déjeuner','📋 Demander un devis','📧 Envoyer email'],
-    topics:['Petit-déjeuner','Box corporate','Devis','12 personnes']
-  },
-  {
-    id:'nv-b7c1',date:'03.04.2026',time:'09:32',device:'desktop',
-    firstBtn:'🍱 Box corporate',
-    signal:'hot',signalLabel:'💜 Veut commander',
-    msgs:[
-      {role:'van',text:'Bonjour ! Je suis Vanessa, ravie de vous accueillir chez Nimara.',t:'09:32'},
-      {role:'btn',text:'🍱 Box corporate',t:'09:32'},
-      {role:'user',text:'Est-ce que vous faites des livraisons pour des équipes ?',t:'09:33'},
-      {role:'van',text:'Absolument ! Nos box corporate sont notre spécialité B2B. Livraison aux Eaux-Vives ou Montbrillant à Genève. Pour quelle occasion et combien de personnes ?',t:'09:33'},
-      {role:'user',text:'On a un séminaire la semaine prochaine, environ 30 personnes',t:'09:34'},
-      {role:'van',text:'Un séminaire pour 30 personnes, c\'est parfait pour notre formule buffet Chavannes. Je peux vous établir un devis complet. Quelle est la date exacte ?',t:'09:34'},
-      {role:'btn',text:'📋 Demander un devis',t:'09:35'},
-    ],
-    btnsClicked:['🍱 Box corporate','📋 Demander un devis'],
-    topics:['Box corporate','Buffet','30 personnes','Séminaire','Chavannes']
-  },
-  {
-    id:'nv-d9e4',date:'03.04.2026',time:'10:05',device:'mobile',
-    firstBtn:'📍 Points de retrait',
-    signal:'warm',signalLabel:'🌟 Intéressé',
-    msgs:[
-      {role:'van',text:'Bonjour ! Je suis Vanessa, comment puis-je vous aider ?',t:'10:05'},
-      {role:'btn',text:'📍 Points de retrait',t:'10:05'},
-      {role:'user',text:'Vous livrez côté Plainpalais ?',t:'10:06'},
-      {role:'van',text:'Nous avons deux points de retrait à Genève : Eaux-Vives et Montbrillant. Plainpalais est proche des Eaux-Vives. Souhaitez-vous commander pour y récupérer ?',t:'10:06'},
-      {role:'btn',text:'📍 Eaux-Vives',t:'10:07'},
-      {role:'user',text:'Ok et c\'est quoi les horaires ?',t:'10:07'},
-    ],
-    btnsClicked:['📍 Points de retrait','📍 Eaux-Vives'],
-    topics:['Retrait','Eaux-Vives','Horaires','Localisation']
-  },
-  {
-    id:'nv-f2a8',date:'03.04.2026',time:'11:18',device:'desktop',
-    firstBtn:'🎉 Buffet événement',
-    signal:'hot',signalLabel:'💜 Veut commander',
-    msgs:[
-      {role:'van',text:'Bonjour ! Vanessa à votre service chez Nimara.',t:'11:18'},
-      {role:'btn',text:'🎉 Buffet événement',t:'11:18'},
-      {role:'user',text:'On organise une fête d\'entreprise pour 50 personnes en mai, vous pouvez gérer ça ?',t:'11:19'},
-      {role:'van',text:'Absolument ! Buffet 50 personnes en mai — formule mixte Chavannes + Nimara. Budget par personne envisagé ?',t:'11:19'},
-      {role:'user',text:'Autour de 20-25 CHF par personne',t:'11:20'},
-      {role:'van',text:'Parfait, c\'est dans nos cordes. Je prépare un devis détaillé. Votre email et la date exacte en mai ?',t:'11:20'},
-      {role:'btn',text:'📋 Demander un devis',t:'11:21'},
-    ],
-    btnsClicked:['🎉 Buffet événement','📋 Demander un devis'],
-    topics:['Buffet','Événement','50 personnes','Budget','Mai']
-  },
-  {
-    id:'nv-c4b3',date:'03.04.2026',time:'12:44',device:'mobile',
-    firstBtn:'🥐 Box petit-déjeuner',
-    signal:'cold',signalLabel:'👁 Navigation',
-    msgs:[
-      {role:'van',text:'Bonjour ! Je suis Vanessa. Comment puis-je vous aider ?',t:'12:44'},
-      {role:'btn',text:'🥐 Box petit-déjeuner',t:'12:44'},
-      {role:'user',text:'C\'est quoi le bircher exactement ?',t:'12:45'},
-      {role:'van',text:'Le Bircher Muesli Nimara est notre préparation d\'avoine façon suisse — overnight oats avec fruits frais, lait ou yaourt, noix. Idéal pour les petits-déjeuners d\'équipe.',t:'12:45'},
-      {role:'user',text:'Ah ok merci',t:'12:46'},
-    ],
-    btnsClicked:['🥐 Box petit-déjeuner'],
-    topics:['Bircher','Question produit','Nimara']
-  },
-  {
-    id:'nv-e6d2',date:'03.04.2026',time:'14:07',device:'desktop',
-    firstBtn:'🍱 Box corporate',
-    signal:'warm',signalLabel:'🌟 Intéressé',
-    msgs:[
-      {role:'van',text:'Bonjour ! Vanessa de Nimara, ravie de vous accueillir.',t:'14:07'},
-      {role:'btn',text:'🍱 Box corporate',t:'14:07'},
-      {role:'user',text:'Vous travaillez avec des entreprises régulièrement ? Genre contrat mensuel ?',t:'14:08'},
-      {role:'van',text:'Absolument, nous avons plusieurs partenaires corporate sur Genève avec des commandes récurrentes. Pour quel secteur travaillez-vous ?',t:'14:08'},
-      {role:'user',text:'Finance, on est environ 20 personnes',t:'14:09'},
-      {role:'van',text:'Parfait — je peux vous présenter une proposition de partenariat. Votre email ?',t:'14:09'},
-      {role:'btn',text:'📋 Demander un devis',t:'14:10'},
-    ],
-    btnsClicked:['🍱 Box corporate','📋 Demander un devis'],
-    topics:['Corporate','Contrat récurrent','Finance','20 personnes','Partenariat']
-  },
-  {
-    id:'nv-g1f5',date:'03.04.2026',time:'15:33',device:'mobile',
-    firstBtn:'🎉 Buffet événement',
-    signal:'cold',signalLabel:'👁 Navigation',
-    msgs:[
-      {role:'van',text:'Bonjour ! Je suis Vanessa. Comment puis-je vous aider ?',t:'15:33'},
-      {role:'btn',text:'🎉 Buffet événement',t:'15:33'},
-      {role:'user',text:'Vous avez un menu sur votre site ?',t:'15:34'},
-      {role:'van',text:'Nos menus varient selon la saison. Le mieux est que je vous envoie une sélection actuelle ou passez voir notre carte en ligne.',t:'15:34'},
-    ],
-    btnsClicked:['🎉 Buffet événement'],
-    topics:['Menu','Information','Site web']
-  },
-  {
-    id:'nv-h3k7',date:'03.04.2026',time:'16:52',device:'desktop',
-    firstBtn:'🥐 Box petit-déjeuner',
-    signal:'hot',signalLabel:'💜 Veut commander',
-    msgs:[
-      {role:'van',text:'Bonjour ! Vanessa de Nimara.',t:'16:52'},
-      {role:'btn',text:'🥐 Box petit-déjeuner',t:'16:52'},
-      {role:'user',text:'Bonjour, je voudrais commander pour demain matin si possible. 8 personnes.',t:'16:53'},
-      {role:'van',text:'Pour demain matin 8 personnes, c\'est faisable ! Birchers + Banana Bread + Cinnamon Rolls. Point de retrait ou livraison ?',t:'16:53'},
-      {role:'btn',text:'📍 Montbrillant',t:'16:54'},
-      {role:'user',text:'Montbrillant parfait',t:'16:54'},
-      {role:'van',text:'Parfait ! Passez votre commande sur Choco maintenant pour garantir la disponibilité demain matin.',t:'16:54'},
-      {role:'btn',text:'🛒 Commander sur Choco',t:'16:55'},
-    ],
-    btnsClicked:['🥐 Box petit-déjeuner','📍 Montbrillant','🛒 Commander sur Choco'],
-    topics:['Petit-déjeuner','Urgence J+1','Montbrillant','8 personnes','Choco']
-  },
-];
+/* ═══════════════════════════════════════════
+   VANESSA ANALYTICS DASHBOARD
+   Connected to n8n analytics backend
+   ═══════════════════════════════════════════ */
 
-function computeAnalytics() {
-  const total = SESSIONS.length;
-  const hot = SESSIONS.filter(s=>s.signal==='hot').length;
-  const convRate = Math.round(hot/total*100);
-  const allClicks = [];
-  SESSIONS.forEach(s => s.btnsClicked.forEach(b => allClicks.push(b)));
-  const totalClicks = allClicks.length;
-  const mobile = SESSIONS.filter(s=>s.device==='mobile').length;
-  const mobileP = Math.round(mobile/total*100);
-  const btnFreq = {};
-  allClicks.forEach(b => { btnFreq[b]=(btnFreq[b]||0)+1; });
-  const topicFreq = {};
-  SESSIONS.forEach(s => s.topics.forEach(t => { topicFreq[t]=(topicFreq[t]||0)+1; }));
-  return {total,hot,convRate,totalClicks,mobile,mobileP,btnFreq,topicFreq};
+const ANALYTICS_API = 'https://nimarageneve.app.n8n.cloud/webhook/vanessa-analytics';
+let currentRange = 'today';
+let analyticsData = null;
+
+/* ── Fetch analytics from backend ────────── */
+async function fetchAnalytics(range) {
+  try {
+    const res = await fetch(ANALYTICS_API + '?range=' + range, {
+      headers: { 'Accept': 'application/json' }
+    });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    return await res.json();
+  } catch (err) {
+    console.warn('[Analytics] Backend unreachable:', err.message);
+    return null;
+  }
 }
 
-window.addEventListener('DOMContentLoaded', function() {
-  const stats = computeAnalytics();
+/* ── Count-up animation ──────────────────── */
+function countUp(el, end, suffix) {
+  suffix = suffix || '';
+  let start = 0;
+  const dur = 800;
+  const step = end / dur * 16;
+  const timer = setInterval(function() {
+    start = Math.min(start + step, end);
+    el.textContent = Math.round(start) + suffix;
+    if (start >= end) clearInterval(timer);
+  }, 16);
+}
 
-  function countUp(el, end, suffix='') {
-    let start=0; const dur=800;
-    const step = end/dur*16;
-    const timer = setInterval(()=>{
-      start=Math.min(start+step,end);
-      el.textContent=Math.round(start)+suffix;
-      if(start>=end) clearInterval(timer);
-    },16);
+/* ── Render dashboard ────────────────────── */
+function renderDashboard(data) {
+  if (!data) {
+    document.getElementById('kpi-conv').textContent = '0';
+    document.getElementById('kpi-conv-d').textContent = 'En attente de donnees...';
+    document.getElementById('kpi-conv-rate').textContent = '0%';
+    document.getElementById('kpi-rate-d').textContent = 'Aucune conversation';
+    document.getElementById('kpi-clicks').textContent = '0';
+    document.getElementById('kpi-click-d').textContent = 'Aucun clic';
+    document.getElementById('kpi-mobile').textContent = '—';
+    document.getElementById('kpi-mob-d').textContent = 'Pas de donnees';
+    document.getElementById('summary-rows').innerHTML = '<div class="summary-row"><span class="sr-label">Statut</span><span class="sr-value">En attente de conversations</span></div>';
+    document.getElementById('log-count-badge').textContent = '0 sessions';
+    document.getElementById('conv-log').innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--text3);padding:40px">Aucune conversation enregistree. Les donnees apparaitront des que Vanessa recevra des messages.</td></tr>';
+    return;
   }
-  setTimeout(()=>{
-    countUp(document.getElementById('kpi-conv'), stats.total);
-    countUp(document.getElementById('kpi-conv-rate'), stats.convRate, '%');
-    countUp(document.getElementById('kpi-clicks'), stats.totalClicks);
-    document.getElementById('kpi-mobile').textContent = stats.mobileP+'%';
-  },200);
-  document.getElementById('kpi-conv-d').textContent = `↑ +3 vs hier (${stats.total-3})`;
-  document.getElementById('kpi-rate-d').textContent = `↑ Taux de signal client`;
-  document.getElementById('kpi-click-d').textContent = `↑ +${Math.round(stats.totalClicks*.3)} vs hier`;
-  document.getElementById('kpi-mob-d').textContent = `Mobile · ${100-stats.mobileP}% desktop`;
 
-  const sorted = Object.entries(stats.btnFreq).sort((a,b)=>b[1]-a[1]).slice(0,7);
-  const max = sorted[0][1];
-  document.getElementById('total-clicks-badge').textContent = stats.totalClicks+' clics';
-  document.getElementById('btn-chart').innerHTML = sorted.map(([label,count])=>`
-    <div class="btn-row">
-      <div class="btn-label" title="${label}">${label}</div>
-      <div class="btn-bar-wrap"><div class="btn-bar" style="width:0%" data-w="${Math.round(count/max*100)}"></div></div>
-      <div class="btn-count">${count}</div>
-    </div>
-  `).join('');
-  setTimeout(()=>{
-    document.querySelectorAll('.btn-bar').forEach(b=>{ b.style.width=b.dataset.w+'%'; });
-  },300);
+  analyticsData = data;
+  var t = data.totals;
 
-  const topSorted = Object.entries(stats.topicFreq).sort((a,b)=>b[1]-a[1]).slice(0,10);
-  document.getElementById('topics-wrap').innerHTML = topSorted.map(([t,n])=>
-    `<span class="topic-chip">${t}<span class="tc-count">${n}</span></span>`
-  ).join('');
+  // KPI cards
+  setTimeout(function() {
+    countUp(document.getElementById('kpi-conv'), t.conversations);
+    countUp(document.getElementById('kpi-conv-rate'), data.conversionRate, '%');
+    var totalClicks = t.whatsappClicks + t.carteClicks + t.calculateurClicks;
+    countUp(document.getElementById('kpi-clicks'), totalClicks);
+    document.getElementById('kpi-mobile').textContent = data.avgMessages.toFixed(1);
+  }, 200);
 
-  const topTop = topSorted.slice(0,5);
-  new Chart(document.getElementById('topicChart'),{
-    type:'doughnut',
-    data:{
-      labels:topTop.map(t=>t[0]),
-      datasets:[{data:topTop.map(t=>t[1]),backgroundColor:['#5B2C8D','#7c3aab','#a78bfa','#c9a96e','#4ade80'],borderWidth:0,hoverOffset:6}]
-    },
-    options:{plugins:{legend:{labels:{color:'#9d8fb8',font:{family:'DM Sans',size:11},boxWidth:10}}},cutout:'68%',responsive:true,maintainAspectRatio:true}
-  });
+  document.getElementById('kpi-conv-d').textContent = t.messages + ' messages total';
+  document.getElementById('kpi-rate-d').textContent = t.hotSignals + ' signaux chauds detectes';
+  var totalClicks = t.whatsappClicks + t.carteClicks + t.calculateurClicks;
+  document.getElementById('kpi-click-d').textContent = t.whatsappClicks + ' WhatsApp, ' + t.carteClicks + ' carte';
+  document.getElementById('kpi-mob-d').textContent = 'Msg/session en moyenne';
 
-  const hours = Array.from({length:12},(_,i)=>i+7);
-  const hourData = [0,1,0,1,1,0,1,1,0,1,1,1];
-  new Chart(document.getElementById('hourChart'),{
-    type:'bar',
-    data:{
-      labels:hours.map(h=>h+'h'),
-      datasets:[{data:hourData,backgroundColor:function(ctx){
-        const g=ctx.chart.ctx.createLinearGradient(0,0,0,120);
-        g.addColorStop(0,'rgba(167,139,250,.8)');
-        g.addColorStop(1,'rgba(91,44,141,.3)');
-        return g;
-      },borderRadius:6,borderSkipped:false}]
-    },
-    options:{plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{color:'#6b5e80',font:{size:10}}},y:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#6b5e80',font:{size:10},stepSize:1}}},responsive:true,maintainAspectRatio:true}
-  });
+  // Buttons chart
+  var btnData = [
+    { label: '🍛 Voir la carte', count: t.carteClicks },
+    { label: '🧮 Calculateur', count: t.calculateurClicks },
+    { label: '💬 WhatsApp', count: t.whatsappClicks }
+  ].filter(function(b) { return b.count > 0; }).sort(function(a, b) { return b.count - a.count; });
 
-  const hotSessions = SESSIONS.filter(s=>s.signal==='hot');
-  const warmSessions = SESSIONS.filter(s=>s.signal==='warm');
-  document.getElementById('summary-rows').innerHTML = [
-    ['🔥 Sessions chaud', hotSessions.length+' ('+Math.round(hotSessions.length/SESSIONS.length*100)+'%)'],
-    ['🌟 Sessions tiède', warmSessions.length+' ('+Math.round(warmSessions.length/SESSIONS.length*100)+'%)'],
-    ['❄️ Navigation pure', (SESSIONS.length-hotSessions.length-warmSessions.length)],
-    ['📱 Mobile', stats.mobile+' / '+SESSIONS.length],
-    ['🥐 Topic #1', 'Petit-déjeuner'],
-    ['💰 Format clé', 'Box corporate'],
-    ['📍 Point préféré', 'Eaux-Vives'],
-  ].map(([l,v])=>`<div class="summary-row"><span class="sr-label">${l}</span><span class="sr-value">${v}</span></div>`).join('');
+  document.getElementById('total-clicks-badge').textContent = totalClicks + ' clics';
 
-  document.getElementById('log-count-badge').textContent = SESSIONS.length+' sessions';
-  document.getElementById('conv-log').innerHTML = SESSIONS.map(s=>`
-    <tr onclick="openDetail('${s.id}')">
-      <td><span class="session-id">#${s.id}</span></td>
-      <td style="color:var(--text2);font-size:12px">${s.time}</td>
-      <td style="font-size:12px;color:var(--lav)">${s.firstBtn}</td>
-      <td><span class="msg-count">${s.msgs.length} msg</span></td>
-      <td><span class="conv-signal ${s.signal}">${s.signalLabel}</span></td>
-      <td><span class="device-icon">${s.device==='mobile'?'📱':'🖥️'}</span></td>
-    </tr>
-  `).join('');
-});
+  if (btnData.length > 0) {
+    var maxBtn = btnData[0].count;
+    document.getElementById('btn-chart').innerHTML = btnData.map(function(b) {
+      return '<div class="btn-row">' +
+        '<div class="btn-label" title="' + b.label + '">' + b.label + '</div>' +
+        '<div class="btn-bar-wrap"><div class="btn-bar" style="width:0%" data-w="' + Math.round(b.count / maxBtn * 100) + '"></div></div>' +
+        '<div class="btn-count">' + b.count + '</div>' +
+      '</div>';
+    }).join('');
+    setTimeout(function() {
+      document.querySelectorAll('.btn-bar').forEach(function(b) { b.style.width = b.dataset.w + '%'; });
+    }, 300);
+  } else {
+    document.getElementById('btn-chart').innerHTML = '<div style="color:var(--text3);font-size:12px;padding:20px;text-align:center">Pas encore de clics enregistres</div>';
+  }
 
-function openDetail(id) {
-  const s = SESSIONS.find(x=>x.id===id);
-  if(!s) return;
-  document.getElementById('dp-session-id').textContent = '#'+s.id+' · '+s.date+' '+s.time;
-  document.getElementById('dp-meta').innerHTML = [
-    `<span class="dp-tag">${s.device==='mobile'?'📱 Mobile':'🖥️ Desktop'}</span>`,
-    `<span class="dp-tag conv-signal ${s.signal}">${s.signalLabel}</span>`,
-    ...s.topics.map(t=>`<span class="dp-tag">${t}</span>`)
-  ].join('');
-  document.getElementById('dp-chat').innerHTML = s.msgs.map(m=>{
-    if(m.role==='btn') return `<div class="dp-btn-click">👆 <em>${m.text}</em> <span style="color:var(--text3);margin-left:4px">${m.t}</span></div>`;
-    const vanAvatar = `<div class="dp-av v"><img src="/assets/images/vanessa-avatar.png" alt="V" onerror="this.parentElement.className='dp-av v-fb';this.remove();this.parentElement.textContent='V'"></div>`;
-    const userAvatar = `<div class="dp-av u">C</div>`;
-    return `
-      <div class="dp-msg ${m.role==='van'?'van':'user'}">
-        ${m.role==='van' ? vanAvatar : userAvatar}
-        <div>
-          <div class="dp-bubble">${m.text}</div>
-          <div class="dp-time">${m.t}</div>
-        </div>
-      </div>
-    `;
+  // Signal distribution (topic chart area)
+  var signalData = [
+    { label: 'Chaud (hot)', count: t.hotSignals, color: '#4ade80' },
+    { label: 'Tiede (warm)', count: t.warmSignals, color: '#c9a96e' },
+    { label: 'Froid (cold)', count: t.coldSignals, color: '#6b5e80' }
+  ].filter(function(s) { return s.count > 0; });
+
+  document.getElementById('topics-wrap').innerHTML = signalData.map(function(s) {
+    return '<span class="topic-chip">' + s.label + '<span class="tc-count">' + s.count + '</span></span>';
   }).join('');
-  document.getElementById('detail-panel').classList.add('open');
+
+  if (signalData.length > 0) {
+    new Chart(document.getElementById('topicChart'), {
+      type: 'doughnut',
+      data: {
+        labels: signalData.map(function(s) { return s.label; }),
+        datasets: [{ data: signalData.map(function(s) { return s.count; }), backgroundColor: signalData.map(function(s) { return s.color; }), borderWidth: 0, hoverOffset: 6 }]
+      },
+      options: { plugins: { legend: { labels: { color: '#9d8fb8', font: { family: 'DM Sans', size: 11 }, boxWidth: 10 } } }, cutout: '68%', responsive: true, maintainAspectRatio: true }
+    });
+  }
+
+  // Activity by day/hour chart
+  var daily = data.dailyBreakdown || [];
+  if (daily.length > 0) {
+    new Chart(document.getElementById('hourChart'), {
+      type: 'bar',
+      data: {
+        labels: daily.map(function(d) { return d.date.split('-').reverse().join('.'); }),
+        datasets: [{
+          data: daily.map(function(d) { return d.messages; }),
+          backgroundColor: function(ctx) {
+            var g = ctx.chart.ctx.createLinearGradient(0, 0, 0, 120);
+            g.addColorStop(0, 'rgba(167,139,250,.8)');
+            g.addColorStop(1, 'rgba(91,44,141,.3)');
+            return g;
+          },
+          borderRadius: 6,
+          borderSkipped: false
+        }]
+      },
+      options: { plugins: { legend: { display: false } }, scales: { x: { grid: { display: false }, ticks: { color: '#6b5e80', font: { size: 10 } } }, y: { grid: { color: 'rgba(255,255,255,.04)' }, ticks: { color: '#6b5e80', font: { size: 10 }, stepSize: 1 } } }, responsive: true, maintainAspectRatio: true }
+    });
+  }
+
+  // Summary
+  var totalConv = t.conversations || 1;
+  document.getElementById('summary-rows').innerHTML = [
+    ['Conversations', t.conversations],
+    ['Messages total', t.messages],
+    ['Signaux chauds', t.hotSignals + ' (' + Math.round(t.hotSignals / totalConv * 100) + '%)'],
+    ['Signaux tiedes', t.warmSignals + ' (' + Math.round(t.warmSignals / totalConv * 100) + '%)'],
+    ['Navigation pure', t.coldSignals],
+    ['Clics WhatsApp', t.whatsappClicks],
+    ['Clics carte', t.carteClicks],
+    ['Clics calculateur', t.calculateurClicks],
+    ['Tokens utilises', (t.inputTokens + t.outputTokens).toLocaleString('fr-CH')],
+    ['Cout estime (USD)', '$' + (data.tokenCost ? data.tokenCost.estimatedCostUSD : 0)]
+  ].map(function(r) { return '<div class="summary-row"><span class="sr-label">' + r[0] + '</span><span class="sr-value">' + r[1] + '</span></div>'; }).join('');
+
+  // Recent events log
+  var events = data.recentEvents || [];
+  document.getElementById('log-count-badge').textContent = events.length + ' evenements';
+  if (events.length > 0) {
+    document.getElementById('conv-log').innerHTML = events.map(function(e) {
+      var time = e.timestamp ? new Date(e.timestamp).toLocaleTimeString('fr-CH', { hour: '2-digit', minute: '2-digit' }) : '—';
+      var signalClass = e.signal || 'cold';
+      var signalLabel = signalClass === 'hot' ? 'Veut commander' : signalClass === 'warm' ? 'Interesse' : 'Navigation';
+      var msgPreview = (e.userMessage || '').substring(0, 40);
+      if (msgPreview.length >= 40) msgPreview += '...';
+      return '<tr onclick="openEventDetail(this)" data-event=\'' + JSON.stringify(e).replace(/'/g, '&apos;') + '\'>' +
+        '<td><span class="session-id">#' + (e.sessionId || '—') + '</span></td>' +
+        '<td style="color:var(--text2);font-size:12px">' + time + '</td>' +
+        '<td style="font-size:12px;color:var(--lav)">' + msgPreview + '</td>' +
+        '<td><span class="msg-count">1 msg</span></td>' +
+        '<td><span class="conv-signal ' + signalClass + '">' + signalLabel + '</span></td>' +
+        '<td><span class="device-icon">💬</span></td>' +
+      '</tr>';
+    }).join('');
+  } else {
+    document.getElementById('conv-log').innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--text3);padding:40px">Aucun evenement enregistre pour cette periode.</td></tr>';
+  }
+}
+
+/* ── Event detail panel ──────────────────── */
+function openEventDetail(row) {
+  try {
+    var e = JSON.parse(row.dataset.event);
+    document.getElementById('dp-session-id').textContent = '#' + (e.sessionId || '—');
+    document.getElementById('dp-meta').innerHTML = [
+      '<span class="dp-tag conv-signal ' + (e.signal || 'cold') + '">' + (e.signal || 'cold') + '</span>',
+      '<span class="dp-tag">' + (e.page || '/') + '</span>',
+      e.inputTokens ? '<span class="dp-tag">' + e.inputTokens + ' in / ' + e.outputTokens + ' out tokens</span>' : ''
+    ].join('');
+    var vanAvatar = '<div class="dp-av v"><img src="/assets/images/vanessa-avatar.png" alt="V" onerror="this.parentElement.className=\'dp-av v-fb\';this.remove();this.parentElement.textContent=\'V\'"></div>';
+    var userAvatar = '<div class="dp-av u">C</div>';
+    document.getElementById('dp-chat').innerHTML =
+      '<div class="dp-msg user">' + userAvatar + '<div><div class="dp-bubble">' + (e.userMessage || '—') + '</div></div></div>' +
+      '<div class="dp-msg van">' + vanAvatar + '<div><div class="dp-bubble">' + (e.botReply || '—') + '</div></div></div>';
+    document.getElementById('detail-panel').classList.add('open');
+  } catch (err) { /* ignore parse errors */ }
 }
 
 function closeDetail() {
   document.getElementById('detail-panel').classList.remove('open');
 }
 
-document.querySelectorAll('.dr-btn').forEach(btn=>{
-  btn.addEventListener('click',function(){
-    document.querySelectorAll('.dr-btn').forEach(b=>b.classList.remove('active'));
+/* ── Date range buttons ──────────────────── */
+document.querySelectorAll('.dr-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.dr-btn').forEach(function(b) { b.classList.remove('active'); });
     this.classList.add('active');
+    var label = this.textContent.trim();
+    if (label === "Aujourd'hui") currentRange = 'today';
+    else if (label === '7 jours') currentRange = '7d';
+    else if (label === '30 jours') currentRange = '30d';
+    loadDashboard();
   });
+});
+
+/* ── Load dashboard ──────────────────────── */
+async function loadDashboard() {
+  var data = await fetchAnalytics(currentRange);
+  renderDashboard(data);
+}
+
+/* ── Init ────────────────────────────────── */
+window.addEventListener('DOMContentLoaded', function() {
+  loadDashboard();
+  // Auto-refresh every 30s
+  setInterval(loadDashboard, 30000);
 });
 </script>
 </body>
