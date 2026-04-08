@@ -136,7 +136,7 @@
     {
       "id": 12, "category": "sale",
       "name": { "fr": "Naans", "en": "Naan Bread" },
-      "description": { "fr": "Beurre, ail ou fromage. Pâte fraîche chaque matin.", "en": "Butter, garlic or cheese. Fresh dough every morning." },
+      "description": { "fr": "Nature, ail ou fromage. Pâte fraîche chaque matin.", "en": "Plain, garlic or cheese. Fresh dough every morning." },
       "price": 3.50, "unit": "pièce",
       "allergens": ["gluten", "lactose"],
       "badges": [],
@@ -180,7 +180,7 @@
     {
       "id": 16, "category": "sale",
       "name": { "fr": "Butter Chicken", "en": "Butter Chicken" },
-      "description": { "fr": "Sauce onctueuse au beurre, tomate et épices douces.", "en": "Rich butter sauce, tomato and mild spices." },
+      "description": { "fr": "Sauce onctueuse à la tomate, crème et épices douces. Le classique indien.", "en": "Rich creamy tomato sauce with mild spices. The Indian classic." },
       "price": 18.00, "unit": "portion",
       "allergens": ["lactose"],
       "badges": ["populaire"],

@@ -7,8 +7,8 @@
       "minPerPax": 16,
       "maxPerPax": 28,
       "drinksPerPax": 7,
-      "description": { "fr": "Bouchées, mini-sandwichs, pâtisseries à partager", "en": "Bites, mini sandwiches, sharing pastries" },
-      "includes": ["samosas", "pakoras", "croissant-pur-beurre", "macaron-assortiment", "financier-pistache"]
+      "description": { "fr": "Samosas, pakoras, pâtisseries à partager", "en": "Samosas, pakoras, sharing pastries" },
+      "includes": ["samosas", "pakoras", "cinnamon-roll", "brownie-sans-gluten", "cheesecake-speculoos"]
     },
     {
       "id": "dejeuner",
@@ -17,8 +17,8 @@
       "minPerPax": 12,
       "maxPerPax": 24,
       "drinksPerPax": 5,
-      "description": { "fr": "Sandwichs, quiches, salades, pâtisseries", "en": "Sandwiches, quiches, salads, pastries" },
-      "includes": ["quiche-lorraine", "sandwich-saumon-avocat", "wraps-vegetariens", "tarte-aux-fraises"]
+      "description": { "fr": "Naans, curries, samosas, pâtisseries", "en": "Naans, curries, samosas, pastries" },
+      "includes": ["naan-fromage", "butter-chicken", "samosas", "brownie-sans-gluten"]
     },
     {
       "id": "buffet",
@@ -27,8 +27,8 @@
       "minPerPax": 22,
       "maxPerPax": 42,
       "drinksPerPax": 10,
-      "description": { "fr": "Entrées chaudes/froides, plats, fromages, desserts", "en": "Hot/cold starters, mains, cheeses, desserts" },
-      "includes": ["samosas", "naan-beurre-ail", "plateau-fromages-suisses", "paris-brest", "macaron-assortiment"]
+      "description": { "fr": "Entrées, plats indiens, desserts Oh Martine", "en": "Starters, Indian mains, Oh Martine desserts" },
+      "includes": ["samosas", "naan-ail", "butter-chicken", "cheesecake-speculoos", "brownie-sans-gluten"]
     },
     {
       "id": "coffee-break",
@@ -37,8 +37,8 @@
       "minPerPax": 12,
       "maxPerPax": 18,
       "drinksPerPax": 4,
-      "description": { "fr": "Viennoiseries, pâtisseries, boissons chaudes", "en": "Pastries, confections, hot beverages" },
-      "includes": ["croissant-pur-beurre", "pain-au-chocolat", "financier-pistache", "macaron-assortiment", "banana-bread-oh-martine"]
+      "description": { "fr": "Pâtisseries Oh Martine et boissons", "en": "Oh Martine pastries and beverages" },
+      "includes": ["cinnamon-roll", "brownie-sans-gluten", "brookie", "banana-bread-oh-martine", "pecan-pie"]
     },
     {
       "id": "petit-dejeuner",
@@ -47,14 +47,14 @@
       "minPerPax": 10,
       "maxPerPax": 18,
       "drinksPerPax": 4,
-      "description": { "fr": "Birchers, viennoiseries, banana bread, pains", "en": "Birchers, pastries, banana bread, breads" },
-      "includes": ["bircher-muesli-oh-martine", "croissant-pur-beurre", "pain-au-chocolat", "banana-bread-oh-martine", "pain-au-levain"]
+      "description": { "fr": "Birchers, cinnamon rolls, banana bread, pâtisseries", "en": "Birchers, cinnamon rolls, banana bread, pastries" },
+      "includes": ["bircher-muesli-oh-martine", "cinnamon-roll", "banana-bread-oh-martine", "brookie"]
     }
   ],
   "options": {
     "drinks": {
       "id": "drinks",
-      "label": { "fr": "Boissons (café, thé, jus)", "en": "Drinks (coffee, tea, juice)" },
+      "label": { "fr": "Boissons (lassi mangue, gingembre, hibiscus)", "en": "Drinks (mango lassi, ginger, hibiscus)" },
       "icon": "☕"
     },
     "delivery": {
