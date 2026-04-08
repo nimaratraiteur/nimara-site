@@ -1,0 +1,19 @@
+{
+  "name": "Nimara Délices POS",
+  "short_name": "Délices",
+  "description": "Point de vente Nimara — Rue des Délices",
+  "start_url": "/delices-pos/",
+  "display": "standalone",
+  "orientation": "any",
+  "theme_color": "#5B2C8D",
+  "background_color": "#0e0b1a",
+  "lang": "fr",
+  "icons": [
+    {
+      "src": "/assets/images/products/hero-patisseries.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
