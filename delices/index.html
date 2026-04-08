@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Notre Stand · Rue des Délices 3 — Nimara Genève</title>
+<meta name="description" content="Venez découvrir Nimara en personne. Rue des Délices 3, Genève. Pâtisseries artisanales & cuisine indienne à emporter.">
+<meta property="og:title" content="Stand Nimara — Rue des Délices 3, Genève">
+<meta property="og:description" content="Pâtisseries artisanales & cuisine indienne à emporter. Ouvert 7j/7.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --saffron:  #f59e0b;
+  --turmeric: #d97706;
+  --spice:    #92400e;
+  --cream:    #fffbf0;
+  --warm:     #fef3c7;
+  --paper:    #ffffff;
+  --ink:      #1c1007;
+  --muted:    #78716c;
+  --border:   #e7e0d5;
+  --v:        #5B2C8D;
+  --lav:      #a78bfa;
+  --green:    #16a34a;
+  --red:      #dc2626;
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { font-family:'DM Sans',sans-serif; background:var(--cream); color:var(--ink); }
+
+/* ── NAV ── */
+.nav {
+  position:sticky; top:0; z-index:100;
+  background:rgba(255,251,240,.97); backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+  padding:0 32px; display:flex; align-items:center; justify-content:space-between; height:60px;
+}
+.nav-logo { font-family:'Cormorant Garamond',serif; font-size:22px; color:var(--ink); text-decoration:none; }
+.nav-logo span { color:var(--saffron); font-style:italic; }
+.nav-links { display:flex; gap:8px; }
+.nav-link {
+  padding:8px 16px; border-radius:50px; font-size:13px; font-weight:500;
+  text-decoration:none; color:var(--muted); transition:all .2s;
+}
+.nav-link:hover { color:var(--ink); background:var(--warm); }
+.nav-link.cta { background:var(--saffron); color:white; font-weight:600; }
+.nav-link.cta:hover { background:var(--turmeric); }
+
+/* ── HERO ── */
+.hero {
+  position:relative; min-height:480px;
+  display:flex; align-items:flex-end;
+  overflow:hidden;
+  background:linear-gradient(135deg,#1c1007 0%,#2d1a0a 40%,#5B2C8D 100%);
+}
+.hero-bg {
+  position:absolute; inset:0;
+  background:url('images/vitrine.jpg') center/cover no-repeat;
+  opacity:.35;
+}
+.hero-gradient {
+  position:absolute; inset:0;
+  background:linear-gradient(to top, rgba(28,16,7,.95) 0%, rgba(28,16,7,.4) 60%, transparent 100%);
+}
+.hero-content {
+  position:relative; z-index:1;
+  padding:48px 48px 56px; max-width:700px;
+}
+.hero-eyebrow {
+  display:inline-flex; align-items:center; gap:8px;
+  background:rgba(245,158,11,.15); border:1px solid rgba(245,158,11,.3);
+  border-radius:50px; padding:5px 16px;
+  font-size:11px; font-weight:600; letter-spacing:.15em; text-transform:uppercase;
+  color:var(--saffron); margin-bottom:20px;
+}
+.hero-title {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(36px,6vw,64px); font-weight:300; color:white;
+  line-height:1.05; margin-bottom:16px;
+}
+.hero-title em { font-style:italic; color:var(--saffron); }
+.hero-address {
+  display:flex; align-items:center; gap:10px;
+  font-size:16px; color:rgba(255,255,255,.7); margin-bottom:28px;
+}
+.hero-address svg { color:var(--saffron); flex-shrink:0; }
+.hero-pills { display:flex; gap:10px; flex-wrap:wrap; }
+.hero-pill {
+  background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.15);
+  backdrop-filter:blur(8px); border-radius:50px; padding:7px 16px;
+  font-size:13px; color:rgba(255,255,255,.85); font-weight:500;
+}
+.hero-pill.open { background:rgba(22,163,74,.2); border-color:rgba(22,163,74,.4); color:#4ade80; }
+
+/* ── STATUS BAR ── */
+.status-bar {
+  background:var(--ink); color:white;
+  display:flex; align-items:center; justify-content:center; gap:32px;
+  padding:14px 32px; flex-wrap:wrap;
+}
+.status-item { display:flex; align-items:center; gap:8px; font-size:13px; }
+.status-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+.status-dot.green { background:#4ade80; box-shadow:0 0 8px #4ade80; }
+.status-label { color:rgba(255,255,255,.5); font-size:12px; margin-right:4px; }
+
+/* ── QUICK ACTIONS ── */
+.quick-actions {
+  max-width:900px; margin:0 auto;
+  padding:32px 32px 0;
+  display:grid; grid-template-columns:repeat(3,1fr); gap:16px;
+}
+.action-card {
+  background:var(--paper); border:1px solid var(--border);
+  border-radius:16px; padding:20px;
+  text-decoration:none; color:var(--ink);
+  display:flex; flex-direction:column; gap:8px;
+  transition:all .25s; cursor:pointer;
+}
+.action-card:hover { border-color:var(--saffron); transform:translateY(-3px); box-shadow:0 12px 32px rgba(0,0,0,.08); }
+.action-card__icon { font-size:28px; }
+.action-card__title { font-weight:700; font-size:15px; }
+.action-card__desc { font-size:12px; color:var(--muted); line-height:1.5; }
+.action-card.primary { background:linear-gradient(135deg,#1a5e2a,#16a34a); color:white; border-color:transparent; }
+.action-card.primary .action-card__desc { color:rgba(255,255,255,.7); }
+.action-card.uber { background:#000; color:white; border-color:transparent; }
+.action-card.uber .action-card__desc { color:rgba(255,255,255,.6); }
+
+/* ── MAIN LAYOUT ── */
+.main-grid {
+  max-width:900px; margin:32px auto;
+  padding:0 32px 64px;
+  display:grid; grid-template-columns:1fr 360px; gap:28px;
+  align-items:start;
+}
+
+/* ── MAP SECTION ── */
+.map-card {
+  background:var(--paper); border:1px solid var(--border);
+  border-radius:20px; overflow:hidden;
+}
+.map-embed {
+  width:100%; height:340px; border:none; display:block;
+}
+.map-footer {
+  padding:20px;
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+  flex-wrap:wrap;
+}
+.map-address { }
+.map-address strong { font-size:15px; font-weight:600; display:block; margin-bottom:4px; }
+.map-address span { font-size:13px; color:var(--muted); }
+.map-btn {
+  display:flex; align-items:center; gap:6px;
+  background:var(--saffron); color:white;
+  padding:9px 18px; border-radius:50px;
+  font-size:13px; font-weight:600; text-decoration:none;
+  white-space:nowrap; transition:all .2s;
+}
+.map-btn:hover { background:var(--turmeric); transform:translateY(-1px); }
+
+/* ── TRANSPORT CARD ── */
+.transport-card {
+  background:var(--paper); border:1px solid var(--border);
+  border-radius:20px; padding:24px; margin-top:0;
+}
+.card-title {
+  font-family:'Cormorant Garamond',serif;
+  font-size:22px; font-weight:400; margin-bottom:20px;
+}
+.card-title em { font-style:italic; color:var(--turmeric); }
+.transport-list { display:flex; flex-direction:column; gap:0; }
+.transport-item {
+  display:flex; align-items:flex-start; gap:14px;
+  padding:14px 0; border-bottom:1px solid var(--border);
+}
+.transport-item:last-child { border-bottom:none; padding-bottom:0; }
+.transport-icon {
+  width:38px; height:38px; border-radius:10px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:18px; flex-shrink:0;
+}
+.transport-icon.tram { background:#fef3c7; }
+.transport-icon.bus  { background:#ede9fe; }
+.transport-icon.walk { background:#dcfce7; }
+.transport-icon.bike { background:#fff7ed; }
+.transport-icon.car  { background:#f1f5f9; }
+.transport-info strong { font-size:14px; font-weight:600; display:block; margin-bottom:2px; }
+.transport-info span { font-size:12px; color:var(--muted); line-height:1.5; }
+
+/* ── SIDEBAR ── */
+.sidebar { display:flex; flex-direction:column; gap:20px; }
+
+/* ── HOURS CARD ── */
+.hours-card {
+  background:var(--paper); border:1px solid var(--border);
+  border-radius:20px; padding:24px;
+}
+.hours-row {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:9px 0; border-bottom:1px solid var(--border); font-size:14px;
+}
+.hours-row:last-child { border-bottom:none; }
+.hours-row.today { background:var(--warm); margin:0 -12px; padding:9px 12px; border-radius:8px; border-bottom:none; }
+.hours-day { font-weight:500; }
+.hours-day.today { color:var(--spice); font-weight:700; }
+.hours-time { color:var(--muted); }
+.hours-time.today { color:var(--turmeric); font-weight:600; }
+.hours-closed { color:var(--red); font-size:13px; }
+.open-badge {
+  display:flex; align-items:center; gap:6px;
+  background:#dcfce7; color:var(--green);
+  padding:6px 14px; border-radius:50px;
+  font-size:12px; font-weight:700;
+  letter-spacing:.05em; margin-bottom:16px;
+}
+.open-dot { width:6px; height:6px; border-radius:50%; background:currentColor; animation:pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+/* ── CONTACT CARD ── */
+.contact-card {
+  background:linear-gradient(135deg,#2d1054,#5B2C8D);
+  border-radius:20px; padding:24px; color:white;
+}
+.contact-card .card-title { color:white; margin-bottom:16px; }
+.contact-item {
+  display:flex; align-items:center; gap:12px;
+  padding:10px 0; border-bottom:1px solid rgba(255,255,255,.1);
+  font-size:14px;
+}
+.contact-item:last-child { border-bottom:none; }
+.contact-item svg { color:var(--lav); flex-shrink:0; }
+.contact-item a { color:white; text-decoration:none; }
+.contact-item a:hover { color:var(--lav); }
+.contact-wa {
+  display:flex; align-items:center; justify-content:center; gap:8px;
+  background:#25d366; color:white; text-decoration:none;
+  padding:12px; border-radius:12px; font-weight:700; font-size:14px;
+  margin-top:16px; transition:all .2s;
+}
+.contact-wa:hover { background:#1da851; transform:translateY(-1px); }
+
+/* ── PHOTOS SECTION ── */
+.photos-section { max-width:900px; margin:0 auto; padding:0 32px 48px; }
+.section-header { margin-bottom:24px; }
+.section-header h2 { font-family:'Cormorant Garamond',serif; font-size:32px; font-weight:300; }
+.section-header h2 em { font-style:italic; color:var(--turmeric); }
+.section-header p { color:var(--muted); font-size:14px; margin-top:4px; }
+.photos-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr); gap:12px;
+}
+.photo-item {
+  border-radius:14px; overflow:hidden;
+  aspect-ratio:4/3; background:var(--warm);
+  position:relative;
+}
+.photo-item.large { grid-column:span 2; aspect-ratio:16/9; }
+.photo-item img { width:100%; height:100%; object-fit:cover; display:block; }
+.photo-item__placeholder {
+  width:100%; height:100%;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:8px; background:var(--warm);
+}
+.photo-item__placeholder span { font-size:32px; }
+.photo-item__placeholder p { font-size:12px; color:var(--muted); text-align:center; }
+.photo-label {
+  position:absolute; bottom:10px; left:10px;
+  background:rgba(28,16,7,.7); color:white; backdrop-filter:blur(4px);
+  border-radius:50px; padding:4px 12px; font-size:11px; font-weight:600;
+}
+
+/* ── PRODUCTS PREVIEW ── */
+.products-preview { max-width:900px; margin:0 auto; padding:0 32px 48px; }
+.products-strip { display:flex; gap:12px; overflow-x:auto; padding-bottom:8px; scrollbar-width:none; }
+.products-strip::-webkit-scrollbar { display:none; }
+.product-chip {
+  flex-shrink:0; background:var(--paper); border:1px solid var(--border);
+  border-radius:14px; overflow:hidden; width:160px;
+  transition:all .25s;
+}
+.product-chip:hover { border-color:var(--saffron); transform:translateY(-3px); box-shadow:0 8px 24px rgba(0,0,0,.08); }
+.product-chip img { width:100%; height:110px; object-fit:cover; display:block; }
+.product-chip__ph { width:100%; height:110px; display:flex; align-items:center; justify-content:center; background:var(--warm); font-size:36px; }
+.product-chip__name { padding:10px 12px; font-size:13px; font-weight:600; line-height:1.2; }
+
+/* ── FAQ ── */
+.faq-section { max-width:900px; margin:0 auto; padding:0 32px 48px; }
+.faq-list { display:flex; flex-direction:column; gap:1px; border-radius:16px; overflow:hidden; border:1px solid var(--border); }
+.faq-item { background:var(--paper); }
+.faq-q {
+  width:100%; padding:18px 20px; text-align:left;
+  display:flex; align-items:center; justify-content:space-between; gap:16px;
+  font-size:14px; font-weight:600; color:var(--ink);
+  background:none; border:none; border-bottom:1px solid var(--border);
+  cursor:pointer; font-family:'DM Sans',sans-serif; transition:background .2s;
+}
+.faq-item:last-child .faq-q { border-bottom:none; }
+.faq-q:hover { background:var(--warm); }
+.faq-q.open { color:var(--spice); }
+.faq-arrow { transition:transform .25s; color:var(--muted); flex-shrink:0; }
+.faq-q.open .faq-arrow { transform:rotate(180deg); }
+.faq-a { display:none; padding:16px 20px; font-size:13px; color:var(--muted); line-height:1.7; border-bottom:1px solid var(--border); }
+.faq-a.open { display:block; }
+.faq-item:last-child .faq-a { border-bottom:none; }
+
+/* ── CTA FINAL ── */
+.cta-final {
+  background:linear-gradient(135deg,#1c1007,#2d1a0a);
+  margin:0; padding:56px 32px; text-align:center;
+}
+.cta-final h2 { font-family:'Cormorant Garamond',serif; font-size:clamp(28px,5vw,48px); font-weight:300; color:white; margin-bottom:12px; }
+.cta-final h2 em { font-style:italic; color:var(--saffron); }
+.cta-final p { color:rgba(255,255,255,.5); font-size:14px; margin-bottom:32px; }
+.cta-group { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+.btn-wa { display:flex; align-items:center; gap:8px; background:#25d366; color:white; padding:14px 28px; border-radius:12px; font-weight:700; font-size:15px; text-decoration:none; transition:all .2s; }
+.btn-wa:hover { background:#1da851; transform:translateY(-2px); }
+.btn-carte { display:flex; align-items:center; gap:8px; background:rgba(255,255,255,.08); color:white; padding:14px 28px; border-radius:12px; font-weight:600; font-size:15px; text-decoration:none; border:1px solid rgba(255,255,255,.15); transition:all .2s; }
+.btn-carte:hover { background:rgba(255,255,255,.12); }
+
+/* ── FOOTER ── */
+footer { background:var(--ink); padding:28px 32px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; }
+.footer-logo { font-family:'Cormorant Garamond',serif; font-size:22px; color:white; }
+.footer-logo span { color:var(--saffron); font-style:italic; }
+.footer-links { display:flex; gap:20px; flex-wrap:wrap; }
+.footer-links a { color:rgba(255,255,255,.4); font-size:13px; text-decoration:none; transition:color .2s; }
+.footer-links a:hover { color:rgba(255,255,255,.8); }
+
+/* ── RESPONSIVE ── */
+@media (max-width:768px) {
+  .nav { padding:0 16px; }
+  .nav-links .nav-link:not(.cta) { display:none; }
+  .hero-content { padding:32px 24px 40px; }
+  .quick-actions { grid-template-columns:1fr; padding:20px 16px 0; }
+  .main-grid { grid-template-columns:1fr; padding:20px 16px 40px; }
+  .sidebar { order:-1; }
+  .photos-section,.products-preview,.faq-section { padding-left:16px; padding-right:16px; }
+  .photos-grid { grid-template-columns:1fr 1fr; }
+  .photos-grid .photo-item.large { grid-column:span 2; }
+  .status-bar { gap:16px; padding:12px 16px; }
+  .cta-final { padding:40px 20px; }
+}
+@media (max-width:420px) {
+  .photos-grid { grid-template-columns:1fr; }
+  .photos-grid .photo-item.large { grid-column:span 1; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="/" class="nav-logo">Nima<span>ra</span></a>
+  <div class="nav-links">
+    <a href="/carte/" class="nav-link">Notre Carte</a>
+    <a href="https://wa.me/41225576020?text=Bonjour%20Nimara%2C%20je%20souhaite%20passer%20commande%20%F0%9F%99%8F" class="nav-link cta" target="_blank" rel="noopener">
+      💬 Commander
+    </a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-gradient"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">✦ Notre stand à Genève</div>
+    <h1 class="hero-title">Rue des <em>Délices</em></h1>
+    <div class="hero-address">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      Rue des Délices 3, 1203 Genève
+    </div>
+    <div class="hero-pills">
+      <span class="hero-pill open">🟢 Ouvert aujourd'hui</span>
+      <span class="hero-pill">🥐 À emporter</span>
+      <span class="hero-pill">🍛 Salé & Sucré</span>
+      <span class="hero-pill">🚉 À 2 min du tram 14</span>
+    </div>
+  </div>
+</section>
+
+<!-- STATUS BAR -->
+<div class="status-bar">
+  <div class="status-item">
+    <div class="status-dot green"></div>
+    <span>Stand ouvert</span>
+  </div>
+  <div class="status-item">
+    <span class="status-label">Lun–Ven</span>
+    <strong>07h30 – 18h30</strong>
+  </div>
+  <div class="status-item">
+    <span class="status-label">Sam</span>
+    <strong>08h00 – 17h00</strong>
+  </div>
+  <div class="status-item">
+    <span class="status-label">Dim</span>
+    <strong>09h00 – 14h00</strong>
+  </div>
+  <div class="status-item">
+    <span class="status-label">Tel</span>
+    <strong>022 300 52 20</strong>
+  </div>
+</div>
+
+<!-- QUICK ACTIONS -->
+<div class="quick-actions">
+  <a href="https://www.google.com/maps/dir/?api=1&destination=46.2061637,6.1324649" target="_blank" rel="noopener" class="action-card primary">
+    <div class="action-card__icon">🗺️</div>
+    <div class="action-card__title">Obtenir l'itinéraire</div>
+    <div class="action-card__desc">Ouvrir dans Google Maps et me guider jusqu'au stand</div>
+  </a>
+  <a href="https://wa.me/41225576020?text=Bonjour%20Nimara%2C%20j%27aimerais%20commander%20pour%20venir%20chercher%20au%20stand%20Délices%20%F0%9F%99%8F" target="_blank" rel="noopener" class="action-card">
+    <div class="action-card__icon">💬</div>
+    <div class="action-card__title">Commander à l'avance</div>
+    <div class="action-card__desc">Réservez votre commande sur WhatsApp pour la récupérer directement</div>
+  </a>
+  <a href="https://www.ubereats.com/ch-fr/store/nimara-sarl/AcKFwUezQz6kBUtFMYsSGA" target="_blank" rel="noopener" class="action-card uber">
+    <div class="action-card__icon">🛵</div>
+    <div class="action-card__title">Livraison à domicile</div>
+    <div class="action-card__desc">Commander sur Uber Eats et se faire livrer chez soi</div>
+  </a>
+</div>
+
+<!-- MAIN GRID -->
+<div class="main-grid">
+
+  <!-- LEFT: Map + Transport -->
+  <div>
+
+    <!-- MAP -->
+    <div class="map-card">
+      <iframe
+        class="map-embed"
+        title="Nimara — Rue des Délices 3, Genève"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2761.5!2d6.12989!3d46.2061637!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x478c64d05ad9ec9b%3A0xd2a271a4507553f3!2sRue+des+D%C3%A9lices+3%2C+1203+Gen%C3%A8ve!5e0!3m2!1sfr!2sch!4v1"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        allowfullscreen>
+      </iframe>
+      <div class="map-footer">
+        <div class="map-address">
+          <strong>Nimara — Rue des Délices 3</strong>
+          <span>1203 Genève, Suisse</span>
+        </div>
+        <a href="https://www.google.com/maps/dir/?api=1&destination=46.2061637,6.1324649" target="_blank" rel="noopener" class="map-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+          M'y amener
+        </a>
+      </div>
+    </div>
+
+    <!-- TRANSPORT -->
+    <div class="transport-card" style="margin-top:20px">
+      <h2 class="card-title">Comment <em>y arriver</em></h2>
+      <div class="transport-list">
+
+        <div class="transport-item">
+          <div class="transport-icon tram">🚊</div>
+          <div class="transport-info">
+            <strong>Tram 14 — Arrêt « Délices »</strong>
+            <span>Le plus simple. L'arrêt est à 30 secondes à pied du stand.<br>Direction : Meyrin ou Bernex</span>
+          </div>
+        </div>
+
+        <div class="transport-item">
+          <div class="transport-icon bus">🚌</div>
+          <div class="transport-info">
+            <strong>Bus 1, 3, 5 — Arrêt « Cornavin »</strong>
+            <span>Depuis la gare de Genève Cornavin, 8 min à pied via la Rue de la Servette.</span>
+          </div>
+        </div>
+
+        <div class="transport-item">
+          <div class="transport-icon walk">🚶</div>
+          <div class="transport-info">
+            <strong>À pied depuis le centre-ville</strong>
+            <span>12 min depuis la Rue de Rive · 10 min depuis la gare Cornavin · 15 min depuis la Place de Neuve</span>
+          </div>
+        </div>
+
+        <div class="transport-item">
+          <div class="transport-icon bike">🚲</div>
+          <div class="transport-info">
+            <strong>Vélo & Publibike</strong>
+            <span>Station Publibike à 100m (Rue des Délices / Rue de la Servette). Plusieurs places de stationnement vélo devant le bâtiment.</span>
+          </div>
+        </div>
+
+        <div class="transport-item">
+          <div class="transport-icon car">🚗</div>
+          <div class="transport-info">
+            <strong>Voiture — Zone bleue</strong>
+            <span>Stationnement zone bleue (1h) sur la Rue des Délices. Parking couvert P+R Cornavin à 6 min.</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- RIGHT: Sidebar -->
+  <div class="sidebar">
+
+    <!-- HOURS -->
+    <div class="hours-card">
+      <h2 class="card-title" style="margin-bottom:12px">Horaires <em>d'ouverture</em></h2>
+      <div class="open-badge">
+        <div class="open-dot"></div>
+        Ouvert actuellement
+      </div>
+      <div class="transport-list" style="gap:0">
+        <div class="hours-row">
+          <span class="hours-day">Lundi</span>
+          <span class="hours-time">07h30 – 18h30</span>
+        </div>
+        <div class="hours-row">
+          <span class="hours-day">Mardi</span>
+          <span class="hours-time">07h30 – 18h30</span>
+        </div>
+        <div class="hours-row">
+          <span class="hours-day">Mercredi</span>
+          <span class="hours-time">07h30 – 18h30</span>
+        </div>
+        <div class="hours-row">
+          <span class="hours-day">Jeudi</span>
+          <span class="hours-time">07h30 – 18h30</span>
+        </div>
+        <div class="hours-row">
+          <span class="hours-day">Vendredi</span>
+          <span class="hours-time">07h30 – 18h30</span>
+        </div>
+        <div class="hours-row today">
+          <span class="hours-day today">Samedi ← Aujourd'hui</span>
+          <span class="hours-time today">08h00 – 17h00</span>
+        </div>
+        <div class="hours-row">
+          <span class="hours-day">Dimanche</span>
+          <span class="hours-time">09h00 – 14h00</span>
+        </div>
+      </div>
+      <p style="font-size:11px;color:var(--muted);margin-top:12px;line-height:1.5">⚠️ Horaires susceptibles de varier les jours fériés. Vérifiez sur WhatsApp avant de vous déplacer.</p>
+    </div>
+
+    <!-- CONTACT -->
+    <div class="contact-card">
+      <h2 class="card-title">Nous <em style="color:var(--lav)">contacter</em></h2>
+      <div class="transport-list" style="gap:0">
+        <div class="contact-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.59 3.47a2 2 0 0 1 1.95-2.14h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6.13 6.13l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <a href="tel:+41223005220">022 300 52 20</a>
+        </div>
+        <div class="contact-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <a href="mailto:admin@nimara.io">admin@nimara.io</a>
+        </div>
+        <div class="contact-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>Rue des Délices 3 · 1203 Genève</span>
+        </div>
+      </div>
+      <a href="https://wa.me/41225576020?text=Bonjour%20Nimara%2C%20j%27ai%20une%20question%20sur%20le%20stand%20Délices%20%F0%9F%99%8F" target="_blank" rel="noopener" class="contact-wa">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        Écrire sur WhatsApp
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<!-- PHOTOS VITRINE -->
+<div class="photos-section">
+  <div class="section-header">
+    <h2>Nos <em>pâtisseries</em></h2>
+    <p>Ce qui vous attend au stand — à emporter, frais du jour</p>
+  </div>
+  <div class="photos-grid">
+    <div class="photo-item large">
+      <img src="/carte/images/1000511693.png" alt="Cinnamon Roll Nimara" style="object-position:center 30%">
+      <div class="photo-label">Cinnamon Roll ✦ Oh Martine</div>
+    </div>
+    <div class="photo-item">
+      <img src="/carte/images/1000511657.png" alt="Cheesecake Spéculoos">
+      <div class="photo-label">Cheesecake Spéculoos</div>
+    </div>
+    <div class="photo-item">
+      <img src="/carte/images/1000511661.png" alt="Pecan Pie">
+      <div class="photo-label">Pecan Pie</div>
+    </div>
+    <div class="photo-item">
+      <img src="/carte/images/1000511660.png" alt="Banana Bread">
+      <div class="photo-label">Banana Bread</div>
+    </div>
+    <div class="photo-item">
+      <img src="/carte/images/1000511681.png" alt="Brownie Sans Gluten">
+      <div class="photo-label">Brownie Sans Gluten</div>
+    </div>
+    <div class="photo-item">
+      <img src="/carte/images/1000511677.png" alt="Carrot Cake">
+      <div class="photo-label">Carrot Cake</div>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUITS DU STAND -->
+<div class="products-preview">
+  <div class="section-header">
+    <h2>Ce qu'on trouve <em>au stand</em></h2>
+    <p>Sélection quotidienne — selon arrivages et production du jour</p>
+  </div>
+  <div class="products-strip">
+    <div class="product-chip">
+      <img src="/carte/images/1000511693.png" alt="Cinnamon Roll" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="product-chip__ph" style="display:none">🥐</div>
+      <div class="product-chip__name">Cinnamon Roll</div>
+    </div>
+    <div class="product-chip">
+      <img src="/carte/images/1000511657.png" alt="Cheesecake" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="product-chip__ph" style="display:none">🎂</div>
+      <div class="product-chip__name">Cheesecake Spéculoos</div>
+    </div>
+    <div class="product-chip">
+      <img src="/carte/images/1000511677.png" alt="Pecan Pie" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="product-chip__ph" style="display:none">🥧</div>
+      <div class="product-chip__name">Pecan Pie</div>
+    </div>
+    <div class="product-chip">
+      <img src="/carte/images/1000511660.png" alt="Banana Bread" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="product-chip__ph" style="display:none">🍌</div>
+      <div class="product-chip__name">Banana Bread</div>
+    </div>
+    <div class="product-chip">
+      <img src="/carte/images/1000511879.png" alt="Butter Chicken" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="product-chip__ph" style="display:none">🍗</div>
+      <div class="product-chip__name">Butter Chicken</div>
+    </div>
+    <div class="product-chip">
+      <img src="/carte/images/1000511883.png" alt="Dal Jaunes" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="product-chip__ph" style="display:none">🫘</div>
+      <div class="product-chip__name">Lentilles Jaunes</div>
+    </div>
+    <div class="product-chip">
+      <img src="/carte/images/1000511681.png" alt="Brownie" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="product-chip__ph" style="display:none">🍫</div>
+      <div class="product-chip__name">Brownie Sans Gluten</div>
+    </div>
+    <div class="product-chip">
+      <img src="/carte/images/1000511882.png" alt="Pois Chiches" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="product-chip__ph" style="display:none">🫘</div>
+      <div class="product-chip__name">Pois Chiche Masala</div>
+    </div>
+    <div class="product-chip">
+      <img src="/carte/images/1000511682.png" alt="Cake Marbré">
+      <div class="product-chip__name">Cake Marbré</div>
+    </div>
+    <div class="product-chip">
+      <img src="/carte/images/1000511662.png" alt="Cake Citron">
+      <div class="product-chip__name">Cake Citron</div>
+    </div>
+    <div class="product-chip">
+      <img src="/carte/images/1000511658.png" alt="Brookie">
+      <div class="product-chip__name">Brookie</div>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:20px">
+    <a href="/carte/" style="display:inline-flex;align-items:center;gap:6px;background:var(--warm);color:var(--spice);padding:10px 24px;border-radius:50px;font-weight:600;font-size:14px;text-decoration:none;border:1px solid var(--border);transition:all .2s">
+      Voir la carte complète →
+    </a>
+  </div>
+</div>
+
+<!-- FAQ -->
+<div class="faq-section">
+  <div class="section-header">
+    <h2>Questions <em>fréquentes</em></h2>
+    <p>Tout ce qu'il faut savoir avant de venir</p>
+  </div>
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Peut-on commander à l'avance pour récupérer au stand ?
+        <svg class="faq-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="faq-a">Oui, et c'est même recommandé ! Envoyez-nous votre commande sur WhatsApp au <strong>+41 22 557 60 20</strong> la veille ou le matin même. Vos produits seront mis de côté et prêts à récupérer à l'heure souhaitée.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Quels produits trouve-t-on au stand ?
+        <svg class="faq-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="faq-a">Le stand propose une sélection quotidienne de pâtisseries Oh Martine (Cinnamon Rolls, Brownies, Cheesecake, Pecan Pie, Banana Bread, Cakes…) ainsi que des plats indiens Chavannes (Butter Chicken, Dals, Pois Chiches, Riz, Naans…). La disponibilité varie selon la production du jour.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Les produits sont-ils frais ou surgelés ?
+        <svg class="faq-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="faq-a">Les pâtisseries Oh Martine sont produites artisanalement et livrées surgelées à cœur — vous pouvez les conserver 3 mois. Les birchers et les plats indiens Chavannes sont frais, préparés le jour même. Tous les produits sont clairement étiquetés avec la DLC.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Les produits sont-ils Halal ?
+        <svg class="faq-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="faq-a">Oui, tous nos produits salés (naans, samosas, pakoras, plats indiens) sont préparés avec des viandes Halal certifiées. Les pâtisseries Oh Martine sont végétariennes. Les allergènes sont affichés sur chaque produit.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Y a-t-il un minimum de commande pour le stand ?
+        <svg class="faq-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="faq-a">Aucun minimum pour les achats au stand. Pour les commandes à l'avance ou les grosses quantités (entreprises, événements), contactez-nous sur WhatsApp — nous préparons sur mesure.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Acceptez-vous la carte de crédit ?
+        <svg class="faq-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="faq-a">Oui, nous acceptons les paiements par carte (Visa, Mastercard, Maestro), TWINT et espèces.</div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA FINAL -->
+<div class="cta-final">
+  <h2>On vous attend <em>avec plaisir</em></h2>
+  <p>Une question ? Besoin d'une commande spéciale ? Écrivez-nous directement.</p>
+  <div class="cta-group">
+    <a href="https://wa.me/41225576020?text=Bonjour%20Nimara%2C%20je%20souhaite%20commander%20au%20stand%20Délices%20%F0%9F%99%8F" target="_blank" rel="noopener" class="btn-wa">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+      Commander sur WhatsApp
+    </a>
+    <a href="/carte/" class="btn-carte">
+      🍛 Voir la carte complète
+    </a>
+    <a href="https://www.google.com/maps/dir/?api=1&destination=46.2061637,6.1324649" target="_blank" rel="noopener" class="btn-carte">
+      🗺️ M'y amener
+    </a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Nima<span>ra</span></div>
+  <div class="footer-links">
+    <a href="/">Accueil</a>
+    <a href="/carte/">Notre Carte</a>
+    <a href="https://www.ubereats.com/ch-fr/store/nimara-sarl/AcKFwUezQz6kBUtFMYsSGA" target="_blank">Uber Eats</a>
+    <a href="tel:+41223005220">022 300 52 20</a>
+  </div>
+</footer>
+
+<script>
+// FAQ
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const answer = item.querySelector('.faq-a');
+  const isOpen = btn.classList.contains('open');
+  // Close all
+  document.querySelectorAll('.faq-q.open').forEach(b => { b.classList.remove('open'); b.closest('.faq-item').querySelector('.faq-a').classList.remove('open'); });
+  if (!isOpen) { btn.classList.add('open'); answer.classList.add('open'); }
+}
+
+// Auto-detect today and highlight hours
+const days = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+const today = days[new Date().getDay()];
+document.querySelectorAll('.hours-row').forEach(row => {
+  const dayEl = row.querySelector('.hours-day');
+  if (dayEl && dayEl.textContent.startsWith(today)) {
+    row.classList.add('today');
+    dayEl.classList.add('today');
+    dayEl.textContent = today + ' ← Aujourd\'hui';
+    row.querySelector('.hours-time')?.classList.add('today');
+  }
+});
+
+// Check if currently open
+function isOpen() {
+  const now = new Date();
+  const day = now.getDay(); // 0=dim, 1=lun
+  const h = now.getHours() + now.getMinutes()/60;
+  if (day >= 1 && day <= 5) return h >= 7.5 && h < 18.5;  // lun-ven
+  if (day === 6) return h >= 8 && h < 17;  // sam
+  if (day === 0) return h >= 9 && h < 14;  // dim
+  return false;
+}
+const badge = document.querySelector('.open-badge');
+const heroPill = document.querySelector('.hero-pill.open');
+if (!isOpen()) {
+  if (badge) { badge.style.background='#fee2e2'; badge.style.color='#b91c1c'; badge.innerHTML='<div class="open-dot" style="background:currentColor;animation:none"></div> Actuellement fermé'; }
+  if (heroPill) { heroPill.textContent='🔴 Actuellement fermé'; heroPill.style.background='rgba(220,38,38,.2)'; heroPill.style.borderColor='rgba(220,38,38,.4)'; heroPill.style.color='#fca5a5'; }
+  document.querySelector('.status-dot')?.classList.remove('green');
+  document.querySelector('.status-item span')?.textContent && (document.querySelector('.status-item span').textContent = 'Fermé');
+}
+</script>
+</body>
+</html>
