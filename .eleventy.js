@@ -2,6 +2,7 @@ module.exports = function (eleventyConfig) {
   // Pass through static assets
   eleventyConfig.addPassthroughCopy("src/assets");
   eleventyConfig.addPassthroughCopy({ "src/favicon.ico": "favicon.ico" });
+  eleventyConfig.addPassthroughCopy("src/delices-pos-sw.js");
 
   // Pass through carte & delices (standalone HTML + images at repo root)
   eleventyConfig.addPassthroughCopy({ "carte": "carte" });
