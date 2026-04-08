@@ -48,5 +48,15 @@
     "quote": "Travailler en équipe, c'est ce qui fait la force de Nimara.",
     "image": "/assets/images/team/nino.jpg",
     "instagram": ""
+  },
+  {
+    "id": "nono",
+    "name": "Koami Ademola Alawoe",
+    "role": "Livreur des Saveurs",
+    "bio": "Nono, comme tout le monde l'appelle, fait partie de l'aventure Nimara depuis le tout début en décembre 2024. Il assure les livraisons avec fiabilité et bonne humeur, garantissant que chaque commande arrive fraîche et à l'heure.",
+    "specialties": ["Livraison", "Logistique", "Relation client"],
+    "quote": "Chaque livraison, c'est un sourire de plus.",
+    "image": "/assets/images/team/nono.jpg",
+    "instagram": ""
   }
 ]

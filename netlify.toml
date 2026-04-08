@@ -41,6 +41,11 @@
   to     = "/equipe/emma/"
   status = 301
 
+[[redirects]]
+  from   = "/nono"
+  to     = "/equipe/nono/"
+  status = 301
+
 # Alias: /equipe → fondatrice
 [[redirects]]
   from   = "/equipe"
