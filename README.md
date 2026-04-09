@@ -41,7 +41,7 @@ nimara-site/
 │   ├── index.njk       # Landing page
 │   ├── carte.njk       # Full menu (FR/EN bilingual switcher)
 │   ├── chavannes.njk   # Manor Chavannes stand VD
-│   ├── delices.njk     # Rue des Délices 3 Geneva / Oh Martine
+│   ├── delices.njk     # Rue des Délices 3 Geneva
 │   ├── vanessa.njk     # Analytics dashboard (dark theme)
 │   └── equipe/
 │       ├── marine.njk  # Marine Dubois — Chef Pâtissière
@@ -104,7 +104,7 @@ Open `src/_data/menu.json`. Each product has:
 
 **Allergen keys:** `gluten` · `lactose` · `oeufs` · `fruits_a_coque` · `sesame` · `soja` · `arachides` · `celeri` · `moutarde` · `poisson`
 
-**Badge values:** `Signature` · `Bestseller` · `Nouveau` · `Oh Martine` · `Chavannes` · `Corporate` · `Sur Mesure`
+**Badge values:** `Signature` · `Bestseller` · `Nouveau` · `Chavannes` · `Corporate` · `Sur Mesure`
 
 For a product priced "on quote" instead of a fixed price:
 ```json

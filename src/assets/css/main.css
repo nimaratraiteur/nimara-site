@@ -481,7 +481,7 @@ p { max-width: 68ch; }
 }
 .menu-badge.signature { background: var(--violet); color: var(--white); }
 .menu-badge.bestseller { background: #fef3c7; color: #92400e; }
-.menu-badge.oh-martine { background: #fce7f3; color: #9d174d; }
+.menu-badge.patisserie { background: #fce7f3; color: #9d174d; }
 .menu-badge.nouveau { background: #d1fae5; color: #065f46; }
 .menu-badge.chavannes { background: #ede9fe; color: var(--violet); }
 

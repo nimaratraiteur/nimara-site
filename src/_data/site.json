@@ -1,16 +1,16 @@
 {
   "name": "Nimara",
-  "tagline": "Boulangerie-Traiteur Genève",
-  "description": "Artisan boulangerie & traiteur à Genève. Pains au levain, viennoiseries, pâtisseries et service traiteur pour tous vos événements.",
+  "tagline": "Pâtisserie & Service Traiteur Genève",
+  "description": "Pâtisserie artisanale & service traiteur à Genève. Pâtisseries maison, cuisine indienne et service traiteur pour tous vos événements.",
   "url": "https://nimara.io",
   "email": "bonjour@nimara.io",
   "phone": "+41 22 557 60 20",
   "whatsapp": "41225576020",
   "whatsappMessage": "Bonjour Nimara, je souhaite passer une commande 🥐",
   "address": {
-    "street": "Rue de la Croix-d'Or 7",
+    "street": "Rue des Délices 3",
     "city": "Genève",
-    "zip": "1204",
+    "zip": "1203",
     "country": "Switzerland"
   },
   "hours": {
@@ -27,7 +27,7 @@
     { "label": "Notre Carte", "url": "/carte/" },
     { "label": "Chavannes", "url": "/chavannes/" },
     { "label": "Délices", "url": "/delices/" },
-    { "label": "Notre Équipe", "url": "/equipe/marine/" },
+    { "label": "Notre Équipe", "url": "/equipe/inga/" },
     { "label": "Calculateur", "url": "/calculateur/" }
   ]
 }

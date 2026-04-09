@@ -1,0 +1,9 @@
+---
+layout: layouts/base
+title: Emma Gadaeva — Aide Cuisinière
+description: "Emma Gadaeva, aide cuisinière chez Nimara Genève."
+permalink: /equipe/emma/
+memberId: emma
+---
+{% set member = team | findByAttr("id", memberId) %}
+{% include "partials/team-profile.njk" %}

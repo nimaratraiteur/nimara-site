@@ -2,26 +2,40 @@
    VANESSA WIDGET · vanessa-widget.js
 
    Public-facing AI persona chatbot for Nimara.
-   Currently runs on mock/local logic.
+   Connected to n8n webhook → Claude API backend.
 
-   TO CONNECT A REAL BACKEND:
-   - Replace sendToBackend() with a fetch() to your n8n webhook or API
-   - Replace VAPI_TOKEN and call vapiStart() for voice
-   - Session events are logged to window.VANESSA_EVENTS for analytics
+   CONFIGURATION:
+   - Set VANESSA_API_URL to your n8n webhook URL
+   - The backend returns { reply, buttons, signal }
+   - Falls back to local responses if backend is unreachable
    ══════════════════════════════════════════ */
 
 (function () {
   'use strict';
 
+  /* ── Configuration ───────────────────────── */
+  const VANESSA_API_URL = 'https://nimarageneve.app.n8n.cloud/webhook/vanessa-chat';
+  const ANALYTICS_URL   = 'https://nimarageneve.app.n8n.cloud/webhook/vanessa-analytics';
+  const BACKEND_TIMEOUT = 12000; // 12s timeout
+
   /* ── Session tracking ─────────────────────── */
-  const SESSION_ID = 'nv-' + Math.random().toString(36).slice(2, 6);
+  const SESSION_ID = 'nv-' + Math.random().toString(36).slice(2, 8);
+  const conversationHistory = []; // Stores {role, content} for multi-turn
   window.VANESSA_EVENTS = window.VANESSA_EVENTS || [];
 
   function trackEvent(type, data) {
     const event = { type, data, t: new Date().toLocaleTimeString('fr-CH', { hour: '2-digit', minute: '2-digit' }) };
     window.VANESSA_EVENTS.push(event);
-    // TODO: POST to your analytics endpoint
-    // fetch('/api/vanessa/event', { method:'POST', body: JSON.stringify({ sessionId: SESSION_ID, ...event }) });
+
+    // Send to analytics endpoint (fire & forget)
+    try {
+      navigator.sendBeacon(ANALYTICS_URL, JSON.stringify({
+        sessionId: SESSION_ID,
+        ...event,
+        page: window.location.pathname,
+        timestamp: new Date().toISOString()
+      }));
+    } catch (e) { /* silent */ }
   }
 
   /* ── DOM refs ─────────────────────────────── */
@@ -38,6 +52,7 @@
   /* ── State ────────────────────────────────── */
   let isOpen = false;
   let greeted = false;
+  let isWaiting = false; // Prevents double-send
 
   /* ── Open / Close ─────────────────────────── */
   function openPanel() {
@@ -122,7 +137,7 @@
       btn.type = 'button';
       btn.textContent = r.label;
       btn.addEventListener('click', () => {
-        trackEvent('button_click', { label: r.label });
+        trackEvent('button_click', { label: r.label, value: r.value });
         setQuickReplies([]);
         appendMessage('user', r.label);
         handleUserMessage(r.value || r.label, true);
@@ -137,137 +152,235 @@
       const typing = showTyping();
       setTimeout(() => {
         removeTyping();
-        appendMessage('van', 'Bonjour et bienvenue chez Nimara 🌟 Je suis Vanessa, Directrice IA. Comment puis-je vous aider ?');
+        appendMessage('van', 'Bonjour et bienvenue chez Nimara 🌟 Je suis Vanessa, votre guide gourmand. Dites-moi ce qui vous ferait plaisir !');
         setQuickReplies([
-          { label: '🥐 Box petit-déjeuner', value: 'Je voudrais commander une box petit-déjeuner' },
-          { label: '🍱 Box corporate', value: 'Je cherche une box corporate pour mon équipe' },
-          { label: '🎉 Buffet événement', value: 'Je prépare un événement et je cherche un service traiteur' },
-          { label: '📍 Points de retrait', value: 'Où puis-je récupérer ma commande ?' },
+          { label: '🍛 Découvrir notre carte', value: 'Je veux voir ce que vous proposez' },
+          { label: '🎉 Organiser un événement', value: 'Je prépare un événement et je cherche un service traiteur' },
+          { label: '🏪 Venir au stand Délices', value: 'Je veux venir au stand' },
+          { label: '🍰 Les pâtisseries Nimara', value: 'Parlez-moi des pâtisseries' },
         ]);
         trackEvent('greeted', { sessionId: SESSION_ID });
       }, 900);
     }, 400);
   }
 
-  /* ── Mock AI responses ────────────────────── */
-  /* TODO: Replace with fetch() to your n8n/OpenAI/Vapi endpoint */
-  const RESPONSES = [
+  /* ── Backend API call ─────────────────────── */
+  async function sendToBackend(message) {
+    // Add user message to conversation history
+    conversationHistory.push({ role: 'user', content: message });
+
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), BACKEND_TIMEOUT);
+
+    try {
+      const res = await fetch(VANESSA_API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message: message,
+          messages: conversationHistory,
+          sessionId: SESSION_ID,
+          page: window.location.pathname
+        }),
+        signal: controller.signal
+      });
+
+      clearTimeout(timeoutId);
+
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+
+      // Add assistant response to history
+      conversationHistory.push({ role: 'assistant', content: data.reply });
+
+      // Keep history manageable (last 20 messages)
+      if (conversationHistory.length > 20) {
+        conversationHistory.splice(0, conversationHistory.length - 20);
+      }
+
+      return data;
+    } catch (err) {
+      clearTimeout(timeoutId);
+      console.warn('[Vanessa] Backend error, using fallback:', err.message);
+      return getFallbackResponse(message);
+    }
+  }
+
+  /* ── Fallback responses (offline/error) ───── */
+  const FALLBACK_RESPONSES = [
     {
-      triggers: ['petit-déjeuner', 'breakfast', 'matin', 'box', 'bircher', 'croissant'],
-      reply: 'Parfait ! Nos box petit-déjeuner Nimara sont disponibles dès 10 personnes : Birchers, Banana Bread, Cinnamon Rolls, Croissants pur beurre. Vous souhaitez commander ou recevoir un devis ?',
+      triggers: ['voir', 'carte', 'menu', 'proposez', 'quoi'],
+      reply: 'Avec plaisir ! Notre carte mélange deux univers : la cuisine indienne authentique Chavannes et les pâtisseries maison Nimara. Tout est fait maison à Genève !',
       buttons: [
-        { label: '📋 Demander un devis', value: 'Je souhaite recevoir un devis pour une box petit-déjeuner' },
-        { label: '🛒 Commander sur WhatsApp', value: 'commander_whatsapp' },
+        { label: '🍛 Voir la carte complète', value: 'voir_carte' },
+        { label: '🍰 Les pâtisseries', value: 'Parlez-moi des pâtisseries' },
+        { label: '🎉 Pour un événement', value: 'Je prépare un événement et je cherche un service traiteur' },
+      ],
+      signal: 'warm',
+    },
+    {
+      triggers: ['petit-déjeuner', 'breakfast', 'matin', 'box', 'bircher'],
+      reply: 'Nos box petit-déjeuner sont parfaites dès 10 personnes : Birchers, Banana Bread, Cinnamon Rolls… Tout frais du matin !',
+      buttons: [
+        { label: '🧮 Calculer mon budget', value: 'voir_calculateur' },
+        { label: '🍰 Voir les pâtisseries', value: 'Parlez-moi des pâtisseries' },
       ],
       signal: 'hot',
     },
     {
       triggers: ['corporate', 'entreprise', 'bureau', 'équipe', 'team', 'lunch', 'déjeuner'],
-      reply: 'Excellent choix ! Nos box corporate sont livrées dans tout Genève. Pour combien de personnes et à quelle fréquence ? Nous avons des formules récurrentes hebdomadaires très populaires.',
+      reply: 'Nos formules corporate sont livrées dans tout Genève : lunch box individuelles, buffets d\'équipe, coffee breaks… Lancez le calculateur pour voir les options et prix !',
       buttons: [
-        { label: '📋 Demander un devis', value: 'Je souhaite un devis corporate' },
-        { label: '📱 Contacter par WhatsApp', value: 'commander_whatsapp' },
+        { label: '🧮 Calculer mon budget', value: 'voir_calculateur' },
+        { label: '🍛 Voir le menu salé', value: 'voir_carte' },
       ],
       signal: 'hot',
     },
     {
-      triggers: ['buffet', 'événement', 'event', 'séminaire', 'cocktail', 'fête', 'anniversaire'],
-      reply: 'Nimara excelle dans les événements ! Du cocktail Chavannes aux saveurs du monde au buffet desserts Nimara. Pour combien de personnes et quelle date envisagez-vous ?',
+      triggers: ['buffet', 'événement', 'event', 'séminaire', 'cocktail', 'fête', 'anniversaire', 'traiteur'],
+      reply: 'Notre calculateur d\'événements vous guide pas à pas : occasion, nombre d\'invités, préférences… et un récap complet avec estimation !',
       buttons: [
-        { label: '📋 Demander un devis', value: 'Je veux un devis pour un buffet événement' },
-        { label: '📞 Être rappelé', value: 'Je souhaite être rappelé pour discuter de mon événement' },
+        { label: '🧮 Lancer le calculateur', value: 'voir_calculateur' },
+        { label: '🍛 Voir la carte d\'abord', value: 'voir_carte' },
       ],
       signal: 'hot',
     },
     {
-      triggers: ['retrait', 'livraison', 'adresse', 'où', 'lieu', 'eaux-vives', 'montbrillant', 'chavannes'],
-      reply: 'Nous avons deux points de retrait à Genève : Eaux-Vives et Montbrillant. Livraison disponible dans tout le canton. Quel point vous convient ?',
+      triggers: ['stand', 'retrait', 'venir', 'adresse', 'où', 'lieu', 'délices'],
+      reply: 'Notre stand se trouve au Rue des Délices 3, 1203 Genève ! Pâtisseries Nimara et cuisine indienne Chavannes à emporter.',
       buttons: [
-        { label: '📍 Eaux-Vives', value: 'Eaux-Vives me convient mieux' },
-        { label: '📍 Montbrillant', value: 'Montbrillant est plus pratique pour moi' },
+        { label: '🏪 Voir la page du stand', value: 'voir_delices' },
+        { label: '🍛 Voir la carte', value: 'voir_carte' },
       ],
       signal: 'warm',
     },
     {
       triggers: ['devis', 'prix', 'tarif', 'combien', 'cost'],
-      reply: 'Pour vous établir un devis précis, pouvez-vous me préciser le nombre de personnes, le type de prestation (petit-déjeuner, déjeuner, buffet) et la date ? Je vous reviens sous 2h.',
+      reply: 'Utilisez notre calculateur d\'événements pour une estimation rapide avec vos options et un récap des prix.',
       buttons: [
-        { label: '📧 Envoyer par email', value: 'Je vais vous envoyer les détails par email' },
-        { label: '💬 Continuer sur WhatsApp', value: 'commander_whatsapp' },
+        { label: '🧮 Calculer mon budget', value: 'voir_calculateur' },
+        { label: '🍛 Voir les prix à la carte', value: 'voir_carte' },
       ],
       signal: 'hot',
     },
     {
       triggers: ['allergie', 'allergène', 'sans gluten', 'vegan', 'végétarien', 'halal', 'intolérance'],
-      reply: 'Nous prenons les allergies très au sérieux. Notre atelier manipule gluten, lactose, fruits à coque, œufs et sésame. Pour des besoins spécifiques, contactez-nous directement pour une adaptation sur mesure.',
+      reply: 'Toutes nos viandes sont Halal. Nos brownies sont sans gluten. Notre atelier manipule gluten, lactose, fruits à coque, œufs et sésame.',
       buttons: [
-        { label: '📱 Parler à l\'équipe', value: 'commander_whatsapp' },
+        { label: '🍛 Voir la carte (allergènes indiqués)', value: 'voir_carte' },
+        { label: '💬 Nous contacter', value: 'commander_whatsapp' },
       ],
       signal: 'warm',
     },
     {
-      triggers: ['chavannes', 'inde', 'indien', 'pakora', 'samosa', 'naan', 'épices'],
-      reply: 'Le buffet Chavannes est notre offre saveurs du monde : samosas légumes, pakoras épinards, naans beurre-ail, wraps végé… Un voyage culinaire idéal pour vos événements multiculturels !',
+      triggers: ['chavannes', 'inde', 'indien', 'pakora', 'samosa', 'naan', 'épices', 'curry', 'salé'],
+      reply: 'Notre cuisine indienne Chavannes : samosas, pakoras, naans, butter chicken, dal, poulet tikka masala… Tout est cuisiné par notre cheffe Inga.',
       buttons: [
-        { label: '🍛 Voir le menu Chavannes', value: 'Montrez-moi le menu Chavannes complet' },
-        { label: '📋 Demander un devis', value: 'Je veux un devis pour le buffet Chavannes' },
+        { label: '🍛 Voir la carte complète', value: 'voir_carte' },
+        { label: '🎉 Pour un événement', value: 'Je prépare un événement' },
       ],
       signal: 'warm',
     },
     {
-      triggers: ['délices', 'pâtisserie', 'gâteau', 'macaron', 'tarte', 'cake'],
-      reply: 'Nos Délices Nimara sont la signature de Marine : Paris-Brest praliné, Macarons assortis, Éclair Valrhona, Banana Bread… Chaque pièce est une invitation à la gourmandise.',
+      triggers: ['pâtisserie', 'gâteau', 'cake', 'sucré', 'banana', 'brownie', 'cheesecake', 'cinnamon', 'brookie', 'pecan'],
+      reply: 'Les pâtisseries Nimara : banana bread, cheesecake spéculoos, pecan pie, brownies sans gluten, brookies, cinnamon rolls… Tout fait maison chaque jour !',
       buttons: [
-        { label: '🎂 Voir les Délices', value: 'Je veux voir la gamme délices complète' },
-        { label: '🛒 Commander', value: 'commander_whatsapp' },
+        { label: '🍰 Voir les pâtisseries', value: 'voir_carte' },
+        { label: '🏪 Venir au stand', value: 'voir_delices' },
       ],
       signal: 'warm',
+    },
+    {
+      triggers: ['commander', 'commande', 'whatsapp', 'contact', 'contacter', 'appeler', 'téléphone'],
+      reply: 'Jetez d\'abord un œil à notre carte pour choisir, puis envoyez-nous votre sélection !',
+      buttons: [
+        { label: '🍛 Voir la carte', value: 'voir_carte' },
+        { label: '💬 J\'ai déjà choisi, WhatsApp', value: 'commander_whatsapp' },
+      ],
+      signal: 'hot',
     },
   ];
 
-  function getResponse(text) {
+  function getFallbackResponse(text) {
     const lower = text.toLowerCase();
-    for (const r of RESPONSES) {
+    for (const r of FALLBACK_RESPONSES) {
       if (r.triggers.some((t) => lower.includes(t))) return r;
     }
     return {
-      reply: 'Merci pour votre message ! Pour vous répondre au mieux, le plus simple est de nous contacter directement par WhatsApp. Notre équipe répond sous 15 minutes.',
+      reply: 'Bonne question ! Découvrez notre carte pour voir tout ce qu\'on propose.',
       buttons: [
-        { label: '💬 WhatsApp maintenant', value: 'commander_whatsapp' },
+        { label: '🍛 Découvrir la carte', value: 'voir_carte' },
+        { label: '🎉 Organiser un événement', value: 'voir_calculateur' },
+        { label: '💬 Parler à l\'équipe', value: 'commander_whatsapp' },
       ],
       signal: 'cold',
     };
   }
 
   /* ── Handle user message ──────────────────── */
-  function handleUserMessage(text, isButton = false) {
+  async function handleUserMessage(text, isButton = false) {
     if (!isButton) appendMessage('user', text);
 
-    // Special: redirect to WhatsApp
+    // Special: navigation actions (no API call needed)
     if (text === 'commander_whatsapp') {
+      trackEvent('whatsapp_click', { sessionId: SESSION_ID });
       const waUrl = 'https://wa.me/41225576020?text=Bonjour%20Nimara%2C%20je%20souhaite%20passer%20une%20commande%20%F0%9F%A5%90';
       window.open(waUrl, '_blank', 'noopener,noreferrer');
       return;
     }
+    if (text === 'voir_carte') {
+      trackEvent('carte_click', { sessionId: SESSION_ID });
+      window.location.href = '/carte/';
+      return;
+    }
+    if (text === 'voir_calculateur') {
+      trackEvent('calculateur_click', { sessionId: SESSION_ID });
+      window.location.href = '/carte/#routing';
+      return;
+    }
+    if (text === 'voir_delices') {
+      trackEvent('delices_click', { sessionId: SESSION_ID });
+      window.location.href = '/delices/';
+      return;
+    }
+
+    // Prevent double-send
+    if (isWaiting) return;
+    isWaiting = true;
 
     setQuickReplies([]);
-    const typing = showTyping();
-    const response = getResponse(text);
-    trackEvent('message', { text, signal: response.signal, sessionId: SESSION_ID });
+    showTyping();
+    inputEl.disabled = true;
 
-    const delay = 600 + Math.random() * 600;
-    setTimeout(() => {
+    try {
+      const response = await sendToBackend(text);
       removeTyping();
+
+      trackEvent('message', { text, signal: response.signal, sessionId: SESSION_ID });
+
       appendMessage('van', response.reply);
-      if (response.buttons) setQuickReplies(response.buttons);
-    }, delay);
+      if (response.buttons && response.buttons.length > 0) {
+        setQuickReplies(response.buttons);
+      }
+    } catch (err) {
+      removeTyping();
+      appendMessage('van', 'Oups, une petite erreur technique. Réessayez ou contactez-nous sur WhatsApp !');
+      setQuickReplies([
+        { label: '🔄 Réessayer', value: text },
+        { label: '💬 WhatsApp', value: 'commander_whatsapp' },
+      ]);
+    } finally {
+      isWaiting = false;
+      inputEl.disabled = false;
+      inputEl.focus();
+    }
   }
 
   /* ── Form submit ──────────────────────────── */
   inputForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const text = inputEl.value.trim();
-    if (!text) return;
+    if (!text || isWaiting) return;
     inputEl.value = '';
     setQuickReplies([]);
     appendMessage('user', text);

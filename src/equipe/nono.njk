@@ -1,0 +1,9 @@
+---
+layout: layouts/base
+title: Koami Ademola Alawoe (Nono) — Livreur des Saveurs
+description: "Koami Ademola Alawoe dit Nono, livreur des saveurs chez Nimara Genève."
+permalink: /equipe/nono/
+memberId: nono
+---
+{% set member = team | findByAttr("id", memberId) %}
+{% include "partials/team-profile.njk" %}

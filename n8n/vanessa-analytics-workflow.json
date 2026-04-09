@@ -1,0 +1,123 @@
+{
+  "name": "Vanessa Analytics – Nimara",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "vanessa-analytics",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "https://nimara.io,https://www.nimara.io,http://localhost:8080"
+        }
+      },
+      "id": "analytics-webhook",
+      "name": "Webhook Analytics Receive",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [220, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const staticData = $getWorkflowStaticData('global');\n\nif (!staticData.events) staticData.events = [];\nif (!staticData.sessions) staticData.sessions = {};\nif (!staticData.dailyStats) staticData.dailyStats = {};\n\nconst items = $input.all();\nconst event = (items[0].json.body) || items[0].json;\nconst today = new Date().toISOString().split('T')[0];\n\nstaticData.events.push({\n  timestamp: event.timestamp || new Date().toISOString(),\n  sessionId: event.sessionId || 'unknown',\n  signal: event.signal || 'cold',\n  userMessage: event.userMessage || '',\n  botReply: event.botReply || '',\n  page: event.page || '/'\n});\nif (staticData.events.length > 5000) {\n  staticData.events = staticData.events.slice(-5000);\n}\n\nconst sid = event.sessionId || 'unknown';\nif (!staticData.sessions[sid]) {\n  staticData.sessions[sid] = { started: new Date().toISOString(), messageCount: 0, signals: [] };\n}\nstaticData.sessions[sid].messageCount++;\nstaticData.sessions[sid].lastActivity = new Date().toISOString();\nif (event.signal) staticData.sessions[sid].signals.push(event.signal);\n\nif (!staticData.dailyStats[today]) {\n  staticData.dailyStats[today] = { conversations: 0, messages: 0, hotSignals: 0, warmSignals: 0, coldSignals: 0, whatsappClicks: 0, carteClicks: 0, calculateurClicks: 0, inputTokens: 0, outputTokens: 0 };\n}\nvar day = staticData.dailyStats[today];\nday.messages++;\nif (staticData.sessions[sid].messageCount === 1) day.conversations++;\nif (event.signal === 'hot') day.hotSignals++;\nelse if (event.signal === 'warm') day.warmSignals++;\nelse day.coldSignals++;\nif (event.userMessage === 'commander_whatsapp') day.whatsappClicks++;\nif (event.userMessage === 'voir_carte') day.carteClicks++;\nif (event.userMessage === 'voir_calculateur') day.calculateurClicks++;\nday.inputTokens += event.inputTokens || 0;\nday.outputTokens += event.outputTokens || 0;\n\nreturn [{ json: { status: 'stored', today: day } }];"
+      },
+      "id": "store-event",
+      "name": "Store Analytics Event",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ ok: true }) }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              { "name": "Access-Control-Allow-Origin", "value": "*" }
+            ]
+          }
+        }
+      },
+      "id": "respond-ok",
+      "name": "Respond OK",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [700, 300]
+    },
+    {
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "vanessa-analytics",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "https://nimara.io,https://www.nimara.io,http://localhost:8080"
+        }
+      },
+      "id": "analytics-read-webhook",
+      "name": "Webhook Analytics Read",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [220, 560]
+    },
+    {
+      "parameters": {
+        "jsCode": "const staticData = $getWorkflowStaticData('global');\nconst items = $input.all();\nconst query = items[0].json.query || {};\nconst range = query.range || '7d';\n\nvar daysBack = 7;\nif (range === '30d') daysBack = 30;\nif (range === '90d') daysBack = 90;\nif (range === 'today') daysBack = 0;\n\nvar startDate = new Date();\nstartDate.setDate(startDate.getDate() - daysBack);\nvar startStr = startDate.toISOString().split('T')[0];\n\nvar dailyStats = staticData.dailyStats || {};\nvar filteredDays = Object.entries(dailyStats).filter(function(e) { return e[0] >= startStr; }).sort(function(a, b) { return a[0].localeCompare(b[0]); });\n\nvar totals = { conversations: 0, messages: 0, hotSignals: 0, warmSignals: 0, coldSignals: 0, whatsappClicks: 0, carteClicks: 0, calculateurClicks: 0, inputTokens: 0, outputTokens: 0 };\n\nfilteredDays.forEach(function(entry) {\n  var day = entry[1];\n  Object.keys(totals).forEach(function(key) { totals[key] += day[key] || 0; });\n});\n\nvar activeSessions = Object.keys(staticData.sessions || {}).length;\nvar recentEvents = (staticData.events || []).slice(-50).reverse();\nvar conversionRate = totals.conversations > 0 ? Math.round((totals.hotSignals / totals.conversations) * 100) : 0;\nvar avgMessages = totals.conversations > 0 ? Math.round((totals.messages / totals.conversations) * 10) / 10 : 0;\n\nvar response = {\n  range: range,\n  totals: totals,\n  activeSessions: activeSessions,\n  conversionRate: conversionRate,\n  avgMessages: avgMessages,\n  dailyBreakdown: filteredDays.map(function(e) { return Object.assign({ date: e[0] }, e[1]); }),\n  recentEvents: recentEvents.slice(0, 20),\n  tokenCost: {\n    input: totals.inputTokens,\n    output: totals.outputTokens,\n    estimatedCostUSD: Math.round((totals.inputTokens * 0.003 + totals.outputTokens * 0.015) / 1000 * 100) / 100\n  }\n};\n\nreturn [{ json: response }];"
+      },
+      "id": "read-analytics",
+      "name": "Read Analytics Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 560]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json) }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              { "name": "Access-Control-Allow-Origin", "value": "*" },
+              { "name": "Access-Control-Allow-Headers", "value": "Content-Type" },
+              { "name": "Cache-Control", "value": "no-cache" }
+            ]
+          }
+        }
+      },
+      "id": "respond-analytics",
+      "name": "Respond Analytics",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [700, 560]
+    }
+  ],
+  "connections": {
+    "Webhook Analytics Receive": {
+      "main": [
+        [{ "node": "Store Analytics Event", "type": "main", "index": 0 }]
+      ]
+    },
+    "Store Analytics Event": {
+      "main": [
+        [{ "node": "Respond OK", "type": "main", "index": 0 }]
+      ]
+    },
+    "Webhook Analytics Read": {
+      "main": [
+        [{ "node": "Read Analytics Data", "type": "main", "index": 0 }]
+      ]
+    },
+    "Read Analytics Data": {
+      "main": [
+        [{ "node": "Respond Analytics", "type": "main", "index": 0 }]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": [
+    { "name": "vanessa" },
+    { "name": "analytics" },
+    { "name": "production" }
+  ]
+}
