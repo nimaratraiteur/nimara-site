@@ -11,1064 +11,1573 @@ permalink: /delices-pos/index.html
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Délices POS">
 <meta name="theme-color" content="#5B2C8D">
-<title>Nimara Délices POS</title>
+<title>Nimara Délices — Caisse</title>
 <link rel="manifest" href="/assets/manifest-delices.json">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap" rel="stylesheet">
 <style>
+/* ══════════════════════════════════════════
+   RESET & VARIABLES
+══════════════════════════════════════════ */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 :root{
-  --bg:#0e0b1a;--bg2:#1a1527;--bg3:#241d36;--bg4:#2d2545;
-  --border:#332b52;--border2:#3d3460;
-  --text:#f0ebff;--muted:#9d8cc4;--faint:#6b5f8a;
-  --violet:#5B2C8D;--violet-l:#7c3aed;--violet-d:#3d1a6e;
-  --lavender:#a78bfa;--lavender-l:#c4b5fd;
-  --green:#10b981;--green-bg:rgba(16,185,129,.12);
-  --orange:#f59e0b;--orange-bg:rgba(245,158,11,.12);
+  --bg:#0e0b1a;--bg2:#14102a;--bg3:#1e1833;--bg4:#281f40;--bg5:#2d2548;
+  --border:rgba(255,255,255,.08);--border2:rgba(255,255,255,.14);
+  --text:#f0ebff;--text2:#c4b5fd;--muted:#9d8cc4;--faint:#5a4f78;
+  --violet:#5B2C8D;--violet-l:#7c3aed;--violet-d:#3d1a6e;--violet-xl:#2a1050;
+  --lavender:#a78bfa;--lavender-l:#c4b5fd;--lavender-d:#7c5fd4;
+  --green:#10b981;--green-l:#34d399;--green-bg:rgba(16,185,129,.15);--green-border:rgba(16,185,129,.3);
+  --orange:#f59e0b;--orange-bg:rgba(245,158,11,.12);--orange-border:rgba(245,158,11,.3);
   --gold:#fbbf24;--gold-bg:rgba(251,191,36,.12);
-  --red:#ef4444;--red-bg:rgba(239,68,68,.12);
-  --radius:14px;--radius-sm:9px;
-  --header-h:64px;--filter-h:56px;
-  --shadow:0 4px 24px rgba(0,0,0,.4);
-  --font:DM Sans,-apple-system,sans-serif;
+  --red:#ef4444;--red-bg:rgba(239,68,68,.12);--red-border:rgba(239,68,68,.3);
+  --blue:#3b82f6;--blue-bg:rgba(59,130,246,.12);--blue-border:rgba(59,130,246,.3);
+  --radius:14px;--radius-sm:9px;--radius-xs:6px;
+  --hdr:60px;--filter:52px;
+  --shadow:0 8px 32px rgba(0,0,0,.5);--shadow-sm:0 2px 12px rgba(0,0,0,.4);
+  --font:'DM Sans',-apple-system,BlinkMacSystemFont,sans-serif;
+  --cart-w:340px;
 }
 html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-family:var(--font);-webkit-font-smoothing:antialiased}
 body{display:flex;flex-direction:column}
+button{font-family:var(--font);cursor:pointer;border:none;outline:none}
+input,select,textarea{font-family:var(--font);outline:none}
+img{display:block;max-width:100%}
+scrollbar-width:none;
+::-webkit-scrollbar{display:none}
 
-/* ─── HEADER ─────────────────────────── */
+/* ══════════════════════════════════════════
+   HEADER
+══════════════════════════════════════════ */
 #hdr{
-  height:var(--header-h);flex-shrink:0;
-  background:linear-gradient(135deg,var(--violet-d),var(--violet));
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 1.25rem;gap:1rem;
-  box-shadow:0 2px 12px rgba(0,0,0,.5);position:relative;z-index:10;
+  height:var(--hdr);flex-shrink:0;
+  background:linear-gradient(135deg,var(--violet-d) 0%,var(--violet) 60%,var(--violet-l) 100%);
+  display:flex;align-items:center;gap:.75rem;padding:0 1rem;
+  box-shadow:0 2px 20px rgba(0,0,0,.6);position:relative;z-index:50;
 }
-#hdr-logo{display:flex;align-items:center;gap:.65rem;text-decoration:none;color:inherit}
-#hdr-logo .badge{
-  background:rgba(255,255,255,.18);backdrop-filter:blur(4px);
-  border:1px solid rgba(255,255,255,.25);border-radius:8px;
-  padding:.3rem .6rem;font-size:.7rem;font-weight:700;letter-spacing:.1em;color:#fff;
+.hdr-brand{display:flex;align-items:center;gap:.6rem;text-decoration:none;color:inherit;flex-shrink:0}
+.hdr-badge{
+  background:rgba(255,255,255,.18);backdrop-filter:blur(6px);
+  border:1px solid rgba(255,255,255,.28);border-radius:7px;
+  padding:.25rem .55rem;font-size:.65rem;font-weight:800;letter-spacing:.12em;color:#fff;
 }
-#hdr-logo .title{font-size:1.1rem;font-weight:700;color:#fff;line-height:1.2}
-#hdr-logo .sub{font-size:.7rem;color:rgba(255,255,255,.7);font-weight:400}
-#hdr-right{display:flex;align-items:center;gap:.75rem}
+.hdr-title{font-size:1rem;font-weight:700;color:#fff;line-height:1}
+.hdr-sub{font-size:.65rem;color:rgba(255,255,255,.65);font-weight:400;margin-top:1px}
+.hdr-spacer{flex:1}
+#daily-total{
+  font-size:.8rem;font-weight:700;color:#fbbf24;
+  background:rgba(251,191,36,.15);border:1px solid rgba(251,191,36,.25);
+  border-radius:20px;padding:.3rem .75rem;display:none;
+}
+body[data-mode="vendeuse"] #daily-total,
+body[data-mode="admin"] #daily-total{display:block}
 #mode-badge{
-  font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
-  padding:.3rem .8rem;border-radius:20px;transition:all .2s;
+  font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  padding:.28rem .7rem;border-radius:20px;flex-shrink:0;
 }
-#mode-badge.client{background:rgba(16,185,129,.2);color:#6ee7b7;border:1px solid rgba(16,185,129,.3)}
-#mode-badge.staff{background:rgba(251,191,36,.2);color:#fbbf24;border:1px solid rgba(251,191,36,.3)}
-#btn-toggle-mode{
-  padding:.5rem 1rem;border-radius:var(--radius-sm);border:1px solid rgba(255,255,255,.25);
-  background:rgba(255,255,255,.12);color:#fff;font-family:var(--font);font-size:.8rem;font-weight:600;
-  cursor:pointer;transition:all .15s;white-space:nowrap;
+#mode-badge.client{background:var(--green-bg);color:var(--green-l);border:1px solid var(--green-border)}
+#mode-badge.vendeuse{background:var(--gold-bg);color:var(--gold);border:1px solid rgba(251,191,36,.3)}
+#mode-badge.admin{background:var(--blue-bg);color:#93c5fd;border:1px solid var(--blue-border)}
+.hdr-btn{
+  width:40px;height:40px;border-radius:var(--radius-sm);flex-shrink:0;
+  border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.1);
+  color:#fff;font-size:1rem;display:flex;align-items:center;justify-content:center;
+  transition:background .15s;
 }
-#btn-toggle-mode:hover{background:rgba(255,255,255,.22)}
-#btn-scan{
-  width:38px;height:38px;border-radius:var(--radius-sm);border:1px solid rgba(255,255,255,.25);
-  background:rgba(255,255,255,.12);color:#fff;font-size:1.1rem;
-  cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;
-}
-#btn-scan:hover{background:rgba(255,255,255,.22)}
+.hdr-btn:hover{background:rgba(255,255,255,.22)}
+#btn-summary{display:none}
+body[data-mode="vendeuse"] #btn-summary,
+body[data-mode="admin"] #btn-summary{display:flex}
 
-/* ─── FILTER BAR ─────────────────────── */
+/* ══════════════════════════════════════════
+   FILTER BAR
+══════════════════════════════════════════ */
 #filters{
-  height:var(--filter-h);flex-shrink:0;
+  height:var(--filter);flex-shrink:0;
   background:var(--bg2);border-bottom:1px solid var(--border);
-  display:flex;align-items:center;gap:.5rem;padding:0 1rem;overflow-x:auto;
-  scrollbar-width:none;
+  display:flex;align-items:center;gap:.4rem;padding:0 1rem;
+  overflow-x:auto;scrollbar-width:none;
 }
 #filters::-webkit-scrollbar{display:none}
-.f-btn{
-  height:34px;padding:0 .85rem;border-radius:20px;border:1px solid var(--border2);
-  background:transparent;color:var(--muted);font-family:var(--font);font-size:.78rem;font-weight:500;
-  cursor:pointer;white-space:nowrap;transition:all .15s;flex-shrink:0;
-}
-.f-btn:hover{border-color:var(--lavender);color:var(--lavender)}
-.f-btn.active{background:var(--violet);border-color:var(--violet);color:#fff}
-.f-sep{width:1px;height:22px;background:var(--border);flex-shrink:0;margin:0 .25rem}
-.f-diet{height:34px;padding:0 .85rem;border-radius:20px;border:1px solid var(--border2);
-  background:transparent;color:var(--muted);font-family:var(--font);font-size:.78rem;font-weight:500;
-  cursor:pointer;white-space:nowrap;transition:all .15s;flex-shrink:0;display:flex;align-items:center;gap:.35rem;
-}
-.f-diet:hover{border-color:var(--lavender-l);color:var(--lavender-l)}
-.f-diet.active{background:rgba(167,139,250,.15);border-color:var(--lavender);color:var(--lavender-l)}
-
-/* ─── GRID AREA ──────────────────────── */
-#grid-wrap{flex:1;overflow-y:auto;padding:1rem;overscroll-behavior:contain}
-#grid-wrap::-webkit-scrollbar{width:4px}
-#grid-wrap::-webkit-scrollbar-track{background:transparent}
-#grid-wrap::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
-#grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
-  gap:.875rem;
-}
-body.staff-view #grid{
-  grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
-}
-
-/* ─── PRODUCT CARD ───────────────────── */
-.card{
-  background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);
-  overflow:hidden;transition:transform .15s,box-shadow .15s;
-  display:flex;flex-direction:column;position:relative;
-}
-.card:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
-.card__img{width:100%;height:160px;object-fit:cover;display:block;background:var(--bg3)}
-.card__img-ph{width:100%;height:160px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:3rem}
-.card__body{padding:.875rem;flex:1;display:flex;flex-direction:column;gap:.5rem}
-.card__name{font-size:.95rem;font-weight:700;color:var(--text);line-height:1.25}
-.card__unit{font-size:.7rem;color:var(--muted);font-weight:400}
-.card__desc{font-size:.75rem;color:var(--muted);line-height:1.4;flex:1}
-.card__price{font-size:1.05rem;font-weight:700;color:var(--lavender-l)}
-.card__price-old{font-size:.8rem;color:var(--faint);text-decoration:line-through;margin-right:.35rem}
-.card__price-sale{color:var(--gold)}
-.card__badges{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.35rem}
-.badge-pill{
-  font-size:.6rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
-  padding:.2rem .5rem;border-radius:10px;
-}
-.bp-sig{background:rgba(167,139,250,.15);color:var(--lavender-l)}
-.bp-pop{background:rgba(245,158,11,.15);color:#fcd34d}
-.bp-pre{background:rgba(251,191,36,.15);color:#fbbf24}
-.bp-veg{background:rgba(16,185,129,.12);color:#6ee7b7}
-.bp-vegan{background:rgba(52,211,153,.12);color:#34d399}
-.bp-halal{background:rgba(99,179,237,.12);color:#93c5fd}
-.bp-sale{background:var(--gold-bg);color:var(--gold)}
-.bp-low{background:var(--orange-bg);color:var(--orange)}
-.card__allergens{display:flex;flex-wrap:wrap;gap:.25rem;margin-top:.25rem}
-.allergen-tag{font-size:.58rem;padding:.15rem .4rem;border-radius:6px;background:rgba(255,255,255,.06);color:var(--faint)}
-.card__wa{
-  display:flex;align-items:center;justify-content:center;gap:.4rem;
-  margin-top:.5rem;padding:.6rem;border-radius:var(--radius-sm);
-  background:rgba(37,211,102,.12);border:1px solid rgba(37,211,102,.2);
-  color:#4ade80;font-size:.75rem;font-weight:600;text-decoration:none;
-  transition:all .15s;
-}
-.card__wa:hover{background:rgba(37,211,102,.22)}
-
-/* Card: rupture overlay in client mode */
-.card.rupture-hidden{display:none}
-.card.rupture-dim{opacity:.4;pointer-events:none}
-
-/* Status ring on card */
-.card .status-ring{
-  position:absolute;top:.6rem;right:.6rem;width:10px;height:10px;border-radius:50%;
-}
-.sr-available{background:var(--green)}
-.sr-low{background:var(--orange)}
-.sr-sale{background:var(--gold)}
-.sr-rupture{background:var(--red)}
-
-/* ─── STAFF CARD EXTRAS ──────────────── */
-.staff-controls{
-  padding:.75rem .875rem;border-top:1px solid var(--border);
-  background:var(--bg3);display:flex;flex-direction:column;gap:.6rem;
-}
-.status-btns{display:flex;gap:.4rem;flex-wrap:wrap}
-.s-btn{
-  flex:1;min-width:0;padding:.45rem .5rem;border-radius:var(--radius-sm);
-  border:1px solid transparent;font-family:var(--font);font-size:.68rem;font-weight:600;
-  cursor:pointer;transition:all .15s;white-space:nowrap;text-align:center;
-}
-.s-btn.av{background:var(--green-bg);border-color:rgba(16,185,129,.3);color:var(--green)}
-.s-btn.lw{background:var(--orange-bg);border-color:rgba(245,158,11,.3);color:var(--orange)}
-.s-btn.sl{background:var(--gold-bg);border-color:rgba(251,191,36,.3);color:var(--gold)}
-.s-btn.ru{background:var(--red-bg);border-color:rgba(239,68,68,.3);color:var(--red)}
-.s-btn.active-av{background:var(--green);color:#fff}
-.s-btn.active-lw{background:var(--orange);color:#fff}
-.s-btn.active-sl{background:var(--gold);color:#000}
-.s-btn.active-ru{background:var(--red);color:#fff}
-.s-btn:hover{filter:brightness(1.1)}
-
-.qty-row{display:flex;align-items:center;gap:.5rem}
-.qty-label{font-size:.7rem;color:var(--muted);font-weight:500;flex:1}
-.qty-ctrl{display:flex;align-items:center;gap:.4rem}
-.qty-btn{
-  width:32px;height:32px;border-radius:50%;border:1px solid var(--border2);
-  background:var(--bg4);color:var(--text);font-size:1.1rem;font-weight:700;
-  cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;
-}
-.qty-btn:hover{background:var(--violet);border-color:var(--violet)}
-.qty-num{min-width:32px;text-align:center;font-size:.95rem;font-weight:700;color:var(--lavender-l)}
-
-.barcode-btn{
-  padding:.4rem .75rem;border-radius:var(--radius-sm);border:1px solid var(--border2);
-  background:transparent;color:var(--muted);font-family:var(--font);font-size:.7rem;font-weight:500;
-  cursor:pointer;transition:all .15s;align-self:flex-start;
-}
-.barcode-btn:hover{border-color:var(--lavender);color:var(--lavender)}
-
-/* ─── STAFF FOOTER ───────────────────── */
-#staff-bar{
-  flex-shrink:0;height:52px;
-  background:var(--bg2);border-top:1px solid var(--border);
-  display:none;align-items:center;padding:0 1.25rem;gap:.75rem;
-}
-body.staff-view #staff-bar{display:flex}
-.sbar-btn{
-  padding:.45rem 1rem;border-radius:var(--radius-sm);
+.fil-btn{
+  flex-shrink:0;height:34px;padding:0 .9rem;border-radius:20px;
   border:1px solid var(--border2);background:transparent;
-  color:var(--muted);font-family:var(--font);font-size:.78rem;font-weight:500;
-  cursor:pointer;display:flex;align-items:center;gap:.4rem;transition:all .15s;
+  color:var(--muted);font-size:.78rem;font-weight:600;
+  transition:all .15s;white-space:nowrap;
 }
-.sbar-btn:hover{border-color:var(--lavender);color:var(--lavender)}
-.sbar-btn.danger:hover{border-color:var(--red);color:var(--red)}
-#sbar-stats{
-  margin-left:auto;font-size:.75rem;color:var(--muted);
-  display:flex;gap:1rem;align-items:center;
-}
-.stat-pill{display:flex;align-items:center;gap:.3rem;font-size:.72rem}
-.sp-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.fil-btn:hover{border-color:var(--lavender-d);color:var(--lavender)}
+.fil-btn.active{background:var(--violet);border-color:var(--violet-l);color:#fff}
+.fil-sep{width:1px;height:24px;background:var(--border2);flex-shrink:0;margin:0 .2rem}
 
-/* ─── MODALS ─────────────────────────── */
-.modal-overlay{
-  position:fixed;inset:0;z-index:100;
-  background:rgba(14,11,26,.85);backdrop-filter:blur(6px);
-  display:flex;align-items:center;justify-content:center;
-  animation:fadeIn .15s;
+/* ══════════════════════════════════════════
+   MAIN LAYOUT
+══════════════════════════════════════════ */
+#app{
+  flex:1;display:flex;overflow:hidden;
+  /* subtract header + filter */
+  height:calc(100vh - var(--hdr) - var(--filter));
 }
-.modal-overlay.hidden{display:none}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
 
-.modal-box{
-  background:var(--bg2);border:1px solid var(--border);border-radius:20px;
-  box-shadow:0 20px 60px rgba(0,0,0,.6);padding:2rem;
-  width:90%;max-width:440px;animation:slideUp .2s;
+/* ─── Products panel ─────────────────────── */
+#products-panel{
+  flex:1;overflow-y:auto;padding:1rem;
+  scrollbar-width:thin;scrollbar-color:var(--border) transparent;
 }
-@keyframes slideUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+#products-panel::-webkit-scrollbar{width:4px}
+#products-panel::-webkit-scrollbar-track{background:transparent}
+#products-panel::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
 
-/* PIN Modal */
-#pin-modal .modal-box{text-align:center;max-width:360px}
-.pin-logo{font-size:2rem;margin-bottom:.5rem}
-.pin-title{font-size:1.1rem;font-weight:700;margin-bottom:.25rem;color:var(--text)}
-.pin-sub{font-size:.8rem;color:var(--muted);margin-bottom:1.5rem}
-.pin-dots{display:flex;justify-content:center;gap:.75rem;margin-bottom:1.5rem}
+#product-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:.75rem;
+}
+/* Vendeuse: bigger cards, faster scanning */
+body[data-mode="vendeuse"] #product-grid,
+body[data-mode="admin"] #product-grid{
+  grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+  gap:.6rem;
+}
+
+/* ─── Product card ─────────────────────── */
+.pcard{
+  background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);
+  overflow:hidden;display:flex;flex-direction:column;
+  transition:border-color .15s,transform .1s;position:relative;
+  cursor:pointer;
+}
+.pcard:hover{border-color:var(--lavender-d)}
+.pcard:active{transform:scale(.97)}
+.pcard.rupture{opacity:.45;pointer-events:none}
+.pcard.dernieres .pcard-img-wrap::after{
+  content:"⚠️ Dernières";position:absolute;bottom:4px;left:4px;
+  background:rgba(245,158,11,.9);color:#fff;font-size:.6rem;font-weight:700;
+  padding:.15rem .4rem;border-radius:4px;
+}
+.pcard-img-wrap{position:relative;aspect-ratio:4/3;overflow:hidden;background:var(--bg4);flex-shrink:0}
+.pcard-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .2s}
+.pcard:hover .pcard-img-wrap img{transform:scale(1.05)}
+.pcard-img-placeholder{
+  width:100%;height:100%;display:flex;align-items:center;justify-content:center;
+  font-size:2.5rem;color:var(--faint);
+}
+.pcard-badge{
+  position:absolute;top:6px;right:6px;
+  font-size:.58rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
+  padding:.2rem .5rem;border-radius:5px;
+}
+.pcard-badge.signature{background:var(--violet);color:#e9d5ff}
+.pcard-badge.populaire{background:var(--gold-bg);color:var(--gold);border:1px solid rgba(251,191,36,.3)}
+.pcard-badge.prestige{background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff}
+.pcard-body{padding:.7rem;flex:1;display:flex;flex-direction:column;gap:.3rem}
+.pcard-name{font-size:.85rem;font-weight:700;color:var(--text);line-height:1.2}
+.pcard-desc{font-size:.72rem;color:var(--muted);line-height:1.4;flex:1}
+.pcard-footer{display:flex;align-items:center;justify-content:space-between;margin-top:.4rem;gap:.4rem}
+.pcard-price{font-size:1rem;font-weight:800;color:var(--lavender)}
+.pcard-unit{font-size:.64rem;color:var(--faint);font-weight:400;display:block;margin-top:-2px}
+/* Client mode: show add button */
+body[data-mode="client"] .pcard-add-btn{
+  width:32px;height:32px;border-radius:50%;background:var(--violet);color:#fff;
+  font-size:1.1rem;display:flex;align-items:center;justify-content:center;
+  transition:background .15s;flex-shrink:0;
+}
+body[data-mode="client"] .pcard-add-btn:hover{background:var(--violet-l)}
+/* Vendeuse/admin: full card is clickable tap target */
+body[data-mode="vendeuse"] .pcard-add-btn,
+body[data-mode="admin"] .pcard-add-btn{display:none}
+body[data-mode="vendeuse"] .pcard-body,
+body[data-mode="admin"] .pcard-body{padding:.6rem}
+body[data-mode="vendeuse"] .pcard-name,
+body[data-mode="admin"] .pcard-name{font-size:.82rem}
+body[data-mode="vendeuse"] .pcard-price,
+body[data-mode="admin"] .pcard-price{font-size:.95rem}
+
+/* Allergen badges */
+.pcard-tags{display:flex;gap:.25rem;flex-wrap:wrap;margin-top:.3rem}
+.tag{font-size:.58rem;padding:.12rem .4rem;border-radius:3px;font-weight:600}
+.tag.veg{background:var(--green-bg);color:var(--green-l);border:1px solid var(--green-border)}
+.tag.vegan{background:rgba(74,222,128,.12);color:#4ade80;border:1px solid rgba(74,222,128,.25)}
+.tag.halal{background:rgba(251,191,36,.1);color:var(--gold);border:1px solid rgba(251,191,36,.2)}
+
+/* Admin stock/price controls */
+.pcard-admin-bar{
+  display:none;border-top:1px solid var(--border);
+  padding:.4rem .7rem;gap:.4rem;align-items:center;
+}
+body[data-mode="admin"] .pcard-admin-bar{display:flex}
+.stock-sel{
+  flex:1;background:var(--bg4);border:1px solid var(--border2);color:var(--text);
+  border-radius:5px;padding:.25rem .4rem;font-size:.68rem;
+}
+.btn-soldé{
+  padding:.25rem .5rem;font-size:.65rem;font-weight:700;
+  background:var(--orange-bg);color:var(--orange);border:1px solid var(--orange-border);
+  border-radius:5px;white-space:nowrap;
+}
+.btn-edit-price{
+  padding:.25rem .5rem;font-size:.65rem;font-weight:700;
+  background:var(--blue-bg);color:#93c5fd;border:1px solid var(--blue-border);
+  border-radius:5px;
+}
+
+/* Sold-out overlay */
+.rupture-label{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:rgba(14,11,26,.75);font-size:.75rem;font-weight:700;color:var(--red);
+  letter-spacing:.06em;text-transform:uppercase;pointer-events:none;
+}
+
+/* ─── EMPTY STATE ────────────────────────── */
+#empty-state{
+  display:none;flex-direction:column;align-items:center;justify-content:center;
+  padding:4rem 2rem;text-align:center;gap:1rem;color:var(--muted);
+}
+#empty-state .icon{font-size:3rem;opacity:.5}
+#empty-state p{font-size:.9rem}
+
+/* ══════════════════════════════════════════
+   CART PANEL
+══════════════════════════════════════════ */
+#cart-panel{
+  width:var(--cart-w);flex-shrink:0;
+  background:var(--bg2);border-left:1px solid var(--border);
+  display:flex;flex-direction:column;
+  transition:transform .3s;
+}
+/* Portrait: bottom sheet */
+@media(orientation:portrait),(max-width:768px){
+  #app{flex-direction:column;height:auto;overflow:visible}
+  body{overflow:auto}
+  #products-panel{height:auto;overflow:visible;padding:.75rem}
+  #cart-panel{
+    width:100%;border-left:none;border-top:1px solid var(--border);
+    max-height:400px;
+  }
+}
+
+.cart-hdr{
+  padding:.85rem 1rem;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;flex-shrink:0;
+}
+.cart-title{font-size:.95rem;font-weight:700;color:var(--text)}
+.cart-count{
+  background:var(--violet);color:#fff;font-size:.7rem;font-weight:800;
+  width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+}
+.cart-items{flex:1;overflow-y:auto;padding:.5rem;display:flex;flex-direction:column;gap:.4rem}
+.cart-items::-webkit-scrollbar{width:3px}
+.cart-items::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+
+/* Cart item */
+.ci{
+  background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius-sm);
+  padding:.6rem .75rem;display:flex;align-items:center;gap:.6rem;
+}
+.ci-name{flex:1;font-size:.8rem;font-weight:600;color:var(--text);line-height:1.2}
+.ci-unit-price{font-size:.68rem;color:var(--muted)}
+.ci-qty{display:flex;align-items:center;gap:.3rem;flex-shrink:0}
+.ci-qty-btn{
+  width:26px;height:26px;border-radius:50%;border:1px solid var(--border2);
+  background:var(--bg4);color:var(--text);font-size:.9rem;
+  display:flex;align-items:center;justify-content:center;transition:all .1s;
+}
+.ci-qty-btn:hover{background:var(--violet);border-color:var(--violet)}
+.ci-qty-num{font-size:.85rem;font-weight:700;min-width:20px;text-align:center}
+.ci-total{font-size:.85rem;font-weight:700;color:var(--lavender);flex-shrink:0;min-width:48px;text-align:right}
+.ci-remove{
+  width:24px;height:24px;border-radius:50%;background:transparent;
+  color:var(--faint);font-size:.9rem;display:flex;align-items:center;justify-content:center;
+  transition:all .1s;flex-shrink:0;
+}
+.ci-remove:hover{background:var(--red-bg);color:var(--red)}
+
+/* Cart empty */
+.cart-empty{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:2rem;gap:.75rem;color:var(--faint);text-align:center;
+}
+.cart-empty .icon{font-size:2.5rem;opacity:.4}
+.cart-empty p{font-size:.8rem}
+
+/* Cart footer */
+.cart-footer{
+  border-top:1px solid var(--border);padding:.75rem 1rem;
+  display:flex;flex-direction:column;gap:.5rem;flex-shrink:0;
+}
+.cart-total-row{display:flex;justify-content:space-between;align-items:baseline}
+.cart-total-label{font-size:.8rem;color:var(--muted);font-weight:600}
+.cart-total-amount{font-size:1.6rem;font-weight:800;color:var(--text)}
+.cart-total-amount span{font-size:.85rem;font-weight:500;color:var(--muted)}
+
+/* Checkout button */
+.btn-checkout{
+  width:100%;padding:1rem;border-radius:var(--radius);font-size:1rem;font-weight:800;
+  letter-spacing:.02em;border:none;cursor:pointer;transition:all .15s;
+  min-height:52px;display:flex;align-items:center;justify-content:center;gap:.5rem;
+}
+.btn-checkout.primary{
+  background:linear-gradient(135deg,var(--violet),var(--violet-l));color:#fff;
+  box-shadow:0 4px 16px rgba(91,44,141,.4);
+}
+.btn-checkout.primary:hover{box-shadow:0 6px 24px rgba(91,44,141,.6);transform:translateY(-1px)}
+.btn-checkout.primary:active{transform:scale(.98)}
+.btn-checkout:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shadow:none!important}
+.btn-new-order{
+  width:100%;padding:.7rem;border-radius:var(--radius-sm);font-size:.85rem;font-weight:700;
+  background:var(--bg4);color:var(--muted);border:1px solid var(--border2);
+  cursor:pointer;transition:all .15s;
+}
+.btn-new-order:hover{background:var(--bg5);color:var(--text)}
+
+/* Client mode: WhatsApp / delivery note */
+.cart-note{
+  display:none;font-size:.72rem;color:var(--muted);text-align:center;line-height:1.4;
+  padding:.3rem 0;
+}
+body[data-mode="client"] .cart-note{display:block}
+
+/* ══════════════════════════════════════════
+   MODALS
+══════════════════════════════════════════ */
+.modal-backdrop{
+  position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(4px);
+  z-index:100;display:flex;align-items:center;justify-content:center;padding:1rem;
+  opacity:0;pointer-events:none;transition:opacity .2s;
+}
+.modal-backdrop.open{opacity:1;pointer-events:all}
+.modal{
+  background:var(--bg3);border:1px solid var(--border2);border-radius:20px;
+  width:100%;max-width:420px;max-height:90vh;overflow-y:auto;
+  box-shadow:var(--shadow);
+  transform:translateY(16px) scale(.97);transition:transform .2s;
+}
+.modal-backdrop.open .modal{transform:none}
+.modal-hdr{
+  padding:1.25rem 1.5rem 0;display:flex;align-items:center;justify-content:space-between;
+}
+.modal-title{font-size:1.15rem;font-weight:800;color:var(--text)}
+.modal-close{
+  width:32px;height:32px;border-radius:50%;background:var(--bg4);
+  color:var(--muted);font-size:1rem;display:flex;align-items:center;justify-content:center;
+  border:1px solid var(--border);cursor:pointer;
+}
+.modal-close:hover{color:var(--text)}
+.modal-body{padding:1.25rem 1.5rem 1.5rem;display:flex;flex-direction:column;gap:1rem}
+.modal-sub{font-size:.8rem;color:var(--muted);text-align:center}
+
+/* ── PIN modal ── */
+#pin-display{
+  display:flex;gap:.5rem;justify-content:center;margin:.5rem 0;
+}
 .pin-dot{
-  width:14px;height:14px;border-radius:50%;
-  border:2px solid var(--border2);background:transparent;transition:all .15s;
+  width:14px;height:14px;border-radius:50%;border:2px solid var(--border2);
+  background:transparent;transition:background .15s;
 }
 .pin-dot.filled{background:var(--lavender);border-color:var(--lavender)}
-.pin-dot.error{background:var(--red);border-color:var(--red)}
-.pin-dot.ok{background:var(--green);border-color:var(--green)}
-.pin-pad{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;max-width:260px;margin:0 auto}
+.pin-pad{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem}
 .pin-key{
-  aspect-ratio:1;border-radius:var(--radius-sm);border:1px solid var(--border2);
-  background:var(--bg3);color:var(--text);font-family:var(--font);
-  font-size:1.3rem;font-weight:600;cursor:pointer;transition:all .15s;
-  display:flex;align-items:center;justify-content:center;
+  height:56px;border-radius:var(--radius-sm);background:var(--bg4);
+  border:1px solid var(--border2);color:var(--text);font-size:1.3rem;font-weight:700;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  transition:all .1s;user-select:none;
 }
-.pin-key:hover{background:var(--bg4);border-color:var(--lavender)}
-.pin-key:active{transform:scale(.95);background:var(--violet)}
-.pin-key.clr{font-size:.8rem;color:var(--muted)}
-.pin-key.back{font-size:1.1rem}
-.pin-cancel{margin-top:1rem;font-size:.78rem;color:var(--muted);background:none;border:none;cursor:pointer;font-family:var(--font)}
-.pin-cancel:hover{color:var(--text)}
-@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
-.shake{animation:shake .3s}
+.pin-key:hover{background:var(--bg5);border-color:var(--lavender-d)}
+.pin-key:active{transform:scale(.93);background:var(--violet)}
+.pin-key.danger{color:var(--red)}
+.pin-key.wide{grid-column:span 2;font-size:.9rem}
+.pin-error{color:var(--red);font-size:.8rem;text-align:center;min-height:1.2em}
 
-/* Barcode Modal */
-#barcode-modal .modal-box{text-align:center;max-width:400px}
-#barcode-title{font-size:1rem;font-weight:700;margin-bottom:.25rem}
-#barcode-unit{font-size:.75rem;color:var(--muted);margin-bottom:1.25rem}
-#barcode-svg{display:block;margin:0 auto;max-width:100%;border-radius:8px;overflow:hidden}
-#barcode-code{font-size:.7rem;color:var(--muted);margin-top:.75rem;font-family:monospace}
-.modal-close{
-  margin-top:1.25rem;padding:.55rem 1.5rem;border-radius:var(--radius-sm);
-  border:1px solid var(--border2);background:transparent;
-  color:var(--muted);font-family:var(--font);font-size:.82rem;cursor:pointer;transition:all .15s;
+/* ── Checkout modal ── */
+.payment-btns{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+.pay-btn{
+  padding:1.25rem .75rem;border-radius:var(--radius);border:2px solid var(--border2);
+  background:var(--bg4);color:var(--text);cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;gap:.5rem;
+  transition:all .15s;
 }
-.modal-close:hover{border-color:var(--lavender);color:var(--lavender)}
+.pay-btn:hover{border-color:var(--lavender-d);background:var(--bg5)}
+.pay-btn.selected{border-color:var(--violet-l);background:rgba(124,58,237,.15)}
+.pay-btn-icon{font-size:2rem}
+.pay-btn-label{font-size:.85rem;font-weight:700}
+.cash-section,.card-section{display:none}
+.cash-section.active,.card-section.active{display:flex;flex-direction:column;gap:.75rem}
+.input-row{display:flex;flex-direction:column;gap:.35rem}
+.input-label{font-size:.75rem;font-weight:600;color:var(--muted)}
+.pos-input{
+  width:100%;padding:.7rem .9rem;background:var(--bg4);border:1px solid var(--border2);
+  color:var(--text);border-radius:var(--radius-sm);font-size:1.1rem;font-weight:700;
+}
+.pos-input:focus{border-color:var(--lavender-d);outline:none}
+.change-display{
+  background:var(--green-bg);border:1px solid var(--green-border);border-radius:var(--radius-sm);
+  padding:.9rem;display:flex;justify-content:space-between;align-items:center;
+}
+.change-label{font-size:.8rem;color:var(--green-l);font-weight:600}
+.change-amount{font-size:1.5rem;font-weight:800;color:var(--green-l)}
+.card-info{
+  background:var(--blue-bg);border:1px solid var(--blue-border);border-radius:var(--radius-sm);
+  padding:1rem;text-align:center;
+}
+.card-info .total-big{font-size:2rem;font-weight:800;color:var(--lavender-l);margin:.5rem 0}
+.card-info p{font-size:.85rem;color:var(--muted)}
+.card-info .sumup{font-size:1rem;font-weight:700;color:#93c5fd;margin-top:.25rem}
+.btn-confirm{
+  width:100%;padding:1rem;border-radius:var(--radius);font-size:1rem;font-weight:800;
+  background:linear-gradient(135deg,var(--green),#059669);color:#fff;
+  border:none;cursor:pointer;transition:all .15s;min-height:52px;
+}
+.btn-confirm:hover{box-shadow:0 4px 16px rgba(16,185,129,.4);transform:translateY(-1px)}
+.btn-confirm:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
 
-/* Scanner Modal */
-#scanner-modal .modal-box{max-width:500px;padding:1.5rem}
-#scanner-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}
-#scanner-header h2{font-size:1rem;font-weight:700}
-#scanner-video-wrap{
-  border-radius:var(--radius-sm);overflow:hidden;background:var(--bg3);
-  min-height:280px;position:relative;
+/* ── Receipt modal ── */
+.receipt-items{
+  background:var(--bg4);border:1px solid var(--border);border-radius:var(--radius-sm);
+  padding:.75rem;display:flex;flex-direction:column;gap:.4rem;max-height:200px;overflow-y:auto;
 }
-#scanner-video-wrap #qr-reader{width:100%}
-#scanner-video-wrap #qr-reader video{border-radius:var(--radius-sm)}
-#scanner-result{
-  margin-top:1rem;padding:.875rem;border-radius:var(--radius-sm);
-  background:var(--bg3);border:1px solid var(--border);display:none;
+.receipt-item{display:flex;justify-content:space-between;font-size:.8rem;color:var(--text2)}
+.receipt-divider{border:none;border-top:1px dashed var(--border2);margin:.25rem 0}
+.receipt-total{display:flex;justify-content:space-between;font-size:1rem;font-weight:800;color:var(--text)}
+.receipt-method{
+  font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;
+  padding:.3rem .75rem;border-radius:20px;display:inline-block;align-self:center;
 }
-#scanner-result.visible{display:block;animation:fadeIn .2s}
-#scanner-result .sr-name{font-weight:700;font-size:.95rem;margin-bottom:.25rem}
-#scanner-result .sr-info{font-size:.75rem;color:var(--muted)}
-#scanner-result .sr-sold{font-size:.78rem;color:var(--green);margin-top:.4rem;font-weight:600}
-#scanner-tip{font-size:.72rem;color:var(--muted);text-align:center;margin-top:.75rem}
+.receipt-method.cash{background:var(--gold-bg);color:var(--gold);border:1px solid rgba(251,191,36,.3)}
+.receipt-method.card{background:var(--blue-bg);color:#93c5fd;border:1px solid var(--blue-border)}
+.btn-print{
+  padding:.75rem;border-radius:var(--radius-sm);font-size:.85rem;font-weight:700;
+  background:var(--bg4);color:var(--muted);border:1px solid var(--border2);
+  cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:.5rem;
+}
+.btn-print:hover{background:var(--bg5);color:var(--text)}
+.btn-new-order-big{
+  width:100%;padding:1rem;border-radius:var(--radius);font-size:1rem;font-weight:800;
+  background:linear-gradient(135deg,var(--violet),var(--violet-l));color:#fff;
+  border:none;cursor:pointer;transition:all .15s;min-height:52px;
+}
+.btn-new-order-big:hover{box-shadow:0 4px 16px rgba(91,44,141,.4);transform:translateY(-1px)}
 
-/* Summary Modal */
-#summary-modal .modal-box{max-width:560px;max-height:80vh;overflow-y:auto;padding:1.5rem}
-#summary-modal h2{font-size:1.1rem;font-weight:700;margin-bottom:1.25rem;padding-bottom:.75rem;border-bottom:1px solid var(--border)}
-.sum-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:.5rem;margin-bottom:1.25rem}
-.sum-stat{
-  background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius-sm);
-  padding:.875rem;text-align:center;
+/* ── Daily summary modal ── */
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+.stat-card{
+  background:var(--bg4);border:1px solid var(--border);border-radius:var(--radius-sm);
+  padding:.85rem;display:flex;flex-direction:column;gap:.2rem;
 }
-.sum-stat .val{font-size:1.8rem;font-weight:700;line-height:1}
-.sum-stat .lbl{font-size:.68rem;color:var(--muted);margin-top:.3rem;text-transform:uppercase;letter-spacing:.06em}
-.sum-table{width:100%;border-collapse:collapse;font-size:.78rem}
-.sum-table th{color:var(--muted);font-weight:600;text-align:left;padding:.4rem .5rem;border-bottom:1px solid var(--border);font-size:.68rem;text-transform:uppercase}
-.sum-table td{padding:.5rem;border-bottom:1px solid rgba(255,255,255,.04);vertical-align:middle}
-.sum-table tr:last-child td{border-bottom:none}
-.st-status{display:inline-block;padding:.15rem .45rem;border-radius:6px;font-size:.65rem;font-weight:700}
-.st-av{background:var(--green-bg);color:var(--green)}
-.st-lw{background:var(--orange-bg);color:var(--orange)}
-.st-sl{background:var(--gold-bg);color:var(--gold)}
-.st-ru{background:var(--red-bg);color:var(--red)}
-.sum-actions{display:flex;gap:.5rem;margin-top:1.25rem;flex-wrap:wrap}
-.sum-actions button{flex:1;padding:.6rem;border-radius:var(--radius-sm);font-family:var(--font);font-size:.78rem;font-weight:600;cursor:pointer;transition:all .15s}
-#btn-export{background:var(--violet);border:none;color:#fff}
-#btn-export:hover{background:var(--violet-l)}
-#btn-reset-confirm{background:var(--red-bg);border:1px solid rgba(239,68,68,.3);color:var(--red)}
-#btn-reset-confirm:hover{background:var(--red);color:#fff}
+.stat-label{font-size:.7rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.stat-value{font-size:1.4rem;font-weight:800;color:var(--text)}
+.stat-value.green{color:var(--green-l)}
+.stat-value.gold{color:var(--gold)}
+.stat-value.lavender{color:var(--lavender)}
+.txn-list{max-height:200px;overflow-y:auto;display:flex;flex-direction:column;gap:.35rem}
+.txn-row{
+  display:flex;align-items:center;gap:.5rem;font-size:.75rem;
+  background:var(--bg4);border:1px solid var(--border);border-radius:var(--radius-xs);
+  padding:.4rem .6rem;
+}
+.txn-time{color:var(--faint);font-variant-numeric:tabular-nums;min-width:40px}
+.txn-items{flex:1;color:var(--muted)}
+.txn-total{font-weight:700;color:var(--text);min-width:54px;text-align:right}
+.txn-method{font-size:.65rem;font-weight:700;padding:.15rem .4rem;border-radius:4px}
+.txn-method.cash{background:var(--gold-bg);color:var(--gold)}
+.txn-method.card{background:var(--blue-bg);color:#93c5fd}
+.btn-export{
+  padding:.7rem;border-radius:var(--radius-sm);font-size:.82rem;font-weight:700;
+  background:var(--bg4);color:var(--muted);border:1px solid var(--border2);
+  cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:.5rem;
+}
+.btn-export:hover{background:var(--bg5);color:var(--text)}
 
-/* Empty state */
-#empty{
-  grid-column:1/-1;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  padding:3rem;color:var(--faint);text-align:center;gap:.5rem;
+/* ── Admin edit product modal ── */
+.form-group{display:flex;flex-direction:column;gap:.35rem}
+.form-label{font-size:.75rem;font-weight:600;color:var(--muted)}
+.form-input{
+  width:100%;padding:.65rem .9rem;background:var(--bg4);border:1px solid var(--border2);
+  color:var(--text);border-radius:var(--radius-sm);font-size:.9rem;
 }
-#empty .em-icon{font-size:3rem}
-#empty .em-msg{font-size:.85rem}
+.form-input:focus{border-color:var(--lavender-d)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+.btn-save{
+  padding:.8rem;border-radius:var(--radius-sm);font-size:.9rem;font-weight:700;
+  background:var(--violet);color:#fff;border:none;cursor:pointer;transition:all .15s;
+}
+.btn-save:hover{background:var(--violet-l)}
 
-/* Scan result toast */
-#scan-toast{
-  position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);
-  background:var(--bg2);border:1px solid var(--green);border-radius:var(--radius);
-  padding:.875rem 1.25rem;box-shadow:var(--shadow);z-index:200;
-  display:none;animation:slideUp .2s;min-width:280px;max-width:90vw;
+/* ── Client checkout modal (Stripe placeholder) ── */
+.stripe-placeholder{
+  background:var(--bg4);border:1px solid var(--border2);border-radius:var(--radius);
+  padding:1.5rem;text-align:center;display:flex;flex-direction:column;gap:.75rem;align-items:center;
 }
-#scan-toast.visible{display:block}
-#scan-toast .t-name{font-weight:700;font-size:.9rem;margin-bottom:.25rem;color:var(--text)}
-#scan-toast .t-info{font-size:.75rem;color:var(--muted)}
-#scan-toast .t-action{font-size:.75rem;color:var(--green);font-weight:600;margin-top:.35rem}
+.stripe-placeholder .icon{font-size:2.5rem}
+.stripe-placeholder h3{font-size:1rem;font-weight:700;color:var(--text)}
+.stripe-placeholder p{font-size:.82rem;color:var(--muted);line-height:1.5}
+.btn-whatsapp{
+  padding:.85rem 1.5rem;border-radius:var(--radius);font-size:.9rem;font-weight:700;
+  background:#25d366;color:#fff;border:none;cursor:pointer;transition:all .15s;
+  display:flex;align-items:center;gap:.5rem;text-decoration:none;
+}
+.btn-whatsapp:hover{background:#22c55e}
+.delivery-note{
+  background:var(--orange-bg);border:1px solid var(--orange-border);border-radius:var(--radius-sm);
+  padding:.75rem;font-size:.78rem;color:var(--orange);line-height:1.5;
+}
 
-/* Scrollbar global */
-::-webkit-scrollbar{width:6px;height:6px}
-::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+/* ── Admin add product modal ── */
+/* reuses form-group, form-input, form-label, btn-save */
 
-/* Responsive */
-@media(max-width:600px){
-  #grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
-  body.staff-view #grid{grid-template-columns:1fr}
-  .status-btns{flex-wrap:wrap}
+/* ══════════════════════════════════════════
+   PRINT
+══════════════════════════════════════════ */
+@media print{
+  body{background:#fff;color:#000}
+  #hdr,#filters,#products-panel,#cart-panel,
+  .modal-backdrop:not(#receipt-modal){display:none!important}
+  #receipt-modal{position:static!important;opacity:1!important;pointer-events:all!important;background:transparent}
+  #receipt-modal .modal{box-shadow:none;border:none;max-width:100%;background:#fff;color:#000}
 }
-@media(min-width:1024px){
-  #grid{grid-template-columns:repeat(auto-fill,minmax(230px,1fr))}
-  body.staff-view #grid{grid-template-columns:repeat(auto-fill,minmax(340px,1fr))}
-}
+
+/* ══════════════════════════════════════════
+   UTILITY
+══════════════════════════════════════════ */
+.hidden{display:none!important}
+.flex{display:flex}
+.gap-sm{gap:.5rem}
+.fw-bold{font-weight:700}
+.text-muted{color:var(--muted)}
+.text-sm{font-size:.8rem}
 </style>
 </head>
-<body>
+<body data-mode="client">
 
-<!-- ══ PIN MODAL ════════════════════════════════════ -->
-<div id="pin-modal" class="modal-overlay hidden">
-  <div class="modal-box">
-    <div class="pin-logo">🔐</div>
-    <div class="pin-title">Mode Vendeuse</div>
-    <div class="pin-sub">Entrez votre code PIN à 4 chiffres</div>
-    <div class="pin-dots">
-      <div class="pin-dot" id="pd0"></div>
-      <div class="pin-dot" id="pd1"></div>
-      <div class="pin-dot" id="pd2"></div>
-      <div class="pin-dot" id="pd3"></div>
-    </div>
-    <div class="pin-pad">
-      <button class="pin-key" onclick="pinKey('1')">1</button>
-      <button class="pin-key" onclick="pinKey('2')">2</button>
-      <button class="pin-key" onclick="pinKey('3')">3</button>
-      <button class="pin-key" onclick="pinKey('4')">4</button>
-      <button class="pin-key" onclick="pinKey('5')">5</button>
-      <button class="pin-key" onclick="pinKey('6')">6</button>
-      <button class="pin-key" onclick="pinKey('7')">7</button>
-      <button class="pin-key" onclick="pinKey('8')">8</button>
-      <button class="pin-key" onclick="pinKey('9')">9</button>
-      <button class="pin-key clr" onclick="pinClear()">Effacer</button>
-      <button class="pin-key" onclick="pinKey('0')">0</button>
-      <button class="pin-key back" onclick="pinBack()">⌫</button>
-    </div>
-    <button class="pin-cancel" onclick="closePinModal()">Annuler</button>
-  </div>
-</div>
-
-<!-- ══ BARCODE MODAL ═════════════════════════════════ -->
-<div id="barcode-modal" class="modal-overlay hidden">
-  <div class="modal-box">
-    <div id="barcode-title">Produit</div>
-    <div id="barcode-unit"></div>
-    <svg id="barcode-svg"></svg>
-    <div id="barcode-code"></div>
-    <button class="modal-close" onclick="closeBarcodeModal()">Fermer</button>
-  </div>
-</div>
-
-<!-- ══ SCANNER MODAL ════════════════════════════════= -->
-<div id="scanner-modal" class="modal-overlay hidden">
-  <div class="modal-box">
-    <div id="scanner-header">
-      <h2>📷 Scanner un produit</h2>
-      <button class="modal-close" style="margin:0" onclick="closeScanner()">✕</button>
-    </div>
-    <div id="scanner-video-wrap">
-      <div id="qr-reader"></div>
-    </div>
-    <div id="scanner-result">
-      <div class="sr-name" id="sr-name"></div>
-      <div class="sr-info" id="sr-info"></div>
-      <div class="sr-sold" id="sr-sold"></div>
-    </div>
-    <div id="scanner-tip">Pointez la caméra vers le code-barres du produit</div>
-  </div>
-</div>
-
-<!-- ══ SUMMARY MODAL ════════════════════════════════= -->
-<div id="summary-modal" class="modal-overlay hidden">
-  <div class="modal-box">
-    <h2 id="summary-title">Bilan du jour</h2>
-    <div class="sum-stats" id="sum-stats"></div>
-    <table class="sum-table">
-      <thead>
-        <tr>
-          <th>Produit</th>
-          <th>Statut</th>
-          <th>Stock</th>
-        </tr>
-      </thead>
-      <tbody id="sum-tbody"></tbody>
-    </table>
-    <div class="sum-actions">
-      <button id="btn-export" onclick="exportSummary()">⬇ Exporter</button>
-      <button id="btn-reset-confirm" onclick="confirmReset()">🔄 Reset journée</button>
-      <button class="modal-close" style="flex:none;margin:0;min-width:80px" onclick="closeSummary()">Fermer</button>
-    </div>
-  </div>
-</div>
-
-<!-- ══ SCAN TOAST ════════════════════════════════════ -->
-<div id="scan-toast">
-  <div class="t-name" id="toast-name"></div>
-  <div class="t-info" id="toast-info"></div>
-  <div class="t-action" id="toast-action"></div>
-</div>
-
-<!-- ══ HEADER ════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════
+     HEADER
+══════════════════════════════════════════ -->
 <header id="hdr">
-  <div id="hdr-logo">
-    <span class="badge">NIMARA</span>
+  <div class="hdr-brand">
+    <span class="hdr-badge">NIMARA</span>
     <div>
-      <div class="title">Rue des Délices</div>
-      <div class="sub">Point de vente</div>
+      <div class="hdr-title">Délices</div>
+      <div class="hdr-sub">Le stand gourmand</div>
     </div>
   </div>
-  <div id="hdr-right">
-    <span id="mode-badge" class="client">Client</span>
-    <button id="btn-scan" onclick="openScanner()" title="Scanner un produit" style="display:none">📷</button>
-    <button id="btn-toggle-mode" onclick="handleModeToggle()">Mode Vendeuse</button>
-  </div>
+  <div class="hdr-spacer"></div>
+  <div id="daily-total">CA: CHF <span id="daily-total-val">0.00</span></div>
+  <span id="mode-badge" class="client">Client</span>
+  <button class="hdr-btn" id="btn-summary" title="Bilan du jour" onclick="openModal('summary-modal')">📊</button>
+  <button class="hdr-btn" title="Paramètres / Mode" onclick="openModal('pin-modal')">⚙️</button>
 </header>
 
-<!-- ══ FILTER BAR ════════════════════════════════════ -->
-<div id="filters">
-  <button class="f-btn active" data-cat="all" onclick="setCategory('all')">🍽 Tout</button>
-  <button class="f-btn" data-cat="sucre" onclick="setCategory('sucre')">🍰 Douceurs</button>
-  <button class="f-btn" data-cat="sale" onclick="setCategory('sale')">🍛 Saveurs du Monde</button>
-  <button class="f-btn" data-cat="formules" onclick="setCategory('formules')">🎉 Formules</button>
-  <div class="f-sep"></div>
-  <button class="f-diet" id="f-veg" onclick="toggleDiet('vegetarian')">🌱 Végétarien</button>
-  <button class="f-diet" id="f-vegan" onclick="toggleDiet('vegan')">🌿 Vegan</button>
-  <button class="f-diet" id="f-halal" onclick="toggleDiet('halal')">☪ Halal</button>
+<!-- ══════════════════════════════════════════
+     FILTER BAR
+══════════════════════════════════════════ -->
+<nav id="filters">
+  <button class="fil-btn active" data-filter="all">Tout</button>
+  <button class="fil-btn" data-filter="sucre">🍰 Douceurs</button>
+  <button class="fil-btn" data-filter="sale">🍛 Saveurs du Monde</button>
+  <button class="fil-btn" data-filter="formules">🎉 Formules</button>
+  <div class="fil-sep"></div>
+  <button class="fil-btn" data-filter="vegetarian">🌿 Végétarien</button>
+  <button class="fil-btn" data-filter="vegan">🌱 Vegan</button>
+  <button class="fil-btn" data-filter="halal">☪️ Halal</button>
+</nav>
+
+<!-- ══════════════════════════════════════════
+     MAIN APP
+══════════════════════════════════════════ -->
+<div id="app">
+
+  <!-- Products panel -->
+  <main id="products-panel">
+    <div id="product-grid"></div>
+    <div id="empty-state">
+      <div class="icon">🔍</div>
+      <p>Aucun produit pour ce filtre</p>
+    </div>
+  </main>
+
+  <!-- Cart panel -->
+  <aside id="cart-panel">
+    <div class="cart-hdr">
+      <span class="cart-title">🛒 Panier</span>
+      <span class="cart-count" id="cart-count">0</span>
+    </div>
+    <div class="cart-items" id="cart-items">
+      <div class="cart-empty">
+        <div class="icon">🛒</div>
+        <p>Le panier est vide</p>
+      </div>
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total-row">
+        <span class="cart-total-label">Total</span>
+        <span class="cart-total-amount">CHF <span id="cart-total">0.00</span></span>
+      </div>
+      <p class="cart-note">🚚 Livraison via <a href="https://ubereats.com" target="_blank" style="color:var(--lavender)">UberEats</a> · ❓ <a href="https://wa.me/41XXXXXXXXX" target="_blank" style="color:var(--green-l)">WhatsApp</a></p>
+      <button class="btn-checkout primary" id="btn-checkout" disabled onclick="handleCheckout()">
+        Passer commande
+      </button>
+    </div>
+  </aside>
+
 </div>
 
-<!-- ══ PRODUCT GRID ══════════════════════════════════ -->
-<div id="grid-wrap">
-  <div id="grid"></div>
+<!-- ══════════════════════════════════════════
+     MODAL: PIN
+══════════════════════════════════════════ -->
+<div class="modal-backdrop" id="pin-modal">
+  <div class="modal">
+    <div class="modal-hdr">
+      <span class="modal-title">🔐 Accès</span>
+      <button class="modal-close" onclick="closeModal('pin-modal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <p class="modal-sub">Entrez le code PIN pour accéder au mode vendeuse ou admin</p>
+      <div id="pin-display">
+        <div class="pin-dot" id="pd0"></div>
+        <div class="pin-dot" id="pd1"></div>
+        <div class="pin-dot" id="pd2"></div>
+        <div class="pin-dot" id="pd3"></div>
+      </div>
+      <p class="pin-error" id="pin-error"></p>
+      <div class="pin-pad">
+        <button class="pin-key" onclick="pinPress('1')">1</button>
+        <button class="pin-key" onclick="pinPress('2')">2</button>
+        <button class="pin-key" onclick="pinPress('3')">3</button>
+        <button class="pin-key" onclick="pinPress('4')">4</button>
+        <button class="pin-key" onclick="pinPress('5')">5</button>
+        <button class="pin-key" onclick="pinPress('6')">6</button>
+        <button class="pin-key" onclick="pinPress('7')">7</button>
+        <button class="pin-key" onclick="pinPress('8')">8</button>
+        <button class="pin-key" onclick="pinPress('9')">9</button>
+        <button class="pin-key danger" onclick="pinClear()">⌫</button>
+        <button class="pin-key" onclick="pinPress('0')">0</button>
+        <button class="pin-key wide" onclick="switchToClient()" style="grid-column:3;font-size:.75rem">Mode Client</button>
+      </div>
+    </div>
+  </div>
 </div>
 
-<!-- ══ STAFF FOOTER ══════════════════════════════════ -->
-<div id="staff-bar">
-  <button class="sbar-btn" onclick="openSummary()">📊 Bilan journalier</button>
-  <div id="sbar-stats"></div>
+<!-- ══════════════════════════════════════════
+     MODAL: CHECKOUT (Vendeuse/Admin)
+══════════════════════════════════════════ -->
+<div class="modal-backdrop" id="checkout-modal">
+  <div class="modal">
+    <div class="modal-hdr">
+      <span class="modal-title">💳 Paiement</span>
+      <button class="modal-close" onclick="closeModal('checkout-modal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div style="text-align:center">
+        <div style="font-size:.85rem;color:var(--muted);margin-bottom:.25rem">Total à encaisser</div>
+        <div style="font-size:2.2rem;font-weight:800;color:var(--lavender-l)">CHF <span id="checkout-total">0.00</span></div>
+      </div>
+      <div class="payment-btns">
+        <button class="pay-btn" id="pay-cash-btn" onclick="selectPayment('cash')">
+          <span class="pay-btn-icon">💵</span>
+          <span class="pay-btn-label">CASH</span>
+        </button>
+        <button class="pay-btn" id="pay-card-btn" onclick="selectPayment('card')">
+          <span class="pay-btn-icon">💳</span>
+          <span class="pay-btn-label">CARTE</span>
+          <span style="font-size:.65rem;color:var(--muted)">SumUp</span>
+        </button>
+      </div>
+
+      <!-- Cash flow -->
+      <div class="cash-section" id="cash-section">
+        <div class="input-row">
+          <label class="input-label">Montant reçu (CHF)</label>
+          <input type="number" class="pos-input" id="cash-received" placeholder="0.00" step="0.05" min="0" oninput="calcChange()">
+        </div>
+        <div class="change-display" id="change-display" style="display:none">
+          <span class="change-label">💰 Monnaie à rendre</span>
+          <span class="change-amount" id="change-amount">CHF 0.00</span>
+        </div>
+        <button class="btn-confirm" id="btn-confirm-cash" onclick="confirmPayment('cash')" disabled>
+          ✅ Confirmer — Rendre la monnaie
+        </button>
+      </div>
+
+      <!-- Card flow -->
+      <div class="card-section" id="card-section">
+        <div class="card-info">
+          <div style="font-size:.85rem;color:var(--muted)">Faire payer</div>
+          <div class="total-big">CHF <span id="card-total-display">0.00</span></div>
+          <p>Présentez le terminal SumUp au client</p>
+          <div class="sumup">📱 Passez sur SumUp</div>
+        </div>
+        <button class="btn-confirm" onclick="confirmPayment('card')">
+          ✅ Paiement reçu — Confirmer
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
 
-<!-- ══ CDN SCRIPTS ═══════════════════════════════════ -->
-<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
-<script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+<!-- ══════════════════════════════════════════
+     MODAL: CLIENT CHECKOUT (Stripe placeholder)
+══════════════════════════════════════════ -->
+<div class="modal-backdrop" id="client-checkout-modal">
+  <div class="modal">
+    <div class="modal-hdr">
+      <span class="modal-title">🛒 Commander</span>
+      <button class="modal-close" onclick="closeModal('client-checkout-modal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div style="text-align:center">
+        <div style="font-size:.85rem;color:var(--muted)">Total de votre commande</div>
+        <div style="font-size:2rem;font-weight:800;color:var(--lavender-l);margin:.25rem 0">CHF <span id="client-checkout-total">0.00</span></div>
+      </div>
+      <div class="stripe-placeholder">
+        <div class="icon">💳</div>
+        <h3>Paiement en ligne bientôt disponible</h3>
+        <p>Pour précommander et régler en avance, contactez-nous directement sur WhatsApp. Nous confirmerons votre commande et l'heure de retrait.</p>
+        <a class="btn-whatsapp" href="https://wa.me/41XXXXXXXXX?text=Bonjour%2C%20je%20voudrais%20précommander%20chez%20Nimara%20Délices%20!" target="_blank">
+          📱 Précommander sur WhatsApp
+        </a>
+      </div>
+      <div class="delivery-note">
+        🚚 <strong>Livraison à domicile</strong> disponible via <strong>UberEats</strong> — retrouvez-nous sur l'app UberEats pour vous faire livrer.
+      </div>
+    </div>
+  </div>
+</div>
 
-<!-- ══ APP SCRIPT ════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════
+     MODAL: RECEIPT
+══════════════════════════════════════════ -->
+<div class="modal-backdrop" id="receipt-modal">
+  <div class="modal">
+    <div class="modal-hdr">
+      <span class="modal-title">🧾 Reçu</span>
+      <button class="modal-close" onclick="closeModal('receipt-modal');newOrder()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div style="text-align:center;padding:.5rem 0">
+        <div style="font-size:2rem">✅</div>
+        <div style="font-size:.9rem;font-weight:700;color:var(--green-l);margin-top:.3rem">Paiement confirmé</div>
+      </div>
+      <div class="receipt-items" id="receipt-items"></div>
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <span class="receipt-method" id="receipt-method"></span>
+        <div class="receipt-total">
+          <span>Total: CHF <span id="receipt-total">0.00</span></span>
+        </div>
+      </div>
+      <div id="receipt-change-row" style="display:none;font-size:.85rem;color:var(--green-l);text-align:center;font-weight:700"></div>
+      <button class="btn-print" onclick="window.print()">🖨️ Imprimer le reçu</button>
+      <button class="btn-new-order-big" onclick="closeModal('receipt-modal');newOrder()">
+        🆕 Nouvelle commande
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     MODAL: DAILY SUMMARY
+══════════════════════════════════════════ -->
+<div class="modal-backdrop" id="summary-modal">
+  <div class="modal" style="max-width:480px">
+    <div class="modal-hdr">
+      <span class="modal-title">📊 Bilan du jour</span>
+      <button class="modal-close" onclick="closeModal('summary-modal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="stat-grid" id="stat-grid"></div>
+      <div>
+        <div style="font-size:.8rem;font-weight:700;color:var(--muted);margin-bottom:.5rem">Transactions</div>
+        <div class="txn-list" id="txn-list"></div>
+      </div>
+      <div style="display:flex;gap:.5rem">
+        <button class="btn-export" style="flex:1" onclick="exportCSV()">📥 Export CSV</button>
+        <button class="btn-export" style="flex:1" onclick="resetDay()" style="color:var(--red)">🗑️ Reset journée</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     MODAL: ADMIN EDIT PRODUCT
+══════════════════════════════════════════ -->
+<div class="modal-backdrop" id="edit-product-modal">
+  <div class="modal">
+    <div class="modal-hdr">
+      <span class="modal-title">✏️ Modifier produit</span>
+      <button class="modal-close" onclick="closeModal('edit-product-modal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="edit-product-id">
+      <div class="form-group">
+        <label class="form-label">Nom</label>
+        <input type="text" class="form-input" id="edit-name">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Description</label>
+        <textarea class="form-input" id="edit-desc" rows="2" style="resize:none"></textarea>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Prix (CHF)</label>
+          <input type="number" class="form-input" id="edit-price" step="0.5" min="0">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Unité</label>
+          <input type="text" class="form-input" id="edit-unit" placeholder="pièce">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">URL Photo</label>
+        <input type="text" class="form-input" id="edit-image" placeholder="/assets/images/products/...">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Stock</label>
+        <select class="form-input" id="edit-stock">
+          <option value="disponible">✅ Disponible</option>
+          <option value="dernieres">⚠️ Dernières pièces</option>
+          <option value="rupture">❌ Rupture de stock</option>
+        </select>
+      </div>
+      <button class="btn-save" onclick="saveProductEdit()">💾 Enregistrer</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     MODAL: ADMIN ADD PRODUCT
+══════════════════════════════════════════ -->
+<div class="modal-backdrop" id="add-product-modal">
+  <div class="modal">
+    <div class="modal-hdr">
+      <span class="modal-title">➕ Nouveau produit</span>
+      <button class="modal-close" onclick="closeModal('add-product-modal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">Nom</label>
+        <input type="text" class="form-input" id="new-name">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Description</label>
+        <textarea class="form-input" id="new-desc" rows="2" style="resize:none"></textarea>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Prix (CHF)</label>
+          <input type="number" class="form-input" id="new-price" step="0.5" min="0">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Unité</label>
+          <input type="text" class="form-input" id="new-unit" placeholder="pièce">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Catégorie</label>
+        <select class="form-input" id="new-category">
+          <option value="sucre">🍰 Douceurs</option>
+          <option value="sale">🍛 Saveurs du Monde</option>
+          <option value="formules">🎉 Formules</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">URL Photo</label>
+        <input type="text" class="form-input" id="new-image" placeholder="/assets/images/products/...">
+      </div>
+      <div class="form-group" style="display:flex;gap:1rem;flex-wrap:wrap">
+        <label style="display:flex;align-items:center;gap:.4rem;font-size:.8rem;cursor:pointer">
+          <input type="checkbox" id="new-veg"> 🌿 Végétarien
+        </label>
+        <label style="display:flex;align-items:center;gap:.4rem;font-size:.8rem;cursor:pointer">
+          <input type="checkbox" id="new-vegan"> 🌱 Vegan
+        </label>
+        <label style="display:flex;align-items:center;gap:.4rem;font-size:.8rem;cursor:pointer">
+          <input type="checkbox" id="new-halal"> ☪️ Halal
+        </label>
+      </div>
+      <button class="btn-save" onclick="saveNewProduct()">➕ Ajouter au menu</button>
+    </div>
+  </div>
+</div>
+
 <script>
-// ─── DATA (injected at build time from menu.json) ────────────────────────────
-const PRODUCTS = {{ menu.products | dump | safe }};
-const CATEGORIES = {{ menu.categories | dump | safe }};
-const WA_NUM = '{{ site.whatsapp }}';
-
-// ─── ALLERGEN ICONS ──────────────────────────────────────────────────────────
-const ALLERGEN_ICONS = {
-  gluten: '🌾',
-  lactose: '🥛',
-  oeufs: '🥚',
-  fruits_a_coque: '🥜',
-  sesame: '🌰',
+/* ══════════════════════════════════════════
+   EMBEDDED MENU DATA
+══════════════════════════════════════════ */
+const MENU_DATA = {
+  categories: [
+    { id: "sucre",    label: "Douceurs",           icon: "🍰" },
+    { id: "sale",     label: "Saveurs du Monde",   icon: "🍛" },
+    { id: "formules", label: "Formules Événements",icon: "🎉" }
+  ],
+  allergenKeys: {
+    gluten: "Gluten", lactose: "Lactose", oeufs: "Œufs",
+    fruits_a_coque: "Fruits à coque", sesame: "Sésame"
+  },
+  products: [
+    { id:1,  category:"sucre",    name:"Banana Bread",              desc:"Moelleux, caramélisé, pépites de chocolat. Notre signature.", price:27.50, unit:"cake entier", badges:["signature"], vegetarian:true,  vegan:false, halal:false, image:"/assets/images/products/banana-bread.png" },
+    { id:2,  category:"sucre",    name:"Bircher Muesli",            desc:"Frais, yaourt, fruits de saison. Disponible framboise et mangue.", price:5.50, unit:"portion", badges:[], vegetarian:true, vegan:false, halal:false, image:"/assets/images/products/bircher-muesli.png" },
+    { id:3,  category:"sucre",    name:"Brookie",                   desc:"Le meilleur du brownie et du cookie réunis. Irrésistible.", price:4.50, unit:"pièce", badges:["populaire"], vegetarian:true, vegan:false, halal:false, image:"/assets/images/products/brookie.png" },
+    { id:4,  category:"sucre",    name:"Brownie",                   desc:"Fondant, chocolat noir intense.", price:3.50, unit:"pièce", badges:[], vegetarian:true, vegan:false, halal:false, image:"/assets/images/products/brownie.png" },
+    { id:5,  category:"sucre",    name:"Cake Citron",               desc:"Acidulé, glaçage subtil. Fraîcheur garantie.", price:26.00, unit:"cake entier", badges:[], vegetarian:true, vegan:false, halal:false, image:"/assets/images/products/cake-citron.png" },
+    { id:6,  category:"sucre",    name:"Cake Marbré",               desc:"Vanille & chocolat, moelleux à souhait.", price:28.00, unit:"cake entier", badges:[], vegetarian:true, vegan:false, halal:false, image:"/assets/images/products/cake-marbre.png" },
+    { id:7,  category:"sucre",    name:"Cake Pomme",                desc:"Pommes caramélisées, cannelle douce.", price:26.00, unit:"cake entier", badges:[], vegetarian:true, vegan:false, halal:false, image:"/assets/images/products/cake-pomme-orange.png" },
+    { id:8,  category:"sucre",    name:"Carrot Cake",               desc:"Épices douces, cream cheese onctueux.", price:28.00, unit:"cake entier", badges:[], vegetarian:true, vegan:false, halal:false, image:"/assets/images/products/carrot-cake.png" },
+    { id:9,  category:"sucre",    name:"Cheesecake Spéculos",       desc:"Onctueux, base croustillante au spéculos.", price:32.00, unit:"pièce", badges:["populaire"], vegetarian:true, vegan:false, halal:false, image:"/assets/images/products/cheesecake-speculos.png" },
+    { id:10, category:"sucre",    name:"Cinnamon Roll",             desc:"Cannelle, glaçage vanille.", price:4.00, unit:"pièce", badges:[], vegetarian:true, vegan:false, halal:false, image:"/assets/images/products/cinnamon-roll.png" },
+    { id:11, category:"sucre",    name:"Pecan Pie",                 desc:"Caramel, noix de pécan. Un classique américain revisité.", price:34.00, unit:"pièce", badges:["prestige"], vegetarian:true, vegan:false, halal:false, image:"/assets/images/products/pecan-pie.png" },
+    { id:12, category:"sale",     name:"Naans",                     desc:"Nature, ail ou fromage. Pâte fraîche chaque matin.", price:3.50, unit:"pièce", badges:[], vegetarian:true, vegan:false, halal:true, image:"/assets/images/products/Naan nature.jpeg" },
+    { id:13, category:"sale",     name:"Samosas",                   desc:"Légumes, menthe fraîche. Croustillants et parfumés.", price:3.00, unit:"pièce", badges:[], vegetarian:true, vegan:false, halal:true, image:"/assets/images/products/Samosa aux légumes.jpeg" },
+    { id:14, category:"sale",     name:"Pakora",                    desc:"Épinards, oignon, épices maison. Végétalien.", price:2.50, unit:"pièce", badges:[], vegetarian:true, vegan:true, halal:true, image:"/assets/images/products/Pakora aux legumes.jpeg" },
+    { id:15, category:"sale",     name:"Poulet Tikka Masala",       desc:"Mijoté lentement, épices maison torréfiées.", price:18.00, unit:"portion", badges:["signature"], vegetarian:false, vegan:false, halal:true, image:"/assets/images/products/tandoori chicken.jpeg" },
+    { id:16, category:"sale",     name:"Butter Chicken",            desc:"Sauce onctueuse à la tomate, crème et épices douces. Le classique indien.", price:18.00, unit:"portion", badges:["populaire"], vegetarian:false, vegan:false, halal:true, image:"/assets/images/products/butter-chicken.jpeg" },
+    { id:17, category:"sale",     name:"Boeuf aux 8 Épices",        desc:"Boeuf braisé, mélange maison de 8 épices torréfiées.", price:20.00, unit:"portion", badges:[], vegetarian:false, vegan:false, halal:true, image:"/assets/images/products/boeuf-8-epices.jpeg" },
+    { id:18, category:"sale",     name:"Poulet Vindaloo",           desc:"Relevé, vinaigré, épicé. Pour les amateurs de sensations.", price:18.00, unit:"portion", badges:[], vegetarian:false, vegan:false, halal:true, image:"/assets/images/products/poulet-vindaloo.jpeg" },
+    { id:19, category:"sale",     name:"Poulet Mangue",             desc:"Doux, fruité, mangue fraîche et épices légères.", price:18.00, unit:"portion", badges:[], vegetarian:false, vegan:false, halal:true, image:"/assets/images/products/poulet-mangue.jpeg" },
+    { id:20, category:"sale",     name:"Crevettes Curry",           desc:"Crevettes juteuses, sauce curry maison.", price:22.00, unit:"portion", badges:[], vegetarian:false, vegan:false, halal:true, image:"/assets/images/products/crevettes-curry.jpeg" },
+    { id:21, category:"sale",     name:"Curry Pois Chiches",        desc:"Réconfortant, épicé, 100% végétal.", price:14.00, unit:"portion", badges:[], vegetarian:true, vegan:true, halal:true, image:"/assets/images/products/pois-chiches.jpeg" },
+    { id:22, category:"sale",     name:"Saag Aloo",                 desc:"Épinards, pommes de terre, épices douces.", price:14.00, unit:"portion", badges:[], vegetarian:true, vegan:true, halal:true, image:"/assets/images/products/saag-epinards.png" },
+    { id:23, category:"sale",     name:"Dal Rouge",                 desc:"Lentilles corail, cumin, réconfortant.", price:12.00, unit:"portion", badges:[], vegetarian:true, vegan:true, halal:true, image:"/assets/images/products/dal-rouge.png" },
+    { id:24, category:"sale",     name:"Pâte Feuilletée Épinards Feta", desc:"Feuilletée, épinards frais et feta fondante.", price:5.00, unit:"pièce", badges:[], vegetarian:true, vegan:false, halal:true, image:"/assets/images/products/Triangle feta miel.jpeg" },
+    { id:25, category:"formules", name:"Box Petit-Déjeuner",        desc:"Birchers, banana bread, cinnamon rolls, cakes. Dès 10 personnes.", price:15.00, unit:"par personne", badges:[], vegetarian:true, vegan:false, halal:false, image:"/assets/images/products/hero-patisseries.png" },
+    { id:26, category:"formules", name:"Formule Déjeuner",          desc:"Curry, naans, riz, accompagnements. Dès 15 personnes.", price:24.00, unit:"par personne", badges:[], vegetarian:false, vegan:false, halal:true, image:"/assets/images/products/curry-poulet-epices.png" },
+    { id:27, category:"formules", name:"Buffet Complet",            desc:"Sucré & salé, curries, pâtisseries, boissons. Dès 20 personnes.", price:42.00, unit:"par personne", badges:["prestige"], vegetarian:false, vegan:false, halal:false, image:"/assets/images/products/plat-indien-fumant.png" },
+    { id:28, category:"formules", name:"Cocktail Saveurs du Monde", desc:"Samosas, pakora, naans, curries en mini-portions. Dès 30 personnes.", price:28.00, unit:"par personne", badges:[], vegetarian:false, vegan:false, halal:true, image:"/assets/images/products/hero-patisseries.png" }
+  ]
 };
-const ALLERGEN_LABELS = {
-  gluten: 'Gluten', lactose: 'Lactose', oeufs: 'Œufs',
-  fruits_a_coque: 'Fruits à coque', sesame: 'Sésame',
+
+/* ══════════════════════════════════════════
+   STATE
+══════════════════════════════════════════ */
+const LS = {
+  get: k => { try { return JSON.parse(localStorage.getItem(k)) } catch(e) { return null } },
+  set: (k,v) => { try { localStorage.setItem(k, JSON.stringify(v)) } catch(e){} }
 };
 
-// ─── STATE ────────────────────────────────────────────────────────────────────
-const STATE_KEY = 'nimara_pos_stock';
-const LOG_KEY   = 'nimara_pos_sales';
+let state = {
+  mode: 'client',          // 'client' | 'vendeuse' | 'admin'
+  filter: 'all',
+  cart: [],                // [{id, name, price, qty}]
+  stock: LS.get('pos_stock') || {},        // {id: 'disponible'|'dernieres'|'rupture'}
+  productMods: LS.get('pos_mods') || {},   // {id: {name?, desc?, price?, unit?, image?}}
+  customProducts: LS.get('pos_custom') || [], // added by admin
+  sales: LS.get('pos_sales') || [],        // [{ts, items, total, method}]
+  pinBuffer: ''
+};
 
-let mode = 'client';   // 'client' | 'staff'
-let filters = { category: 'all', vegetarian: false, vegan: false, halal: false };
-let stock = {};        // { [id]: { status, quantity, salePercent } }
-let salesLog = [];     // [{ productId, ts }]
-let scanner = null;
-let pinBuffer = '';
-const PIN = '1234';
-
-// ── Load / init stock ────────────────────────────────────────────────────────
-function loadState() {
-  try {
-    const saved = localStorage.getItem(STATE_KEY);
-    if (saved) {
-      stock = JSON.parse(saved);
-      // Merge in any new products not yet in saved state
-      PRODUCTS.forEach(p => {
-        if (!stock[p.id]) stock[p.id] = { status: 'available', quantity: p.batch, salePercent: 30 };
-      });
-    } else {
-      initStock();
-    }
-  } catch (_) { initStock(); }
-
-  try {
-    const savedLog = localStorage.getItem(LOG_KEY);
-    salesLog = savedLog ? JSON.parse(savedLog) : [];
-  } catch (_) { salesLog = []; }
+/* Merge base + custom products */
+function allProducts() {
+  return [...MENU_DATA.products, ...state.customProducts];
 }
 
-function initStock() {
-  stock = {};
-  PRODUCTS.forEach(p => {
-    stock[p.id] = { status: 'available', quantity: p.batch, salePercent: 30 };
-  });
+/* Get effective product (with admin overrides) */
+function getProduct(id) {
+  const base = allProducts().find(p => p.id === id);
+  if (!base) return null;
+  const m = state.productMods[id] || {};
+  return { ...base, ...m };
 }
 
-function saveStock() {
-  localStorage.setItem(STATE_KEY, JSON.stringify(stock));
+/* Stock status for product */
+function stockStatus(id) {
+  return state.stock[id] || 'disponible';
 }
 
-function saveSalesLog() {
-  localStorage.setItem(LOG_KEY, JSON.stringify(salesLog));
+/* ══════════════════════════════════════════
+   FILTER LOGIC
+══════════════════════════════════════════ */
+function filteredProducts() {
+  let products = allProducts();
+  const f = state.filter;
+  if (f === 'sucre' || f === 'sale' || f === 'formules') {
+    products = products.filter(p => p.category === f);
+  } else if (f === 'vegetarian') {
+    products = products.filter(p => p.vegetarian);
+  } else if (f === 'vegan') {
+    products = products.filter(p => p.vegan);
+  } else if (f === 'halal') {
+    products = products.filter(p => p.halal);
+  }
+  // In admin: skip rupture filter (can still manage them)
+  if (state.mode !== 'admin') {
+    // hide hidden products (but keep rupture so client sees "sold out")
+  }
+  return products;
 }
 
-// ─── BARCODE HELPERS ──────────────────────────────────────────────────────────
-function productBarcode(p) {
-  return 'NIM' + String(p.id).padStart(4, '0');
+/* ══════════════════════════════════════════
+   CART LOGIC
+══════════════════════════════════════════ */
+function cartTotal() {
+  return state.cart.reduce((s, i) => s + i.price * i.qty, 0);
+}
+function cartItemCount() {
+  return state.cart.reduce((s, i) => s + i.qty, 0);
+}
+function addToCart(id) {
+  const p = getProduct(id);
+  if (!p) return;
+  const existing = state.cart.find(i => i.id === id);
+  if (existing) {
+    existing.qty++;
+  } else {
+    state.cart.push({ id, name: p.name, price: p.price, unit: p.unit, qty: 1 });
+  }
+  renderCart();
+  // Tactile feedback
+  const btn = document.querySelector(`.pcard[data-id="${id}"]`);
+  if (btn) { btn.style.transform = 'scale(.95)'; setTimeout(() => btn.style.transform = '', 150); }
+}
+function changeQty(id, delta) {
+  const item = state.cart.find(i => i.id === id);
+  if (!item) return;
+  item.qty += delta;
+  if (item.qty <= 0) state.cart = state.cart.filter(i => i.id !== id);
+  renderCart();
+}
+function removeFromCart(id) {
+  state.cart = state.cart.filter(i => i.id !== id);
+  renderCart();
+}
+function newOrder() {
+  state.cart = [];
+  renderCart();
 }
 
-function findProductByBarcode(code) {
-  return PRODUCTS.find(p => productBarcode(p) === code) || null;
-}
-
-// ─── FILTERING ────────────────────────────────────────────────────────────────
-function visibleProducts() {
-  return PRODUCTS.filter(p => {
-    if (filters.category !== 'all' && p.category !== filters.category) return false;
-    if (filters.vegetarian && !p.vegetarian) return false;
-    if (filters.vegan && !p.vegan) return false;
-    if (filters.halal && !p.halal) return false;
+/* ══════════════════════════════════════════
+   RENDER: PRODUCTS
+══════════════════════════════════════════ */
+function renderProducts() {
+  const products = filteredProducts();
+  const grid = document.getElementById('product-grid');
+  const empty = document.getElementById('empty-state');
+  const visible = products.filter(p => {
+    if (state.mode !== 'admin' && stockStatus(p.id) === 'rupture') return false;
     return true;
   });
+
+  if (visible.length === 0) {
+    grid.innerHTML = '';
+    empty.style.display = 'flex';
+    return;
+  }
+  empty.style.display = 'none';
+
+  grid.innerHTML = products.map(p => {
+    const mods = state.productMods[p.id] || {};
+    const eff = { ...p, ...mods };
+    const stock = stockStatus(p.id);
+    const isRupture = stock === 'rupture';
+    const isDernieres = stock === 'dernieres';
+
+    // Badge
+    const badgeHtml = eff.badges && eff.badges.length
+      ? `<span class="pcard-badge ${eff.badges[0]}">${eff.badges[0] === 'signature' ? '⭐ Signature' : eff.badges[0] === 'populaire' ? '🔥 Populaire' : '👑 Prestige'}</span>`
+      : '';
+
+    // Image
+    const imgHtml = eff.image
+      ? `<img src="${eff.image}" alt="${eff.name}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
+      : '';
+    const placeholderIcon = eff.category === 'sucre' ? '🍰' : eff.category === 'sale' ? '🍛' : '🎉';
+
+    // Tags
+    const tags = [];
+    if (eff.vegetarian) tags.push('<span class="tag veg">🌿 Végé</span>');
+    if (eff.vegan) tags.push('<span class="tag vegan">🌱 Vegan</span>');
+    if (eff.halal) tags.push('<span class="tag halal">☪️ Halal</span>');
+
+    // Add button (client mode only)
+    const addBtn = state.mode === 'client'
+      ? `<button class="pcard-add-btn" onclick="event.stopPropagation();addToCart(${p.id})" aria-label="Ajouter au panier">+</button>`
+      : '';
+
+    // Admin bar
+    const adminBar = state.mode === 'admin' ? `
+      <div class="pcard-admin-bar">
+        <select class="stock-sel" onchange="setStock(${p.id},this.value)">
+          <option value="disponible" ${stock==='disponible'?'selected':''}>✅ Dispo</option>
+          <option value="dernieres" ${stock==='dernieres'?'selected':''}>⚠️ Dernières</option>
+          <option value="rupture" ${stock==='rupture'?'selected':''}>❌ Rupture</option>
+        </select>
+        <button class="btn-soldé" onclick="event.stopPropagation();soldé(${p.id})">-30%</button>
+        <button class="btn-edit-price" onclick="event.stopPropagation();openEditProduct(${p.id})">✏️</button>
+      </div>` : '';
+
+    const ruptureBadge = isRupture ? '<div class="rupture-label">Rupture</div>' : '';
+
+    return `
+      <div class="pcard ${isRupture?'rupture':''} ${isDernieres?'dernieres':''}"
+           data-id="${p.id}"
+           onclick="handleCardClick(${p.id})"
+           role="button" tabindex="0"
+           aria-label="${eff.name} — CHF ${eff.price.toFixed(2)}">
+        <div class="pcard-img-wrap">
+          ${imgHtml}
+          <div class="pcard-img-placeholder" style="display:${eff.image?'none':'flex'}">${placeholderIcon}</div>
+          ${badgeHtml}
+          ${ruptureBadge}
+        </div>
+        <div class="pcard-body">
+          <div class="pcard-name">${eff.name}</div>
+          <div class="pcard-desc">${eff.desc || eff.description || ''}</div>
+          <div class="pcard-tags">${tags.join('')}</div>
+          <div class="pcard-footer">
+            <div>
+              <div class="pcard-price">CHF ${eff.price.toFixed(2)}</div>
+              <span class="pcard-unit">/ ${eff.unit}</span>
+            </div>
+            ${addBtn}
+          </div>
+        </div>
+        ${adminBar}
+      </div>`;
+  }).join('');
 }
 
-// ─── RENDER ───────────────────────────────────────────────────────────────────
-function render() {
-  const grid = document.getElementById('grid');
-  const products = visibleProducts();
+function handleCardClick(id) {
+  if (state.mode === 'client') return; // client uses the + button
+  if (stockStatus(id) === 'rupture' && state.mode !== 'admin') return;
+  addToCart(id);
+}
 
-  if (!products.length) {
-    grid.innerHTML = '<div id="empty"><div class="em-icon">🔍</div><div class="em-msg">Aucun produit ne correspond aux filtres sélectionnés.</div></div>';
+/* ══════════════════════════════════════════
+   RENDER: CART
+══════════════════════════════════════════ */
+function renderCart() {
+  const total = cartTotal();
+  const count = cartItemCount();
+  document.getElementById('cart-total').textContent = total.toFixed(2);
+  document.getElementById('cart-count').textContent = count;
+
+  const btn = document.getElementById('btn-checkout');
+  btn.disabled = count === 0;
+
+  const container = document.getElementById('cart-items');
+  if (state.cart.length === 0) {
+    container.innerHTML = '<div class="cart-empty"><div class="icon">🛒</div><p>Le panier est vide</p></div>';
     return;
   }
 
-  grid.innerHTML = products.map(p => renderCard(p)).join('');
-  updateStaffBar();
+  container.innerHTML = state.cart.map(item => `
+    <div class="ci">
+      <div style="flex:1">
+        <div class="ci-name">${item.name}</div>
+        <div class="ci-unit-price">CHF ${item.price.toFixed(2)} / ${item.unit || 'pcs'}</div>
+      </div>
+      <div class="ci-qty">
+        <button class="ci-qty-btn" onclick="changeQty(${item.id},-1)" aria-label="Moins">−</button>
+        <span class="ci-qty-num">${item.qty}</span>
+        <button class="ci-qty-btn" onclick="changeQty(${item.id},1)" aria-label="Plus">+</button>
+      </div>
+      <span class="ci-total">CHF ${(item.price * item.qty).toFixed(2)}</span>
+      <button class="ci-remove" onclick="removeFromCart(${item.id})" aria-label="Supprimer">✕</button>
+    </div>`).join('');
+
+  updateDailyTotal();
 }
 
-function renderCard(p) {
-  const s = stock[p.id] || { status: 'available', quantity: p.batch, salePercent: 30 };
-  const isStaff = mode === 'staff';
-  const isRupture = s.status === 'rupture';
-  const isSale = s.status === 'sale';
-  const isLow = s.status === 'low';
+/* ══════════════════════════════════════════
+   CHECKOUT
+══════════════════════════════════════════ */
+function handleCheckout() {
+  if (state.cart.length === 0) return;
+  if (state.mode === 'client') {
+    document.getElementById('client-checkout-total').textContent = cartTotal().toFixed(2);
+    openModal('client-checkout-modal');
+    return;
+  }
+  // Vendeuse / Admin: POS checkout
+  const total = cartTotal().toFixed(2);
+  document.getElementById('checkout-total').textContent = total;
+  document.getElementById('card-total-display').textContent = total;
+  document.getElementById('cash-received').value = '';
+  document.getElementById('change-display').style.display = 'none';
+  document.getElementById('btn-confirm-cash').disabled = true;
+  document.getElementById('cash-section').classList.remove('active');
+  document.getElementById('card-section').classList.remove('active');
+  document.getElementById('pay-cash-btn').classList.remove('selected');
+  document.getElementById('pay-card-btn').classList.remove('selected');
+  openModal('checkout-modal');
+}
 
-  // In client mode: hide rupture products
-  if (!isStaff && isRupture) return '';
+let selectedPayment = null;
+function selectPayment(method) {
+  selectedPayment = method;
+  document.getElementById('pay-cash-btn').classList.toggle('selected', method === 'cash');
+  document.getElementById('pay-card-btn').classList.toggle('selected', method === 'card');
+  document.getElementById('cash-section').classList.toggle('active', method === 'cash');
+  document.getElementById('card-section').classList.toggle('active', method === 'card');
+  if (method === 'cash') {
+    setTimeout(() => document.getElementById('cash-received').focus(), 50);
+  }
+}
 
-  // Price display
-  const basePrice = 'CHF ' + p.price.toFixed(2);
-  let priceHtml;
-  if (isSale) {
-    const discounted = p.price * (1 - s.salePercent / 100);
-    priceHtml = '<span class="card__price-old">' + basePrice + '</span><span class="card__price card__price-sale">CHF ' + discounted.toFixed(2) + ' <span class="badge-pill bp-sale">-' + s.salePercent + '%</span></span>';
+function calcChange() {
+  const total = cartTotal();
+  const received = parseFloat(document.getElementById('cash-received').value) || 0;
+  const change = received - total;
+  const display = document.getElementById('change-display');
+  const btn = document.getElementById('btn-confirm-cash');
+  if (received > 0 && change >= 0) {
+    document.getElementById('change-amount').textContent = `CHF ${change.toFixed(2)}`;
+    display.style.display = 'flex';
+    btn.disabled = false;
+    btn.textContent = change > 0
+      ? `✅ Confirmer — Rendre CHF ${change.toFixed(2)}`
+      : '✅ Confirmer — Compte rond';
   } else {
-    priceHtml = '<span class="card__price">' + basePrice + '</span>';
+    display.style.display = 'none';
+    btn.disabled = true;
+  }
+}
+
+function confirmPayment(method) {
+  const total = cartTotal();
+  const received = method === 'cash' ? parseFloat(document.getElementById('cash-received').value) || 0 : null;
+  const change = method === 'cash' ? received - total : 0;
+
+  // Save transaction
+  const txn = {
+    ts: Date.now(),
+    items: state.cart.map(i => ({ id: i.id, name: i.name, qty: i.qty, price: i.price })),
+    total,
+    method,
+    change: method === 'cash' ? change : null
+  };
+  state.sales.push(txn);
+  LS.set('pos_sales', state.sales);
+
+  closeModal('checkout-modal');
+  showReceipt(txn);
+}
+
+/* ══════════════════════════════════════════
+   RECEIPT
+══════════════════════════════════════════ */
+function showReceipt(txn) {
+  const itemsHtml = txn.items.map(i =>
+    `<div class="receipt-item">
+       <span>${i.qty}× ${i.name}</span>
+       <span>CHF ${(i.price * i.qty).toFixed(2)}</span>
+     </div>`
+  ).join('<hr class="receipt-divider">');
+
+  document.getElementById('receipt-items').innerHTML = itemsHtml;
+  document.getElementById('receipt-total').textContent = txn.total.toFixed(2);
+
+  const methodEl = document.getElementById('receipt-method');
+  methodEl.textContent = txn.method === 'cash' ? '💵 Espèces' : '💳 Carte SumUp';
+  methodEl.className = `receipt-method ${txn.method}`;
+
+  const changeRow = document.getElementById('receipt-change-row');
+  if (txn.method === 'cash' && txn.change > 0) {
+    changeRow.style.display = 'block';
+    changeRow.textContent = `Monnaie rendue: CHF ${txn.change.toFixed(2)}`;
+  } else {
+    changeRow.style.display = 'none';
   }
 
-  // Badges
-  const badges = [];
-  if (p.badges && p.badges.includes('signature')) badges.push('<span class="badge-pill bp-sig">💫 Signature</span>');
-  if (p.badges && p.badges.includes('populaire')) badges.push('<span class="badge-pill bp-pop">⭐ Populaire</span>');
-  if (p.badges && p.badges.includes('prestige')) badges.push('<span class="badge-pill bp-pre">👑 Prestige</span>');
-  if (p.vegetarian && !p.vegan) badges.push('<span class="badge-pill bp-veg">🌱 Végé</span>');
-  if (p.vegan) badges.push('<span class="badge-pill bp-vegan">🌿 Vegan</span>');
-  if (p.halal) badges.push('<span class="badge-pill bp-halal">☪ Halal</span>');
-  if (isLow && !isStaff) badges.push('<span class="badge-pill bp-low">⚠️ Dernières pièces</span>');
-
-  // Allergens
-  const allergenHtml = p.allergens.length
-    ? '<div class="card__allergens">' + p.allergens.map(a => '<span class="allergen-tag" title="' + (ALLERGEN_LABELS[a] || a) + '">' + (ALLERGEN_ICONS[a] || '⚠') + ' ' + (ALLERGEN_LABELS[a] || a) + '</span>').join('') + '</div>'
-    : '';
-
-  // Status ring
-  const ringClass = { available:'sr-available', low:'sr-low', sale:'sr-sale', rupture:'sr-rupture' }[s.status] || 'sr-available';
-
-  // Image
-  const imgHtml = p.image
-    ? '<img class="card__img" src="' + p.image + '" alt="' + p.name.fr + '" loading="lazy" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">' +
-      '<div class="card__img-ph" style="display:none">' + (CATEGORIES.find(c => c.id === p.category) || {}).icon + '</div>'
-    : '<div class="card__img-ph">' + ((CATEGORIES.find(c => c.id === p.category) || {}).icon || '🍽') + '</div>';
-
-  // WhatsApp CTA (client mode only)
-  const waMsg = encodeURIComponent('Bonjour Nimara, je souhaite commander : ' + p.name.fr);
-  const waHtml = !isStaff
-    ? '<a class="card__wa" href="https://wa.me/' + WA_NUM + '?text=' + waMsg + '" target="_blank" rel="noopener">📱 Commander</a>'
-    : '';
-
-  // Staff controls
-  const staffCtrl = isStaff ? renderStaffControls(p, s) : '';
-
-  const dimClass = !isStaff && isRupture ? ' rupture-dim' : '';
-
-  return '<div class="card' + dimClass + '" id="card-' + p.id + '">' +
-    '<div class="status-ring ' + ringClass + '"></div>' +
-    imgHtml +
-    '<div class="card__body">' +
-      '<div class="card__name">' + p.name.fr + '<span class="card__unit"> · ' + p.unit + '</span></div>' +
-      '<div class="card__desc">' + p.description.fr + '</div>' +
-      '<div>' + priceHtml + '</div>' +
-      (badges.length ? '<div class="card__badges">' + badges.join('') + '</div>' : '') +
-      allergenHtml +
-      waHtml +
-    '</div>' +
-    staffCtrl +
-  '</div>';
+  openModal('receipt-modal');
+  updateDailyTotal();
 }
 
-function renderStaffControls(p, s) {
-  const av = s.status === 'available';
-  const lw = s.status === 'low';
-  const sl = s.status === 'sale';
-  const ru = s.status === 'rupture';
-
-  return '<div class="staff-controls">' +
-    '<div class="status-btns">' +
-      '<button class="s-btn av' + (av ? ' active-av' : '') + '" onclick="setStatus(' + p.id + ',\'available\')">✅ Dispo</button>' +
-      '<button class="s-btn lw' + (lw ? ' active-lw' : '') + '" onclick="setStatus(' + p.id + ',\'low\')">⚠️ Fin</button>' +
-      '<button class="s-btn sl' + (sl ? ' active-sl' : '') + '" onclick="setStatus(' + p.id + ',\'sale\')">🏷️ -30%</button>' +
-      '<button class="s-btn ru' + (ru ? ' active-ru' : '') + '" onclick="setStatus(' + p.id + ',\'rupture\')">❌ Rupture</button>' +
-    '</div>' +
-    '<div class="qty-row">' +
-      '<span class="qty-label">Stock</span>' +
-      '<div class="qty-ctrl">' +
-        '<button class="qty-btn" onclick="adjustQty(' + p.id + ',-1)">−</button>' +
-        '<span class="qty-num" id="qty-' + p.id + '">' + s.quantity + '</span>' +
-        '<button class="qty-btn" onclick="adjustQty(' + p.id + ',1)">+</button>' +
-      '</div>' +
-    '</div>' +
-    '<button class="barcode-btn" onclick="showBarcode(' + p.id + ')">🔡 Code-barres</button>' +
-  '</div>';
-}
-
-function updateStaffBar() {
-  const avCount  = PRODUCTS.filter(p => stock[p.id]?.status === 'available').length;
-  const lwCount  = PRODUCTS.filter(p => stock[p.id]?.status === 'low').length;
-  const slCount  = PRODUCTS.filter(p => stock[p.id]?.status === 'sale').length;
-  const ruCount  = PRODUCTS.filter(p => stock[p.id]?.status === 'rupture').length;
-  const todaySold = todaySalesCount();
-
-  document.getElementById('sbar-stats').innerHTML =
-    '<span class="stat-pill"><span class="sp-dot" style="background:var(--green)"></span>' + avCount + ' dispos</span>' +
-    '<span class="stat-pill"><span class="sp-dot" style="background:var(--orange)"></span>' + lwCount + ' fin</span>' +
-    '<span class="stat-pill"><span class="sp-dot" style="background:var(--red)"></span>' + ruCount + ' rupture</span>' +
-    '<span class="stat-pill"><span class="sp-dot" style="background:var(--lavender)"></span>' + todaySold + ' vendus</span>';
-}
-
-function todaySalesCount() {
+/* ══════════════════════════════════════════
+   DAILY SUMMARY
+══════════════════════════════════════════ */
+function updateDailyTotal() {
   const today = new Date().toDateString();
-  return salesLog.filter(s => new Date(s.ts).toDateString() === today).length;
+  const todaySales = state.sales.filter(s => new Date(s.ts).toDateString() === today);
+  const total = todaySales.reduce((s, t) => s + t.total, 0);
+  document.getElementById('daily-total-val').textContent = total.toFixed(2);
 }
 
-// ─── FILTERS ─────────────────────────────────────────────────────────────────
-function setCategory(cat) {
-  filters.category = cat;
-  document.querySelectorAll('.f-btn').forEach(b => {
-    b.classList.toggle('active', b.dataset.cat === cat);
-  });
-  render();
-}
-
-function toggleDiet(key) {
-  filters[key] = !filters[key];
-  const btn = document.getElementById('f-' + (key === 'vegetarian' ? 'veg' : key));
-  if (btn) btn.classList.toggle('active', filters[key]);
-  render();
-}
-
-// ─── MODE TOGGLE ─────────────────────────────────────────────────────────────
-function handleModeToggle() {
-  if (mode === 'client') {
-    openPinModal();
-  } else {
-    exitStaffMode();
-  }
-}
-
-function enterStaffMode() {
-  mode = 'staff';
-  document.body.classList.add('staff-view');
-  document.getElementById('mode-badge').className = 'staff';
-  document.getElementById('mode-badge').textContent = 'Vendeuse';
-  document.getElementById('btn-toggle-mode').textContent = 'Mode Client';
-  document.getElementById('btn-scan').style.display = 'flex';
-  render();
-}
-
-function exitStaffMode() {
-  mode = 'client';
-  document.body.classList.remove('staff-view');
-  document.getElementById('mode-badge').className = 'client';
-  document.getElementById('mode-badge').textContent = 'Client';
-  document.getElementById('btn-toggle-mode').textContent = 'Mode Vendeuse';
-  document.getElementById('btn-scan').style.display = 'none';
-  render();
-}
-
-// ─── PIN MODAL ────────────────────────────────────────────────────────────────
-function openPinModal() {
-  pinBuffer = '';
-  updatePinDots();
-  document.getElementById('pin-modal').classList.remove('hidden');
-}
-
-function closePinModal() {
-  pinBuffer = '';
-  document.getElementById('pin-modal').classList.add('hidden');
-}
-
-function pinKey(digit) {
-  if (pinBuffer.length >= 4) return;
-  pinBuffer += digit;
-  updatePinDots();
-  if (pinBuffer.length === 4) {
-    setTimeout(checkPin, 100);
-  }
-}
-
-function pinBack() {
-  pinBuffer = pinBuffer.slice(0, -1);
-  updatePinDots();
-}
-
-function pinClear() {
-  pinBuffer = '';
-  updatePinDots();
-}
-
-function updatePinDots() {
-  for (let i = 0; i < 4; i++) {
-    const dot = document.getElementById('pd' + i);
-    dot.className = 'pin-dot' + (i < pinBuffer.length ? ' filled' : '');
-  }
-}
-
-function checkPin() {
-  if (pinBuffer === PIN) {
-    for (let i = 0; i < 4; i++) document.getElementById('pd' + i).className = 'pin-dot ok';
-    setTimeout(() => {
-      closePinModal();
-      enterStaffMode();
-    }, 400);
-  } else {
-    for (let i = 0; i < 4; i++) document.getElementById('pd' + i).className = 'pin-dot error';
-    const box = document.querySelector('#pin-modal .modal-box');
-    box.classList.add('shake');
-    setTimeout(() => { box.classList.remove('shake'); pinBuffer = ''; updatePinDots(); }, 500);
-  }
-}
-
-// ─── STOCK ACTIONS ────────────────────────────────────────────────────────────
-function setStatus(productId, status) {
-  if (!stock[productId]) return;
-  stock[productId].status = status;
-  saveStock();
-  // Update just the card
-  const card = document.getElementById('card-' + productId);
-  if (card) {
-    const p = PRODUCTS.find(x => x.id === productId);
-    if (p) card.outerHTML = renderCard(p);
-  }
-  updateStaffBar();
-}
-
-function adjustQty(productId, delta) {
-  if (!stock[productId]) return;
-  const newQty = Math.max(0, stock[productId].quantity + delta);
-  stock[productId].quantity = newQty;
-  if (newQty === 0 && stock[productId].status !== 'rupture') {
-    stock[productId].status = 'rupture';
-  }
-  saveStock();
-  const qtyEl = document.getElementById('qty-' + productId);
-  if (qtyEl) qtyEl.textContent = newQty;
-  updateStaffBar();
-}
-
-function markSold(productId) {
-  adjustQty(productId, -1);
-  salesLog.push({ productId, ts: Date.now() });
-  saveSalesLog();
-  updateStaffBar();
-}
-
-// ─── BARCODE MODAL ────────────────────────────────────────────────────────────
-function showBarcode(productId) {
-  const p = PRODUCTS.find(x => x.id === productId);
-  if (!p) return;
-  const code = productBarcode(p);
-
-  document.getElementById('barcode-title').textContent = p.name.fr;
-  document.getElementById('barcode-unit').textContent = p.unit + ' · ' + 'CHF ' + p.price.toFixed(2);
-  document.getElementById('barcode-code').textContent = code;
-
-  // Clear previous barcode
-  const svg = document.getElementById('barcode-svg');
-  svg.innerHTML = '';
-
-  document.getElementById('barcode-modal').classList.remove('hidden');
-
-  // Render barcode after DOM update
-  requestAnimationFrame(() => {
-    try {
-      JsBarcode('#barcode-svg', code, {
-        format: 'CODE128',
-        lineColor: '#f0ebff',
-        background: '#1a1527',
-        width: 2.5,
-        height: 90,
-        displayValue: true,
-        font: 'DM Sans, sans-serif',
-        fontSize: 14,
-        margin: 16,
-      });
-    } catch(e) {
-      svg.innerHTML = '<text fill="#9d8cc4" style="font-size:14px">' + code + '</text>';
-    }
-  });
-}
-
-function closeBarcodeModal() {
-  document.getElementById('barcode-modal').classList.add('hidden');
-}
-
-// ─── SCANNER ─────────────────────────────────────────────────────────────────
-function openScanner() {
-  if (mode !== 'staff') return;
-  document.getElementById('scanner-modal').classList.remove('hidden');
-  document.getElementById('scanner-result').style.display = 'none';
-
-  if (typeof Html5Qrcode === 'undefined') {
-    document.getElementById('scanner-tip').textContent = 'Librairie de scan non disponible. Vérifiez la connexion internet.';
-    return;
-  }
-
-  scanner = new Html5Qrcode('qr-reader');
-  scanner.start(
-    { facingMode: 'environment' },
-    { fps: 10, qrbox: { width: 240, height: 180 } },
-    (decodedText) => { handleBarcodeScan(decodedText); },
-    () => {}
-  ).catch(err => {
-    document.getElementById('scanner-tip').textContent = 'Caméra non accessible : ' + err;
-  });
-}
-
-function closeScanner() {
-  document.getElementById('scanner-modal').classList.add('hidden');
-  if (scanner) {
-    scanner.stop().catch(() => {}).finally(() => { scanner = null; });
-  }
-}
-
-function handleBarcodeScan(code) {
-  const p = findProductByBarcode(code);
-  const resultEl = document.getElementById('scanner-result');
-
-  if (p) {
-    document.getElementById('sr-name').textContent = p.name.fr;
-    document.getElementById('sr-info').textContent = 'CHF ' + p.price.toFixed(2) + ' · ' + p.unit;
-    document.getElementById('sr-sold').textContent = '✅ Vendu — stock mis à jour';
-    resultEl.style.display = 'block';
-    markSold(p.id);
-
-    // Show toast and close scanner after 1.5s
-    showToast(p, 'vendu');
-    setTimeout(closeScanner, 1500);
-  } else {
-    document.getElementById('sr-name').textContent = 'Code non reconnu';
-    document.getElementById('sr-info').textContent = code;
-    document.getElementById('sr-sold').textContent = '';
-    resultEl.style.display = 'block';
-  }
-}
-
-// ─── TOAST ────────────────────────────────────────────────────────────────────
-let toastTimer = null;
-function showToast(p, action) {
-  const s = stock[p.id];
-  document.getElementById('toast-name').textContent = p.name.fr;
-  document.getElementById('toast-info').textContent = 'CHF ' + p.price.toFixed(2) + ' · stock restant: ' + (s ? s.quantity : '?');
-  document.getElementById('toast-action').textContent = action === 'vendu' ? '✅ Article marqué comme vendu' : '';
-  const toast = document.getElementById('scan-toast');
-  toast.classList.add('visible');
-  if (toastTimer) clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => toast.classList.remove('visible'), 3000);
-}
-
-// ─── SUMMARY MODAL ────────────────────────────────────────────────────────────
 function openSummary() {
   const today = new Date().toDateString();
-  const soldToday = salesLog.filter(s => new Date(s.ts).toDateString() === today);
-  const avCount  = PRODUCTS.filter(p => stock[p.id]?.status === 'available').length;
-  const lwCount  = PRODUCTS.filter(p => stock[p.id]?.status === 'low').length;
-  const slCount  = PRODUCTS.filter(p => stock[p.id]?.status === 'sale').length;
-  const ruCount  = PRODUCTS.filter(p => stock[p.id]?.status === 'rupture').length;
+  const todaySales = state.sales.filter(s => new Date(s.ts).toDateString() === today);
+  const total = todaySales.reduce((s, t) => s + t.total, 0);
+  const cash = todaySales.filter(t => t.method === 'cash').reduce((s, t) => s + t.total, 0);
+  const card = todaySales.filter(t => t.method === 'card').reduce((s, t) => s + t.total, 0);
+  const txnCount = todaySales.length;
 
-  document.getElementById('summary-title').textContent =
-    'Bilan — ' + new Date().toLocaleDateString('fr-CH', { day:'numeric', month:'long' });
+  // Top products
+  const productTotals = {};
+  todaySales.forEach(t => t.items.forEach(i => {
+    if (!productTotals[i.name]) productTotals[i.name] = { qty: 0, total: 0 };
+    productTotals[i.name].qty += i.qty;
+    productTotals[i.name].total += i.qty * i.price;
+  }));
+  const topProducts = Object.entries(productTotals).sort((a, b) => b[1].total - a[1].total).slice(0, 3);
 
-  document.getElementById('sum-stats').innerHTML =
-    stat(avCount, '✅', 'Disponibles', '#10b981') +
-    stat(lwCount, '⚠️', 'Dernières pièces', '#f59e0b') +
-    stat(ruCount, '❌', 'Rupture', '#ef4444') +
-    stat(soldToday.length, '📦', 'Vendus aujourd\'hui', '#a78bfa');
+  document.getElementById('stat-grid').innerHTML = `
+    <div class="stat-card"><span class="stat-label">CA Total</span><span class="stat-value green">CHF ${total.toFixed(2)}</span></div>
+    <div class="stat-card"><span class="stat-label">Transactions</span><span class="stat-value lavender">${txnCount}</span></div>
+    <div class="stat-card"><span class="stat-label">💵 Cash</span><span class="stat-value gold">CHF ${cash.toFixed(2)}</span></div>
+    <div class="stat-card"><span class="stat-label">💳 Carte</span><span class="stat-value">CHF ${card.toFixed(2)}</span></div>
+    ${topProducts.map(([name, d]) => `<div class="stat-card" style="grid-column:span 2"><span class="stat-label">🏆 ${name}</span><span class="stat-value" style="font-size:1rem">${d.qty}× — CHF ${d.total.toFixed(2)}</span></div>`).join('')}`;
 
-  // Table
-  const tbody = document.getElementById('sum-tbody');
-  tbody.innerHTML = PRODUCTS.map(p => {
-    const s = stock[p.id] || { status:'available', quantity: p.batch };
-    const sLabel = { available:'✅ Dispo', low:'⚠️ Fin', sale:'🏷 Soldé', rupture:'❌ Rupture' }[s.status] || s.status;
-    const sClass = { available:'st-av', low:'st-lw', sale:'st-sl', rupture:'st-ru' }[s.status] || 'st-av';
-    return '<tr>' +
-      '<td style="max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + p.name.fr + '</td>' +
-      '<td><span class="st-status ' + sClass + '">' + sLabel + '</span></td>' +
-      '<td style="text-align:right;font-weight:600">' + s.quantity + '</td>' +
-    '</tr>';
-  }).join('');
+  document.getElementById('txn-list').innerHTML = todaySales.length === 0
+    ? '<div style="color:var(--faint);font-size:.8rem;text-align:center;padding:1rem">Aucune transaction aujourd\'hui</div>'
+    : [...todaySales].reverse().map(t => {
+        const time = new Date(t.ts).toLocaleTimeString('fr-CH', { hour: '2-digit', minute: '2-digit' });
+        const itemNames = t.items.map(i => `${i.qty}× ${i.name}`).join(', ');
+        return `<div class="txn-row">
+          <span class="txn-time">${time}</span>
+          <span class="txn-items">${itemNames.length > 35 ? itemNames.substring(0,32)+'…' : itemNames}</span>
+          <span class="txn-total">CHF ${t.total.toFixed(2)}</span>
+          <span class="txn-method ${t.method}">${t.method === 'cash' ? '💵' : '💳'}</span>
+        </div>`;
+      }).join('');
 
-  document.getElementById('summary-modal').classList.remove('hidden');
+  openModal('summary-modal');
 }
 
-function stat(val, icon, label, color) {
-  return '<div class="sum-stat"><div class="val" style="color:' + color + '">' + icon + ' ' + val + '</div><div class="lbl">' + label + '</div></div>';
-}
-
-function closeSummary() {
-  document.getElementById('summary-modal').classList.add('hidden');
-}
-
-function exportSummary() {
-  const today = new Date();
-  const dateStr = today.toLocaleDateString('fr-CH');
-  const soldToday = salesLog.filter(s => new Date(s.ts).toDateString() === today.toDateString());
-
-  let txt = '=== BILAN JOURNALIER NIMARA ===\n';
-  txt += 'Date : ' + dateStr + '\n';
-  txt += 'Heure : ' + today.toLocaleTimeString('fr-CH') + '\n\n';
-
-  const avCount  = PRODUCTS.filter(p => stock[p.id]?.status === 'available').length;
-  const lwCount  = PRODUCTS.filter(p => stock[p.id]?.status === 'low').length;
-  const slCount  = PRODUCTS.filter(p => stock[p.id]?.status === 'sale').length;
-  const ruCount  = PRODUCTS.filter(p => stock[p.id]?.status === 'rupture').length;
-
-  txt += '--- RÉSUMÉ ---\n';
-  txt += '✅ Disponibles     : ' + avCount + '\n';
-  txt += '⚠️ Dernières pièces: ' + lwCount + '\n';
-  txt += '🏷️ Soldés          : ' + slCount + '\n';
-  txt += '❌ Rupture         : ' + ruCount + '\n';
-  txt += '📦 Vendus/jour     : ' + soldToday.length + '\n\n';
-
-  txt += '--- DÉTAIL PRODUITS ---\n';
-  PRODUCTS.forEach(p => {
-    const s = stock[p.id] || { status:'available', quantity:p.batch };
-    const icon = { available:'✅', low:'⚠️', sale:'🏷️', rupture:'❌' }[s.status] || '•';
-    txt += icon + ' ' + p.name.fr.padEnd(35) + ' | Qté: ' + String(s.quantity).padStart(3) + ' | ' + s.status + '\n';
+function exportCSV() {
+  const today = new Date().toDateString();
+  const todaySales = state.sales.filter(s => new Date(s.ts).toDateString() === today);
+  if (todaySales.length === 0) { alert('Aucune transaction à exporter'); return; }
+  const rows = ['Heure,Produits,Total CHF,Moyen de paiement'];
+  todaySales.forEach(t => {
+    const time = new Date(t.ts).toLocaleTimeString('fr-CH');
+    const items = t.items.map(i => `${i.qty}x ${i.name}`).join(' | ');
+    rows.push(`"${time}","${items}",${t.total.toFixed(2)},${t.method}`);
   });
-
-  if (soldToday.length) {
-    txt += '\n--- VENTES DU JOUR ---\n';
-    soldToday.forEach(sale => {
-      const p = PRODUCTS.find(x => x.id === sale.productId);
-      const t = new Date(sale.ts).toLocaleTimeString('fr-CH');
-      txt += t + ' — ' + (p ? p.name.fr : 'Produit #' + sale.productId) + '\n';
-    });
-  }
-
-  const blob = new Blob([txt], { type:'text/plain;charset=utf-8' });
+  const blob = new Blob([rows.join('\n')], { type: 'text/csv' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = 'nimara-bilan-' + dateStr.replace(/\//g, '-') + '.txt';
+  a.download = `nimara-ventes-${new Date().toISOString().slice(0,10)}.csv`;
   a.click();
   URL.revokeObjectURL(url);
 }
 
-function confirmReset() {
-  if (confirm('Remettre tous les stocks à zéro et réinitialiser le bilan du jour ?')) {
-    dailyReset();
-    closeSummary();
+function resetDay() {
+  if (!confirm('Supprimer toutes les transactions d\'aujourd\'hui ?')) return;
+  const today = new Date().toDateString();
+  state.sales = state.sales.filter(s => new Date(s.ts).toDateString() !== today);
+  LS.set('pos_sales', state.sales);
+  updateDailyTotal();
+  closeModal('summary-modal');
+}
+
+/* ══════════════════════════════════════════
+   ADMIN: STOCK & PRODUCT EDIT
+══════════════════════════════════════════ */
+function setStock(id, val) {
+  state.stock[id] = val;
+  LS.set('pos_stock', state.stock);
+  renderProducts();
+}
+
+function soldé(id) {
+  const p = getProduct(id);
+  if (!p) return;
+  const newPrice = Math.round(p.price * 0.7 * 20) / 20; // round to 0.05
+  if (!state.productMods[id]) state.productMods[id] = {};
+  state.productMods[id].price = newPrice;
+  state.productMods[id].badges = ['populaire'];
+  LS.set('pos_mods', state.productMods);
+  renderProducts();
+}
+
+function openEditProduct(id) {
+  const p = getProduct(id);
+  if (!p) return;
+  document.getElementById('edit-product-id').value = id;
+  document.getElementById('edit-name').value = p.name;
+  document.getElementById('edit-desc').value = p.desc || p.description || '';
+  document.getElementById('edit-price').value = p.price;
+  document.getElementById('edit-unit').value = p.unit || '';
+  document.getElementById('edit-image').value = p.image || '';
+  document.getElementById('edit-stock').value = stockStatus(id);
+  openModal('edit-product-modal');
+}
+
+function saveProductEdit() {
+  const id = parseInt(document.getElementById('edit-product-id').value);
+  if (!state.productMods[id]) state.productMods[id] = {};
+  state.productMods[id].name = document.getElementById('edit-name').value;
+  state.productMods[id].desc = document.getElementById('edit-desc').value;
+  state.productMods[id].price = parseFloat(document.getElementById('edit-price').value);
+  state.productMods[id].unit = document.getElementById('edit-unit').value;
+  state.productMods[id].image = document.getElementById('edit-image').value;
+  state.stock[id] = document.getElementById('edit-stock').value;
+  LS.set('pos_mods', state.productMods);
+  LS.set('pos_stock', state.stock);
+  closeModal('edit-product-modal');
+  renderProducts();
+}
+
+function saveNewProduct() {
+  const name = document.getElementById('new-name').value.trim();
+  const price = parseFloat(document.getElementById('new-price').value);
+  if (!name || isNaN(price)) { alert('Nom et prix requis'); return; }
+  const newId = Date.now();
+  const p = {
+    id: newId,
+    category: document.getElementById('new-category').value,
+    name,
+    desc: document.getElementById('new-desc').value,
+    price,
+    unit: document.getElementById('new-unit').value || 'pièce',
+    badges: [],
+    vegetarian: document.getElementById('new-veg').checked,
+    vegan: document.getElementById('new-vegan').checked,
+    halal: document.getElementById('new-halal').checked,
+    image: document.getElementById('new-image').value
+  };
+  state.customProducts.push(p);
+  LS.set('pos_custom', state.customProducts);
+  closeModal('add-product-modal');
+  renderProducts();
+  // Clear form
+  ['new-name','new-desc','new-price','new-unit','new-image'].forEach(id => document.getElementById(id).value = '');
+  ['new-veg','new-vegan','new-halal'].forEach(id => document.getElementById(id).checked = false);
+}
+
+/* ══════════════════════════════════════════
+   MODE SWITCHING (PIN)
+══════════════════════════════════════════ */
+function pinPress(digit) {
+  if (state.pinBuffer.length >= 4) return;
+  state.pinBuffer += digit;
+  updatePinDots();
+  if (state.pinBuffer.length === 4) {
+    setTimeout(checkPin, 100);
   }
 }
 
-function dailyReset() {
-  initStock();
-  saveStock();
-  // Clear today's sales from log
-  const today = new Date().toDateString();
-  salesLog = salesLog.filter(s => new Date(s.ts).toDateString() !== today);
-  saveSalesLog();
-  render();
+function pinClear() {
+  state.pinBuffer = state.pinBuffer.slice(0, -1);
+  updatePinDots();
+  document.getElementById('pin-error').textContent = '';
 }
 
-// ─── INIT ─────────────────────────────────────────────────────────────────────
-loadState();
-render();
+function updatePinDots() {
+  for (let i = 0; i < 4; i++) {
+    document.getElementById(`pd${i}`).classList.toggle('filled', i < state.pinBuffer.length);
+  }
+}
 
-// Service worker registration
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/delices-pos-sw.js')
-      .catch(() => {});
+function checkPin() {
+  const pin = state.pinBuffer;
+  state.pinBuffer = '';
+  updatePinDots();
+  if (pin === '1234') {
+    setMode('vendeuse');
+    closeModal('pin-modal');
+  } else if (pin === '5678') {
+    setMode('admin');
+    closeModal('pin-modal');
+  } else {
+    document.getElementById('pin-error').textContent = 'Code incorrect. Réessayez.';
+    // Shake animation
+    document.getElementById('pin-display').style.animation = 'none';
+    setTimeout(() => document.getElementById('pin-display').style.animation = '', 10);
+  }
+}
+
+function switchToClient() {
+  setMode('client');
+  closeModal('pin-modal');
+}
+
+function setMode(mode) {
+  state.mode = mode;
+  document.body.setAttribute('data-mode', mode);
+  // Update mode badge
+  const badge = document.getElementById('mode-badge');
+  badge.className = `mode-badge ${mode}`;
+  if (mode === 'client') { badge.textContent = 'Client'; badge.id = 'mode-badge'; badge.className = 'client'; badge.id = 'mode-badge'; }
+  else if (mode === 'vendeuse') { badge.textContent = 'Vendeuse'; badge.className = 'vendeuse'; }
+  else if (mode === 'admin') { badge.textContent = 'Admin'; badge.className = 'admin'; }
+  badge.id = 'mode-badge'; // keep id
+
+  // Update checkout button text
+  const checkoutBtn = document.getElementById('btn-checkout');
+  if (mode === 'client') {
+    checkoutBtn.textContent = 'Passer commande';
+  } else {
+    checkoutBtn.textContent = '💳 Encaisser';
+  }
+
+  // Show admin add product button
+  let adminBtn = document.getElementById('admin-add-btn');
+  if (mode === 'admin') {
+    if (!adminBtn) {
+      adminBtn = document.createElement('button');
+      adminBtn.id = 'admin-add-btn';
+      adminBtn.className = 'hdr-btn';
+      adminBtn.title = 'Ajouter un produit';
+      adminBtn.textContent = '➕';
+      adminBtn.onclick = () => openModal('add-product-modal');
+      document.getElementById('hdr').insertBefore(adminBtn, document.getElementById('btn-summary'));
+    }
+  } else {
+    if (adminBtn) adminBtn.remove();
+  }
+
+  renderProducts();
+  renderCart();
+  updateDailyTotal();
+}
+
+/* ══════════════════════════════════════════
+   MODALS
+══════════════════════════════════════════ */
+function openModal(id) {
+  if (id === 'summary-modal') openSummary();
+  document.getElementById(id).classList.add('open');
+}
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+}
+
+// Close modal on backdrop click
+document.querySelectorAll('.modal-backdrop').forEach(backdrop => {
+  backdrop.addEventListener('click', e => {
+    if (e.target === backdrop) {
+      backdrop.classList.remove('open');
+      if (backdrop.id === 'receipt-modal') newOrder();
+    }
   });
+});
+
+// Close on ESC
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal-backdrop.open').forEach(m => m.classList.remove('open'));
+  }
+});
+
+/* ══════════════════════════════════════════
+   FILTER BUTTONS
+══════════════════════════════════════════ */
+document.querySelectorAll('.fil-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.fil-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    state.filter = btn.dataset.filter;
+    renderProducts();
+  });
+});
+
+/* ══════════════════════════════════════════
+   KEYBOARD: PIN pad
+══════════════════════════════════════════ */
+document.addEventListener('keydown', e => {
+  const pinModal = document.getElementById('pin-modal');
+  if (!pinModal.classList.contains('open')) return;
+  if (e.key >= '0' && e.key <= '9') pinPress(e.key);
+  if (e.key === 'Backspace') pinClear();
+});
+
+/* ══════════════════════════════════════════
+   INIT
+══════════════════════════════════════════ */
+function init() {
+  renderProducts();
+  renderCart();
+  updateDailyTotal();
 }
+
+init();
 </script>
 </body>
 </html>

@@ -2,6 +2,7 @@
   "categories": [
     { "id": "sucre", "label": { "fr": "Douceurs", "en": "Sweet" }, "icon": "🍰" },
     { "id": "sale", "label": { "fr": "Saveurs du Monde", "en": "World Flavours" }, "icon": "🍛" },
+    { "id": "box", "label": { "fr": "Box Repas Midi", "en": "Lunch Boxes" }, "icon": "📦" },
     { "id": "formules", "label": { "fr": "Formules Événements", "en": "Event Packages" }, "icon": "🎉" }
   ],
   "allergenKeys": {
@@ -275,6 +276,94 @@
       "vegetarian": true, "vegan": false, "halal": true,
       "batch": 1,
       "image": "/assets/images/products/Triangle feta miel.jpeg"
+    },
+    {
+      "id": 30, "category": "box",
+      "name": { "fr": "Box Butter Chicken", "en": "Butter Chicken Box" },
+      "description": { "fr": "Butter chicken onctueux, riz basmati, naan. Le classique Nimara.", "en": "Creamy butter chicken, basmati rice, naan. The Nimara classic." },
+      "price": 16.90, "unit": "box individuelle",
+      "allergens": ["gluten", "lactose"],
+      "badges": ["signature", "b2b"],
+      "vegetarian": false, "vegan": false, "halal": true,
+      "batch": 1,
+      "image": "/assets/images/products/box-butter-chicken-riz.png"
+    },
+    {
+      "id": 31, "category": "box",
+      "name": { "fr": "Box Tikka Masala", "en": "Tikka Masala Box" },
+      "description": { "fr": "Poulet tikka masala, riz basmati, chutney maison.", "en": "Chicken tikka masala, basmati rice, house chutney." },
+      "price": 16.90, "unit": "box individuelle",
+      "allergens": ["lactose"],
+      "badges": ["b2b"],
+      "vegetarian": false, "vegan": false, "halal": true,
+      "batch": 1,
+      "image": "/assets/images/products/box-tikka-riz-chutney.png"
+    },
+    {
+      "id": 32, "category": "box",
+      "name": { "fr": "Box Saag Paneer", "en": "Saag Paneer Box" },
+      "description": { "fr": "Épinards au paneer, riz basmati, naan beurre. Végétarien.", "en": "Spinach paneer, basmati rice, butter naan. Vegetarian." },
+      "price": 15.90, "unit": "box individuelle",
+      "allergens": ["gluten", "lactose"],
+      "badges": ["b2b"],
+      "vegetarian": true, "vegan": false, "halal": true,
+      "batch": 1,
+      "image": "/assets/images/products/box-saag-paneer-riz-naan.png"
+    },
+    {
+      "id": 33, "category": "box",
+      "name": { "fr": "Box Palak Poulet", "en": "Palak Chicken Box" },
+      "description": { "fr": "Poulet aux épinards, riz basmati, raïta.", "en": "Spinach chicken, basmati rice, raita." },
+      "price": 16.90, "unit": "box individuelle",
+      "allergens": ["lactose"],
+      "badges": ["b2b"],
+      "vegetarian": false, "vegan": false, "halal": true,
+      "batch": 1,
+      "image": "/assets/images/products/box-palak-riz-poulet.png"
+    },
+    {
+      "id": 34, "category": "box",
+      "name": { "fr": "Box Dal & Riz", "en": "Dal & Rice Box" },
+      "description": { "fr": "Dal aux lentilles, riz basmati, poulet tandoori. Réconfortant.", "en": "Lentil dal, basmati rice, tandoori chicken. Comforting." },
+      "price": 15.90, "unit": "box individuelle",
+      "allergens": [],
+      "badges": ["b2b"],
+      "vegetarian": false, "vegan": false, "halal": true,
+      "batch": 1,
+      "image": "/assets/images/products/box-dal-riz-tandoori.png"
+    },
+    {
+      "id": 35, "category": "box",
+      "name": { "fr": "Box Vindaloo", "en": "Vindaloo Box" },
+      "description": { "fr": "Poulet vindaloo relevé, riz basmati, naan. Pour les amateurs de sensations.", "en": "Spicy chicken vindaloo, basmati rice, naan. For the adventurous." },
+      "price": 16.90, "unit": "box individuelle",
+      "allergens": ["gluten"],
+      "badges": ["b2b"],
+      "vegetarian": false, "vegan": false, "halal": true,
+      "batch": 1,
+      "image": "/assets/images/products/box-vindaloo-riz-naan.png"
+    },
+    {
+      "id": 36, "category": "box",
+      "name": { "fr": "Box Pois Chiches", "en": "Chickpea Box" },
+      "description": { "fr": "Chana masala, riz basmati, sauce tomate épicée. 100% végétal.", "en": "Chana masala, basmati rice, spiced tomato sauce. 100% plant-based." },
+      "price": 14.90, "unit": "box individuelle",
+      "allergens": [],
+      "badges": ["b2b"],
+      "vegetarian": true, "vegan": true, "halal": true,
+      "batch": 1,
+      "image": "/assets/images/products/box-pois-chiches-riz-masala.png"
+    },
+    {
+      "id": 37, "category": "box",
+      "name": { "fr": "Box Curry Légumes", "en": "Veggie Curry Box" },
+      "description": { "fr": "Curry de légumes de saison, riz basmati, accompagnements. Végétarien.", "en": "Seasonal veggie curry, basmati rice, sides. Vegetarian." },
+      "price": 14.90, "unit": "box individuelle",
+      "allergens": [],
+      "badges": ["b2b"],
+      "vegetarian": true, "vegan": true, "halal": true,
+      "batch": 1,
+      "image": "/assets/images/products/box-curry-riz-legumes.png"
     },
     {
       "id": 25, "category": "formules",
