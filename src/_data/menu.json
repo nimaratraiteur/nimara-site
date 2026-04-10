@@ -1,411 +1,932 @@
 {
   "categories": [
-    { "id": "sucre", "label": { "fr": "Douceurs", "en": "Sweet" }, "icon": "🍰" },
-    { "id": "sale", "label": { "fr": "Saveurs du Monde", "en": "World Flavours" }, "icon": "🍛" },
-    { "id": "box", "label": { "fr": "Box Repas Midi", "en": "Lunch Boxes" }, "icon": "📦" },
-    { "id": "formules", "label": { "fr": "Formules Événements", "en": "Event Packages" }, "icon": "🎉" }
+    {
+      "id": "sucre",
+      "label": {
+        "fr": "Douceurs",
+        "en": "Sweet"
+      },
+      "icon": "🍰"
+    },
+    {
+      "id": "sale",
+      "label": {
+        "fr": "Saveurs du Monde",
+        "en": "World Flavours"
+      },
+      "icon": "🍛"
+    },
+    {
+      "id": "box",
+      "label": {
+        "fr": "Box Repas Midi",
+        "en": "Lunch Boxes"
+      },
+      "icon": "📦"
+    },
+    {
+      "id": "formules",
+      "label": {
+        "fr": "Formules Événements",
+        "en": "Event Packages"
+      },
+      "icon": "🎉"
+    }
   ],
   "allergenKeys": {
-    "gluten": { "fr": "Gluten", "en": "Gluten" },
-    "lactose": { "fr": "Lactose", "en": "Lactose" },
-    "oeufs": { "fr": "Œufs", "en": "Eggs" },
-    "fruits_a_coque": { "fr": "Fruits à coque", "en": "Tree nuts" },
-    "sesame": { "fr": "Sésame", "en": "Sesame" }
+    "gluten": {
+      "fr": "Gluten",
+      "en": "Gluten"
+    },
+    "lactose": {
+      "fr": "Lactose",
+      "en": "Lactose"
+    },
+    "oeufs": {
+      "fr": "Œufs",
+      "en": "Eggs"
+    },
+    "fruits_a_coque": {
+      "fr": "Fruits à coque",
+      "en": "Tree nuts"
+    },
+    "sesame": {
+      "fr": "Sésame",
+      "en": "Sesame"
+    }
   },
   "products": [
     {
-      "id": 1, "category": "sucre",
-      "name": { "fr": "Banana Bread", "en": "Banana Bread" },
-      "description": { "fr": "Moelleux, caramélisé, pépites de chocolat. Notre signature.", "en": "Moist, caramelized, chocolate chips. Our signature." },
-      "price": 27.50, "unit": "cake entier",
-      "allergens": ["gluten", "lactose", "oeufs"],
-      "badges": ["signature"],
-      "vegetarian": true, "vegan": false, "halal": false,
+      "id": 1,
+      "category": "sucre",
+      "name": {
+        "fr": "Banana Bread",
+        "en": "Banana Bread"
+      },
+      "description": {
+        "fr": "Moelleux, caramélisé, pépites de chocolat. Notre signature.",
+        "en": "Moist, caramelized, chocolate chips. Our signature."
+      },
+      "price": 27.5,
+      "unit": "cake entier",
+      "allergens": [
+        "gluten",
+        "lactose",
+        "oeufs"
+      ],
+      "badges": [
+        "signature"
+      ],
+      "vegetarian": true,
+      "vegan": false,
+      "halal": false,
       "batch": 12,
       "image": "/assets/images/products/banana-bread.png"
     },
     {
-      "id": 2, "category": "sucre",
-      "name": { "fr": "Bircher Muesli", "en": "Bircher Muesli" },
-      "description": { "fr": "Frais, yaourt, fruits de saison. Disponible framboise et mangue.", "en": "Fresh, yogurt, seasonal fruits. Available raspberry and mango." },
-      "price": 5.50, "unit": "portion",
-      "allergens": ["gluten", "lactose", "fruits_a_coque"],
+      "id": 2,
+      "category": "sucre",
+      "name": {
+        "fr": "Bircher Muesli",
+        "en": "Bircher Muesli"
+      },
+      "description": {
+        "fr": "Frais, yaourt, fruits de saison. Disponible framboise et mangue.",
+        "en": "Fresh, yogurt, seasonal fruits. Available raspberry and mango."
+      },
+      "price": 5.5,
+      "unit": "portion",
+      "allergens": [
+        "gluten",
+        "lactose",
+        "fruits_a_coque"
+      ],
       "badges": [],
-      "vegetarian": true, "vegan": false, "halal": false,
+      "vegetarian": true,
+      "vegan": false,
+      "halal": false,
       "batch": 42,
       "image": "/assets/images/products/bircher-muesli.png"
     },
     {
-      "id": 3, "category": "sucre",
-      "name": { "fr": "Brookie", "en": "Brookie" },
-      "description": { "fr": "Le meilleur du brownie et du cookie réunis. Irrésistible.", "en": "The best of brownie and cookie combined. Irresistible." },
-      "price": 4.50, "unit": "pièce",
-      "allergens": ["gluten", "lactose", "oeufs", "fruits_a_coque"],
-      "badges": ["populaire"],
-      "vegetarian": true, "vegan": false, "halal": false,
+      "id": 3,
+      "category": "sucre",
+      "name": {
+        "fr": "Brookie",
+        "en": "Brookie"
+      },
+      "description": {
+        "fr": "Le meilleur du brownie et du cookie réunis. Irrésistible.",
+        "en": "The best of brownie and cookie combined. Irresistible."
+      },
+      "price": 4.5,
+      "unit": "pièce",
+      "allergens": [
+        "gluten",
+        "lactose",
+        "oeufs",
+        "fruits_a_coque"
+      ],
+      "badges": [
+        "populaire"
+      ],
+      "vegetarian": true,
+      "vegan": false,
+      "halal": false,
       "batch": 9,
       "image": "/assets/images/products/brookie.png"
     },
     {
-      "id": 4, "category": "sucre",
-      "name": { "fr": "Brownie", "en": "Brownie" },
-      "description": { "fr": "Fondant, chocolat noir intense. Par sachet de 12.", "en": "Rich, dark chocolate. Pack of 12." },
-      "price": 3.50, "unit": "pièce",
-      "allergens": ["gluten", "lactose", "oeufs"],
+      "id": 4,
+      "category": "sucre",
+      "name": {
+        "fr": "Brownie",
+        "en": "Brownie"
+      },
+      "description": {
+        "fr": "Fondant, chocolat noir intense. Par sachet de 12.",
+        "en": "Rich, dark chocolate. Pack of 12."
+      },
+      "price": 3.5,
+      "unit": "pièce",
+      "allergens": [
+        "gluten",
+        "lactose",
+        "oeufs"
+      ],
       "badges": [],
-      "vegetarian": true, "vegan": false, "halal": false,
+      "vegetarian": true,
+      "vegan": false,
+      "halal": false,
       "batch": 8,
       "image": "/assets/images/products/brownie.png"
     },
     {
-      "id": 5, "category": "sucre",
-      "name": { "fr": "Cake Citron", "en": "Lemon Cake" },
-      "description": { "fr": "Acidulé, glaçage subtil. Fraîcheur garantie.", "en": "Tangy, subtle glaze. Guaranteed freshness." },
-      "price": 26.00, "unit": "cake entier",
-      "allergens": ["gluten", "lactose", "oeufs"],
+      "id": 5,
+      "category": "sucre",
+      "name": {
+        "fr": "Cake Citron",
+        "en": "Lemon Cake"
+      },
+      "description": {
+        "fr": "Acidulé, glaçage subtil. Fraîcheur garantie.",
+        "en": "Tangy, subtle glaze. Guaranteed freshness."
+      },
+      "price": 26.0,
+      "unit": "cake entier",
+      "allergens": [
+        "gluten",
+        "lactose",
+        "oeufs"
+      ],
       "badges": [],
-      "vegetarian": true, "vegan": false, "halal": false,
+      "vegetarian": true,
+      "vegan": false,
+      "halal": false,
       "batch": 12,
       "image": "/assets/images/products/cake-citron.png"
     },
     {
-      "id": 6, "category": "sucre",
-      "name": { "fr": "Cake Marbré", "en": "Marble Cake" },
-      "description": { "fr": "Vanille & chocolat, moelleux à souhait.", "en": "Vanilla & chocolate, perfectly moist." },
-      "price": 28.00, "unit": "cake entier",
-      "allergens": ["gluten", "lactose", "oeufs"],
+      "id": 6,
+      "category": "sucre",
+      "name": {
+        "fr": "Cake Marbré",
+        "en": "Marble Cake"
+      },
+      "description": {
+        "fr": "Vanille & chocolat, moelleux à souhait.",
+        "en": "Vanilla & chocolate, perfectly moist."
+      },
+      "price": 28.0,
+      "unit": "cake entier",
+      "allergens": [
+        "gluten",
+        "lactose",
+        "oeufs"
+      ],
       "badges": [],
-      "vegetarian": true, "vegan": false, "halal": false,
+      "vegetarian": true,
+      "vegan": false,
+      "halal": false,
       "batch": 12,
       "image": "/assets/images/products/cake-marbre.png"
     },
     {
-      "id": 7, "category": "sucre",
-      "name": { "fr": "Cake Pomme", "en": "Apple Cake" },
-      "description": { "fr": "Pommes caramélisées, cannelle douce.", "en": "Caramelized apples, sweet cinnamon." },
-      "price": 26.00, "unit": "cake entier",
-      "allergens": ["gluten", "lactose", "oeufs"],
+      "id": 7,
+      "category": "sucre",
+      "name": {
+        "fr": "Cake Pomme",
+        "en": "Apple Cake"
+      },
+      "description": {
+        "fr": "Pommes caramélisées, cannelle douce.",
+        "en": "Caramelized apples, sweet cinnamon."
+      },
+      "price": 26.0,
+      "unit": "cake entier",
+      "allergens": [
+        "gluten",
+        "lactose",
+        "oeufs"
+      ],
       "badges": [],
-      "vegetarian": true, "vegan": false, "halal": false,
+      "vegetarian": true,
+      "vegan": false,
+      "halal": false,
       "batch": 11,
       "image": "/assets/images/products/cake-pomme-orange.png"
     },
     {
-      "id": 8, "category": "sucre",
-      "name": { "fr": "Carrot Cake", "en": "Carrot Cake" },
-      "description": { "fr": "Épices douces, cream cheese onctueux.", "en": "Warm spices, smooth cream cheese." },
-      "price": 28.00, "unit": "cake entier",
-      "allergens": ["gluten", "lactose", "oeufs"],
+      "id": 8,
+      "category": "sucre",
+      "name": {
+        "fr": "Carrot Cake",
+        "en": "Carrot Cake"
+      },
+      "description": {
+        "fr": "Épices douces, cream cheese onctueux.",
+        "en": "Warm spices, smooth cream cheese."
+      },
+      "price": 28.0,
+      "unit": "cake entier",
+      "allergens": [
+        "gluten",
+        "lactose",
+        "oeufs"
+      ],
       "badges": [],
-      "vegetarian": true, "vegan": false, "halal": false,
+      "vegetarian": true,
+      "vegan": false,
+      "halal": false,
       "batch": 10,
       "image": "/assets/images/products/carrot-cake.png"
     },
     {
-      "id": 9, "category": "sucre",
-      "name": { "fr": "Cheesecake Spéculos", "en": "Speculoos Cheesecake" },
-      "description": { "fr": "Onctueux, base croustillante au spéculos.", "en": "Creamy, crispy speculoos base." },
-      "price": 32.00, "unit": "pièce",
-      "allergens": ["gluten", "lactose", "oeufs"],
-      "badges": ["populaire"],
-      "vegetarian": true, "vegan": false, "halal": false,
+      "id": 9,
+      "category": "sucre",
+      "name": {
+        "fr": "Cheesecake Spéculos",
+        "en": "Speculoos Cheesecake"
+      },
+      "description": {
+        "fr": "Onctueux, base croustillante au spéculos.",
+        "en": "Creamy, crispy speculoos base."
+      },
+      "price": 32.0,
+      "unit": "pièce",
+      "allergens": [
+        "gluten",
+        "lactose",
+        "oeufs"
+      ],
+      "badges": [
+        "populaire"
+      ],
+      "vegetarian": true,
+      "vegan": false,
+      "halal": false,
       "batch": 10,
       "image": "/assets/images/products/cheesecake-speculos.png"
     },
     {
-      "id": 10, "category": "sucre",
-      "name": { "fr": "Cinnamon Roll", "en": "Cinnamon Roll" },
-      "description": { "fr": "Cannelle, glaçage vanille. Par sachet de 12.", "en": "Cinnamon, vanilla glaze. Pack of 12." },
-      "price": 4.00, "unit": "pièce",
-      "allergens": ["gluten", "lactose", "oeufs"],
+      "id": 10,
+      "category": "sucre",
+      "name": {
+        "fr": "Cinnamon Roll",
+        "en": "Cinnamon Roll"
+      },
+      "description": {
+        "fr": "Cannelle, glaçage vanille. Par sachet de 12.",
+        "en": "Cinnamon, vanilla glaze. Pack of 12."
+      },
+      "price": 4.0,
+      "unit": "pièce",
+      "allergens": [
+        "gluten",
+        "lactose",
+        "oeufs"
+      ],
       "badges": [],
-      "vegetarian": true, "vegan": false, "halal": false,
+      "vegetarian": true,
+      "vegan": false,
+      "halal": false,
       "batch": 10,
       "image": "/assets/images/products/cinnamon-roll.png"
     },
     {
-      "id": 11, "category": "sucre",
-      "name": { "fr": "Pecan Pie", "en": "Pecan Pie" },
-      "description": { "fr": "Caramel, noix de pécan. Un classique américain revisité.", "en": "Caramel, pecans. A revisited American classic." },
-      "price": 34.00, "unit": "pièce",
-      "allergens": ["gluten", "lactose", "oeufs", "fruits_a_coque"],
-      "badges": ["prestige"],
-      "vegetarian": true, "vegan": false, "halal": false,
+      "id": 11,
+      "category": "sucre",
+      "name": {
+        "fr": "Pecan Pie",
+        "en": "Pecan Pie"
+      },
+      "description": {
+        "fr": "Caramel, noix de pécan. Un classique américain revisité.",
+        "en": "Caramel, pecans. A revisited American classic."
+      },
+      "price": 34.0,
+      "unit": "pièce",
+      "allergens": [
+        "gluten",
+        "lactose",
+        "oeufs",
+        "fruits_a_coque"
+      ],
+      "badges": [
+        "prestige"
+      ],
+      "vegetarian": true,
+      "vegan": false,
+      "halal": false,
       "batch": 10,
       "image": "/assets/images/products/pecan-pie.png"
     },
     {
-      "id": 12, "category": "sale",
-      "name": { "fr": "Naans", "en": "Naan Bread" },
-      "description": { "fr": "Nature, ail ou fromage. Pâte fraîche chaque matin.", "en": "Plain, garlic or cheese. Fresh dough every morning." },
-      "price": 3.50, "unit": "pièce",
-      "allergens": ["gluten", "lactose"],
+      "id": 12,
+      "category": "sale",
+      "name": {
+        "fr": "Naans",
+        "en": "Naan Bread"
+      },
+      "description": {
+        "fr": "Nature, ail ou fromage. Pâte fraîche chaque matin.",
+        "en": "Plain, garlic or cheese. Fresh dough every morning."
+      },
+      "price": 3.5,
+      "unit": "pièce",
+      "allergens": [
+        "gluten",
+        "lactose"
+      ],
       "badges": [],
-      "vegetarian": true, "vegan": false, "halal": true,
+      "vegetarian": true,
+      "vegan": false,
+      "halal": true,
       "batch": 20,
       "image": "/assets/images/products/Naan nature.jpeg"
     },
     {
-      "id": 13, "category": "sale",
-      "name": { "fr": "Samosas", "en": "Samosas" },
-      "description": { "fr": "Légumes, menthe fraîche. Croustillants et parfumés.", "en": "Vegetables, fresh mint. Crispy and flavourful." },
-      "price": 3.00, "unit": "pièce",
-      "allergens": ["gluten", "sesame"],
+      "id": 13,
+      "category": "sale",
+      "name": {
+        "fr": "Samosas",
+        "en": "Samosas"
+      },
+      "description": {
+        "fr": "Légumes, menthe fraîche. Croustillants et parfumés.",
+        "en": "Vegetables, fresh mint. Crispy and flavourful."
+      },
+      "price": 3.0,
+      "unit": "pièce",
+      "allergens": [
+        "gluten",
+        "sesame"
+      ],
       "badges": [],
-      "vegetarian": true, "vegan": false, "halal": true,
+      "vegetarian": true,
+      "vegan": false,
+      "halal": true,
       "batch": 30,
-      "image": "/assets/images/products/Samosa aux légumes.jpeg"
+      "image": "/assets/images/products/samosa-legumes.png"
     },
     {
-      "id": 14, "category": "sale",
-      "name": { "fr": "Pakora", "en": "Pakora" },
-      "description": { "fr": "Épinards, oignon, épices maison. Végétalien.", "en": "Spinach, onion, house spices. Vegan." },
-      "price": 2.50, "unit": "pièce",
-      "allergens": ["gluten"],
+      "id": 14,
+      "category": "sale",
+      "name": {
+        "fr": "Pakora",
+        "en": "Pakora"
+      },
+      "description": {
+        "fr": "Épinards, oignon, épices maison. Végétalien.",
+        "en": "Spinach, onion, house spices. Vegan."
+      },
+      "price": 2.5,
+      "unit": "pièce",
+      "allergens": [
+        "gluten"
+      ],
       "badges": [],
-      "vegetarian": true, "vegan": true, "halal": true,
+      "vegetarian": true,
+      "vegan": true,
+      "halal": true,
       "batch": 20,
       "image": "/assets/images/products/Pakora aux legumes.jpeg"
     },
     {
-      "id": 15, "category": "sale",
-      "name": { "fr": "Poulet Tikka Masala", "en": "Chicken Tikka Masala" },
-      "description": { "fr": "Mijoté lentement, épices maison torréfiées.", "en": "Slow-cooked, toasted house spices." },
-      "price": 18.00, "unit": "portion",
-      "allergens": ["lactose"],
-      "badges": ["signature"],
-      "vegetarian": false, "vegan": false, "halal": true,
+      "id": 15,
+      "category": "sale",
+      "name": {
+        "fr": "Poulet Tikka Masala",
+        "en": "Chicken Tikka Masala"
+      },
+      "description": {
+        "fr": "Mijoté lentement, épices maison torréfiées.",
+        "en": "Slow-cooked, toasted house spices."
+      },
+      "price": 18.0,
+      "unit": "portion",
+      "allergens": [
+        "lactose"
+      ],
+      "badges": [
+        "signature"
+      ],
+      "vegetarian": false,
+      "vegan": false,
+      "halal": true,
       "batch": 1,
       "image": "/assets/images/products/tandoori chicken.jpeg"
     },
     {
-      "id": 16, "category": "sale",
-      "name": { "fr": "Butter Chicken", "en": "Butter Chicken" },
-      "description": { "fr": "Sauce onctueuse à la tomate, crème et épices douces. Le classique indien.", "en": "Rich creamy tomato sauce with mild spices. The Indian classic." },
-      "price": 18.00, "unit": "portion",
-      "allergens": ["lactose"],
-      "badges": ["populaire"],
-      "vegetarian": false, "vegan": false, "halal": true,
+      "id": 16,
+      "category": "sale",
+      "name": {
+        "fr": "Butter Chicken",
+        "en": "Butter Chicken"
+      },
+      "description": {
+        "fr": "Sauce onctueuse à la tomate, crème et épices douces. Le classique indien.",
+        "en": "Rich creamy tomato sauce with mild spices. The Indian classic."
+      },
+      "price": 18.0,
+      "unit": "portion",
+      "allergens": [
+        "lactose"
+      ],
+      "badges": [
+        "populaire"
+      ],
+      "vegetarian": false,
+      "vegan": false,
+      "halal": true,
       "batch": 1,
       "image": "/assets/images/products/butter-chicken.jpeg"
     },
     {
-      "id": 17, "category": "sale",
-      "name": { "fr": "Boeuf aux 8 Épices", "en": "Beef 8 Spices" },
-      "description": { "fr": "Boeuf braisé, mélange maison de 8 épices torréfiées.", "en": "Braised beef, house blend of 8 toasted spices." },
-      "price": 20.00, "unit": "portion",
+      "id": 17,
+      "category": "sale",
+      "name": {
+        "fr": "Boeuf aux 8 Épices",
+        "en": "Beef 8 Spices"
+      },
+      "description": {
+        "fr": "Boeuf braisé, mélange maison de 8 épices torréfiées.",
+        "en": "Braised beef, house blend of 8 toasted spices."
+      },
+      "price": 20.0,
+      "unit": "portion",
       "allergens": [],
       "badges": [],
-      "vegetarian": false, "vegan": false, "halal": true,
+      "vegetarian": false,
+      "vegan": false,
+      "halal": true,
       "batch": 1,
       "image": "/assets/images/products/boeuf-8-epices.jpeg"
     },
     {
-      "id": 18, "category": "sale",
-      "name": { "fr": "Poulet Vindaloo", "en": "Chicken Vindaloo" },
-      "description": { "fr": "Relevé, vinaigré, épicé. Pour les amateurs de sensations.", "en": "Tangy, vinegar-spiced. For the adventurous." },
-      "price": 18.00, "unit": "portion",
+      "id": 18,
+      "category": "sale",
+      "name": {
+        "fr": "Poulet Vindaloo",
+        "en": "Chicken Vindaloo"
+      },
+      "description": {
+        "fr": "Relevé, vinaigré, épicé. Pour les amateurs de sensations.",
+        "en": "Tangy, vinegar-spiced. For the adventurous."
+      },
+      "price": 18.0,
+      "unit": "portion",
       "allergens": [],
       "badges": [],
-      "vegetarian": false, "vegan": false, "halal": true,
+      "vegetarian": false,
+      "vegan": false,
+      "halal": true,
       "batch": 1,
       "image": "/assets/images/products/poulet-vindaloo.jpeg"
     },
     {
-      "id": 19, "category": "sale",
-      "name": { "fr": "Poulet Mangue", "en": "Mango Chicken" },
-      "description": { "fr": "Doux, fruité, mangue fraîche et épices légères.", "en": "Sweet, fruity, fresh mango and light spices." },
-      "price": 18.00, "unit": "portion",
+      "id": 19,
+      "category": "sale",
+      "name": {
+        "fr": "Poulet Mangue",
+        "en": "Mango Chicken"
+      },
+      "description": {
+        "fr": "Doux, fruité, mangue fraîche et épices légères.",
+        "en": "Sweet, fruity, fresh mango and light spices."
+      },
+      "price": 18.0,
+      "unit": "portion",
       "allergens": [],
       "badges": [],
-      "vegetarian": false, "vegan": false, "halal": true,
+      "vegetarian": false,
+      "vegan": false,
+      "halal": true,
       "batch": 1,
       "image": "/assets/images/products/poulet-mangue.jpeg"
     },
     {
-      "id": 20, "category": "sale",
-      "name": { "fr": "Crevettes Curry", "en": "Curry Shrimp" },
-      "description": { "fr": "Crevettes juteuses, sauce curry maison.", "en": "Juicy shrimp, house curry sauce." },
-      "price": 22.00, "unit": "portion",
+      "id": 20,
+      "category": "sale",
+      "name": {
+        "fr": "Crevettes Curry",
+        "en": "Curry Shrimp"
+      },
+      "description": {
+        "fr": "Crevettes juteuses, sauce curry maison.",
+        "en": "Juicy shrimp, house curry sauce."
+      },
+      "price": 22.0,
+      "unit": "portion",
       "allergens": [],
       "badges": [],
-      "vegetarian": false, "vegan": false, "halal": true,
+      "vegetarian": false,
+      "vegan": false,
+      "halal": true,
       "batch": 1,
       "image": "/assets/images/products/crevettes-curry.jpeg"
     },
     {
-      "id": 21, "category": "sale",
-      "name": { "fr": "Curry Pois Chiches", "en": "Chickpea Curry" },
-      "description": { "fr": "Réconfortant, épicé, 100% végétal.", "en": "Comforting, spiced, 100% plant-based." },
-      "price": 14.00, "unit": "portion",
+      "id": 21,
+      "category": "sale",
+      "name": {
+        "fr": "Curry Pois Chiches",
+        "en": "Chickpea Curry"
+      },
+      "description": {
+        "fr": "Réconfortant, épicé, 100% végétal.",
+        "en": "Comforting, spiced, 100% plant-based."
+      },
+      "price": 14.0,
+      "unit": "portion",
       "allergens": [],
       "badges": [],
-      "vegetarian": true, "vegan": true, "halal": true,
+      "vegetarian": true,
+      "vegan": true,
+      "halal": true,
       "batch": 1,
       "image": "/assets/images/products/pois-chiches.jpeg"
     },
     {
-      "id": 22, "category": "sale",
-      "name": { "fr": "Saag Aloo", "en": "Saag Aloo" },
-      "description": { "fr": "Épinards, pommes de terre, épices douces.", "en": "Spinach, potatoes, mild spices." },
-      "price": 14.00, "unit": "portion",
+      "id": 22,
+      "category": "sale",
+      "name": {
+        "fr": "Saag Aloo",
+        "en": "Saag Aloo"
+      },
+      "description": {
+        "fr": "Épinards, pommes de terre, épices douces.",
+        "en": "Spinach, potatoes, mild spices."
+      },
+      "price": 14.0,
+      "unit": "portion",
       "allergens": [],
       "badges": [],
-      "vegetarian": true, "vegan": true, "halal": true,
+      "vegetarian": true,
+      "vegan": true,
+      "halal": true,
       "batch": 1,
       "image": "/assets/images/products/saag-epinards.png"
     },
     {
-      "id": 23, "category": "sale",
-      "name": { "fr": "Dal Rouge", "en": "Red Lentil Dal" },
-      "description": { "fr": "Lentilles corail, cumin, réconfortant.", "en": "Red lentils, cumin, soul food." },
-      "price": 12.00, "unit": "portion",
+      "id": 23,
+      "category": "sale",
+      "name": {
+        "fr": "Dal Rouge",
+        "en": "Red Lentil Dal"
+      },
+      "description": {
+        "fr": "Lentilles corail, cumin, réconfortant.",
+        "en": "Red lentils, cumin, soul food."
+      },
+      "price": 12.0,
+      "unit": "portion",
       "allergens": [],
       "badges": [],
-      "vegetarian": true, "vegan": true, "halal": true,
+      "vegetarian": true,
+      "vegan": true,
+      "halal": true,
       "batch": 1,
       "image": "/assets/images/products/dal-rouge.png"
     },
     {
-      "id": 24, "category": "sale",
-      "name": { "fr": "Pâte Feuilletée Épinards Feta", "en": "Spinach Feta Pastry" },
-      "description": { "fr": "Feuilletée, épinards frais et feta fondante.", "en": "Flaky pastry, fresh spinach and melted feta." },
-      "price": 5.00, "unit": "pièce",
-      "allergens": ["gluten", "lactose"],
+      "id": 24,
+      "category": "sale",
+      "name": {
+        "fr": "Pâte Feuilletée Épinards Feta",
+        "en": "Spinach Feta Pastry"
+      },
+      "description": {
+        "fr": "Feuilletée, épinards frais et feta fondante.",
+        "en": "Flaky pastry, fresh spinach and melted feta."
+      },
+      "price": 5.0,
+      "unit": "pièce",
+      "allergens": [
+        "gluten",
+        "lactose"
+      ],
       "badges": [],
-      "vegetarian": true, "vegan": false, "halal": true,
+      "vegetarian": true,
+      "vegan": false,
+      "halal": true,
       "batch": 1,
       "image": "/assets/images/products/Triangle feta miel.jpeg"
     },
     {
-      "id": 30, "category": "box",
-      "name": { "fr": "Box Butter Chicken", "en": "Butter Chicken Box" },
-      "description": { "fr": "Butter chicken onctueux, riz basmati, naan. Le classique Nimara.", "en": "Creamy butter chicken, basmati rice, naan. The Nimara classic." },
-      "price": 16.90, "unit": "box individuelle",
-      "allergens": ["gluten", "lactose"],
-      "badges": ["signature", "b2b"],
-      "vegetarian": false, "vegan": false, "halal": true,
+      "id": 30,
+      "category": "box",
+      "name": {
+        "fr": "Box Butter Chicken",
+        "en": "Butter Chicken Box"
+      },
+      "description": {
+        "fr": "Butter chicken onctueux, riz basmati, naan. Le classique Nimara.",
+        "en": "Creamy butter chicken, basmati rice, naan. The Nimara classic."
+      },
+      "price": 16.9,
+      "unit": "box individuelle",
+      "allergens": [
+        "gluten",
+        "lactose"
+      ],
+      "badges": [
+        "signature",
+        "b2b"
+      ],
+      "vegetarian": false,
+      "vegan": false,
+      "halal": true,
       "batch": 1,
       "image": "/assets/images/products/box-butter-chicken-riz.png"
     },
     {
-      "id": 31, "category": "box",
-      "name": { "fr": "Box Tikka Masala", "en": "Tikka Masala Box" },
-      "description": { "fr": "Poulet tikka masala, riz basmati, chutney maison.", "en": "Chicken tikka masala, basmati rice, house chutney." },
-      "price": 16.90, "unit": "box individuelle",
-      "allergens": ["lactose"],
-      "badges": ["b2b"],
-      "vegetarian": false, "vegan": false, "halal": true,
+      "id": 31,
+      "category": "box",
+      "name": {
+        "fr": "Box Tikka Masala",
+        "en": "Tikka Masala Box"
+      },
+      "description": {
+        "fr": "Poulet tikka masala, riz basmati, chutney maison.",
+        "en": "Chicken tikka masala, basmati rice, house chutney."
+      },
+      "price": 16.9,
+      "unit": "box individuelle",
+      "allergens": [
+        "lactose"
+      ],
+      "badges": [
+        "b2b"
+      ],
+      "vegetarian": false,
+      "vegan": false,
+      "halal": true,
       "batch": 1,
       "image": "/assets/images/products/box-tikka-riz-chutney.png"
     },
     {
-      "id": 32, "category": "box",
-      "name": { "fr": "Box Saag Paneer", "en": "Saag Paneer Box" },
-      "description": { "fr": "Épinards au paneer, riz basmati, naan beurre. Végétarien.", "en": "Spinach paneer, basmati rice, butter naan. Vegetarian." },
-      "price": 15.90, "unit": "box individuelle",
-      "allergens": ["gluten", "lactose"],
-      "badges": ["b2b"],
-      "vegetarian": true, "vegan": false, "halal": true,
+      "id": 32,
+      "category": "box",
+      "name": {
+        "fr": "Box Saag Paneer",
+        "en": "Saag Paneer Box"
+      },
+      "description": {
+        "fr": "Épinards au paneer, riz basmati, naan beurre. Végétarien.",
+        "en": "Spinach paneer, basmati rice, butter naan. Vegetarian."
+      },
+      "price": 15.9,
+      "unit": "box individuelle",
+      "allergens": [
+        "gluten",
+        "lactose"
+      ],
+      "badges": [
+        "b2b"
+      ],
+      "vegetarian": true,
+      "vegan": false,
+      "halal": true,
       "batch": 1,
       "image": "/assets/images/products/box-saag-paneer-riz-naan.png"
     },
     {
-      "id": 33, "category": "box",
-      "name": { "fr": "Box Palak Poulet", "en": "Palak Chicken Box" },
-      "description": { "fr": "Poulet aux épinards, riz basmati, raïta.", "en": "Spinach chicken, basmati rice, raita." },
-      "price": 16.90, "unit": "box individuelle",
-      "allergens": ["lactose"],
-      "badges": ["b2b"],
-      "vegetarian": false, "vegan": false, "halal": true,
+      "id": 33,
+      "category": "box",
+      "name": {
+        "fr": "Box Palak Poulet",
+        "en": "Palak Chicken Box"
+      },
+      "description": {
+        "fr": "Poulet aux épinards, riz basmati, raïta.",
+        "en": "Spinach chicken, basmati rice, raita."
+      },
+      "price": 16.9,
+      "unit": "box individuelle",
+      "allergens": [
+        "lactose"
+      ],
+      "badges": [
+        "b2b"
+      ],
+      "vegetarian": false,
+      "vegan": false,
+      "halal": true,
       "batch": 1,
       "image": "/assets/images/products/box-palak-riz-poulet.png"
     },
     {
-      "id": 34, "category": "box",
-      "name": { "fr": "Box Dal & Riz", "en": "Dal & Rice Box" },
-      "description": { "fr": "Dal aux lentilles, riz basmati, poulet tandoori. Réconfortant.", "en": "Lentil dal, basmati rice, tandoori chicken. Comforting." },
-      "price": 15.90, "unit": "box individuelle",
+      "id": 34,
+      "category": "box",
+      "name": {
+        "fr": "Box Dal & Riz",
+        "en": "Dal & Rice Box"
+      },
+      "description": {
+        "fr": "Dal aux lentilles, riz basmati, poulet tandoori. Réconfortant.",
+        "en": "Lentil dal, basmati rice, tandoori chicken. Comforting."
+      },
+      "price": 15.9,
+      "unit": "box individuelle",
       "allergens": [],
-      "badges": ["b2b"],
-      "vegetarian": false, "vegan": false, "halal": true,
+      "badges": [
+        "b2b"
+      ],
+      "vegetarian": false,
+      "vegan": false,
+      "halal": true,
       "batch": 1,
       "image": "/assets/images/products/box-dal-riz-tandoori.png"
     },
     {
-      "id": 35, "category": "box",
-      "name": { "fr": "Box Vindaloo", "en": "Vindaloo Box" },
-      "description": { "fr": "Poulet vindaloo relevé, riz basmati, naan. Pour les amateurs de sensations.", "en": "Spicy chicken vindaloo, basmati rice, naan. For the adventurous." },
-      "price": 16.90, "unit": "box individuelle",
-      "allergens": ["gluten"],
-      "badges": ["b2b"],
-      "vegetarian": false, "vegan": false, "halal": true,
+      "id": 35,
+      "category": "box",
+      "name": {
+        "fr": "Box Vindaloo",
+        "en": "Vindaloo Box"
+      },
+      "description": {
+        "fr": "Poulet vindaloo relevé, riz basmati, naan. Pour les amateurs de sensations.",
+        "en": "Spicy chicken vindaloo, basmati rice, naan. For the adventurous."
+      },
+      "price": 16.9,
+      "unit": "box individuelle",
+      "allergens": [
+        "gluten"
+      ],
+      "badges": [
+        "b2b"
+      ],
+      "vegetarian": false,
+      "vegan": false,
+      "halal": true,
       "batch": 1,
       "image": "/assets/images/products/box-vindaloo-riz-naan.png"
     },
     {
-      "id": 36, "category": "box",
-      "name": { "fr": "Box Pois Chiches", "en": "Chickpea Box" },
-      "description": { "fr": "Chana masala, riz basmati, sauce tomate épicée. 100% végétal.", "en": "Chana masala, basmati rice, spiced tomato sauce. 100% plant-based." },
-      "price": 14.90, "unit": "box individuelle",
+      "id": 36,
+      "category": "box",
+      "name": {
+        "fr": "Box Pois Chiches",
+        "en": "Chickpea Box"
+      },
+      "description": {
+        "fr": "Chana masala, riz basmati, sauce tomate épicée. 100% végétal.",
+        "en": "Chana masala, basmati rice, spiced tomato sauce. 100% plant-based."
+      },
+      "price": 14.9,
+      "unit": "box individuelle",
       "allergens": [],
-      "badges": ["b2b"],
-      "vegetarian": true, "vegan": true, "halal": true,
+      "badges": [
+        "b2b"
+      ],
+      "vegetarian": true,
+      "vegan": true,
+      "halal": true,
       "batch": 1,
       "image": "/assets/images/products/box-pois-chiches-riz-masala.png"
     },
     {
-      "id": 37, "category": "box",
-      "name": { "fr": "Box Curry Légumes", "en": "Veggie Curry Box" },
-      "description": { "fr": "Curry de légumes de saison, riz basmati, accompagnements. Végétarien.", "en": "Seasonal veggie curry, basmati rice, sides. Vegetarian." },
-      "price": 14.90, "unit": "box individuelle",
+      "id": 37,
+      "category": "box",
+      "name": {
+        "fr": "Box Curry Légumes",
+        "en": "Veggie Curry Box"
+      },
+      "description": {
+        "fr": "Curry de légumes de saison, riz basmati, accompagnements. Végétarien.",
+        "en": "Seasonal veggie curry, basmati rice, sides. Vegetarian."
+      },
+      "price": 14.9,
+      "unit": "box individuelle",
       "allergens": [],
-      "badges": ["b2b"],
-      "vegetarian": true, "vegan": true, "halal": true,
+      "badges": [
+        "b2b"
+      ],
+      "vegetarian": true,
+      "vegan": true,
+      "halal": true,
       "batch": 1,
       "image": "/assets/images/products/box-curry-riz-legumes.png"
     },
     {
-      "id": 25, "category": "formules",
-      "name": { "fr": "Box Petit-Déjeuner", "en": "Breakfast Box" },
-      "description": { "fr": "Birchers, banana bread, cinnamon rolls, cakes. Dès 10 personnes.", "en": "Birchers, banana bread, cinnamon rolls, cakes. From 10 guests." },
-      "price": 15.00, "unit": "par personne",
-      "allergens": ["gluten", "lactose", "oeufs"],
+      "id": 25,
+      "category": "formules",
+      "name": {
+        "fr": "Box Petit-Déjeuner",
+        "en": "Breakfast Box"
+      },
+      "description": {
+        "fr": "Birchers, banana bread, cinnamon rolls, cakes. Dès 10 personnes.",
+        "en": "Birchers, banana bread, cinnamon rolls, cakes. From 10 guests."
+      },
+      "price": 15.0,
+      "unit": "par personne",
+      "allergens": [
+        "gluten",
+        "lactose",
+        "oeufs"
+      ],
       "badges": [],
-      "vegetarian": true, "vegan": false, "halal": false,
+      "vegetarian": true,
+      "vegan": false,
+      "halal": false,
       "batch": 10,
       "image": "/assets/images/products/hero-patisseries.png"
     },
     {
-      "id": 26, "category": "formules",
-      "name": { "fr": "Formule Déjeuner", "en": "Lunch Package" },
-      "description": { "fr": "Curry, naans, riz, accompagnements. Dès 15 personnes.", "en": "Curry, naans, rice, sides. From 15 guests." },
-      "price": 24.00, "unit": "par personne",
-      "allergens": ["gluten", "lactose"],
+      "id": 26,
+      "category": "formules",
+      "name": {
+        "fr": "Formule Déjeuner",
+        "en": "Lunch Package"
+      },
+      "description": {
+        "fr": "Curry, naans, riz, accompagnements. Dès 15 personnes.",
+        "en": "Curry, naans, rice, sides. From 15 guests."
+      },
+      "price": 24.0,
+      "unit": "par personne",
+      "allergens": [
+        "gluten",
+        "lactose"
+      ],
       "badges": [],
-      "vegetarian": false, "vegan": false, "halal": true,
+      "vegetarian": false,
+      "vegan": false,
+      "halal": true,
       "batch": 15,
       "image": "/assets/images/products/curry-poulet-epices.png"
     },
     {
-      "id": 27, "category": "formules",
-      "name": { "fr": "Buffet Complet", "en": "Full Buffet" },
-      "description": { "fr": "Sucré & salé, curries, pâtisseries, boissons. Dès 20 personnes.", "en": "Sweet & savoury, curries, pastries, drinks. From 20 guests." },
-      "price": 42.00, "unit": "par personne",
-      "allergens": ["gluten", "lactose", "oeufs"],
-      "badges": ["prestige"],
-      "vegetarian": false, "vegan": false, "halal": false,
+      "id": 27,
+      "category": "formules",
+      "name": {
+        "fr": "Buffet Complet",
+        "en": "Full Buffet"
+      },
+      "description": {
+        "fr": "Sucré & salé, curries, pâtisseries, boissons. Dès 20 personnes.",
+        "en": "Sweet & savoury, curries, pastries, drinks. From 20 guests."
+      },
+      "price": 42.0,
+      "unit": "par personne",
+      "allergens": [
+        "gluten",
+        "lactose",
+        "oeufs"
+      ],
+      "badges": [
+        "prestige"
+      ],
+      "vegetarian": false,
+      "vegan": false,
+      "halal": false,
       "batch": 20,
       "image": "/assets/images/products/plat-indien-fumant.png"
     },
     {
-      "id": 28, "category": "formules",
-      "name": { "fr": "Cocktail Saveurs du Monde", "en": "World Flavours Cocktail" },
-      "description": { "fr": "Samosas, pakora, naans, curries en mini-portions. Dès 30 personnes.", "en": "Samosas, pakora, naans, curries in mini portions. From 30 guests." },
-      "price": 28.00, "unit": "par personne",
-      "allergens": ["gluten", "sesame"],
+      "id": 28,
+      "category": "formules",
+      "name": {
+        "fr": "Cocktail Saveurs du Monde",
+        "en": "World Flavours Cocktail"
+      },
+      "description": {
+        "fr": "Samosas, pakora, naans, curries en mini-portions. Dès 30 personnes.",
+        "en": "Samosas, pakora, naans, curries in mini portions. From 30 guests."
+      },
+      "price": 28.0,
+      "unit": "par personne",
+      "allergens": [
+        "gluten",
+        "sesame"
+      ],
       "badges": [],
-      "vegetarian": false, "vegan": false, "halal": true,
+      "vegetarian": false,
+      "vegan": false,
+      "halal": true,
       "batch": 30,
       "image": "/assets/images/products/hero-patisseries.png"
     }
