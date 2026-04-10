@@ -28,6 +28,7 @@
     { "label": "Chavannes", "url": "/chavannes/" },
     { "label": "Délices", "url": "/delices/" },
     { "label": "Notre Équipe", "url": "/equipe/inga/" },
-    { "label": "Calculateur", "url": "/calculateur/" }
+    { "label": "Calculateur", "url": "/calculateur/" },
+    { "label": "Entreprises", "url": "/entreprises/" }
   ]
 }
