@@ -1,0 +1,248 @@
+---
+layout: layouts/standalone
+title: Commander — Nimara Entreprises
+permalink: /commander/
+---
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&display=swap');
+:root{--v:#5B2C8D;--lav:#a78bfa;--gold:#c8973a;--gold2:#f0c46a;--dark:#07040f;--dark2:#110c1e;--gn:#22c55e;--rd:#ef4444}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'DM Sans',sans-serif;background:var(--dark);color:#fff;min-height:100vh}
+.top{padding:16px 24px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(167,139,250,.1)}
+.logo{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:#fff;letter-spacing:3px;text-decoration:none}
+.logo em{color:var(--gold);font-style:normal}
+.company-badge{background:rgba(167,139,250,.1);border:1px solid rgba(167,139,250,.2);padding:6px 14px;border-radius:20px;font-size:12px;color:var(--lav)}
+.main{max-width:900px;margin:0 auto;padding:32px 24px}
+h1{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:700;margin-bottom:8px}
+h1 em{color:var(--gold2);font-style:italic}
+.subtitle{color:rgba(255,255,255,.4);font-size:14px;margin-bottom:32px}
+.step{background:rgba(255,255,255,.03);border:1px solid rgba(167,139,250,.1);border-radius:16px;padding:24px;margin-bottom:16px}
+.step-title{font-size:15px;font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.step-num{background:var(--v);color:white;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+label{font-size:12px;color:rgba(255,255,255,.5);display:block;margin-bottom:4px}
+input,select{width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:#fff;padding:10px 14px;border-radius:10px;font-family:'DM Sans';font-size:14px;outline:none}
+input:focus,select:focus{border-color:var(--lav)}
+select option{background:var(--dark);color:#fff}
+.formules{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
+.formule{background:rgba(255,255,255,.03);border:2px solid rgba(255,255,255,.08);border-radius:14px;padding:18px;cursor:pointer;transition:.2s;text-align:center}
+.formule:hover{border-color:rgba(167,139,250,.3)}
+.formule.selected{border-color:var(--gold);background:rgba(200,151,58,.06)}
+.formule.popular{position:relative}.formule.popular::before{content:'POPULAIRE';position:absolute;top:-9px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--dark);font-size:8px;font-weight:700;letter-spacing:1.5px;padding:2px 10px;border-radius:10px}
+.formule h3{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;margin-bottom:2px}
+.formule h3 span{font-size:.85rem;font-weight:300;color:rgba(255,255,255,.4)}
+.formule p{font-size:12px;color:rgba(255,255,255,.4);margin-bottom:8px}
+.formule ul{list-style:none;text-align:left;font-size:12px;color:rgba(255,255,255,.6)}
+.formule ul li{padding:3px 0;display:flex;gap:6px;align-items:center}
+.formule ul li::before{content:'✓';color:var(--gold);font-size:11px}
+.curry-options{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:12px}
+.curry-opt{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:10px 12px;cursor:pointer;transition:.2s}
+.curry-opt:hover{border-color:rgba(167,139,250,.3)}
+.curry-opt.selected{border-color:var(--gold);background:rgba(200,151,58,.06)}
+.curry-opt img{width:48px;height:48px;border-radius:8px;object-fit:cover}
+.curry-opt .info{flex:1}
+.curry-opt .info h4{font-size:13px;font-weight:600}
+.curry-opt .info p{font-size:10px;color:rgba(255,255,255,.4)}
+.extras{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.extra{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:8px 12px;cursor:pointer;transition:.2s;font-size:12px}
+.extra:hover{border-color:rgba(167,139,250,.3)}
+.extra.selected{border-color:var(--gn);background:rgba(34,197,94,.06)}
+.extra .price{margin-left:auto;color:var(--gold);font-weight:600}
+.total-bar{position:sticky;bottom:0;background:rgba(7,4,15,.95);backdrop-filter:blur(20px);border-top:1px solid rgba(167,139,250,.15);padding:16px 24px;display:flex;justify-content:space-between;align-items:center}
+.total-amount{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700}
+.total-amount span{font-size:.9rem;color:rgba(255,255,255,.4)}
+.btn-submit{background:var(--gn);color:#fff;font-weight:700;font-size:14px;padding:14px 32px;border:none;border-radius:50px;cursor:pointer;font-family:'DM Sans';transition:.2s}
+.btn-submit:hover{background:#16a34a;transform:translateY(-1px)}
+.btn-submit:disabled{opacity:.4;cursor:not-allowed}
+.success{display:none;text-align:center;padding:60px 20px}
+.success h2{font-family:'Cormorant Garamond',serif;font-size:2.5rem;margin-bottom:12px}
+.success p{color:rgba(255,255,255,.5);font-size:15px}
+.success .check{font-size:60px;margin-bottom:20px}
+.dietary{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.diet-tag{font-size:11px;padding:5px 12px;border-radius:20px;border:1px solid rgba(255,255,255,.1);cursor:pointer;transition:.2s;color:rgba(255,255,255,.5)}
+.diet-tag.selected{border-color:var(--gn);color:var(--gn);background:rgba(34,197,94,.08)}
+@media(max-width:768px){.formules{grid-template-columns:1fr}.curry-options{grid-template-columns:1fr}.extras{grid-template-columns:1fr 1fr}.form-row{grid-template-columns:1fr}}
+</style>
+
+<div class="top">
+  <a href="/" class="logo">NI<em>MARA</em></a>
+  <div class="company-badge" id="companyBadge">Chargement...</div>
+</div>
+
+<div class="main" id="orderForm">
+  <h1>Composez votre <em>repas</em></h1>
+  <p class="subtitle">Choisissez votre formule et vos options. Votre repas sera livré avec votre prénom sur la box.</p>
+
+  <div class="step">
+    <div class="step-title"><div class="step-num">1</div> Votre prénom</div>
+    <div class="form-row">
+      <div><label>Prénom *</label><input type="text" id="prenom" placeholder="Ex: Sophie"></div>
+      <div><label>Restrictions alimentaires</label>
+        <div class="dietary">
+          <span class="diet-tag" onclick="toggleDiet(this)">🌿 Végétarien</span>
+          <span class="diet-tag" onclick="toggleDiet(this)">🌱 Vegan</span>
+          <span class="diet-tag" onclick="toggleDiet(this)">🕌 Halal</span>
+          <span class="diet-tag" onclick="toggleDiet(this)">🚫 Sans gluten</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-title"><div class="step-num">2</div> Votre formule</div>
+    <div class="formules">
+      <div class="formule" onclick="selectFormule(this,'essentiel',15)">
+        <p>Essentiel</p>
+        <h3>15<span>.— / pers.</span></h3>
+        <ul><li>1 curry au choix</li><li>Riz basmati</li><li>1 naan nature</li></ul>
+      </div>
+      <div class="formule popular" onclick="selectFormule(this,'decouverte',22)">
+        <p>Découverte</p>
+        <h3>22<span>.— / pers.</span></h3>
+        <ul><li>2 curries au choix</li><li>Riz basmati</li><li>1 naan au choix</li><li>Raïta concombre</li></ul>
+      </div>
+      <div class="formule" onclick="selectFormule(this,'premium',27)">
+        <p>Premium</p>
+        <h3>27<span>.— / pers.</span></h3>
+        <ul><li>2 curries au choix</li><li>Riz basmati</li><li>1 naan au choix</li><li>1 dessert</li><li>1 boisson</li></ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="step" id="curryStep" style="display:none">
+    <div class="step-title"><div class="step-num">3</div> Vos curries</div>
+    <p style="font-size:12px;color:rgba(255,255,255,.4);margin-bottom:12px" id="curryHint">Choisissez 1 curry</p>
+    <div class="curry-options">
+      <div class="curry-opt" onclick="toggleCurry(this,'Butter Chicken')"><img src="/assets/images/products/butter-chicken.jpeg" alt=""><div class="info"><h4>Butter Chicken</h4><p>Sauce onctueuse au beurre</p></div></div>
+      <div class="curry-opt" onclick="toggleCurry(this,'Tikka Masala')"><img src="/assets/images/products/poulet-tikka-masala.jpeg" alt=""><div class="info"><h4>Tikka Masala</h4><p>Épices maison torréfiées</p></div></div>
+      <div class="curry-opt" onclick="toggleCurry(this,'Poulet Vindaloo')"><img src="/assets/images/products/poulet-vindaloo.jpeg" alt=""><div class="info"><h4>Poulet Vindaloo</h4><p>Relevé, épicé</p></div></div>
+      <div class="curry-opt" onclick="toggleCurry(this,'Saag Paneer')"><img src="/assets/images/products/saag-epinards.png" alt=""><div class="info"><h4>Saag Paneer 🌿</h4><p>Épinards, fromage. Végétarien</p></div></div>
+      <div class="curry-opt" onclick="toggleCurry(this,'Dal Rouge')"><img src="/assets/images/products/dal-rouge.png" alt=""><div class="info"><h4>Dal Rouge 🌱</h4><p>Lentilles, cumin. Vegan</p></div></div>
+      <div class="curry-opt" onclick="toggleCurry(this,'Pois Chiches')"><img src="/assets/images/products/curry-pois-chiches.png" alt=""><div class="info"><h4>Chana Masala 🌱</h4><p>Pois chiches épicés. Vegan</p></div></div>
+      <div class="curry-opt" onclick="toggleCurry(this,'Poulet Mangue')"><img src="/assets/images/products/poulet-mangue.jpeg" alt=""><div class="info"><h4>Poulet Mangue</h4><p>Doux, fruité</p></div></div>
+      <div class="curry-opt" onclick="toggleCurry(this,'Boeuf 8 Épices')"><img src="/assets/images/products/boeuf-8-epices.jpeg" alt=""><div class="info"><h4>Boeuf 8 Épices</h4><p>Braisé, mélange maison</p></div></div>
+    </div>
+  </div>
+
+  <div class="step" id="extrasStep" style="display:none">
+    <div class="step-title"><div class="step-num">4</div> Options supplémentaires</div>
+    <p style="font-size:12px;color:rgba(255,255,255,.4);margin-bottom:12px">Ajoutez des extras à votre repas (optionnel)</p>
+    <div class="extras">
+      <div class="extra" onclick="toggleExtra(this,'Samosa légumes ×2',5)">🥟 Samosas légumes ×2 <span class="price">+5.—</span></div>
+      <div class="extra" onclick="toggleExtra(this,'Samosa boeuf ×2',6)">🥟 Samosas bœuf ×2 <span class="price">+6.—</span></div>
+      <div class="extra" onclick="toggleExtra(this,'Pakora ×4',5)">🫓 Pakora ×4 <span class="price">+5.—</span></div>
+      <div class="extra" onclick="toggleExtra(this,'Naan ail',3.5)">🫓 Naan ail <span class="price">+3.50</span></div>
+      <div class="extra" onclick="toggleExtra(this,'Naan fromage',4)">🧀 Naan fromage <span class="price">+4.—</span></div>
+      <div class="extra" onclick="toggleExtra(this,'Lassi mangue',4)">🥤 Lassi mangue <span class="price">+4.—</span></div>
+      <div class="extra" onclick="toggleExtra(this,'Jus gingembre',4)">🍹 Jus gingembre <span class="price">+4.—</span></div>
+      <div class="extra" onclick="toggleExtra(this,'Brookie',4.5)">🍪 Brookie <span class="price">+4.50</span></div>
+      <div class="extra" onclick="toggleExtra(this,'Brownie',4)">🍫 Brownie <span class="price">+4.—</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="success" id="successMsg">
+  <div class="check">✅</div>
+  <h2>Commande envoyée !</h2>
+  <p>Merci <span id="confirmName"></span>. Votre choix a été transmis à l'organisateur.</p>
+</div>
+
+<div class="total-bar" id="totalBar">
+  <div>
+    <div style="font-size:11px;color:rgba(255,255,255,.4)">Votre total</div>
+    <div class="total-amount">CHF <span id="totalAmount">0.—</span></div>
+  </div>
+  <button class="btn-submit" id="submitBtn" disabled onclick="submitOrder()">Confirmer ma commande</button>
+</div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const companyId = params.get('id') || 'demo';
+const companyName = params.get('name') || 'Entreprise';
+document.getElementById('companyBadge').textContent = decodeURIComponent(companyName);
+
+let state = {formule: null, formulePrice: 0, curries: [], maxCurries: 0, extras: [], extrasTotal: 0, diets: []};
+
+function selectFormule(el, name, price) {
+  document.querySelectorAll('.formule').forEach(f => f.classList.remove('selected'));
+  el.classList.add('selected');
+  state.formule = name;
+  state.formulePrice = price;
+  state.curries = [];
+  state.maxCurries = name === 'essentiel' ? 1 : 2;
+  document.querySelectorAll('.curry-opt').forEach(c => c.classList.remove('selected'));
+  document.getElementById('curryStep').style.display = 'block';
+  document.getElementById('curryHint').textContent = 'Choisissez ' + state.maxCurries + ' curry' + (state.maxCurries > 1 ? 's' : '');
+  document.getElementById('extrasStep').style.display = 'block';
+  updateTotal();
+}
+
+function toggleCurry(el, name) {
+  if (el.classList.contains('selected')) {
+    el.classList.remove('selected');
+    state.curries = state.curries.filter(c => c !== name);
+  } else if (state.curries.length < state.maxCurries) {
+    el.classList.add('selected');
+    state.curries.push(name);
+  }
+  updateTotal();
+}
+
+function toggleExtra(el, name, price) {
+  if (el.classList.contains('selected')) {
+    el.classList.remove('selected');
+    state.extras = state.extras.filter(e => e.name !== name);
+  } else {
+    el.classList.add('selected');
+    state.extras.push({name, price});
+  }
+  state.extrasTotal = state.extras.reduce((s, e) => s + e.price, 0);
+  updateTotal();
+}
+
+function toggleDiet(el) {
+  el.classList.toggle('selected');
+  state.diets = [...document.querySelectorAll('.diet-tag.selected')].map(t => t.textContent.trim());
+}
+
+function updateTotal() {
+  const total = state.formulePrice + state.extrasTotal;
+  document.getElementById('totalAmount').textContent = total.toFixed(2).replace('.00', '.—');
+  const prenom = document.getElementById('prenom').value.trim();
+  document.getElementById('submitBtn').disabled = !(state.formule && state.curries.length >= state.maxCurries && prenom);
+}
+
+document.getElementById('prenom').addEventListener('input', updateTotal);
+
+async function submitOrder() {
+  const prenom = document.getElementById('prenom').value.trim();
+  const total = state.formulePrice + state.extrasTotal;
+  const order = {
+    companyId, companyName: decodeURIComponent(companyName), prenom,
+    formule: state.formule, formulePrice: state.formulePrice,
+    curries: state.curries.join(' + '), extras: state.extras.map(e => e.name).join(', '),
+    extrasTotal: state.extrasTotal, total,
+    diets: state.diets.join(', '),
+    timestamp: new Date().toISOString()
+  };
+
+  // Send to n8n webhook
+  try {
+    await fetch('https://nimarageneve.app.n8n.cloud/webhook/nimara-commande', {
+      method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(order)
+    });
+  } catch(e) { console.log('Webhook error:', e); }
+
+  // Also save locally
+  const orders = JSON.parse(localStorage.getItem('nimara_orders_' + companyId) || '[]');
+  orders.push(order);
+  localStorage.setItem('nimara_orders_' + companyId, JSON.stringify(orders));
+
+  document.getElementById('orderForm').style.display = 'none';
+  document.getElementById('totalBar').style.display = 'none';
+  document.getElementById('successMsg').style.display = 'block';
+  document.getElementById('confirmName').textContent = prenom;
+}
+</script>
