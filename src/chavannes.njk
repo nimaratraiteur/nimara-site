@@ -1,59 +1,91 @@
 ---
 layout: layouts/page
 title: Chavannes
-subtitle: "Saveurs du monde, esprit Nimara — une table de buffet qui voyage."
-description: "Le buffet Chavannes de Nimara : samosas, pakoras, naans, wraps végétariens et spécialités asiatiques. Traiteur événementiel Genève."
-eyebrow: "Traiteur · Saveurs du Monde"
-heroClass: chavannes-hero
+subtitle: "Cuisine indienne authentique — épices torréfiées, curries mijotés, saveurs qui voyagent."
+description: "Nimara Chavannes : cuisine indienne authentique à Genève. Butter chicken, samosas, naans, curries mijotés. Traiteur événementiel et box repas midi."
+eyebrow: "Cuisine Indienne · Épices Maison"
 permalink: /chavannes/
 ---
 
 <section class="section">
   <div class="container">
-    <div class="grid-2" style="align-items:center;gap:4rem;margin-bottom:4rem">
+    <div class="grid-2" style="align-items:center;gap:3rem;margin-bottom:4rem">
       <div>
-        <span class="eyebrow">L'histoire Chavannes</span>
-        <h2>Quand le monde entier<br>se retrouve à votre table</h2>
+        <span class="eyebrow">Notre cuisine</span>
+        <h2>Des épices torréfiées à la main,<br>des recettes qui voyagent</h2>
         <p style="margin-bottom:1rem">
-          Chavannes est née d'une idée simple : pourquoi choisir entre les saveurs quand on peut tout avoir ?
-          Inga, notre Chef Traiteur, a voyagé à travers l'Asie du Sud et le Moyen-Orient pour composer
-          une carte de buffet qui surprend et réunit.
+          Chaque masala est composé maison. Nos curries sont mijotés lentement, avec des épices entières torréfiées à sec.
+          Pas de raccourcis, pas de compromis — l'authenticité, directement à votre table.
         </p>
         <p style="margin-bottom:1.5rem">
-          Samosas croustillants, pakoras épinards-oignon, naans façon tandoor, curries parfumés —
-          chaque bouchée est une invitation au voyage, préparée avec les produits frais du marché genevois.
+          Du butter chicken onctueux aux samosas croustillants, en passant par nos naans frais et nos box repas midi :
+          la cuisine indienne telle qu'elle devrait être, préparée chaque jour à Genève.
         </p>
         <a href="https://wa.me/{{ site.whatsapp }}?text={{ site.whatsappMessage | urlencode }}"
            class="btn btn-whatsapp" target="_blank" rel="noopener noreferrer">
-          Commander le buffet Chavannes
+          Commander sur WhatsApp
         </a>
       </div>
-      <div style="background:linear-gradient(135deg,#0f0820,#4c1d95);border-radius:20px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;font-size:6rem;">
-        🌍
+      <div style="border-radius:20px;overflow:hidden;aspect-ratio:4/3">
+        <img src="/assets/images/products/curry-poulet-epices.png" alt="Curry Nimara" style="width:100%;height:100%;object-fit:cover">
       </div>
     </div>
 
-    <!-- Spices / items -->
     <div class="section-header">
-      <span class="eyebrow">Au menu Chavannes</span>
-      <h2>Nos spécialités</h2>
+      <span class="eyebrow">Nos plats signature</span>
+      <h2>Curries & Spécialités</h2>
     </div>
-    <div class="spice-grid" style="background:var(--dark);padding:2rem;border-radius:20px">
-      {% set chavannesItems = [
-        { icon: "🥟", name: "Samosas Légumes", desc: "Feuille de brick, pommes de terre, petits pois, épices" },
-        { icon: "🫓", name: "Pakoras Épinards", desc: "Farine de pois chiche, épinards frais, cumin" },
-        { icon: "🫓", name: "Naans à l'Ail", desc: "Façon tandoor, ail confit, coriandre fraîche" },
-        { icon: "🍛", name: "Curry Pois Chiches", desc: "Chana masala doux, lait de coco, coriandre fraîche" },
-        { icon: "🌯", name: "Wraps Végétariens", desc: "Houmous, taboulé, légumes croquants, tahini" },
-        { icon: "🍢", name: "Brochettes Halloumi", desc: "Halloumi grillé, tomates confites, olives Kalamata" },
-        { icon: "🥗", name: "Raïta Concombre", desc: "Yaourt grec, menthe, graines de moutarde" },
-        { icon: "🫙", name: "Chutneys Maison", desc: "Mangue douce, coriandre-menthe, tamarin" }
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem;margin-bottom:3rem">
+      {% set plats = [
+        { img: "/assets/images/products/butter-chicken.jpeg", name: "Butter Chicken", desc: "Sauce onctueuse au beurre, tomate et épices douces. Notre best-seller.", price: "CHF 18.00", badge: "Signature" },
+        { img: "/assets/images/products/poulet-tikka-masala.jpeg", name: "Poulet Tikka Masala", desc: "Mijoté lentement, épices maison torréfiées.", price: "CHF 18.00", badge: "" },
+        { img: "/assets/images/products/poulet-vindaloo.jpeg", name: "Poulet Vindaloo", desc: "Relevé, vinaigré, épicé. Pour les amateurs de sensations.", price: "CHF 18.00", badge: "" },
+        { img: "/assets/images/products/poulet-mangue.jpeg", name: "Poulet Mangue", desc: "Doux, fruité, mangue fraîche et épices légères.", price: "CHF 18.00", badge: "" },
+        { img: "/assets/images/products/boeuf-8-epices.jpeg", name: "Boeuf aux 8 Épices", desc: "Boeuf braisé, mélange maison de 8 épices torréfiées.", price: "CHF 20.00", badge: "" },
+        { img: "/assets/images/products/crevettes-curry.jpeg", name: "Crevettes Curry", desc: "Crevettes juteuses, sauce curry maison.", price: "CHF 22.00", badge: "" },
+        { img: "/assets/images/products/saag-epinards.png", name: "Saag Aloo", desc: "Épinards, pommes de terre, épices douces. Végétarien.", price: "CHF 14.00", badge: "Végétarien" },
+        { img: "/assets/images/products/dal-rouge.png", name: "Dal Rouge", desc: "Lentilles corail, cumin, réconfortant. Végétalien.", price: "CHF 12.00", badge: "Vegan" },
+        { img: "/assets/images/products/curry-pois-chiches.png", name: "Curry Pois Chiches", desc: "Réconfortant, épicé, 100% végétal.", price: "CHF 14.00", badge: "Vegan" },
+        { img: "/assets/images/products/pois-chiches.jpeg", name: "Palak Paneer", desc: "Fromage indien, sauce épinards, épices.", price: "CHF 14.00", badge: "Végétarien" }
       ] %}
-      {% for item in chavannesItems %}
-      <div class="spice-card animate-fade-up">
-        <div class="spice-card__icon">{{ item.icon }}</div>
-        <div class="spice-card__name">{{ item.name }}</div>
-        <div class="spice-card__desc">{{ item.desc }}</div>
+      {% for p in plats %}
+      <div class="card animate-fade-up" style="overflow:hidden">
+        <div style="aspect-ratio:4/3;overflow:hidden;position:relative">
+          <img src="{{ p.img }}" alt="{{ p.name }}" style="width:100%;height:100%;object-fit:cover" loading="lazy">
+          {% if p.badge %}<span style="position:absolute;top:12px;left:12px;background:var(--violet);color:white;font-size:.7rem;font-weight:700;padding:4px 10px;border-radius:12px">{{ p.badge }}</span>{% endif %}
+        </div>
+        <div class="card-body" style="padding:1.25rem">
+          <h3 style="font-size:1.1rem;margin-bottom:.25rem">{{ p.name }}</h3>
+          <p style="font-size:.85rem;color:var(--gray-500);margin-bottom:.75rem">{{ p.desc }}</p>
+          <div style="font-weight:700;color:var(--violet)">{{ p.price }}</div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="section-header">
+      <span class="eyebrow">Entrées & Accompagnements</span>
+      <h2>Samosas, Naans & Pakora</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1.25rem;margin-bottom:3rem">
+      {% set entrees = [
+        { img: "/assets/images/products/samosa-legumes.png", name: "Samosas Légumes", desc: "Croustillants, menthe fraîche", price: "CHF 3.00" },
+        { img: "/assets/images/products/samosa-viande.png", name: "Samosa au Boeuf", desc: "Boeuf épicé, pâte croustillante", price: "CHF 3.50" },
+        { img: "/assets/images/products/naan-fromage.png", name: "Naans", desc: "Beurre, ail ou fromage. Frais chaque matin.", price: "CHF 3.50" },
+        { img: "/assets/images/products/pakora.png", name: "Pakora", desc: "Épinards, oignon, épices. Végétalien.", price: "CHF 2.50" },
+        { img: "/assets/images/products/tikki-galettes.png", name: "Aloo Tikki", desc: "Galettes de pommes de terre épicées.", price: "CHF 4.50" },
+        { img: "/assets/images/products/pate-feuilletee-epinards-feta.png", name: "Triangle Feta", desc: "Feuilleté épinards frais et feta.", price: "CHF 5.00" }
+      ] %}
+      {% for e in entrees %}
+      <div class="card animate-fade-up" style="overflow:hidden">
+        <div style="aspect-ratio:1;overflow:hidden">
+          <img src="{{ e.img }}" alt="{{ e.name }}" style="width:100%;height:100%;object-fit:cover" loading="lazy">
+        </div>
+        <div class="card-body" style="padding:1rem">
+          <h4 style="font-size:.95rem;margin-bottom:.2rem">{{ e.name }}</h4>
+          <p style="font-size:.8rem;color:var(--gray-500);margin-bottom:.5rem">{{ e.desc }}</p>
+          <div style="font-weight:700;color:var(--violet);font-size:.9rem">{{ e.price }}</div>
+        </div>
       </div>
       {% endfor %}
     </div>
@@ -63,15 +95,54 @@ permalink: /chavannes/
 <section class="section section--cream">
   <div class="container">
     <div class="section-header">
-      <span class="eyebrow">Formules Chavannes</span>
+      <span class="eyebrow">Box Repas Midi</span>
+      <h2>Livré chaque jour pour vos équipes</h2>
+      <p>Curry + riz basmati + accompagnement. La pause déjeuner qui fait voyager.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.25rem;margin-bottom:2rem">
+      {% set boxes = [
+        { img: "/assets/images/products/box-butter-chicken-riz.png", name: "Box Butter Chicken", price: "CHF 16.90" },
+        { img: "/assets/images/products/box-tikka-riz-chutney.png", name: "Box Tikka Masala", price: "CHF 16.90" },
+        { img: "/assets/images/products/box-saag-paneer-riz-naan.png", name: "Box Saag Paneer", price: "CHF 15.90" },
+        { img: "/assets/images/products/box-palak-riz-poulet.png", name: "Box Palak Poulet", price: "CHF 16.90" },
+        { img: "/assets/images/products/box-dal-riz-tandoori.png", name: "Box Dal & Riz", price: "CHF 15.90" },
+        { img: "/assets/images/products/box-vindaloo-riz-naan.png", name: "Box Vindaloo", price: "CHF 16.90" },
+        { img: "/assets/images/products/box-pois-chiches-riz-masala.png", name: "Box Pois Chiches", price: "CHF 14.90" },
+        { img: "/assets/images/products/box-curry-riz-legumes.png", name: "Box Curry Légumes", price: "CHF 14.90" }
+      ] %}
+      {% for b in boxes %}
+      <div class="card animate-fade-up" style="overflow:hidden">
+        <div style="aspect-ratio:4/3;overflow:hidden">
+          <img src="{{ b.img }}" alt="{{ b.name }}" style="width:100%;height:100%;object-fit:cover" loading="lazy">
+        </div>
+        <div class="card-body" style="padding:1rem;display:flex;justify-content:space-between;align-items:center">
+          <h4 style="font-size:.95rem">{{ b.name }}</h4>
+          <div style="font-weight:700;color:var(--violet)">{{ b.price }}</div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <div style="text-align:center">
+      <a href="https://wa.me/{{ site.whatsapp }}?text=Bonjour, je souhaite commander des box repas midi."
+         class="btn btn-whatsapp" target="_blank" rel="noopener noreferrer">
+        Commander des box
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">Formules événements</span>
       <h2>Pour tous vos événements</h2>
-      <p>Du cocktail d'entreprise au séminaire, le buffet Chavannes s'adapte à vos besoins.</p>
+      <p>Du cocktail d'entreprise au séminaire, la cuisine Nimara s'adapte à vos besoins.</p>
     </div>
     <div class="grid-3">
       {% set formules = [
-        { icon: "🎉", title: "Cocktail (30 pers.)", price: "CHF 780", features: ["Samosas, pakoras, naans", "Wraps végé & brochettes", "Chutneys maison", "Service inclus"] },
-        { icon: "🏢", title: "Séminaire (50 pers.)", price: "CHF 1'280", features: ["Buffet complet chaud/froid", "Entrées + plats + desserts Nimara", "Matériel de service", "Livraison & mise en place"] },
-        { icon: "✨", title: "Sur Mesure (50+ pers.)", price: "Sur devis", features: ["Menu personnalisé", "Thème culinaire au choix", "Chef présent sur site", "Coordination événement"] }
+        { icon: "🎉", title: "Cocktail (30+ pers.)", price: "CHF 28/pers.", features: ["Samosas, pakora, naans", "Aloo tikki & triangles feta", "Chutneys maison", "Service inclus"] },
+        { icon: "🏢", title: "Buffet complet (20+ pers.)", price: "CHF 42/pers.", features: ["Curries chauds + entrées froides", "Riz basmati & naans", "Desserts Nimara", "Livraison & mise en place"] },
+        { icon: "✨", title: "Sur Mesure", price: "Sur devis", features: ["Menu personnalisé", "Box midi entreprise", "Volumes sur mesure", "Partenariat long terme"] }
       ] %}
       {% for f in formules %}
       <div class="card animate-fade-up">
@@ -98,15 +169,15 @@ permalink: /chavannes/
 
 <section class="cta-banner">
   <div class="container">
-    <span class="eyebrow" style="color:var(--lavender-lt)">Organisez votre événement</span>
-    <h2>Prêt pour le voyage ?</h2>
-    <p>Contactez Inga et son équipe pour organiser votre buffet Chavannes. Réponse sous 2h.</p>
+    <span class="eyebrow" style="color:var(--lavender-lt)">Envie de saveurs ?</span>
+    <h2>Commandez dès maintenant</h2>
+    <p>Box midi, buffet événement ou commande à la carte — contactez-nous sur WhatsApp. Réponse sous 2h.</p>
     <div class="btn-actions">
       <a href="https://wa.me/{{ site.whatsapp }}?text={{ site.whatsappMessage | urlencode }}"
          class="btn btn-whatsapp" target="_blank" rel="noopener noreferrer">
         Commander sur WhatsApp
       </a>
-      <a href="/carte/#traiteur" class="btn btn-light">Voir tous les plats</a>
+      <a href="/carte/" class="btn btn-light">Voir toute la carte</a>
     </div>
   </div>
 </section>
