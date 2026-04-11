@@ -92,36 +92,43 @@ select option{background:var(--dark);color:#fff}
   <div class="step">
     <div class="step-title"><div class="step-num">2</div> Votre formule</div>
     <div class="formules">
-      <div class="formule" onclick="selectFormule(this,'essentiel',15)">
+      <div class="formule" onclick="selectFormule(this,'essentiel',15.90)">
         <p>Essentiel</p>
-        <h3>15<span>.— / pers.</span></h3>
-        <ul><li>1 curry au choix</li><li>Riz basmati</li><li>1 naan nature</li></ul>
+        <h3>15.90<span> / pers.</span></h3>
+        <ul><li>1 protéine au choix</li><li>Riz basmati</li><li>1 accompagnement au choix</li><li>Livraison & récupération inclus</li></ul>
       </div>
-      <div class="formule popular" onclick="selectFormule(this,'decouverte',22)">
+      <div class="formule popular" onclick="selectFormule(this,'decouverte',19.90)">
         <p>Découverte</p>
-        <h3>22<span>.— / pers.</span></h3>
-        <ul><li>2 curries au choix</li><li>Riz basmati</li><li>1 naan au choix</li><li>Raïta concombre</li></ul>
+        <h3>19.90<span> / pers.</span></h3>
+        <ul><li>1 protéine au choix</li><li>Riz basmati</li><li>1 accompagnement au choix</li><li>1 entrée OU 1 dessert au choix</li><li>Livraison & récupération inclus</li></ul>
       </div>
-      <div class="formule" onclick="selectFormule(this,'premium',27)">
+      <div class="formule" onclick="selectFormule(this,'premium',26.90)">
         <p>Premium</p>
-        <h3>27<span>.— / pers.</span></h3>
-        <ul><li>2 curries au choix</li><li>Riz basmati</li><li>1 naan au choix</li><li>1 dessert</li><li>1 boisson</li></ul>
+        <h3>26.90<span> / pers.</span></h3>
+        <ul><li>1 protéine au choix</li><li>Riz basmati</li><li>1 accompagnement au choix</li><li>1 entrée + 1 dessert + 1 boisson</li><li>Livraison & récupération inclus</li></ul>
       </div>
     </div>
   </div>
 
   <div class="step" id="curryStep" style="display:none">
-    <div class="step-title"><div class="step-num">3</div> Vos curries</div>
-    <p style="font-size:12px;color:rgba(255,255,255,.4);margin-bottom:12px" id="curryHint">Choisissez 1 curry</p>
+    <div class="step-title"><div class="step-num">3</div> Votre protéine & accompagnement</div>
+    <p style="font-size:12px;color:rgba(255,255,255,.4);margin-bottom:12px" id="curryHint">Choisissez 1 protéine</p>
+    <p style="font-size:11px;color:var(--gold);font-weight:600;margin-bottom:8px;letter-spacing:1px">PROTÉINE (choisissez 1)</p>
     <div class="curry-options">
       <div class="curry-opt" onclick="toggleCurry(this,'Butter Chicken')"><img src="/assets/images/products/butter-chicken.jpeg" alt=""><div class="info"><h4>Butter Chicken</h4><p>Sauce onctueuse au beurre</p></div></div>
-      <div class="curry-opt" onclick="toggleCurry(this,'Tikka Masala')"><img src="/assets/images/products/poulet-tikka-masala.jpeg" alt=""><div class="info"><h4>Tikka Masala</h4><p>Épices maison torréfiées</p></div></div>
+      <div class="curry-opt" onclick="toggleCurry(this,'Tikka Masala')"><img src="/assets/images/products/poulet-tikka-masala.jpeg" alt=""><div class="info"><h4>Poulet Tikka Masala</h4><p>Épices maison torréfiées</p></div></div>
       <div class="curry-opt" onclick="toggleCurry(this,'Poulet Vindaloo')"><img src="/assets/images/products/poulet-vindaloo.jpeg" alt=""><div class="info"><h4>Poulet Vindaloo</h4><p>Relevé, épicé</p></div></div>
-      <div class="curry-opt" onclick="toggleCurry(this,'Saag Paneer')"><img src="/assets/images/products/saag-epinards.png" alt=""><div class="info"><h4>Saag Paneer 🌿</h4><p>Épinards, fromage. Végétarien</p></div></div>
-      <div class="curry-opt" onclick="toggleCurry(this,'Dal Rouge')"><img src="/assets/images/products/dal-rouge.png" alt=""><div class="info"><h4>Dal Rouge 🌱</h4><p>Lentilles, cumin. Vegan</p></div></div>
-      <div class="curry-opt" onclick="toggleCurry(this,'Pois Chiches')"><img src="/assets/images/products/curry-pois-chiches.png" alt=""><div class="info"><h4>Chana Masala 🌱</h4><p>Pois chiches épicés. Vegan</p></div></div>
       <div class="curry-opt" onclick="toggleCurry(this,'Poulet Mangue')"><img src="/assets/images/products/poulet-mangue.jpeg" alt=""><div class="info"><h4>Poulet Mangue</h4><p>Doux, fruité</p></div></div>
       <div class="curry-opt" onclick="toggleCurry(this,'Boeuf 8 Épices')"><img src="/assets/images/products/boeuf-8-epices.jpeg" alt=""><div class="info"><h4>Boeuf 8 Épices</h4><p>Braisé, mélange maison</p></div></div>
+      <div class="curry-opt" onclick="toggleCurry(this,'Saag Paneer')"><img src="/assets/images/products/saag-epinards.png" alt=""><div class="info"><h4>Saag Paneer 🌿</h4><p>Fromage indien, épinards. Végétarien</p></div></div>
+      <div class="curry-opt" onclick="toggleCurry(this,'Chana Masala')"><img src="/assets/images/products/curry-pois-chiches.png" alt=""><div class="info"><h4>Chana Masala 🌱</h4><p>Pois chiches épicés. Vegan</p></div></div>
+    </div>
+    <p style="font-size:11px;color:var(--gold);font-weight:600;margin:16px 0 8px;letter-spacing:1px">ACCOMPAGNEMENT (choisissez 1)</p>
+    <div class="curry-options" id="accompOptions">
+      <div class="curry-opt" onclick="toggleAccomp(this,'Lentilles jaunes')"><img src="/assets/images/products/dal-jaune.png" alt=""><div class="info"><h4>Lentilles jaunes</h4><p>Dhal doux, curcuma</p></div></div>
+      <div class="curry-opt" onclick="toggleAccomp(this,'Dal rouge')"><img src="/assets/images/products/dal-rouge.png" alt=""><div class="info"><h4>Dal rouge</h4><p>Lentilles corail, cumin</p></div></div>
+      <div class="curry-opt" onclick="toggleAccomp(this,'Saag Aloo')"><img src="/assets/images/products/saag-aloo.png" alt=""><div class="info"><h4>Saag Aloo 🌱</h4><p>Épinards, pommes de terre</p></div></div>
+      <div class="curry-opt" onclick="toggleAccomp(this,'Légumes du jour')"><img src="/assets/images/products/curry-doux.png" alt=""><div class="info"><h4>Légumes du jour 🌱</h4><p>Légumes de saison épicés</p></div></div>
     </div>
   </div>
 
@@ -162,7 +169,7 @@ const companyId = params.get('id') || 'demo';
 const companyName = params.get('name') || 'Entreprise';
 document.getElementById('companyBadge').textContent = decodeURIComponent(companyName);
 
-let state = {formule: null, formulePrice: 0, curries: [], maxCurries: 0, extras: [], extrasTotal: 0, diets: []};
+let state = {formule: null, formulePrice: 0, curries: [], maxCurries: 1, accomp: null, extras: [], extrasTotal: 0, diets: []};
 
 function selectFormule(el, name, price) {
   document.querySelectorAll('.formule').forEach(f => f.classList.remove('selected'));
@@ -170,10 +177,11 @@ function selectFormule(el, name, price) {
   state.formule = name;
   state.formulePrice = price;
   state.curries = [];
-  state.maxCurries = name === 'essentiel' ? 1 : 2;
+  state.accomp = null;
+  state.maxCurries = 1;
   document.querySelectorAll('.curry-opt').forEach(c => c.classList.remove('selected'));
   document.getElementById('curryStep').style.display = 'block';
-  document.getElementById('curryHint').textContent = 'Choisissez ' + state.maxCurries + ' curry' + (state.maxCurries > 1 ? 's' : '');
+  document.getElementById('curryHint').textContent = 'Choisissez 1 protéine et 1 accompagnement';
   document.getElementById('extrasStep').style.display = 'block';
   updateTotal();
 }
@@ -206,11 +214,18 @@ function toggleDiet(el) {
   state.diets = [...document.querySelectorAll('.diet-tag.selected')].map(t => t.textContent.trim());
 }
 
+function toggleAccomp(el, name) {
+  document.querySelectorAll('#accompOptions .curry-opt').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  state.accomp = name;
+  updateTotal();
+}
+
 function updateTotal() {
   const total = state.formulePrice + state.extrasTotal;
-  document.getElementById('totalAmount').textContent = total.toFixed(2).replace('.00', '.—');
+  document.getElementById('totalAmount').textContent = total.toFixed(2);
   const prenom = document.getElementById('prenom').value.trim();
-  document.getElementById('submitBtn').disabled = !(state.formule && state.curries.length >= state.maxCurries && prenom);
+  document.getElementById('submitBtn').disabled = !(state.formule && state.curries.length >= 1 && state.accomp && prenom);
 }
 
 document.getElementById('prenom').addEventListener('input', updateTotal);
@@ -221,7 +236,7 @@ async function submitOrder() {
   const order = {
     companyId, companyName: decodeURIComponent(companyName), prenom,
     formule: state.formule, formulePrice: state.formulePrice,
-    curries: state.curries.join(' + '), extras: state.extras.map(e => e.name).join(', '),
+    proteine: state.curries.join(' + '), accompagnement: state.accomp || '', curries: state.curries.join(' + ') + (state.accomp ? ' | Accomp: ' + state.accomp : ''), extras: state.extras.map(e => e.name).join(', '),
     extrasTotal: state.extrasTotal, total,
     diets: state.diets.join(', '),
     timestamp: new Date().toISOString()
