@@ -1,0 +1,198 @@
+---
+layout: layouts/standalone
+title: Dashboard Commandes — Nimara Entreprises
+permalink: /dashboard-commandes/
+---
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&display=swap');
+:root{--v:#5B2C8D;--lav:#a78bfa;--gold:#c8973a;--gold2:#f0c46a;--dark:#07040f;--dark2:#110c1e;--gn:#22c55e;--rd:#ef4444}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'DM Sans',sans-serif;background:var(--dark);color:#fff;min-height:100vh}
+.top{padding:16px 24px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(167,139,250,.1)}
+.logo{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:#fff;letter-spacing:3px;text-decoration:none}
+.logo em{color:var(--gold);font-style:normal}
+.badge{background:rgba(200,151,58,.1);border:1px solid rgba(200,151,58,.3);padding:6px 14px;border-radius:20px;font-size:12px;color:var(--gold2);font-weight:600}
+.main{max-width:1000px;margin:0 auto;padding:32px 24px}
+h1{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;margin-bottom:4px}
+h1 em{color:var(--gold2);font-style:italic}
+.subtitle{color:rgba(255,255,255,.4);font-size:13px;margin-bottom:24px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
+.kpi{background:rgba(255,255,255,.03);border:1px solid rgba(167,139,250,.1);border-radius:14px;padding:16px;text-align:center}
+.kpi-val{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700}
+.kpi-val.gold{color:var(--gold2)}
+.kpi-val.green{color:var(--gn)}
+.kpi-val.lav{color:var(--lav)}
+.kpi-label{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-top:4px}
+.share-box{background:rgba(167,139,250,.06);border:1px solid rgba(167,139,250,.2);border-radius:14px;padding:18px;margin-bottom:24px;display:flex;align-items:center;gap:14px}
+.share-box .icon{font-size:24px}
+.share-box .info{flex:1}
+.share-box .info p{font-size:13px;color:rgba(255,255,255,.5)}
+.share-box .link{background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:8px 14px;font-size:12px;color:var(--lav);font-family:monospace;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.btn-copy{background:var(--v);color:white;border:none;padding:8px 16px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Sans';white-space:nowrap}
+.btn-copy:hover{background:#4a2374}
+.orders-table{width:100%;border-collapse:collapse;margin-bottom:24px}
+.orders-table th{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);font-weight:600;padding:10px 12px;text-align:left;border-bottom:1px solid rgba(167,139,250,.15)}
+.orders-table td{padding:12px;border-bottom:1px solid rgba(255,255,255,.03);font-size:13px}
+.orders-table tr:hover td{background:rgba(167,139,250,.04)}
+.status{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;padding:3px 10px;border-radius:10px}
+.status.done{background:rgba(34,197,94,.1);color:var(--gn)}
+.status.pending{background:rgba(255,255,255,.05);color:rgba(255,255,255,.3)}
+.formule-badge{font-size:11px;padding:3px 8px;border-radius:6px;font-weight:600}
+.formule-badge.essentiel{background:rgba(167,139,250,.1);color:var(--lav)}
+.formule-badge.decouverte{background:rgba(200,151,58,.1);color:var(--gold2)}
+.formule-badge.premium{background:rgba(91,44,141,.2);color:#c4b5fd}
+.total-row td{font-weight:700;border-top:2px solid rgba(167,139,250,.2);background:rgba(167,139,250,.03)}
+.actions{display:flex;gap:10px;margin-bottom:24px}
+.btn{padding:12px 24px;border-radius:50px;font-size:13px;font-weight:600;border:none;cursor:pointer;font-family:'DM Sans';transition:.2s}
+.btn-green{background:var(--gn);color:white}.btn-green:hover{background:#16a34a}
+.btn-wa{background:#25d366;color:white}.btn-wa:hover{background:#20b858}
+.btn-outline{background:transparent;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.6)}.btn-outline:hover{border-color:var(--lav);color:var(--lav)}
+.empty{text-align:center;padding:60px 20px;color:rgba(255,255,255,.3)}
+.empty .icon{font-size:48px;margin-bottom:16px}
+.refresh-note{font-size:11px;color:rgba(255,255,255,.25);text-align:center;margin-top:12px}
+@media(max-width:768px){.kpis{grid-template-columns:repeat(2,1fr)}.share-box{flex-direction:column;align-items:stretch}.actions{flex-direction:column}}
+</style>
+
+<div class="top">
+  <a href="/" class="logo">NI<em>MARA</em></a>
+  <div class="badge">👩‍💼 Dashboard Organisateur</div>
+</div>
+
+<div class="main">
+  <h1>Commandes <em id="dashCompany">Entreprise</em></h1>
+  <p class="subtitle" id="dashDate">Chargement des commandes...</p>
+
+  <div class="share-box">
+    <div class="icon">🔗</div>
+    <div class="info">
+      <p><strong>Lien à partager avec vos collègues :</strong></p>
+    </div>
+    <div class="link" id="shareLink">—</div>
+    <button class="btn-copy" onclick="copyLink()">Copier</button>
+  </div>
+
+  <div class="kpis">
+    <div class="kpi"><div class="kpi-val green" id="kpiOrdered">0</div><div class="kpi-label">Commandé</div></div>
+    <div class="kpi"><div class="kpi-val lav" id="kpiPending">0</div><div class="kpi-label">En attente</div></div>
+    <div class="kpi"><div class="kpi-val gold" id="kpiTotal">CHF 0</div><div class="kpi-label">Total</div></div>
+    <div class="kpi"><div class="kpi-val" id="kpiAvg">CHF 0</div><div class="kpi-label">Moyen/pers.</div></div>
+  </div>
+
+  <div id="ordersContent">
+    <div class="empty">
+      <div class="icon">📋</div>
+      <p>Aucune commande pour le moment.<br>Partagez le lien avec vos collègues !</p>
+    </div>
+  </div>
+
+  <div class="actions" id="actionsBar" style="display:none">
+    <button class="btn btn-green" onclick="validateOrder()">✅ Valider la commande groupée</button>
+    <button class="btn btn-wa" onclick="sendWhatsApp()">💬 Envoyer sur WhatsApp</button>
+    <button class="btn btn-outline" onclick="exportCSV()">📥 Exporter CSV</button>
+  </div>
+
+  <p class="refresh-note">Les commandes se rafraîchissent automatiquement toutes les 30 secondes</p>
+</div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const companyId = params.get('id') || 'demo';
+const companyName = decodeURIComponent(params.get('name') || 'Entreprise');
+const expectedCount = parseInt(params.get('count') || '0');
+
+document.getElementById('dashCompany').textContent = companyName;
+
+const commanderUrl = window.location.origin + '/commander/?id=' + companyId + '&name=' + encodeURIComponent(companyName);
+document.getElementById('shareLink').textContent = commanderUrl;
+
+function copyLink() {
+  navigator.clipboard.writeText(commanderUrl);
+  const btn = document.querySelector('.btn-copy');
+  btn.textContent = '✅ Copié !';
+  setTimeout(() => btn.textContent = 'Copier', 2000);
+}
+
+function loadOrders() {
+  // Read from localStorage (same data the commander page writes)
+  const orders = JSON.parse(localStorage.getItem('nimara_orders_' + companyId) || '[]');
+  renderOrders(orders);
+}
+
+function renderOrders(orders) {
+  const count = orders.length;
+  const total = orders.reduce((s, o) => s + (o.total || 0), 0);
+  const avg = count > 0 ? total / count : 0;
+
+  document.getElementById('kpiOrdered').textContent = count;
+  document.getElementById('kpiPending').textContent = expectedCount > 0 ? Math.max(0, expectedCount - count) : '—';
+  document.getElementById('kpiTotal').textContent = 'CHF ' + total.toFixed(0);
+  document.getElementById('kpiAvg').textContent = 'CHF ' + avg.toFixed(0);
+  document.getElementById('dashDate').textContent = count + ' commande(s) reçue(s)' + (expectedCount > 0 ? ' sur ' + expectedCount + ' attendues' : '');
+
+  if (count === 0) return;
+
+  document.getElementById('actionsBar').style.display = 'flex';
+
+  let html = '<table class="orders-table"><thead><tr><th>Prénom</th><th>Formule</th><th>Curries</th><th>Extras</th><th>Restrictions</th><th>Total</th><th>Statut</th></tr></thead><tbody>';
+
+  orders.forEach(o => {
+    const fClass = o.formule === 'decouverte' ? 'decouverte' : o.formule === 'premium' ? 'premium' : 'essentiel';
+    html += '<tr>';
+    html += '<td><strong>' + (o.prenom || '—') + '</strong></td>';
+    html += '<td><span class="formule-badge ' + fClass + '">' + (o.formule || '—') + '</span></td>';
+    html += '<td>' + (o.curries || '—') + '</td>';
+    html += '<td>' + (o.extras || '—') + '</td>';
+    html += '<td>' + (o.diets || '—') + '</td>';
+    html += '<td style="font-weight:600;color:var(--gold2)">CHF ' + (o.total || 0).toFixed(0) + '</td>';
+    html += '<td><span class="status done">✓ Commandé</span></td>';
+    html += '</tr>';
+  });
+
+  html += '<tr class="total-row"><td colspan="5" style="text-align:right">TOTAL</td><td style="color:var(--gold2);font-size:1.1rem">CHF ' + total.toFixed(2) + '</td><td></td></tr>';
+  html += '</tbody></table>';
+
+  document.getElementById('ordersContent').innerHTML = html;
+}
+
+function sendWhatsApp() {
+  const orders = JSON.parse(localStorage.getItem('nimara_orders_' + companyId) || '[]');
+  let msg = '🍛 *Commande Nimara — ' + companyName + '*\n\n';
+  let total = 0;
+  orders.forEach(o => {
+    msg += '👤 *' + o.prenom + '* — ' + o.formule + ' (CHF ' + o.total + ')\n';
+    msg += '   Curries: ' + o.curries + '\n';
+    if (o.extras) msg += '   Extras: ' + o.extras + '\n';
+    if (o.diets) msg += '   ⚠️ ' + o.diets + '\n';
+    msg += '\n';
+    total += o.total;
+  });
+  msg += '💰 *Total: CHF ' + total.toFixed(2) + '*\n';
+  msg += '👥 ' + orders.length + ' personnes';
+
+  window.open('https://wa.me/41225576020?text=' + encodeURIComponent(msg), '_blank');
+}
+
+function exportCSV() {
+  const orders = JSON.parse(localStorage.getItem('nimara_orders_' + companyId) || '[]');
+  let csv = 'Prénom,Formule,Prix Formule,Curries,Extras,Prix Extras,Total,Restrictions\n';
+  orders.forEach(o => {
+    csv += [o.prenom, o.formule, o.formulePrice, '"' + o.curries + '"', '"' + (o.extras||'') + '"', o.extrasTotal, o.total, '"' + (o.diets||'') + '"'].join(',') + '\n';
+  });
+  const blob = new Blob([csv], {type: 'text/csv'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'commande_nimara_' + companyId + '.csv';
+  a.click();
+}
+
+function validateOrder() {
+  if (confirm('Valider la commande groupée et l\'envoyer à Nimara ?')) {
+    sendWhatsApp();
+  }
+}
+
+// Load and auto-refresh
+loadOrders();
+setInterval(loadOrders, 30000);
+</script>
