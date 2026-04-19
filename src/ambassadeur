@@ -1057,7 +1057,7 @@ body {
       </h2>
       <p class="confirm-sub" id="confirm-sub-text">
         Un email arrive avec ton lien unique et le menu complet.<br>
-        <strong>Va chercher ton cinnamon roll. 🎉</strong>
+        <strong>Tu fais maintenant partie de la communauté Nimara ! 🎉</strong>
       </p>
 
     </div>
@@ -1068,8 +1068,8 @@ body {
       <div class="reward-card">
         <div class="reward-icon">🎖️</div>
         <div>
-          <div class="reward-title">Va chercher ton badge</div>
-          <div class="reward-desc">Viens voir Nikhil — il a un badge physique et un cinnamon roll frais pour toi.</div>
+          <div class="reward-title">Bienvenue chez Nimara</div>
+          <div class="reward-desc">Bienvenue dans la communauté Nimara ! Tu recevras un email de confirmation.</div>
         </div>
       </div>
 
@@ -1206,7 +1206,20 @@ function handleSubmit(e) {
   const menu = document.getElementById('menu').checked;
   const btn = document.getElementById('submit-btn');
 
-  if (!name || !email) return;
+  // Validate name (at least 2 chars)
+  if (!name || name.length < 2) {
+    alert('Merci d\'entrer votre prénom et nom.');
+    document.getElementById('name').focus();
+    return;
+  }
+
+  // Validate email format
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!email || !emailRegex.test(email)) {
+    alert('Merci d\'entrer une adresse email valide.');
+    document.getElementById('email').focus();
+    return;
+  }
 
   // Loading state
   btn.classList.add('loading');
@@ -1267,7 +1280,7 @@ function handleSubmit(e) {
 
       if (refName) {
         document.getElementById('confirm-sub-text').innerHTML =
-          `Référé par <strong>${refName}</strong>. Un email avec ton lien et le menu arrive.<br><strong>Va chercher ton cinnamon roll. 🎉</strong>`;
+          `Référé par <strong>${refName}</strong>. Un email avec ton lien et le menu arrive.<br><strong>Tu fais maintenant partie de la communauté Nimara ! 🎉</strong>`;
       }
 
       // Trigger scroll reveals on confirm page
