@@ -1,10 +1,12 @@
 /* ═══════════════════════════════════════
    VANESSA — Nimara AI Sales Assistant
-   She CONVERTS. She never redirects.
+   Uses existing HTML from vanessa-widget.njk
+   Conversation persists via localStorage
    ═══════════════════════════════════════ */
 (function() {
   const WA = 'https://wa.me/41225576020';
-  const SITE = 'nimara.io';
+  const STORAGE_KEY = 'nimara_vanessa_chat';
+  const STORAGE_TTL = 30 * 60 * 1000; // 30 min session
 
   /* ── KNOWLEDGE BASE ── */
   const KB = {
@@ -17,282 +19,224 @@
     accompagnements: ['Lentilles jaunes', 'Dal rouge', 'Saag Aloo (vegan)', 'Légumes du jour (vegan)'],
     entrees: ['Samosas légumes', 'Samosas boeuf', 'Pakora épinards', 'Aloo Tikki', 'Naan ail', 'Naan fromage'],
     desserts: ['Cheesecake spéculos', 'Brookie', 'Brownie', 'Cinnamon Roll', 'Pecan Pie', 'Banana Bread'],
-    boissons: ['Mango Lassi', 'Jus de gingembre maison', 'Jus d\'hibiscus', 'Eau aromatisée'],
-    evenements: {
-      cocktail: { price: '28', desc: 'Samosas, pakora, naans, bouchées. Dès 30 pers.' },
-      buffet: { price: '42', desc: 'Curries + entrées + desserts + boissons. Dès 20 pers.' },
-      midi: { price: '15.90-26.90', desc: 'Box individuelles livrées. Dès 10 pers.' }
-    },
-    allergenes: {
-      'Banana Bread': 'Gluten, Lait, Œufs',
-      'Brownie': 'Gluten, Lait, Œufs',
-      'Brookie': 'Gluten, Lait, Œufs, Fruits à coque',
-      'Cheesecake': 'Gluten, Lait, Œufs',
-      'Samosas': 'Gluten, Sésame',
-      'Naans': 'Gluten, Lait',
-      'Pakora': 'Gluten (vegan)',
-      'Butter Chicken': 'Lait',
-      'Tikka Masala': 'Lait'
-    },
-    info: {
-      adresse: 'Rue des Délices 3, 1203 Genève',
-      tel: '022 300 52 20',
-      whatsapp: '+41 22 557 60 20',
-      horaires: 'Lun-Ven 7h-19h, Sam 7h30-18h',
-      livraison: 'Livraison gratuite à Genève pour les commandes entreprise. Contenants consignés récupérés.',
-      halal: 'Toutes nos viandes sont halal.',
-      vegan: 'Nous proposons plusieurs options vegan : Chana Masala, Pakora, Saag Aloo, Dal rouge, Légumes du jour.'
-    }
+    boissons: ['Mango Lassi', 'Jus de gingembre', 'Jus d\'hibiscus', 'Eau aromatisée'],
+    allergenes: { 'Banana Bread':'Gluten, Lait, Œufs', 'Brownie':'Gluten, Lait, Œufs', 'Brookie':'Gluten, Lait, Œufs, Fruits à coque', 'Samosas':'Gluten, Sésame', 'Naans':'Gluten, Lait', 'Pakora':'Gluten (vegan)', 'Butter Chicken':'Lait' },
+    info: { adresse:'Rue des Délices 3, 1203 Genève', tel:'022 300 52 20', whatsapp:'+41 22 557 60 20', horaires:'Lun-Ven 7h-19h, Sam 7h30-18h', livraison:'Livraison gratuite à Genève pour entreprises. Contenants consignés récupérés.', halal:'Toutes nos viandes sont halal.', vegan:'Options vegan : Chana Masala, Pakora, Saag Aloo, Dal rouge, Légumes du jour.' }
   };
+
+  /* ── CONTEXT GREETING ── */
+  function getContextGreeting() {
+    const p = window.location.pathname;
+    if (p.includes('/carte')) return { text:'Vous explorez notre carte ! 🍛 Dites-moi ce qui vous tente ou vos restrictions alimentaires — je compose pour vous.', buttons:['Box midi entreprise', 'Événement', 'Allergènes'] };
+    if (p.includes('/entreprise')) return { text:'Bienvenue ! 📦 Nos box repas midi pour équipes :\n\n⭐ **Découverte** CHF 19.90/pers. — le plus populaire\nProtéine + riz + accompagnement + entrée ou dessert\n\nPour combien de personnes ?', buttons:['5-10 personnes', '10-20 personnes', '20+ personnes'] };
+    if (p.includes('/chavannes')) return { text:'Bienvenue dans nos saveurs du monde ! 🍛\n\nNotre butter chicken est le n°1 — onctueux, épices maison.\n\nVous cherchez pour vous ou pour un groupe ?', buttons:['Pour moi', 'Pour mon équipe', 'Événement'] };
+    if (p.includes('/calculateur')) return { text:'Je peux vous aider à composer votre menu ! 🎉\n\nQuelle est l\'occasion et combien d\'invités ?', buttons:['Mariage', 'Séminaire', 'Apéro'] };
+    if (p.includes('/ambassadeur')) return { text:'Bienvenue dans le programme Ambassadeur ! 🌟 Inscrivez-vous et partagez Nimara avec votre réseau.', buttons:['Comment ça marche ?', 'S\'inscrire'] };
+    return { text:'Bonjour ! Je suis Vanessa, votre conseillère Nimara. 🌟\n\nCuisine indienne authentique et pâtisseries artisanales, livrées à Genève.\n\nQu\'est-ce qui vous ferait plaisir ?', buttons:['🍛 Box repas midi', '🎉 Organiser un événement', '📋 Voir la carte'] };
+  }
 
   /* ── INTENT DETECTION ── */
   function detectIntent(msg) {
     const m = msg.toLowerCase();
-    if (/prix|co[uû]t|tarif|combien|budget/.test(m)) return 'price';
-    if (/box|midi|entreprise|bureau|corporate|lunch|déjeuner|équipe|team|collègue/.test(m)) return 'box_midi';
+    if (/prix|co[uû]t|tarif|combien|budget|devis/.test(m)) return 'price';
+    if (/box|midi|entreprise|bureau|corporate|lunch|déjeuner|équipe|team|collègue|personnes/.test(m)) return 'box_midi';
     if (/événement|event|mariage|wedding|séminaire|cocktail|apéro|buffet|fête|party|anniversaire/.test(m)) return 'event';
-    if (/menu|carte|produit|plat|dish|curry|samosa|naan|pakora/.test(m)) return 'menu';
+    if (/menu|carte|produit|plat|dish|curry|samosa|naan|pakora|butter|tikka/.test(m)) return 'menu';
     if (/végé|vegan|halal|sans gluten|allergi|intolér|régime/.test(m)) return 'dietary';
     if (/livra|deliver|commander|order|commande/.test(m)) return 'order';
     if (/horaire|ouvert|heure|quand|where|où|adresse|location/.test(m)) return 'info';
     if (/sucr|dessert|gâteau|cake|brownie|cookie|cheesecake|pâtisserie|banana/.test(m)) return 'desserts';
-    if (/boisson|drink|lassi|jus|juice/.test(m)) return 'drinks';
+    if (/boisson|drink|lassi|jus|juice|hibiscus/.test(m)) return 'drinks';
     if (/bonjour|hello|hi|salut|hey|coucou/.test(m)) return 'greeting';
-    if (/merci|thank/.test(m)) return 'thanks';
+    if (/merci|thank|super|parfait|genial/.test(m)) return 'thanks';
+    if (/comment.*marche|how|fonctionn/.test(m)) return 'how';
+    if (/5.*10|10.*20|20\+|\d+\s*pers/.test(m)) return 'quote';
     return 'general';
   }
 
   /* ── RESPONSE ENGINE ── */
   function getResponse(intent, msg) {
     const m = msg.toLowerCase();
+    const numMatch = m.match(/(\d+)/);
+    const numPeople = numMatch ? parseInt(numMatch[1]) : 0;
 
     switch(intent) {
       case 'greeting':
-        return {
-          text: 'Bonjour ! Je suis Vanessa, votre conseillère Nimara. 🌟\n\nCuisine indienne authentique et pâtisseries artisanales, livrées à Genève.\n\nQu\'est-ce qui vous ferait plaisir ?',
-          buttons: ['🍛 Box repas midi', '🎉 Événement', '📋 Notre carte', '📍 Nous trouver']
-        };
+        return getContextGreeting();
 
       case 'box_midi':
+      case 'quote':
+        if (numPeople > 0) {
+          const ess = (numPeople * 15.9).toFixed(2);
+          const dec = (numPeople * 19.9).toFixed(2);
+          const prem = (numPeople * 26.9).toFixed(2);
+          return {
+            text: `Pour **${numPeople} personnes**, voici votre estimation :\n\n📦 **Essentiel** : CHF ${ess}\n(protéine + riz + accompagnement)\n\n⭐ **Découverte** : CHF ${dec}\n(+ entrée ou dessert au choix)\n\n💎 **Premium** : CHF ${prem}\n(+ entrée + dessert + boisson)\n\nTout inclus : livraison, contenants consignés, récupération.\n\nQuelle formule vous intéresse ?`,
+            buttons: ['Essentiel', 'Découverte ⭐', 'Premium']
+          };
+        }
         return {
-          text: `Nos box repas midi sont parfaites pour les équipes ! Tout est livré et récupéré.\n\n📦 **Essentiel** — CHF ${KB.boxMidi.essentiel.price}/pers.\n${KB.boxMidi.essentiel.desc}\n\n⭐ **Découverte** — CHF ${KB.boxMidi.decouverte.price}/pers.\n${KB.boxMidi.decouverte.desc}\n\n💎 **Premium** — CHF ${KB.boxMidi.premium.price}/pers.\n${KB.boxMidi.premium.desc}\n\nPour combien de personnes souhaitez-vous commander ?`,
-          buttons: ['Voir les protéines', 'Commander sur WhatsApp', 'Page entreprises']
+          text: `Nos box repas midi pour équipes :\n\n📦 **Essentiel** CHF 15.90/pers.\nProtéine + riz + accompagnement\n\n⭐ **Découverte** CHF 19.90/pers.\n+ entrée OU dessert au choix\n\n💎 **Premium** CHF 26.90/pers.\n+ entrée + dessert + boisson\n\nLivraison & récupération incluses. Dès 10 personnes.\n\nCombien êtes-vous ?`,
+          buttons: ['10 personnes', '20 personnes', '30 personnes']
         };
 
       case 'event':
-        let eventType = 'cocktail';
-        if (/buffet/.test(m)) eventType = 'buffet';
-        if (/midi|lunch|déjeuner/.test(m)) eventType = 'midi';
-        if (/mariage|wedding/.test(m)) {
+        if (numPeople > 0) {
+          const cocktail = (numPeople * 28).toFixed(0);
+          const buffet = (numPeople * 42).toFixed(0);
           return {
-            text: 'Félicitations pour votre mariage ! 🥂\n\nNous proposons des formules apéro dînatoire sur mesure :\n\n🍛 Sélection indienne : samosas, pakora, tandoori, naans\n🍰 Pâtisseries : cheesecakes, brookies, cinnamon rolls\n🍹 Boissons maison : lassi mangue, jus de gingembre, hibiscus\n\nÀ partir de **CHF 28/pers.** tout compris (livraison, service, matériel).\n\nCombien d\'invités prévoyez-vous ?',
-            buttons: ['Demander un devis', 'Voir le menu', 'Contacter Nikhil']
+            text: `Pour **${numPeople} invités**, voici les formules :\n\n🥂 **Cocktail** : CHF ${cocktail}.— (CHF 28/pers.)\nSamosas, pakora, naans, bouchées tandoori\n\n🍛 **Buffet complet** : CHF ${buffet}.— (CHF 42/pers.)\nCurries + entrées + riz + naans + desserts + boissons\n\nService, livraison et matériel inclus.\n\nQuelle formule préférez-vous ?`,
+            buttons: ['Cocktail', 'Buffet', 'Sur mesure']
           };
         }
-        const ev = KB.evenements[eventType];
-        return {
-          text: `Pour votre événement, voici notre formule ${eventType} :\n\n**À partir de CHF ${ev.price}/pers.**\n${ev.desc}\n\nNous nous occupons de tout : livraison, mise en place, service et récupération.\n\nQuelle est la date et combien de personnes ?`,
-          buttons: ['Demander un devis', 'Voir les formules', 'Contacter Nikhil']
-        };
+        if (/mariage|wedding/.test(m)) {
+          return { text:'Félicitations ! 🥂\n\nNous proposons des apéros dînatoires sur mesure :\n• Sélection indienne + options internationales\n• Pâtisseries artisanales\n• Boissons maison\n\nÀ partir de **CHF 28/pers.** tout compris.\n\nCombien d\'invités prévoyez-vous ?', buttons:['30 invités', '50 invités', '80 invités'] };
+        }
+        return { text:'Pour votre événement :\n\n🥂 **Cocktail** dès CHF 28/pers. (30+ invités)\n🍛 **Buffet** dès CHF 42/pers. (20+ invités)\n📦 **Box individuelles** dès CHF 15.90/pers. (10+)\n\nService, livraison, matériel — tout inclus.\n\nQuelle est l\'occasion et combien de personnes ?', buttons:['Cocktail', 'Buffet', 'Box midi'] };
 
       case 'price':
         return {
-          text: 'Voici nos tarifs :\n\n📦 **Box repas midi** (entreprise)\n• Essentiel : CHF 15.90/pers.\n• Découverte : CHF 19.90/pers. ⭐\n• Premium : CHF 26.90/pers.\n\n🎉 **Événements**\n• Cocktail : dès CHF 28/pers.\n• Buffet complet : dès CHF 42/pers.\n\n🍰 **Pâtisseries** (à la pièce)\n• Cheesecake : CHF 32\n• Banana Bread : CHF 27.50\n• Brookie : CHF 4.50\n\nTout inclus : livraison, contenants, récupération.\n\nQuelle formule vous intéresse ?',
-          buttons: ['Box midi', 'Événement', 'Commander']
+          text: '💰 **Nos tarifs tout compris :**\n\n📦 **Box repas midi**\n• Essentiel : CHF 15.90/pers.\n• Découverte : CHF 19.90/pers. ⭐\n• Premium : CHF 26.90/pers.\n\n🎉 **Événements**\n• Cocktail : CHF 28/pers.\n• Buffet : CHF 42/pers.\n\nLivraison, service et récupération inclus.\n\nDites-moi le nombre de personnes et je calcule pour vous !',
+          buttons: ['Devis box midi', 'Devis événement']
         };
 
       case 'menu':
-        return {
-          text: 'Notre carte est riche en saveurs ! 🍛\n\n**Protéines** : ' + KB.proteines.slice(0,4).join(', ') + '...\n\n**Entrées** : ' + KB.entrees.slice(0,4).join(', ') + '\n\n**Desserts** : ' + KB.desserts.slice(0,4).join(', ') + '\n\nTout est fait maison, chaque jour, avec des épices torréfiées à la main.\n\nVoulez-vous voir la carte complète ?',
-          buttons: ['Voir la carte', 'Box midi', 'Allergènes']
-        };
+        return { text:'Notre carte 🍛\n\n**Protéines** : Butter Chicken, Tikka Masala, Vindaloo, Poulet Mangue, Boeuf 8 Épices, Saag Paneer 🌿, Chana Masala 🌱\n\n**Entrées** : Samosas, Pakora, Aloo Tikki, Naans\n\n**Desserts** : Cheesecake, Brookie, Banana Bread, Cinnamon Roll\n\nTout fait maison, épices torréfiées à la main.\n\nUn produit vous intéresse ?', buttons:['Box midi', 'Allergènes', 'Commander'] };
 
       case 'dietary':
-        if (/vegan/.test(m)) {
-          return { text: 'Nous avons plusieurs options 100% vegan ! 🌱\n\n• Chana Masala (pois chiches)\n• Pakora (épinards, oignon)\n• Saag Aloo (épinards, pommes de terre)\n• Dal rouge (lentilles)\n• Légumes du jour\n\nToutes nos box peuvent être composées en version vegan. Voulez-vous commander ?', buttons: ['Commander vegan', 'Voir les prix'] };
-        }
-        if (/halal/.test(m)) {
-          return { text: 'Toutes nos viandes sont halal. ✅\n\nPoulet tikka masala, butter chicken, poulet vindaloo, boeuf aux 8 épices — tout est certifié halal.\n\nNous proposons aussi de nombreuses options végétariennes et vegan.', buttons: ['Voir le menu', 'Commander'] };
-        }
-        if (/allergi|gluten/.test(m)) {
-          return { text: 'Voici les allergènes de nos produits principaux :\n\n' + Object.entries(KB.allergenes).map(([k,v]) => `• ${k} : ${v}`).join('\n') + '\n\nN\'hésitez pas à me demander pour un produit spécifique !', buttons: ['Commander', 'Voir la carte'] };
-        }
-        return { text: KB.info.vegan + '\n\n' + KB.info.halal + '\n\nNous adaptons nos menus à vos besoins. Dites-moi vos restrictions et je compose pour vous !', buttons: ['Options vegan', 'Voir le menu'] };
+        if (/vegan/.test(m)) return { text:'Options 100% vegan 🌱 :\n\n• Chana Masala\n• Pakora épinards\n• Saag Aloo\n• Dal rouge\n• Légumes du jour\n\nToutes nos box sont disponibles en version vegan !', buttons:['Box vegan', 'Prix'] };
+        if (/halal/.test(m)) return { text:'Toutes nos viandes sont halal ✅\n\nButter Chicken, Tikka Masala, Vindaloo, Boeuf 8 Épices — tout certifié.', buttons:['Voir le menu', 'Commander'] };
+        return { text:'🌿 Végétarien : Saag Paneer, Dal, légumes\n🌱 Vegan : Chana Masala, Pakora, Saag Aloo\n🕌 Halal : toutes nos viandes\n\nAllergens :\n' + Object.entries(KB.allergenes).map(([k,v])=>`• ${k}: ${v}`).join('\n'), buttons:['Commander', 'Menu'] };
 
       case 'desserts':
-        return {
-          text: 'Nos pâtisseries sont faites maison chaque jour ! 🍰\n\n• **Cheesecake Spéculos** — onctueux, base croustillante\n• **Banana Bread** — moelleux, pépites de chocolat (signature !)\n• **Brookie** — le meilleur du brownie et du cookie\n• **Cinnamon Roll** — cannelle, glaçage vanille\n• **Pecan Pie** — caramel, noix de pécan\n• **Brownie** — fondant, chocolat noir intense\n\nIdéal en dessert dans nos box midi ou pour un coffee break !',
-          buttons: ['Ajouter à une box', 'Commander des desserts', 'Voir les prix']
-        };
+        return { text:'Nos pâtisseries maison 🍰\n\n• **Cheesecake Spéculos** — onctueux\n• **Banana Bread** — signature !\n• **Brookie** — brownie × cookie\n• **Cinnamon Roll** — glaçage vanille\n• **Pecan Pie** — caramel, noix de pécan\n• **Brownie** — chocolat noir intense\n\nInclus dans la formule Premium ou en supplément !', buttons:['Formule Premium', 'Box midi'] };
 
       case 'drinks':
-        return {
-          text: 'Nos boissons maison : 🍹\n\n• **Mango Lassi** — yaourt, mangue, crémeux\n• **Jus de gingembre** — frais, piquant\n• **Jus d\'hibiscus** — floral, vibrant\n• **Eaux aromatisées** — concombre-menthe, citron-basilic\n\nIncluses dans la formule Premium (CHF 26.90/pers.) ou en supplément (+CHF 4).',
-          buttons: ['Formule Premium', 'Commander']
-        };
+        return { text:'Nos boissons maison 🍹\n\n• Mango Lassi\n• Jus de gingembre\n• Jus d\'hibiscus\n• Eaux aromatisées\n\nIncluses dans le Premium ou +CHF 4 en supplément.', buttons:['Formule Premium', 'Menu'] };
 
       case 'order':
-        return {
-          text: 'Pour commander, c\'est simple ! 📦\n\n**Entreprises (box midi)** :\n→ Rendez-vous sur nimara.io/commander\n→ Choisissez formule + protéine + accompagnement\n→ Livraison le jour même !\n\n**Événements & traiteur** :\n→ Contactez Nikhil directement\n→ Devis en 2h\n\n**Particuliers** :\n→ Passez nous voir au stand Délices !\n→ Rue des Délices 3, Genève',
-          buttons: ['Commander en ligne', 'WhatsApp Nikhil', 'Nos adresses']
-        };
+        return { text:'Pour commander :\n\n📦 **Box midi entreprise** → nimara.io/commander\n🎉 **Événement** → je peux calculer votre devis maintenant !\n📍 **Sur place** → Rue des Délices 3, Genève\n\nQue préférez-vous ?', buttons:['Devis maintenant', 'Commander en ligne'] };
 
       case 'info':
-        return {
-          text: `📍 **Adresse** : ${KB.info.adresse}\n📞 **Téléphone** : ${KB.info.tel}\n💬 **WhatsApp** : ${KB.info.whatsapp}\n🕐 **Horaires** : ${KB.info.horaires}\n\n🚚 ${KB.info.livraison}`,
-          buttons: ['Commander', 'Voir la carte', 'WhatsApp']
-        };
+        return { text:`📍 ${KB.info.adresse}\n📞 ${KB.info.tel}\n🕐 ${KB.info.horaires}\n\n🚚 ${KB.info.livraison}`, buttons:['Commander', 'Menu'] };
 
       case 'thanks':
-        return {
-          text: 'Avec plaisir ! 😊 N\'hésitez pas si vous avez d\'autres questions. On a hâte de vous régaler !',
-          buttons: ['Commander', 'Voir la carte']
-        };
+        return { text:'Avec plaisir ! 😊 On a hâte de vous régaler. N\'hésitez pas si vous avez d\'autres questions !', buttons:['Menu', 'Commander'] };
+
+      case 'how':
+        return { text:'C\'est simple ! 📦\n\n1. Choisissez votre formule\n2. On vous livre le jour même\n3. Vous savourez\n4. On récupère les contenants\n\nDites-moi pour combien de personnes et je calcule !', buttons:['10 personnes', '20 personnes', '50 personnes'] };
 
       default:
-        return {
-          text: 'Je peux vous aider avec :\n\n🍛 **Nos plats** — curries, samosas, naans et plus\n📦 **Box repas midi** — livraison en entreprise dès CHF 15.90/pers.\n🎉 **Événements** — cocktails, buffets, mariages\n🍰 **Pâtisseries** — cheesecake, brookies, banana bread\n\nQue souhaitez-vous découvrir ?',
-          buttons: ['🍛 Menu', '📦 Box midi', '🎉 Événement', '💰 Prix']
-        };
+        return { text:'Je peux vous aider avec :\n\n🍛 Nos plats — curries, samosas, naans\n📦 Box repas midi — dès CHF 15.90/pers.\n🎉 Événements — cocktails, buffets, mariages\n🍰 Pâtisseries — cheesecake, brookies\n\nQue souhaitez-vous ?', buttons:['Box midi', 'Événement', 'Menu'] };
     }
   }
 
-  /* ── UI RENDERING ── */
-  const page = window.location.pathname;
-  let contextGreeting = 'Bienvenue chez Nimara ! Je suis Vanessa. Comment puis-je vous aider ?';
-  if (page.includes('/carte')) contextGreeting = 'Vous explorez notre carte ! 🍛 Dites-moi ce qui vous tente — je peux vous conseiller selon vos goûts ou vos allergies.';
-  if (page.includes('/entreprise')) contextGreeting = 'Vous cherchez une solution repas pour votre équipe ? Nos box midi sont livrées chaque jour dès CHF 15.90/pers. Combien de personnes êtes-vous ?';
-  if (page.includes('/chavannes')) contextGreeting = 'Bienvenue dans l\'univers des saveurs ! 🍛 Curries mijotés, samosas croustillants, naans frais... Que puis-je vous proposer ?';
-  if (page.includes('/calculateur')) contextGreeting = 'Besoin d\'aide pour composer votre menu événement ? Dites-moi le nombre d\'invités et l\'occasion !';
-  if (page.includes('/ambassadeur')) contextGreeting = 'Bienvenue dans le programme Ambassadeur Nimara ! 🌟 Inscrivez-vous et partagez la bonne cuisine avec votre réseau.';
-
-  let chatOpen = false;
-  let messages = [];
-
-  function createWidget() {
-    // Trigger button
-    const trigger = document.createElement('div');
-    trigger.className = 'van-trigger';
-    trigger.innerHTML = '<img src="/assets/images/vanessa-avatar.png" alt="Vanessa" onerror="this.style.display=\'none\';this.parentElement.innerHTML=\'<div style=\\'width:100%;height:100%;background:linear-gradient(135deg,#a78bfa,#5B2C8D);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:20px;font-weight:700\\'>V</div>\'">'
-    + '<div class="van-dot"></div>';
-    trigger.onclick = toggleChat;
-
-    // Panel
-    const panel = document.createElement('div');
-    panel.className = 'van-panel';
-    panel.id = 'vanPanel';
-    panel.innerHTML = `
-      <div class="van-header">
-        <div class="van-header-info">
-          <div class="van-av">V</div>
-          <div><div class="van-name">Vanessa</div><div class="van-status">● En ligne</div></div>
-        </div>
-        <button class="van-close" onclick="document.getElementById('vanPanel').classList.remove('open');document.querySelector('.van-trigger').style.display='flex'">✕</button>
-      </div>
-      <div class="van-messages" id="vanMessages"></div>
-      <div class="van-quick" id="vanQuick"></div>
-      <div class="van-input-area">
-        <input type="text" id="vanInput" placeholder="Posez votre question..." maxlength="300">
-        <button id="vanSend" onclick="vanSendMessage()">→</button>
-      </div>`;
-
-    document.body.appendChild(trigger);
-    document.body.appendChild(panel);
-
-    // Enter key
-    setTimeout(() => {
-      const input = document.getElementById('vanInput');
-      if (input) input.addEventListener('keypress', e => { if (e.key === 'Enter') vanSendMessage(); });
-    }, 500);
-
-    // Auto-open after 4 seconds with context greeting
-    setTimeout(() => {
-      if (!chatOpen) {
-        addMessage('van', contextGreeting);
-        showButtons(['🍛 Menu', '📦 Box midi', '🎉 Événement', '💰 Prix']);
-      }
-    }, 4000);
+  /* ── SESSION PERSISTENCE ── */
+  function loadSession() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+      if (saved && Date.now() - saved.timestamp < STORAGE_TTL) return saved.messages;
+    } catch(e) {}
+    return [];
   }
 
-  function toggleChat() {
-    chatOpen = !chatOpen;
-    const panel = document.getElementById('vanPanel');
-    const trigger = document.querySelector('.van-trigger');
-    if (chatOpen) {
-      panel.classList.add('open');
-      trigger.style.display = 'none';
-      if (messages.length === 0) {
-        addMessage('van', contextGreeting);
-        showButtons(['🍛 Menu', '📦 Box midi', '🎉 Événement', '💰 Prix']);
-      }
-    } else {
-      panel.classList.remove('open');
-      trigger.style.display = 'flex';
-    }
+  function saveSession(msgs) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ messages: msgs, timestamp: Date.now() }));
   }
 
-  function addMessage(role, text) {
-    messages.push({ role, text });
-    const container = document.getElementById('vanMessages');
-    if (!container) return;
-    const div = document.createElement('div');
-    div.className = 'van-msg van-msg-' + role;
-    // Convert **bold** to <strong>
-    let html = text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
-    div.innerHTML = `<div class="van-bubble">${html}</div>`;
-    container.appendChild(div);
-    container.scrollTop = container.scrollHeight;
+  /* ── UI ── */
+  const trigger = document.getElementById('van-trigger');
+  const panel = document.getElementById('van-panel');
+  const closeBtn = document.getElementById('van-close');
+  const msgContainer = document.getElementById('van-messages');
+  const quickReplies = document.getElementById('van-quick-replies');
+  const form = document.getElementById('van-input-form');
+  const input = document.getElementById('van-input');
+
+  if (!trigger || !panel) return;
+
+  let messages = loadSession();
+  let isOpen = false;
+
+  function render() {
+    if (!msgContainer) return;
+    msgContainer.innerHTML = '';
+    messages.forEach(m => {
+      const div = document.createElement('div');
+      div.className = 'van-msg ' + (m.role === 'van' ? 'van-msg--bot' : 'van-msg--user');
+      let html = m.text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+      div.innerHTML = `<div class="van-bubble">${html}</div>`;
+      msgContainer.appendChild(div);
+    });
+    msgContainer.scrollTop = msgContainer.scrollHeight;
   }
 
   function showButtons(btns) {
-    const quick = document.getElementById('vanQuick');
-    if (!quick) return;
-    quick.innerHTML = btns.map(b => {
-      let action = '';
-      if (b.includes('WhatsApp') || b.includes('Contacter Nikhil')) action = `onclick="window.open('${WA}','_blank')"`;
-      else if (b.includes('carte') || b.includes('Menu')) action = `onclick="window.location='/carte/'"`;
-      else if (b.includes('entreprises') || b.includes('Page entreprises')) action = `onclick="window.location='/entreprises/'"`;
-      else if (b.includes('Commander en ligne')) action = `onclick="window.location='/commander/'"`;
-      else if (b.includes('Nos adresses') || b.includes('Nous trouver')) action = `onclick="vanHandleButton('info')"`;
-      else action = `onclick="vanHandleButton('${b}')"`;
-      return `<button class="van-qr" ${action}>${b}</button>`;
-    }).join('');
+    if (!quickReplies) return;
+    quickReplies.innerHTML = btns.map(b => `<button class="van-qr-btn" data-msg="${b}">${b}</button>`).join('');
+    quickReplies.querySelectorAll('.van-qr-btn').forEach(btn => {
+      btn.onclick = () => handleUserMessage(btn.dataset.msg);
+    });
   }
 
-  window.vanHandleButton = function(btn) {
-    addMessage('user', btn);
-    const intent = detectIntent(btn);
-    const resp = getResponse(intent, btn);
-    setTimeout(() => {
-      addMessage('van', resp.text);
-      if (resp.buttons) showButtons(resp.buttons);
-    }, 400);
-    // GA tracking
-    if (typeof gtag === 'function') gtag('event', 'vanessa_button', { event_label: btn });
-  };
+  function addMsg(role, text) {
+    messages.push({ role, text });
+    saveSession(messages);
+    render();
+  }
 
-  window.vanSendMessage = function() {
-    const input = document.getElementById('vanInput');
-    const msg = input.value.trim();
-    if (!msg) return;
-    input.value = '';
-    addMessage('user', msg);
+  function handleUserMessage(msg) {
+    addMsg('user', msg);
     const intent = detectIntent(msg);
     const resp = getResponse(intent, msg);
     setTimeout(() => {
-      addMessage('van', resp.text);
+      addMsg('van', resp.text);
       if (resp.buttons) showButtons(resp.buttons);
-    }, 600);
-    // GA tracking
-    if (typeof gtag === 'function') gtag('event', 'vanessa_message', { event_label: intent });
+    }, 500);
+    if (typeof gtag === 'function') gtag('event', 'vanessa_interact', { event_label: intent });
+  }
+
+  // Toggle
+  trigger.onclick = () => {
+    isOpen = true;
+    panel.hidden = false;
+    panel.classList.add('is-open');
+    trigger.style.display = 'none';
+    if (messages.length === 0) {
+      const greeting = getContextGreeting();
+      addMsg('van', greeting.text);
+      if (greeting.buttons) showButtons(greeting.buttons);
+    } else {
+      render();
+    }
   };
 
-  window.toggleChat = toggleChat;
+  if (closeBtn) closeBtn.onclick = () => {
+    panel.hidden = true;
+    panel.classList.remove('is-open');
+    trigger.style.display = '';
+    isOpen = false;
+  };
 
-  // Init
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', createWidget);
-  } else {
-    createWidget();
+  // Form submit
+  if (form) form.onsubmit = (e) => {
+    e.preventDefault();
+    const msg = input.value.trim();
+    if (!msg) return;
+    input.value = '';
+    handleUserMessage(msg);
+  };
+
+  // Restore session on page load
+  if (messages.length > 0) {
+    render();
   }
+
+  // Proactive: auto-open after 4s if no previous session
+  setTimeout(() => {
+    if (!isOpen && messages.length === 0) {
+      trigger.classList.add('van-trigger--pulse');
+    }
+  }, 4000);
+
 })();
