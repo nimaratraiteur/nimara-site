@@ -284,6 +284,21 @@ footer{background:rgba(0,0,0,.5);padding:40px;display:flex;align-items:center;ju
   .e-ctagroup{flex-direction:column;align-items:stretch;}
 }
 
+/* THEME SONG BUTTON (hero pill) */
+.hero-pill.song{background:linear-gradient(135deg,rgba(245,158,11,.2),rgba(200,151,58,.12));border-color:rgba(245,158,11,.4);color:var(--gold2);position:relative;overflow:hidden;}
+.hero-pill.song:hover{background:linear-gradient(135deg,rgba(245,158,11,.3),rgba(200,151,58,.18));color:white;}
+.hero-pill.song.is-playing{background:var(--gold);color:var(--ink2);}
+.hero-pill.song .song-icon{display:inline-flex;align-items:center;gap:3px;margin-right:4px;}
+.hero-pill.song .song-bar{display:inline-block;width:3px;background:currentColor;border-radius:2px;}
+.hero-pill.song .song-bar:nth-child(1){height:8px;}
+.hero-pill.song .song-bar:nth-child(2){height:14px;}
+.hero-pill.song .song-bar:nth-child(3){height:10px;}
+.hero-pill.song.is-playing .song-bar{animation:songpulse 1s ease-in-out infinite;}
+.hero-pill.song.is-playing .song-bar:nth-child(1){animation-delay:0s;}
+.hero-pill.song.is-playing .song-bar:nth-child(2){animation-delay:.2s;}
+.hero-pill.song.is-playing .song-bar:nth-child(3){animation-delay:.4s;}
+@keyframes songpulse{0%,100%{transform:scaleY(.4)}50%{transform:scaleY(1)}}
+
 /* FLOATING WHATSAPP BUTTON */
 .wa-fab-btn{position:fixed;bottom:1.75rem;right:1.75rem;z-index:800;display:flex;align-items:center;gap:.5rem;padding:.85rem 1.3rem;background:var(--wa);color:white;border-radius:50px;box-shadow:0 8px 24px rgba(37,211,102,.35);font-weight:700;font-size:14px;text-decoration:none;transition:all .25s;}
 .wa-fab-btn:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 12px 32px rgba(37,211,102,.45);background:#1da851;}
@@ -400,9 +415,14 @@ footer{background:rgba(0,0,0,.5);padding:40px;display:flex;align-items:center;ju
     <div class="hero-pills">
       <a href="/carte/" class="hero-pill">🍛 Voir la carte</a>
       <a href="/calculateur/" class="hero-pill">🎉 Organiser un événement</a>
+      <button type="button" class="hero-pill song" id="nimara-song-btn" aria-label="Écouter le jingle Nimara">
+        <span class="song-icon"><span class="song-bar"></span><span class="song-bar"></span><span class="song-bar"></span></span>
+        <span id="song-label">Notre jingle</span>
+      </button>
       <a href="https://www.ubereats.com/ch-fr/store/nimara-sarl/AcKFwUezQz6kBUtFMYsSGA" target="_blank" rel="noopener" class="hero-pill">🛵 Uber Eats</a>
       <a href="https://wa.me/41225576020" target="_blank" rel="noopener" class="hero-pill wa">💬 WhatsApp</a>
     </div>
+    <audio id="nimara-theme-audio" preload="none" src="/assets/audio/nimara-theme.mp3"></audio>
   </div>
   <div class="hero-dots" id="heroDots">
     <div class="hero-dot active" onclick="goSlide(0)"></div>
@@ -768,10 +788,47 @@ gs.addEventListener('mousemove',e=>{if(!down)return;e.preventDefault();gs.scroll
 </div>
 <script src="/assets/js/vanessa-widget.js"></script>
 <script src="/assets/js/exit-popup.js" defer></script>
+<script src="/assets/js/social-proof.js" defer></script>
 <script src="/assets/js/ga-events.js"></script>
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-LKZFD20DEE"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LKZFD20DEE');</script>
+
+<script>
+/* ── NIMARA THEME SONG ── */
+(function(){
+  const btn = document.getElementById('nimara-song-btn');
+  const audio = document.getElementById('nimara-theme-audio');
+  const label = document.getElementById('song-label');
+  if (!btn || !audio) return;
+  let playing = false;
+  btn.addEventListener('click', () => {
+    if (playing) {
+      audio.pause();
+      audio.currentTime = 0;
+      btn.classList.remove('is-playing');
+      label.textContent = 'Notre jingle';
+      playing = false;
+      if (typeof gtag === 'function') gtag('event', 'song_pause', { event_category: 'branding' });
+    } else {
+      audio.volume = 0.55;
+      audio.play().then(() => {
+        btn.classList.add('is-playing');
+        label.textContent = 'En écoute ♪';
+        playing = true;
+        if (typeof gtag === 'function') gtag('event', 'song_play', { event_category: 'branding' });
+      }).catch((err) => {
+        console.warn('Audio autoplay blocked', err);
+      });
+    }
+  });
+  audio.addEventListener('ended', () => {
+    btn.classList.remove('is-playing');
+    label.textContent = 'Notre jingle';
+    playing = false;
+  });
+})();
+</script>
 
 </body>
 </html>
