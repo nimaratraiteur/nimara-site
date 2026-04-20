@@ -82,8 +82,23 @@
   {% include "partials/whatsapp-cta.njk" %}
   {% include "partials/vanessa-widget.njk" %}
 
+  <!-- Netlify Forms detection (cachés, permettent à Netlify de reconnaître les formulaires JS) -->
+  <form name="nimara-exit-capture" data-netlify="true" netlify-honeypot="bot-field" hidden>
+    <input type="email" name="email">
+    <input type="text" name="page">
+    <input type="text" name="bot-field">
+  </form>
+  <form name="nimara-calc-capture" data-netlify="true" netlify-honeypot="bot-field" hidden>
+    <input type="email" name="email">
+    <input type="text" name="event-type">
+    <input type="text" name="guests">
+    <input type="text" name="estimate">
+    <input type="text" name="bot-field">
+  </form>
+
   <script src="/assets/js/main.js"></script>
   <script src="/assets/js/vanessa-widget.js"></script>
+  <script src="/assets/js/exit-popup.js" defer></script>
   {% if extraScripts %}{{ extraScripts | safe }}{% endif %}
 
 </body>

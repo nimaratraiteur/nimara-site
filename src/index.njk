@@ -343,6 +343,20 @@ footer{background:rgba(0,0,0,.5);padding:40px;display:flex;align-items:center;ju
 </head>
 <body>
 
+<!-- Netlify Forms detection (cachés) -->
+<form name="nimara-exit-capture" data-netlify="true" netlify-honeypot="bot-field" hidden>
+  <input type="email" name="email">
+  <input type="text" name="page">
+  <input type="text" name="bot-field">
+</form>
+<form name="nimara-calc-capture" data-netlify="true" netlify-honeypot="bot-field" hidden>
+  <input type="email" name="email">
+  <input type="text" name="event-type">
+  <input type="text" name="guests">
+  <input type="text" name="estimate">
+  <input type="text" name="bot-field">
+</form>
+
 <!-- FLOATING WA -->
 <a href="https://wa.me/41225576020?text=Bonjour%20Nimara%20%F0%9F%99%8F"
    class="wa-fab-btn"
@@ -753,6 +767,7 @@ gs.addEventListener('mousemove',e=>{if(!down)return;e.preventDefault();gs.scroll
   </form>
 </div>
 <script src="/assets/js/vanessa-widget.js"></script>
+<script src="/assets/js/exit-popup.js" defer></script>
 <script src="/assets/js/ga-events.js"></script>
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-LKZFD20DEE"></script>

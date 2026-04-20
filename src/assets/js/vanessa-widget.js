@@ -239,4 +239,43 @@
     }
   }, 4000);
 
+  /* ── PROACTIVE BUBBLE : message qui apparaît après 25s ── */
+  function showProactiveBubble() {
+    if (isOpen || messages.length > 0) return;
+    if (sessionStorage.getItem('nimara_van_bubble_dismissed')) return;
+
+    const p = window.location.pathname;
+    let bubbleText = "👋 Besoin d'aide pour votre commande ?";
+    if (p.includes('/calculateur')) bubbleText = "💡 Besoin d'aide pour composer votre devis ?";
+    else if (p.includes('/carte')) bubbleText = "🍛 Une question sur notre carte ?";
+    else if (p.includes('/entreprise')) bubbleText = "📦 Je vous aide à choisir votre formule ?";
+    else if (p.includes('/chavannes')) bubbleText = "🌶️ Envie de saveurs indiennes ?";
+
+    const bubble = document.createElement('div');
+    bubble.className = 'van-proactive-bubble';
+    bubble.innerHTML = '<button class="van-bubble-close" aria-label="Fermer">✕</button><div class="van-bubble-text">' + bubbleText + '</div>';
+    document.body.appendChild(bubble);
+
+    const style = document.createElement('style');
+    style.textContent = '.van-proactive-bubble{position:fixed;bottom:100px;right:24px;background:#fff;color:#1a1330;padding:14px 18px;border-radius:18px;box-shadow:0 12px 32px rgba(91,44,141,.25);font-family:"DM Sans",sans-serif;font-size:14px;font-weight:500;max-width:260px;z-index:799;cursor:pointer;border:1px solid rgba(167,139,250,.25);animation:vbubbleIn .5s cubic-bezier(.2,.9,.35,1);line-height:1.4}.van-proactive-bubble::after{content:"";position:absolute;bottom:-8px;right:30px;width:16px;height:16px;background:#fff;border-right:1px solid rgba(167,139,250,.25);border-bottom:1px solid rgba(167,139,250,.25);transform:rotate(45deg)}.van-bubble-close{position:absolute;top:-8px;right:-8px;background:#5B2C8D;color:#fff;border:2px solid #fff;width:24px;height:24px;border-radius:50%;cursor:pointer;font-size:11px;line-height:1;padding:0;box-shadow:0 2px 8px rgba(0,0,0,.15)}.van-bubble-close:hover{background:#4a2374}.van-bubble-text{padding-right:4px}@keyframes vbubbleIn{from{opacity:0;transform:translateY(10px) scale(.9)}to{opacity:1;transform:translateY(0) scale(1)}}@media (max-width:640px){.van-proactive-bubble{bottom:90px;right:16px;max-width:220px;font-size:13px;padding:12px 16px}}';
+    document.head.appendChild(style);
+
+    const closeBtn = bubble.querySelector('.van-bubble-close');
+    closeBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      bubble.remove();
+      sessionStorage.setItem('nimara_van_bubble_dismissed', '1');
+    });
+    bubble.addEventListener('click', () => {
+      bubble.remove();
+      trigger.click();
+      if (typeof gtag === 'function') gtag('event', 'vanessa_bubble_click', { event_category: 'conversion' });
+    });
+    if (typeof gtag === 'function') gtag('event', 'vanessa_bubble_shown', { event_category: 'conversion' });
+  }
+
+  // Sur calculateur : bubble après 35s / Ailleurs : 25s
+  const bubbleDelay = window.location.pathname.includes('/calculateur') ? 35000 : 25000;
+  setTimeout(showProactiveBubble, bubbleDelay);
+
 })();
