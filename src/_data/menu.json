@@ -363,7 +363,7 @@
       "vegan": false,
       "halal": true,
       "batch": 20,
-      "image": "/assets/images/products/Naan nature.jpeg"
+      "image": "/assets/images/products/naan-nature.jpeg"
     },
     {
       "id": 13,
@@ -410,7 +410,7 @@
       "vegan": true,
       "halal": true,
       "batch": 20,
-      "image": "/assets/images/products/Pakora aux legumes.jpeg"
+      "image": "/assets/images/products/pakora-legumes.jpeg"
     },
     {
       "id": 15,
@@ -435,7 +435,7 @@
       "vegan": false,
       "halal": true,
       "batch": 1,
-      "image": "/assets/images/products/tandoori chicken.jpeg"
+      "image": "/assets/images/products/tandoori-chicken.jpeg"
     },
     {
       "id": 16,
@@ -631,7 +631,7 @@
       "vegan": false,
       "halal": true,
       "batch": 1,
-      "image": "/assets/images/products/Triangle feta miel.jpeg"
+      "image": "/assets/images/products/triangle-feta-miel.jpeg"
     },
     {
       "id": 30,
