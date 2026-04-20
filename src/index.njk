@@ -4,7 +4,53 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Nimara — Pâtissier & Traiteur Artisanal · Genève</title>
-<meta name="description" content="Pâtisseries artisanales Artisanales & cuisine indienne. Livraison B2B, traiteur événements, stand Rue des Délices — Genève.">
+<meta name="description" content="Pâtisseries artisanales & cuisine indienne à Genève. Livraison B2B, traiteur événements, stand Rue des Délices. Commande WhatsApp, réponse sous 2h.">
+<!-- Open Graph -->
+<meta property="og:title" content="Nimara — Pâtissier & Traiteur Artisanal · Genève">
+<meta property="og:description" content="Pâtisseries artisanales & cuisine indienne à Genève. Livraison B2B, traiteur événements, stand Rue des Délices.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://nimara.io/">
+<meta property="og:image" content="https://nimara.io/assets/images/og-nimara.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="fr_CH">
+<meta property="og:site_name" content="Nimara">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Nimara — Pâtissier & Traiteur Artisanal · Genève">
+<meta name="twitter:description" content="Pâtisseries artisanales & cuisine indienne à Genève.">
+<meta name="twitter:image" content="https://nimara.io/assets/images/og-nimara.jpg">
+<link rel="canonical" href="https://nimara.io/">
+<!-- Schema.org LocalBusiness -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": ["Bakery", "FoodEstablishment", "LocalBusiness"],
+  "name": "Nimara",
+  "description": "Pâtisserie artisanale & service traiteur à Genève. Pâtisseries maison, cuisine indienne et service traiteur pour tous vos événements.",
+  "image": "https://nimara.io/assets/images/og-nimara.jpg",
+  "url": "https://nimara.io",
+  "telephone": "+41 22 557 60 20",
+  "email": "bonjour@nimara.io",
+  "priceRange": "CHF 3 - CHF 50",
+  "servesCuisine": ["Pâtisserie française", "Cuisine indienne", "Traiteur événementiel"],
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Rue des Délices 3",
+    "addressLocality": "Genève",
+    "postalCode": "1203",
+    "addressCountry": "CH"
+  },
+  "geo": { "@type": "GeoCoordinates", "latitude": 46.2061637, "longitude": 6.1324649 },
+  "openingHoursSpecification": [
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "07:00", "closes": "19:00" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "07:30", "closes": "18:00" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": "Sunday", "opens": "08:00", "closes": "14:00" }
+  ],
+  "sameAs": ["https://instagram.com/nimara_geneve", "https://facebook.com/nimarageneve"],
+  "acceptsReservations": "True",
+  "areaServed": { "@type": "City", "name": "Genève" }
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
 <style>
@@ -237,20 +283,41 @@ footer{background:rgba(0,0,0,.5);padding:40px;display:flex;align-items:center;ju
   footer{padding:24px 20px;flex-direction:column;text-align:center;}
   .e-ctagroup{flex-direction:column;align-items:stretch;}
 }
+
+/* FLOATING WHATSAPP BUTTON */
+.wa-fab-btn{position:fixed;bottom:1.75rem;right:1.75rem;z-index:800;display:flex;align-items:center;gap:.5rem;padding:.85rem 1.3rem;background:var(--wa);color:white;border-radius:50px;box-shadow:0 8px 24px rgba(37,211,102,.35);font-weight:700;font-size:14px;text-decoration:none;transition:all .25s;}
+.wa-fab-btn:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 12px 32px rgba(37,211,102,.45);background:#1da851;}
+.wa-fab-btn svg{width:20px;height:20px;}
+.wa-fab-btn::before{content:"";position:absolute;inset:-4px;border-radius:inherit;border:2px solid var(--wa);animation:wafabpulse 2.5s ease-out infinite;opacity:0;pointer-events:none;}
+@keyframes wafabpulse{0%{transform:scale(1);opacity:.55}100%{transform:scale(1.25);opacity:0}}
+@media (max-width:640px){
+  .wa-fab-btn{padding:.85rem;bottom:1rem;right:1rem;}
+  .wa-fab-btn-label{display:none;}
+}
 </style>
 </head>
 <body>
 
 <!-- FLOATING WA -->
-
+<a href="https://wa.me/41225576020?text=Bonjour%20Nimara%20%F0%9F%99%8F"
+   class="wa-fab-btn"
+   target="_blank" rel="noopener noreferrer"
+   aria-label="Commander sur WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+  </svg>
+  <span class="wa-fab-btn-label">Commander</span>
+</a>
 
 <!-- NAV -->
 <nav class="nav" id="navbar">
   <a href="/" class="nav-logo"><div class="nav-n">N</div><span class="nav-brand">Nimara</span></a>
   <div class="nav-links">
-    <a href="/carte/" class="nav-link">Notre Carte</a>
-    <a href="/delices/" class="nav-link">Notre Stand</a>
-    <a href="/carte/#calculator" class="nav-link">Événements</a>
+    <a href="/carte/" class="nav-link">Carte</a>
+    <a href="/chavannes/" class="nav-link">Chavannes</a>
+    <a href="/delices/" class="nav-link">Stand Délices</a>
+    <a href="/calculateur/" class="nav-link">Devis Événement</a>
+    <a href="/entreprises/" class="nav-link">Entreprises</a>
     <a href="https://wa.me/41225576020" target="_blank" rel="noopener" class="nav-cta">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
       Commander
@@ -273,7 +340,7 @@ footer{background:rgba(0,0,0,.5);padding:40px;display:flex;align-items:center;ju
     <p class="hero-sub">Pâtisseries Artisanales, cuisine indienne — pour vos événements, votre équipe, ou simplement pour vous.</p>
     <div class="hero-pills">
       <a href="/carte/" class="hero-pill">🍛 Voir la carte</a>
-      <a href="/carte/#calculator" class="hero-pill">🎉 Organiser un événement</a>
+      <a href="/calculateur/" class="hero-pill">🎉 Organiser un événement</a>
       <a href="https://www.ubereats.com/ch-fr/store/nimara-sarl/AcKFwUezQz6kBUtFMYsSGA" target="_blank" rel="noopener" class="hero-pill">🛵 Uber Eats</a>
       <a href="https://wa.me/41225576020" target="_blank" rel="noopener" class="hero-pill wa">💬 WhatsApp</a>
     </div>
@@ -318,7 +385,7 @@ footer{background:rgba(0,0,0,.5);padding:40px;display:flex;align-items:center;ju
           <h3 class="r-card__title">J'organise un <em>événement</em></h3>
           <p class="r-desc">Calculez votre devis en 4 clics, choisissez vos produits avec les photos — on livre tout prêt.</p>
           <div class="r-actions">
-            <a href="/carte/#calculator" class="r-btn r-btn--calc">🧮 Calculer mon événement →</a>
+            <a href="/calculateur/" class="r-btn r-btn--calc">🧮 Calculer mon événement →</a>
           </div>
         </div>
       </div>
@@ -410,7 +477,7 @@ footer{background:rgba(0,0,0,.5);padding:40px;display:flex;align-items:center;ju
       <div class="p-card"><div class="p-icon">☕</div><div class="p-name">Coffee Break</div><div class="p-from">à partir de</div><div class="p-price">12<span class="p-unit"> CHF</span></div><div class="p-unit">/personne</div><div class="p-d">Pause réunion sucrée & salée</div></div>
     </div>
     <div class="e-ctagroup reveal">
-      <a href="/carte/#calculator" class="e-cta e-cta--calc">🧮 Calculer mon devis gratuitement</a>
+      <a href="/calculateur/" class="e-cta e-cta--calc">🧮 Calculer mon devis gratuitement</a>
       <a href="https://wa.me/41225576020?text=Bonjour%20Nimara%2C%20j%27aimerais%20organiser%20un%20%C3%A9v%C3%A9nement" target="_blank" rel="noopener" class="e-cta e-cta--wa">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
         Parler à l'équipe
