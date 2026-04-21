@@ -24,11 +24,11 @@
   },
   "nav": [
     { "label": "Accueil", "url": "/" },
-    { "label": "Notre Carte", "url": "/carte/" },
+    { "label": "Boutique", "url": "/boutique/" },
+    { "label": "Carte", "url": "/carte/" },
     { "label": "Chavannes", "url": "/chavannes/" },
     { "label": "Délices", "url": "/delices/" },
-    { "label": "Notre Équipe", "url": "/equipe/inga/" },
-    { "label": "Calculateur", "url": "/calculateur/" },
+    { "label": "Devis événement", "url": "/calculateur/" },
     { "label": "Entreprises", "url": "/entreprises/" }
   ]
 }

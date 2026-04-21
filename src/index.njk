@@ -284,16 +284,6 @@ footer{background:rgba(0,0,0,.5);padding:40px;display:flex;align-items:center;ju
   .e-ctagroup{flex-direction:column;align-items:stretch;}
 }
 
-/* AÉROPORT TEASER BADGE */
-.airport-teaser{position:fixed;top:76px;left:50%;transform:translateX(-50%);z-index:150;background:linear-gradient(135deg,rgba(245,158,11,.95),rgba(200,151,58,.95));color:#2a1a00;padding:8px 18px;border-radius:50px;font-size:12px;font-weight:700;letter-spacing:.05em;display:flex;align-items:center;gap:8px;box-shadow:0 6px 20px rgba(245,158,11,.3);animation:airportfade 1s .8s ease both;backdrop-filter:blur(10px);cursor:pointer;text-decoration:none;border:1px solid rgba(255,255,255,.35);}
-.airport-teaser:hover{transform:translateX(-50%) translateY(-2px);box-shadow:0 10px 28px rgba(245,158,11,.5);}
-.airport-teaser-dot{width:8px;height:8px;border-radius:50%;background:#2a1a00;animation:airportpulse 1.5s ease-in-out infinite;}
-@keyframes airportfade{from{opacity:0;transform:translateX(-50%) translateY(-10px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
-@keyframes airportpulse{0%,100%{opacity:1}50%{opacity:.3}}
-@media (max-width:640px){
-  .airport-teaser{top:70px;font-size:11px;padding:6px 14px;gap:6px;}
-}
-
 /* REVIEWS SECTION */
 .reviews{padding:96px 40px;background:linear-gradient(180deg,var(--ink) 0%,var(--ink2) 100%);position:relative;z-index:5;}
 .reviews-inner{max-width:1100px;margin:0 auto;}
@@ -403,10 +393,6 @@ footer{background:rgba(0,0,0,.5);padding:40px;display:flex;align-items:center;ju
   <input type="text" name="estimate">
   <input type="text" name="bot-field">
 </form>
-<form name="nimara-airport-signup" data-netlify="true" netlify-honeypot="bot-field" hidden>
-  <input type="email" name="email">
-  <input type="text" name="bot-field">
-</form>
 
 <!-- FLOATING WA -->
 <a href="https://wa.me/41225576020?text=Bonjour%20Nimara%20%F0%9F%99%8F"
@@ -419,16 +405,11 @@ footer{background:rgba(0,0,0,.5);padding:40px;display:flex;align-items:center;ju
   <span class="wa-fab-btn-label">Commander</span>
 </a>
 
-<!-- TEASER AÉROPORT -->
-<a href="/aeroport/" class="airport-teaser" aria-label="Bientôt à Genève Airport">
-  <span class="airport-teaser-dot"></span>
-  🛫 Bientôt à Genève Airport
-</a>
-
 <!-- NAV -->
 <nav class="nav" id="navbar">
   <a href="/" class="nav-logo"><div class="nav-n">N</div><span class="nav-brand">Nimara</span></a>
   <div class="nav-links">
+    <a href="/boutique/" class="nav-link">Boutique</a>
     <a href="/carte/" class="nav-link">Carte</a>
     <a href="/chavannes/" class="nav-link">Chavannes</a>
     <a href="/delices/" class="nav-link">Stand Délices</a>
@@ -455,8 +436,10 @@ footer{background:rgba(0,0,0,.5);padding:40px;display:flex;align-items:center;ju
     <h1 class="hero-title">Il y a<br><em>du goût</em><span class="l2">dans chaque bouchée</span></h1>
     <p class="hero-sub">Pâtisseries Artisanales, cuisine indienne — pour vos événements, votre équipe, ou simplement pour vous.</p>
     <div class="hero-pills">
+      <a href="/boutique/" class="hero-pill">🛒 Commander en ligne</a>
       <a href="/carte/" class="hero-pill">🍛 Voir la carte</a>
       <a href="/calculateur/" class="hero-pill">🎉 Organiser un événement</a>
+      <a href="/quiz/" class="hero-pill">✨ Quiz : quel Nimara êtes-vous ?</a>
       <button type="button" class="hero-pill song" id="nimara-song-btn" aria-label="Écouter le jingle Nimara">
         <span class="song-icon"><span class="song-bar"></span><span class="song-bar"></span><span class="song-bar"></span></span>
         <span id="song-label">Notre jingle</span>
