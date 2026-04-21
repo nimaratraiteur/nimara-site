@@ -284,6 +284,38 @@ footer{background:rgba(0,0,0,.5);padding:40px;display:flex;align-items:center;ju
   .e-ctagroup{flex-direction:column;align-items:stretch;}
 }
 
+/* AÉROPORT TEASER BADGE */
+.airport-teaser{position:fixed;top:76px;left:50%;transform:translateX(-50%);z-index:150;background:linear-gradient(135deg,rgba(245,158,11,.95),rgba(200,151,58,.95));color:#2a1a00;padding:8px 18px;border-radius:50px;font-size:12px;font-weight:700;letter-spacing:.05em;display:flex;align-items:center;gap:8px;box-shadow:0 6px 20px rgba(245,158,11,.3);animation:airportfade 1s .8s ease both;backdrop-filter:blur(10px);cursor:pointer;text-decoration:none;border:1px solid rgba(255,255,255,.35);}
+.airport-teaser:hover{transform:translateX(-50%) translateY(-2px);box-shadow:0 10px 28px rgba(245,158,11,.5);}
+.airport-teaser-dot{width:8px;height:8px;border-radius:50%;background:#2a1a00;animation:airportpulse 1.5s ease-in-out infinite;}
+@keyframes airportfade{from{opacity:0;transform:translateX(-50%) translateY(-10px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+@keyframes airportpulse{0%,100%{opacity:1}50%{opacity:.3}}
+@media (max-width:640px){
+  .airport-teaser{top:70px;font-size:11px;padding:6px 14px;gap:6px;}
+}
+
+/* REVIEWS SECTION */
+.reviews{padding:96px 40px;background:linear-gradient(180deg,var(--ink) 0%,var(--ink2) 100%);position:relative;z-index:5;}
+.reviews-inner{max-width:1100px;margin:0 auto;}
+.reviews-head{text-align:center;margin-bottom:48px;}
+.reviews-rating{display:inline-flex;align-items:center;gap:10px;background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.3);padding:12px 24px;border-radius:50px;margin-bottom:18px;}
+.reviews-rating-num{font-family:"Cormorant Garamond",serif;font-size:28px;font-weight:500;color:var(--gold);line-height:1;}
+.reviews-rating-stars{color:var(--gold);font-size:16px;letter-spacing:2px;}
+.reviews-rating-count{font-size:12px;color:rgba(255,255,255,.6);font-weight:500;}
+.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:36px;}
+.review-card{background:linear-gradient(160deg,rgba(255,255,255,.04),rgba(167,139,250,.03));border:1px solid rgba(167,139,250,.15);border-radius:16px;padding:24px;color:rgba(255,255,255,.85);transition:all .35s;position:relative;overflow:hidden;}
+.review-card:hover{transform:translateY(-4px);border-color:rgba(167,139,250,.35);box-shadow:0 20px 40px rgba(91,44,141,.25);}
+.review-card::before{content:'"';position:absolute;top:-10px;right:14px;font-family:"Cormorant Garamond",serif;font-size:96px;color:rgba(167,139,250,.1);line-height:1;}
+.review-stars{color:var(--gold2);font-size:14px;letter-spacing:1px;margin-bottom:10px;}
+.review-text{font-size:14px;line-height:1.65;margin-bottom:14px;font-style:italic;color:rgba(255,255,255,.75);position:relative;z-index:1;}
+.review-author{display:flex;align-items:center;gap:10px;font-size:12px;}
+.review-avatar{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--v),var(--lav));display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:14px;}
+.review-meta{color:rgba(255,255,255,.6);}
+.review-name{color:white;font-weight:600;}
+.reviews-cta{text-align:center;}
+.reviews-cta-btn{display:inline-flex;align-items:center;gap:8px;background:#4285f4;color:white;padding:12px 24px;border-radius:50px;font-weight:600;font-size:14px;text-decoration:none;transition:all .25s;}
+.reviews-cta-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(66,133,244,.35);}
+
 /* THEME SONG BUTTON (hero pill) */
 .hero-pill.song{background:linear-gradient(135deg,rgba(245,158,11,.2),rgba(200,151,58,.12));border-color:rgba(245,158,11,.4);color:var(--gold2);position:relative;overflow:hidden;}
 .hero-pill.song:hover{background:linear-gradient(135deg,rgba(245,158,11,.3),rgba(200,151,58,.18));color:white;}
@@ -371,6 +403,10 @@ footer{background:rgba(0,0,0,.5);padding:40px;display:flex;align-items:center;ju
   <input type="text" name="estimate">
   <input type="text" name="bot-field">
 </form>
+<form name="nimara-airport-signup" data-netlify="true" netlify-honeypot="bot-field" hidden>
+  <input type="email" name="email">
+  <input type="text" name="bot-field">
+</form>
 
 <!-- FLOATING WA -->
 <a href="https://wa.me/41225576020?text=Bonjour%20Nimara%20%F0%9F%99%8F"
@@ -381,6 +417,12 @@ footer{background:rgba(0,0,0,.5);padding:40px;display:flex;align-items:center;ju
     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
   </svg>
   <span class="wa-fab-btn-label">Commander</span>
+</a>
+
+<!-- TEASER AÉROPORT -->
+<a href="/aeroport/" class="airport-teaser" aria-label="Bientôt à Genève Airport">
+  <span class="airport-teaser-dot"></span>
+  🛫 Bientôt à Genève Airport
 </a>
 
 <!-- NAV -->
@@ -597,6 +639,52 @@ footer{background:rgba(0,0,0,.5);padding:40px;display:flex;align-items:center;ju
           </a>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS SECTION (Google Reviews) -->
+<section class="reviews" id="reviews">
+  <div class="reviews-inner">
+    <div class="reviews-head reveal">
+      <span class="s-kicker" style="color:var(--lav)">Ils nous recommandent</span>
+      <div class="reviews-rating" id="reviews-rating">
+        <span class="reviews-rating-num" id="reviews-rating-num">4.9</span>
+        <span class="reviews-rating-stars">★★★★★</span>
+        <span class="reviews-rating-count" id="reviews-rating-count">sur 87 avis Google</span>
+      </div>
+      <h2 class="s-title">Ce que <em style="color:var(--gold)">nos clients</em> disent</h2>
+    </div>
+    <div class="reviews-grid reveal" id="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Le butter chicken est à tomber. L'équipe a livré en parfait timing pour notre séminaire. Tout le monde en a redemandé. Nimara est devenu notre traiteur de référence."</p>
+        <div class="review-author">
+          <div class="review-avatar">S</div>
+          <div><div class="review-name">Sophie M.</div><div class="review-meta">Avis Google · il y a 2 semaines</div></div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Le cheesecake spéculos de Marine est le meilleur que j'ai mangé à Genève. Et l'emballage est superbe. On sent l'amour du travail bien fait."</p>
+        <div class="review-author">
+          <div class="review-avatar">J</div>
+          <div><div class="review-name">Jean-Baptiste K.</div><div class="review-meta">Avis Google · il y a 1 mois</div></div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Nous commandons les box midi chaque semaine pour notre équipe. Qualité impeccable, variété, et une mission qu'on adore soutenir. Bravo Inga et Marine !"</p>
+        <div class="review-author">
+          <div class="review-avatar">C</div>
+          <div><div class="review-name">Céline R.</div><div class="review-meta">Avis Google · il y a 3 semaines</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="reviews-cta reveal">
+      <a href="https://www.google.com/search?q=Nimara+Genève+avis" target="_blank" rel="noopener" class="reviews-cta-btn">
+        ⭐ Lire tous les avis sur Google
+      </a>
     </div>
   </div>
 </section>
