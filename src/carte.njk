@@ -1208,17 +1208,36 @@ function sendCartWhatsApp() {
   window.open('https://wa.me/41225576020?text=' + encodeURIComponent(msg), '_blank');
 }
 
+// PRICE REFERENCE (when not displayed on card)
+const PRICES = {
+  'Cinnamon Roll':3.50,'Banana Bread':3.50,'Brownie':4.50,'Brookie':4.50,
+  'Cheesecake Spéculoos':5.00,'Pecan Pie':5.00,'Cake Citron':3.50,'Cake Marbré':3.50,
+  'Carrot Cake':3.50,'Cake Pomme':3.50,'Bircher Mangue':4.50,'Bircher Framboise':4.50,
+  'Lentilles Jaunes (Dal)':14.90,'Lentilles Épinards':14.90,'Lentilles Brunes':14.90,
+  'Dal Noir (Urad Dal)':14.90,'Pois Chiche Masala':14.90,'Palak (Épinards)':14.90,
+  'Jalfrezi de Légumes':14.90,'Aloo Gobi':14.90,'Riz Basmati':5.00,
+  'Butter Chicken':15.90,'Poulet Tikka Masala':15.90,'Poulet Mangue':15.90,
+  'Poulet Vindaloo':15.90,'Bœuf aux 8 Épices':15.90,'Agneau Madras':15.90,
+  'Crevettes Curry':15.90,'Brochettes Poulet Poivrons':6.50,'Kofta Viande':6.50,
+  'Lassi Mangue':4.00,"Jus d'Hibiscus":4.00,'Jus de Gingembre':4.00,'Gulab Jamun':4.00,
+  'Aloo Tikki':4.50,'Palakopita':4.50,'Croquettes Épicées':4.50,"Rouleau d'Aubergine":3.50,
+  'Rouleau Champignons':3.50
+};
+
 // INIT: inject cart buttons into product cards
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.pc').forEach(card => {
     const nameEl = card.querySelector('.pc__name');
-    const priceEl = card.querySelector('.pc__price');
-    if (!nameEl || !priceEl) return;
+    if (!nameEl) return;
     const name = nameEl.textContent.trim();
-    const priceText = priceEl.textContent.trim();
-    const priceMatch = priceText.match(/[\d.]+/);
-    if (!priceMatch) return;
-    const price = priceMatch[0];
+    const priceEl = card.querySelector('.pc__price');
+    let price = 0;
+    if (priceEl) {
+      const m = priceEl.textContent.match(/[\d.]+/);
+      if (m) price = parseFloat(m[0]);
+    }
+    if (!price && PRICES[name]) price = PRICES[name];
+    if (!price) return; // skip if truly no price
     const imgDiv = card.querySelector('.pc__img');
     if (imgDiv) {
       imgDiv.style.position = 'relative';
@@ -1233,13 +1252,15 @@ document.addEventListener('DOMContentLoaded', () => {
   // Also for box cards
   document.querySelectorAll('.box-card').forEach(card => {
     const nameEl = card.querySelector('.box-card__name');
-    const priceEl = card.querySelector('.box-card__price');
-    if (!nameEl || !priceEl) return;
+    if (!nameEl) return;
     const name = nameEl.textContent.trim();
-    const priceText = priceEl.textContent.trim();
-    const priceMatch = priceText.match(/[\d.]+/);
-    if (!priceMatch) return;
-    const price = priceMatch[0];
+    const priceEl = card.querySelector('.box-card__price');
+    let price = 0;
+    if (priceEl) {
+      const m = priceEl.textContent.match(/[\d.]+/);
+      if (m) price = parseFloat(m[0]);
+    }
+    if (!price) return;
     const imgDiv = card.querySelector('.box-card__img');
     if (imgDiv) {
       imgDiv.style.position = 'relative';
