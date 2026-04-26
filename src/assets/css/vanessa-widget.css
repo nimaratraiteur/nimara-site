@@ -1,388 +1,268 @@
-/* ══════════════════════════════════════════
-   VANESSA WIDGET · vanessa-widget.css
-   ══════════════════════════════════════════ */
+/* =========================================================================
+   Vanessa — Widget de chat IA Nimara
+   Path : /assets/css/vanessa-widget.css
+   Charte : violet #5B2C8D · lavande #a78bfa · DM Sans
+   ========================================================================= */
 
-/* ── Variables (mirror brand) ─────────────── */
-:root {
-  --vw-violet:      #5B2C8D;
-  --vw-violet-mid:  #7c3aab;
-  --vw-lavender:    #a78bfa;
-  --vw-lav2:        #c4b5fd;
-  --vw-dark:        #0e0b1a;
-  --vw-card:        #1a1030;
-  --vw-card2:       #221540;
-  --vw-text:        #e8e0f4;
-  --vw-text2:       #9d8fb8;
-  --vw-border:      rgba(167,139,250,.12);
-  --vw-green:       #25D366;
-  --vw-r:           16px;
-  --vw-w:           360px;
-  --vw-h:           520px;
+#vanessa-root {
+  font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
 }
 
-/* ── Trigger button ───────────────────────── */
+/* -------- Bouton flottant ------------------------------------------------ */
 .van-trigger {
   position: fixed;
-  bottom: 1.75rem;
-  right: 1.75rem;
-  z-index: 850;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  border: none;
-  background: linear-gradient(135deg, var(--vw-violet), var(--vw-violet-mid));
-  box-shadow: 0 6px 24px rgba(91,44,141,.45);
-  cursor: pointer;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9998;
+  background: #5B2C8D;
+  color: #fff;
+  border: 0;
+  border-radius: 999px;
+  padding: 10px 18px 10px 10px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  transition: transform 0.3s cubic-bezier(.22,1,.36,1), box-shadow 0.3s ease;
-  overflow: visible;
+  gap: 10px;
+  box-shadow: 0 10px 30px rgba(91, 44, 141, .4);
+  cursor: pointer;
+  transition: transform .2s ease, box-shadow .2s ease;
+  font-family: inherit;
 }
 .van-trigger:hover {
-  transform: scale(1.08);
-  box-shadow: 0 10px 32px rgba(91,44,141,.55);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 36px rgba(91, 44, 141, .55);
 }
-.van-trigger:active { transform: scale(0.95); }
-
-.van-trigger-avatar {
-  width: 100%;
-  height: 100%;
+.van-trigger__avatar {
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   object-fit: cover;
-  position: absolute;
-  inset: 0;
 }
-.van-trigger-fallback {
-  display: none;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  font-family: 'Playfair Display', serif;
-  font-size: 1.5rem;
-  color: white;
+.van-trigger__pulse {
   position: absolute;
-  inset: 0;
-}
-
-/* Online status dot */
-.van-trigger-status {
-  position: absolute;
-  bottom: 3px;
-  right: 3px;
-  width: 13px;
-  height: 13px;
-  background: var(--vw-green);
-  border: 2.5px solid white;
+  top: 8px;
+  right: 8px;
+  width: 10px;
+  height: 10px;
+  background: #4ade80;
   border-radius: 50%;
+  box-shadow: 0 0 0 0 rgba(74, 222, 128, .7);
+  animation: vanPulse 2s infinite;
 }
-
-/* Tooltip label */
-.van-trigger-label {
-  position: absolute;
-  right: calc(100% + 10px);
-  background: var(--vw-dark);
-  color: var(--vw-text);
-  font-size: 0.78rem;
+@keyframes vanPulse {
+  0%   { box-shadow: 0 0 0 0 rgba(74, 222, 128, .7); }
+  70%  { box-shadow: 0 0 0 10px rgba(74, 222, 128, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0); }
+}
+.van-trigger__label {
   font-weight: 600;
-  font-family: 'DM Sans', sans-serif;
-  padding: 0.3rem 0.7rem;
-  border-radius: 6px;
-  white-space: nowrap;
-  opacity: 0;
-  pointer-events: none;
-  transform: translateX(6px);
-  transition: opacity 0.2s ease, transform 0.2s ease;
-  box-shadow: 0 2px 8px rgba(0,0,0,.3);
-}
-.van-trigger-label::after {
-  content: '';
-  position: absolute;
-  right: -5px;
-  top: 50%;
-  transform: translateY(-50%);
-  border: 5px solid transparent;
-  border-right: none;
-  border-left-color: var(--vw-dark);
-}
-.van-trigger:hover .van-trigger-label,
-.van-trigger:focus-visible .van-trigger-label {
-  opacity: 1;
-  transform: translateX(0);
+  font-size: 14px;
+  letter-spacing: .2px;
 }
 
-/* Pulse ring */
-.van-trigger::before {
-  content: '';
-  position: absolute;
-  inset: -4px;
-  border-radius: 50%;
-  border: 2px solid var(--vw-violet);
-  animation: vw-pulse 3s ease-out infinite;
-  opacity: 0;
-}
-@keyframes vw-pulse {
-  0%   { transform: scale(1);    opacity: 0.5; }
-  100% { transform: scale(1.45); opacity: 0;   }
-}
-
-/* Open state: X icon */
-.van-trigger.is-open {
-  background: var(--vw-dark);
-  box-shadow: 0 4px 16px rgba(0,0,0,.4);
-}
-.van-trigger.is-open .van-trigger-avatar { display: none; }
-.van-trigger.is-open .van-trigger-status { display: none; }
-.van-trigger.is-open::after {
-  content: '✕';
-  font-size: 1.1rem;
-  color: white;
-  position: absolute;
-}
-
-/* ── Panel ────────────────────────────────── */
+/* -------- Panneau de chat ----------------------------------------------- */
 .van-panel {
   position: fixed;
-  bottom: calc(1.75rem + 70px);
-  right: 1.75rem;
-  z-index: 849;
-  width: var(--vw-w);
-  max-height: var(--vw-h);
-  background: var(--vw-dark);
-  border-radius: var(--vw-r);
-  border: 1px solid var(--vw-border);
-  box-shadow: 0 20px 60px rgba(0,0,0,.5), 0 4px 16px rgba(91,44,141,.2);
+  bottom: 90px;
+  right: 24px;
+  width: min(380px, calc(100vw - 32px));
+  height: min(580px, calc(100vh - 120px));
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 20px 60px rgba(7, 4, 15, .25);
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  transform-origin: bottom right;
-  transition: transform 0.35s cubic-bezier(.22,1,.36,1), opacity 0.3s ease;
+  z-index: 9999;
+  animation: vanSlideUp .25s ease;
 }
-.van-panel[hidden] {
-  display: flex !important; /* override hidden attr, use transform instead */
-  transform: scale(0.88) translateY(12px);
-  opacity: 0;
-  pointer-events: none;
-}
-.van-panel.is-visible {
-  transform: scale(1) translateY(0);
-  opacity: 1;
-  pointer-events: all;
+.van-panel[hidden] { display: none; }
+
+@keyframes vanSlideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ── Panel head ───────────────────────────── */
-.van-panel-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+/* -------- Header --------------------------------------------------------- */
+.van-header {
+  background: linear-gradient(135deg, #5B2C8D, #a78bfa);
+  color: #fff;
   padding: 14px 16px;
-  background: linear-gradient(135deg, var(--vw-violet) 0%, var(--vw-violet-mid) 100%);
-  flex-shrink: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.van-panel-identity { display: flex; align-items: center; gap: 10px; }
-.van-head-avatar {
-  width: 38px;
-  height: 38px;
+.van-header__left {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.van-header__avatar {
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid rgba(255,255,255,.25);
-  flex-shrink: 0;
+  border: 2px solid rgba(255, 255, 255, .3);
 }
-.van-head-name { font-size: 0.9rem; font-weight: 700; color: white; font-family: 'DM Sans', sans-serif; }
-.van-head-role { font-size: 0.68rem; color: rgba(255,255,255,.65); }
-.van-head-actions { display: flex; align-items: center; gap: 8px; }
-.van-online-badge {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 0.68rem;
+.van-header__name {
+  margin: 0;
   font-weight: 600;
-  color: rgba(255,255,255,.8);
-  background: rgba(255,255,255,.12);
-  padding: 3px 8px;
-  border-radius: 10px;
+  font-size: 15px;
 }
-.van-dot-live {
-  width: 6px;
-  height: 6px;
-  background: #4ade80;
-  border-radius: 50%;
-  display: inline-block;
-  animation: vw-blink 2s infinite;
-}
-@keyframes vw-blink { 0%,100%{opacity:1} 50%{opacity:.3} }
-.van-close {
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  background: rgba(255,255,255,.15);
-  border: none;
-  color: white;
+.van-header__status {
+  margin: 2px 0 0;
+  font-size: 12px;
+  opacity: .9;
   display: flex;
   align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: background 0.2s;
+  gap: 6px;
 }
-.van-close:hover { background: rgba(255,255,255,.3); }
+.van-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #4ade80;
+}
+.van-close {
+  background: transparent;
+  border: 0;
+  color: #fff;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  border-radius: 4px;
+}
+.van-close:hover { background: rgba(255, 255, 255, .15); }
 
-/* ── Messages ─────────────────────────────── */
+/* -------- Messages ------------------------------------------------------- */
 .van-messages {
   flex: 1;
   overflow-y: auto;
-  padding: 14px 14px 6px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
+  background: #faf8ff;
   scroll-behavior: smooth;
 }
-.van-messages::-webkit-scrollbar { width: 4px; }
-.van-messages::-webkit-scrollbar-track { background: transparent; }
-.van-messages::-webkit-scrollbar-thumb { background: rgba(167,139,250,.2); border-radius: 4px; }
-
-.van-msg { display: flex; gap: 7px; align-items: flex-end; max-width: 88%; }
-.van-msg.van { align-self: flex-start; }
-.van-msg.user { align-self: flex-end; flex-direction: row-reverse; }
-
-.van-msg-avatar {
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  flex-shrink: 0;
-  overflow: hidden;
-}
-.van-msg-avatar img { width: 100%; height: 100%; object-fit: cover; }
-.van-msg-avatar-fb {
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--vw-lavender), var(--vw-violet));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.65rem;
-  font-weight: 700;
-  color: white;
-  flex-shrink: 0;
-}
-
-.van-bubble {
-  padding: 9px 12px;
-  border-radius: 14px;
-  font-size: 0.83rem;
-  line-height: 1.55;
-  font-family: 'DM Sans', sans-serif;
-}
-.van-msg.van .van-bubble {
-  background: var(--vw-card2);
-  color: var(--vw-text);
-  border-bottom-left-radius: 4px;
-}
-.van-msg.user .van-bubble {
-  background: linear-gradient(135deg, var(--vw-violet), var(--vw-violet-mid));
-  color: white;
-  border-bottom-right-radius: 4px;
-}
-
-/* Typing indicator */
-.van-typing .van-bubble {
-  background: var(--vw-card2);
+.van-msg {
+  max-width: 80%;
   padding: 10px 14px;
+  border-radius: 14px;
+  font-size: 14px;
+  line-height: 1.45;
+  word-wrap: break-word;
 }
-.van-dots { display: flex; gap: 4px; align-items: center; height: 16px; }
-.van-dots span {
-  width: 6px;
-  height: 6px;
-  background: var(--vw-text2);
-  border-radius: 50%;
-  animation: vw-dot 1.2s infinite;
+.van-msg--bot {
+  background: #fff;
+  border: 1px solid #ece6f9;
+  color: #07040f;
+  border-bottom-left-radius: 4px;
+  align-self: flex-start;
 }
-.van-dots span:nth-child(2) { animation-delay: 0.2s; }
-.van-dots span:nth-child(3) { animation-delay: 0.4s; }
-@keyframes vw-dot { 0%,80%,100%{transform:scale(0.6);opacity:.4} 40%{transform:scale(1);opacity:1} }
+.van-msg--user {
+  background: #5B2C8D;
+  color: #fff;
+  border-bottom-right-radius: 4px;
+  align-self: flex-end;
+}
+.van-msg--typing {
+  font-style: italic;
+  color: #6b5c87;
+}
 
-/* ── Quick replies ────────────────────────── */
+/* -------- Quick replies -------------------------------------------------- */
 .van-quick-replies {
-  padding: 6px 14px 2px;
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  flex-shrink: 0;
+  padding: 8px 16px;
+  background: #faf8ff;
+  border-top: 1px solid #ece6f9;
 }
-.van-qr-btn {
+.van-qr {
+  background: #fff;
+  border: 1px solid #d8c9f0;
+  color: #5B2C8D;
   padding: 6px 12px;
-  font-size: 0.75rem;
-  font-weight: 500;
-  font-family: 'DM Sans', sans-serif;
-  background: var(--vw-card2);
-  border: 1px solid var(--vw-border);
-  border-radius: 20px;
-  color: var(--vw-lavender);
+  border-radius: 999px;
+  font-size: 12px;
   cursor: pointer;
-  transition: background 0.2s, border-color 0.2s;
-  white-space: nowrap;
+  font-family: inherit;
+  font-weight: 500;
+  transition: background .15s ease, color .15s ease;
 }
-.van-qr-btn:hover { background: rgba(167,139,250,.1); border-color: rgba(167,139,250,.3); }
+.van-qr:hover {
+  background: #5B2C8D;
+  color: #fff;
+}
 
-/* ── Input area ───────────────────────────── */
+/* -------- Input ---------------------------------------------------------- */
 .van-input-area {
   display: flex;
-  align-items: center;
   gap: 8px;
-  padding: 10px 12px;
-  border-top: 1px solid var(--vw-border);
-  flex-shrink: 0;
-  background: var(--vw-card);
+  padding: 12px 16px;
+  border-top: 1px solid #ece6f9;
+  background: #fff;
 }
 .van-input {
   flex: 1;
-  background: var(--vw-card2);
-  border: 1px solid var(--vw-border);
-  border-radius: 22px;
-  padding: 8px 14px;
-  font-size: 0.82rem;
-  color: var(--vw-text);
-  font-family: 'DM Sans', sans-serif;
+  border: 1px solid #d8c9f0;
+  border-radius: 999px;
+  padding: 10px 16px;
+  font: inherit;
+  font-size: 14px;
   outline: none;
-  transition: border-color 0.2s;
+  transition: border-color .15s ease;
 }
-.van-input::placeholder { color: var(--vw-text2); }
-.van-input:focus { border-color: rgba(167,139,250,.4); }
+.van-input:focus { border-color: #5B2C8D; }
 .van-send {
-  width: 34px;
-  height: 34px;
+  background: #5B2C8D;
+  color: #fff;
+  border: 0;
   border-radius: 50%;
-  background: var(--vw-violet);
-  color: white;
-  border: none;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  flex-shrink: 0;
-  transition: background 0.2s, transform 0.2s;
+  transition: background .15s ease;
 }
-.van-send:hover { background: var(--vw-violet-mid); transform: scale(1.05); }
+.van-send:hover { background: #4a2375; }
 
-/* ── Footer ───────────────────────────────── */
-.van-panel-foot {
-  padding: 7px 14px;
-  font-size: 0.68rem;
-  color: var(--vw-text2);
+/* -------- Footer note ---------------------------------------------------- */
+.van-footer-note {
+  margin: 0;
+  padding: 6px;
   text-align: center;
-  background: var(--vw-dark);
-  border-top: 1px solid var(--vw-border);
-  flex-shrink: 0;
+  font-size: 11px;
+  color: #9b8bbf;
+  background: #fff;
 }
 
-/* ── Responsive ───────────────────────────── */
+/* -------- A11y ----------------------------------------------------------- */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+/* -------- Responsive mobile --------------------------------------------- */
 @media (max-width: 480px) {
-  :root { --vw-w: calc(100vw - 2rem); }
-  .van-panel { right: 1rem; bottom: calc(1rem + 70px); }
-  .van-trigger { right: 1rem; bottom: 1rem; }
+  .van-trigger {
+    bottom: 16px;
+    right: 16px;
+  }
+  .van-panel {
+    right: 8px;
+    left: 8px;
+    width: auto;
+    bottom: 80px;
+    height: calc(100vh - 100px);
+  }
 }
-
-/* Hide WhatsApp FAB when widget present (avoid overlap) */
-.whatsapp-fab { right: calc(1.75rem + 70px); }
-@media (max-width: 480px) { .whatsapp-fab { right: calc(1rem + 70px); } }
