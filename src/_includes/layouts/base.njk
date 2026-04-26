@@ -3,125 +3,45 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% if title %}{{ title }} — {{ site.name }}{% else %}{{ site.name }} · {{ site.tagline }}{% endif %}</title>
-  <meta name="description" content="{{ description or site.description }}">
-  <meta property="og:title" content="{% if title %}{{ title }} — {{ site.name }}{% else %}{{ site.name }}{% endif %}">
-  <meta property="og:description" content="{{ description or site.description }}">
+  <title>{{ title }} — Nimara</title>
+  <meta name="description" content="{{ description }}">
+
+  {# Open Graph #}
+  <meta property="og:title" content="{{ title }} — Nimara">
+  <meta property="og:description" content="{{ description }}">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="{{ site.url }}{{ page.url }}">
-  <meta property="og:image" content="{{ site.url }}/assets/images/og-nimara.jpg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:locale" content="fr_CH">
-  <meta property="og:site_name" content="{{ site.name }}">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="{% if title %}{{ title }} — {{ site.name }}{% else %}{{ site.name }}{% endif %}">
-  <meta name="twitter:description" content="{{ description or site.description }}">
-  <meta name="twitter:image" content="{{ site.url }}/assets/images/og-nimara.jpg">
-  <link rel="canonical" href="{{ site.url }}{{ page.url }}">
-  <!-- Schema.org LocalBusiness (SEO local Genève) -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": ["Patisserie", "CateringService", "FoodEstablishment", "LocalBusiness"],
-    "name": "{{ site.name }}",
-    "description": "{{ site.description }}",
-    "image": "{{ site.url }}/assets/images/og-nimara.jpg",
-    "url": "{{ site.url }}",
-    "telephone": "{{ site.phone }}",
-    "email": "{{ site.email }}",
-    "priceRange": "CHF 3 - CHF 50",
-    "servesCuisine": ["Pâtisserie artisanale", "Cuisine indienne", "Service traiteur événementiel"],
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "{{ site.address.street }}",
-      "addressLocality": "{{ site.address.city }}",
-      "postalCode": "{{ site.address.zip }}",
-      "addressCountry": "CH"
-    },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": 46.2061637,
-      "longitude": 6.1324649
-    },
-    "openingHoursSpecification": [
-      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "07:00", "closes": "19:00" },
-      { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "07:30", "closes": "18:00" },
-      { "@type": "OpeningHoursSpecification", "dayOfWeek": "Sunday", "opens": "08:00", "closes": "14:00" }
-    ],
-    "sameAs": [
-      "{{ site.social.instagram }}",
-      "{{ site.social.facebook }}"
-    ],
-    "acceptsReservations": "True",
-    "areaServed": { "@type": "City", "name": "Genève" }
-  }
-  </script>
-  <!-- Fonts -->
+  <meta property="og:url" content="https://nimara.io{{ page.url }}">
+  <link rel="canonical" href="https://nimara.io{{ page.url }}">
+
+  {# Fonts #}
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
-  <!-- Styles -->
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+
+  {# Styles globaux #}
   <link rel="stylesheet" href="/assets/css/main.css">
   <link rel="stylesheet" href="/assets/css/vanessa-widget.css">
-  <!-- Google Tag Manager (à activer après création container — remplacer GTM-XXXXXXX) -->
-  <!-- <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-XXXXXXX');</script> -->
-
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LKZFD20DEE"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LKZFD20DEE');</script>
-  <script defer src="/assets/js/ga-events.js"></script>
-
-  <!-- Meta Pixel — remplacer PIXEL_ID_REPLACE_ME par votre ID Facebook Pixel (15 chiffres) -->
-  <script>
-  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
-  fbq('init', 'PIXEL_ID_REPLACE_ME');
-  fbq('track', 'PageView');
-  </script>
-  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=PIXEL_ID_REPLACE_ME&ev=PageView&noscript=1"/></noscript>
-
-  {% if extraHead %}{{ extraHead | safe }}{% endif %}
 </head>
-<body class="{{ bodyClass or '' }}">
+<body>
 
-  <!-- GTM noscript fallback (à décommenter après setup) -->
-  <!-- <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript> -->
-
+  {# ============================ HEADER ============================ #}
   {% include "partials/header.njk" %}
 
+  {# ============================ CONTENU ============================ #}
   <main id="main-content">
     {{ content | safe }}
   </main>
 
+  {# ============================ FOOTER ============================ #}
   {% include "partials/footer.njk" %}
-  {% include "partials/whatsapp-cta.njk" %}
-  {% include "partials/vanessa-widget.njk" %}
 
-  <!-- Netlify Forms detection (cachés, permettent à Netlify de reconnaître les formulaires JS) -->
-  <form name="nimara-exit-capture" data-netlify="true" netlify-honeypot="bot-field" hidden>
-    <input type="email" name="email">
-    <input type="text" name="page">
-    <input type="text" name="bot-field">
-  </form>
-  <form name="nimara-calc-capture" data-netlify="true" netlify-honeypot="bot-field" hidden>
-    <input type="email" name="email">
-    <input type="text" name="event-type">
-    <input type="text" name="guests">
-    <input type="text" name="estimate">
-    <input type="text" name="bot-field">
-  </form>
-  <form name="nimara-quiz" data-netlify="true" netlify-honeypot="bot-field" hidden>
-    <input type="email" name="email">
-    <input type="text" name="answers">
-    <input type="text" name="bot-field">
-  </form>
+  {# ============================ WIDGET VANESSA ============================ #}
+  {# Conteneur injecté dans le DOM — le JS gère l'ouverture/fermeture et les messages #}
+  <div id="vanessa-root" aria-live="polite"></div>
 
-  <script src="/assets/js/main.js"></script>
-  <script src="/assets/js/vanessa-widget.js"></script>
-  <script src="/assets/js/exit-popup.js" defer></script>
-  <script src="/assets/js/social-proof.js" defer></script>
-  <script src="/assets/js/meta-pixel.js" defer></script>
-  {% if extraScripts %}{{ extraScripts | safe }}{% endif %}
+  {# Scripts #}
+  <script src="/assets/js/main.js" defer></script>
+  <script src="/assets/js/vanessa-widget.js" defer></script>
 
 </body>
 </html>
