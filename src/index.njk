@@ -1006,33 +1006,6 @@ gs.addEventListener('mousemove',e=>{if(!down)return;e.preventDefault();gs.scroll
 })();
 </script>
 
-<!-- VANESSA WIDGET -->
-<link rel="stylesheet" href="/assets/css/vanessa-widget.css">
-<button class="van-trigger" id="van-trigger" aria-label="Parler à Vanessa">
-  <img src="/assets/images/vanessa-avatar.png" alt="Vanessa" class="van-trigger-avatar" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-  <span class="van-trigger-fallback" aria-hidden="true">V</span>
-  <span class="van-trigger-status"></span>
-  <span class="van-trigger-label">Vanessa</span>
-</button>
-<div class="van-panel" id="van-panel" role="dialog" aria-modal="true" aria-label="Chat avec Vanessa" hidden>
-  <div class="van-panel-head">
-    <div class="van-panel-identity">
-      <img src="/assets/images/vanessa-avatar.png" alt="Vanessa" class="van-head-avatar" onerror="this.style.display='none'">
-      <div><div class="van-head-name">Vanessa</div><div class="van-head-role">Votre guide gourmand · Nimara</div></div>
-    </div>
-    <div class="van-head-actions">
-      <div class="van-online-badge"><span class="van-dot-live"></span> En ligne</div>
-      <button class="van-close" id="van-close" aria-label="Fermer">✕</button>
-    </div>
-  </div>
-  <div class="van-messages" id="van-messages" role="log" aria-live="polite"></div>
-  <div class="van-quick-replies" id="van-quick-replies"></div>
-  <form class="van-input-area" id="van-input-form" autocomplete="off">
-    <input type="text" id="van-input" class="van-input" placeholder="Posez votre question..." maxlength="300">
-    <button type="submit" class="van-send" aria-label="Envoyer">→</button>
-  </form>
-</div>
-<script src="/assets/js/vanessa-widget.js"></script>
 <script src="/assets/js/exit-popup.js" defer></script>
 <script src="/assets/js/social-proof.js" defer></script>
 <script src="/assets/js/ga-events.js"></script>
