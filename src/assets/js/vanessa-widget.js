@@ -10,7 +10,7 @@
 
   // -------- Configuration ------------------------------------------------
   const CONFIG = {
-    endpoint: 'https://n8n.nimara.io/webhook/vanessa', // webhook n8n self-hosted
+    endpoint: 'https://nimarageneve.app.n8n.cloud/webhook/vanessa-nimara-v3/chat', // n8n Chat Trigger
     avatar: '/assets/images/vanessa-avatar.png',
     inputMaxLength: 300,
     quickReplies: [
@@ -21,7 +21,9 @@
     ],
     welcome: "Bonjour, je suis Vanessa, l'assistante IA de Nimara. Comment puis-je vous aider aujourd'hui ?",
     storageKey: 'nimara_vanessa_session',
-    stateKey: 'nimara_vanessa_state'
+    stateKey: 'nimara_vanessa_state',
+    autoOpenDelay: 4000,           // ouverture auto après 4s
+    autoOpenedKey: 'nimara_vanessa_autoopened'  // évite de spammer à chaque page
   };
 
   // -------- Génère un ID de session simple ------------------------------
@@ -315,25 +317,32 @@
         }));
     }
 
-    // --- Envoi vers n8n (qui appelle ensuite Claude API) ---
+    // --- Envoi vers n8n Chat Trigger ---
+    // Format attendu par n8n Chat Trigger : { action, sessionId, chatInput }
+    // Réponse : { output: "..." } (champ standard de l'AI Agent n8n)
     async function sendToBackend(message) {
       try {
         const res = await fetch(CONFIG.endpoint, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
+            action: 'sendMessage',
             sessionId,
-            message,
-            history: getHistory(),    // historique complet
-            page: window.location.pathname,
-            referrer: document.referrer || null,
-            timestamp: new Date().toISOString()
+            chatInput: message,
+            // Métadonnées custom (optionnelles, accessibles dans n8n)
+            metadata: {
+              page: window.location.pathname,
+              referrer: document.referrer || null,
+              timestamp: new Date().toISOString()
+            }
           })
         });
         if (!res.ok) throw new Error('HTTP ' + res.status);
         const data = await res.json().catch(() => ({}));
-        return data.reply
+        return data.output
+          || data.reply
           || data.message
+          || data.text
           || "Merci pour votre message. Un membre de l'équipe Nimara vous répondra rapidement.";
       } catch (err) {
         console.error('[Vanessa] erreur backend :', err);
@@ -379,6 +388,17 @@
         hasGreeted = true;
         persist();
       }
+    }
+
+    // --- Auto-ouverture après 4s (uniquement à la 1re visite de la session) ---
+    const alreadyAutoOpened = sessionStorage.getItem(CONFIG.autoOpenedKey) === '1';
+    if (!alreadyAutoOpened && !isOpen) {
+      setTimeout(() => {
+        if (!isOpen) {
+          openPanel();
+          sessionStorage.setItem(CONFIG.autoOpenedKey, '1');
+        }
+      }, CONFIG.autoOpenDelay);
     }
   }
 
