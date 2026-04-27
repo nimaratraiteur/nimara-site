@@ -69,25 +69,38 @@
     const root = document.getElementById('vanessa-root');
     if (!root) return null;
 
+    // Styles inline = priorité maximale, impossibles à override par le CSS du site
+    const avatarWrapStyle36 = 'display:inline-block;width:36px;height:36px;min-width:36px;min-height:36px;max-width:36px;max-height:36px;flex-shrink:0;border-radius:50%;overflow:hidden;background:rgba(255,255,255,.18);position:relative;';
+    const avatarWrapStyle40 = 'display:inline-block;width:40px;height:40px;min-width:40px;min-height:40px;max-width:40px;max-height:40px;flex-shrink:0;border-radius:50%;overflow:hidden;background:rgba(255,255,255,.22);border:2px solid rgba(255,255,255,.3);position:relative;';
+    const avatarImgStyle = 'display:block;width:100%;height:100%;object-fit:cover;object-position:center;border-radius:50%;';
+    const triggerStyle = 'position:fixed;bottom:24px;right:24px;z-index:2147483647;background:#5B2C8D;color:#fff;border:0;border-radius:999px;padding:8px 18px 8px 8px;display:inline-flex;align-items:center;gap:10px;width:auto;max-width:220px;height:auto;box-shadow:0 10px 30px rgba(91,44,141,.4);cursor:pointer;font-family:inherit;';
+    const panelStyle = 'position:fixed;bottom:90px;right:24px;width:380px;max-width:calc(100vw - 32px);height:580px;max-height:calc(100vh - 120px);background:#fff;border-radius:18px;box-shadow:0 20px 60px rgba(7,4,15,.25);display:flex;flex-direction:column;overflow:hidden;z-index:2147483646;';
+
     root.innerHTML = `
       <button class="van-trigger" type="button"
+              style="${triggerStyle}"
               aria-label="Ouvrir le chat avec Vanessa"
               aria-controls="van-panel"
               aria-expanded="false">
-        <img src="${CONFIG.avatar}" alt="" class="van-trigger__avatar"
-             width="36" height="36"
-             onerror="this.style.display='none'">
+        <span class="van-trigger__avatar-wrap" style="${avatarWrapStyle36}">
+          <img src="${CONFIG.avatar}" alt="" class="van-trigger__avatar"
+               style="${avatarImgStyle}"
+               onerror="this.style.display='none'">
+        </span>
         <span class="van-trigger__pulse" aria-hidden="true"></span>
-        <span class="van-trigger__label">Vanessa</span>
+        <span class="van-trigger__label" style="font-weight:600;font-size:14px;white-space:nowrap;">Vanessa</span>
       </button>
 
       <aside class="van-panel" id="van-panel"
+             style="${panelStyle}"
              role="dialog" aria-modal="true" aria-labelledby="van-title" hidden>
         <header class="van-header">
           <div class="van-header__left">
-            <img src="${CONFIG.avatar}" alt="" class="van-header__avatar"
-                 width="40" height="40"
-                 onerror="this.style.display='none'">
+            <span class="van-header__avatar-wrap" style="${avatarWrapStyle40}">
+              <img src="${CONFIG.avatar}" alt="" class="van-header__avatar"
+                   style="${avatarImgStyle}"
+                   onerror="this.style.display='none'">
+            </span>
             <div>
               <p id="van-title" class="van-header__name">Vanessa</p>
               <p class="van-header__status">
