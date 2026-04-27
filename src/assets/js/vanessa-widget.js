@@ -66,6 +66,21 @@
       .replace(/'/g, '&#39;');
   }
 
+  // -------- Mini-parser Markdown (liens + gras + italique + sauts) -----
+  function renderMarkdown(rawText) {
+    let s = escapeHtml(rawText);
+    // [texte](url) → <a href="url" target="_blank">texte</a>
+    s = s.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g,
+      '<a href="$2" target="_blank" rel="noopener noreferrer" style="color:#5B2C8D;text-decoration:underline">$1</a>');
+    // **texte** → <strong>
+    s = s.replace(/\*\*([^*\n]+)\*\*/g, '<strong>$1</strong>');
+    // *texte* → <em> (uniquement si pas suivi de *, pour éviter conflits)
+    s = s.replace(/(^|[^*])\*([^*\n]+)\*(?!\*)/g, '$1<em>$2</em>');
+    // Sauts de ligne
+    s = s.replace(/\n/g, '<br>');
+    return s;
+  }
+
   // -------- Injection du markup -----------------------------------------
   function buildMarkup() {
     const root = document.getElementById('vanessa-root');
@@ -269,7 +284,14 @@
       trigger.focus();
     }
     trigger.addEventListener('click', () => isOpen ? closePanel() : openPanel());
-    closeBtn.addEventListener('click', closePanel);
+    // Délégation : peu importe où tu cliques (SVG, path, etc.) tant que c'est dans .van-close
+    panel.addEventListener('click', (e) => {
+      if (e.target.closest('.van-close')) {
+        e.preventDefault();
+        e.stopPropagation();
+        closePanel();
+      }
+    });
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && isOpen) closePanel();
     });
@@ -292,7 +314,10 @@
     function addMessage(text, role) {
       const div = document.createElement('div');
       div.className = 'van-msg van-msg--' + role;
-      div.innerHTML = escapeHtml(text).replace(/\n/g, '<br>');
+      // Le bot peut renvoyer du Markdown (liens, gras…), pas l'utilisateur
+      div.innerHTML = role === 'bot'
+        ? renderMarkdown(text)
+        : escapeHtml(text).replace(/\n/g, '<br>');
       messagesEl.appendChild(div);
       messagesEl.scrollTop = messagesEl.scrollHeight;
       return div;
