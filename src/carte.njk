@@ -4,7 +4,48 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Carte Complète — Nimara · Genève</title>
-<meta name="description" content="Carte complète Nimara avec allergènes. Pâtisseries artisanales, cuisine indienne, lunch boxes.">
+<meta name="description" content="Découvrez la carte complète Nimara : pâtisseries artisanales, curries indiens mijotés, naans, lunch boxes à Genève. 100% fait maison, allergènes indiqués.">
+<!-- Open Graph -->
+<meta property="og:title" content="Carte Complète — Nimara · Genève">
+<meta property="og:description" content="Carte complète Nimara : pâtisseries artisanales, cuisine indienne, lunch boxes à Genève.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://nimara.io/carte/">
+<meta property="og:image" content="https://nimara.io/assets/images/og-nimara.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="fr_CH">
+<meta property="og:site_name" content="Nimara">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Carte Complète — Nimara · Genève">
+<meta name="twitter:description" content="Carte complète Nimara : pâtisseries artisanales, cuisine indienne, lunch boxes à Genève.">
+<meta name="twitter:image" content="https://nimara.io/assets/images/og-nimara.jpg">
+<link rel="canonical" href="https://nimara.io/carte/">
+<!-- Schema.org Menu -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Menu",
+  "name": "Carte Nimara",
+  "description": "Carte complète : pâtisseries artisanales, cuisine indienne, lunch boxes",
+  "url": "https://nimara.io/carte/",
+  "hasMenuSection": [
+    {"@type": "MenuSection", "name": "Pâtisseries", "description": "Banana bread, cheesecake, brownies, cinnamon rolls, pecan pie"},
+    {"@type": "MenuSection", "name": "Plats indiens", "description": "Butter chicken, curry pois chiches, dal rouge, samosas, naans"},
+    {"@type": "MenuSection", "name": "Lunch Boxes", "description": "Box repas midi livrées à Genève"}
+  ],
+  "inLanguage": "fr"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://nimara.io/"},
+    {"@type": "ListItem", "position": 2, "name": "Carte", "item": "https://nimara.io/carte/"}
+  ]
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
 <style>
@@ -150,6 +191,39 @@ footer{background:#1c1007;margin-top:64px;padding:32px;display:flex;align-items:
 .f-links a{color:rgba(255,255,255,.35);font-size:12px;text-decoration:none;transition:color .2s;}
 .f-links a:hover{color:rgba(255,255,255,.7);}
 
+/* CART */
+.cart-add{position:absolute;bottom:10px;right:10px;width:34px;height:34px;border-radius:50%;background:var(--v);color:white;border:none;cursor:pointer;font-size:18px;font-weight:700;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(91,44,141,.4);transition:all .2s;z-index:5;font-family:"DM Sans",sans-serif;}
+.cart-add:hover{transform:scale(1.12);background:var(--v2);}
+.cart-add.in-cart{background:var(--gold);color:white;}
+.cart-badge{position:fixed;bottom:90px;right:24px;z-index:310;background:var(--v);color:white;border-radius:16px;padding:12px 20px;box-shadow:0 8px 32px rgba(91,44,141,.35);cursor:pointer;display:none;align-items:center;gap:10px;font-size:14px;font-weight:600;transition:all .3s;font-family:"DM Sans",sans-serif;border:none;}
+.cart-badge:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(91,44,141,.45);}
+.cart-badge.show{display:flex;}
+.cart-badge__count{background:var(--gold);color:white;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;}
+.cart-panel{position:fixed;bottom:0;left:0;right:0;z-index:400;background:white;border-radius:20px 20px 0 0;box-shadow:0 -8px 40px rgba(0,0,0,.15);transform:translateY(100%);transition:transform .35s cubic-bezier(.22,1,.36,1);max-height:80vh;overflow-y:auto;}
+.cart-panel.open{transform:translateY(0);}
+.cart-panel__header{display:flex;align-items:center;justify-content:space-between;padding:20px 24px 12px;border-bottom:1px solid var(--border);position:sticky;top:0;background:white;z-index:1;}
+.cart-panel__title{font-family:"Cormorant Garamond",serif;font-size:24px;font-weight:400;}
+.cart-panel__close{background:none;border:none;font-size:24px;cursor:pointer;color:var(--mu);padding:4px;}
+.cart-panel__items{padding:16px 24px;}
+.cart-item{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);}
+.cart-item:last-child{border-bottom:none;}
+.cart-item__info{display:flex;flex-direction:column;gap:2px;}
+.cart-item__name{font-size:14px;font-weight:500;}
+.cart-item__price{font-size:12px;color:var(--goldd);font-weight:600;}
+.cart-item__controls{display:flex;align-items:center;gap:10px;}
+.cart-item__qty-btn{width:28px;height:28px;border-radius:50%;border:1.5px solid var(--border);background:white;cursor:pointer;font-size:14px;font-weight:600;display:flex;align-items:center;justify-content:center;transition:all .2s;font-family:"DM Sans",sans-serif;color:var(--ink);}
+.cart-item__qty-btn:hover{border-color:var(--v);color:var(--v);}
+.cart-item__qty{font-size:14px;font-weight:700;min-width:20px;text-align:center;}
+.cart-panel__footer{padding:16px 24px 24px;border-top:1px solid var(--border);position:sticky;bottom:0;background:white;}
+.cart-total{display:flex;justify-content:space-between;font-size:16px;font-weight:700;margin-bottom:14px;}
+.cart-total__price{color:var(--goldd);}
+.cart-wa-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;background:var(--wa);color:white;padding:14px;border-radius:12px;text-decoration:none;font-size:15px;font-weight:700;border:none;cursor:pointer;transition:all .2s;font-family:"DM Sans",sans-serif;}
+.cart-wa-btn:hover{filter:brightness(1.08);transform:translateY(-1px);}
+.cart-wa-btn svg{width:18px;height:18px;}
+.cart-empty{text-align:center;padding:32px 24px;color:var(--mu);font-size:14px;}
+.cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:390;opacity:0;pointer-events:none;transition:opacity .3s;}
+.cart-overlay.show{opacity:1;pointer-events:auto;}
+
 /* PRINT */
 @media print{
   .nav,.filters-sticky,.wa-fab,.b2b-banner,footer{display:none!important;}
@@ -181,11 +255,11 @@ footer{background:#1c1007;margin-top:64px;padding:32px;display:flex;align-items:
 <nav class="nav">
   <a href="/" class="logo"><div class="logo-n">N</div><span class="logo-brand">Nimara</span></a>
   <div class="nav-tabs">
-    <button class="nav-tab active" id="nt-sucres" onclick="scrollTo('sucres')">🍰 Sucrés</button>
-    <button class="nav-tab" id="nt-collations" onclick="scrollTo('collations')">🥟 Collations</button>
-    <button class="nav-tab" id="nt-plats" onclick="scrollTo('plats')">🍛 Plats</button>
-    <button class="nav-tab" id="nt-boxes" onclick="scrollTo('boxes')">🥡 Lunch Boxes</button>
-    <button class="nav-tab" id="nt-boissons" onclick="scrollTo('boissons')">🥭 Boissons</button>
+    <button class="nav-tab active" id="nt-sucres" onclick="goTo('sucres')">🍰 Sucrés</button>
+    <button class="nav-tab" id="nt-collations" onclick="goTo('collations')">🥟 Collations</button>
+    <button class="nav-tab" id="nt-plats" onclick="goTo('plats')">🍛 Plats</button>
+    <button class="nav-tab" id="nt-boxes" onclick="goTo('boxes')">🥡 Lunch Boxes</button>
+    <button class="nav-tab" id="nt-boissons" onclick="goTo('boissons')">🥭 Boissons</button>
   </div>
   <div class="nav-r">
     <div class="lang-sw">
@@ -421,10 +495,10 @@ footer{background:#1c1007;margin-top:64px;padding:32px;display:flex;align-items:
       </div>
     </article>
 
-    <!-- CAKE POMME (no photo) -->
+    <!-- CAKE POMME -->
     <article class="pc" data-tags="vege">
       <div class="pc__img">
-        <div class="img-ph">🍎</div>
+        <img src="/assets/images/products/cake-pomme-orange.png" alt="Cake Pomme" loading="lazy">
         <span class="pc__cat cat-vege" data-fr="🌿 Végé" data-en="🌿 Veggie">🌿 Végé</span>
       </div>
       <div class="pc__body">
@@ -451,7 +525,7 @@ footer{background:#1c1007;margin-top:64px;padding:32px;display:flex;align-items:
   </div>
   <div class="prod-grid small">
     <article class="pc" data-tags="vege">
-      <div class="pc__img"><div class="img-ph">🥭</div><span class="pc__cat cat-vege">🌿 Végé</span></div>
+      <div class="pc__img"><img src="/assets/images/products/bircher-muesli.png" alt="Bircher Mangue" loading="lazy"><span class="pc__cat cat-vege">🌿 Végé</span></div>
       <div class="pc__body">
         <h3 class="pc__name" data-fr="Bircher Mangue" data-en="Mango Bircher">Bircher Mangue</h3>
         <p class="pc__desc" data-fr="Muesli Bircher à la mangue fraîche. Batch min. 42 portions." data-en="Bircher muesli with fresh mango. Min. batch 42 portions.">Muesli Bircher à la mangue fraîche. Batch min. 42 portions.</p>
@@ -459,7 +533,7 @@ footer{background:#1c1007;margin-top:64px;padding:32px;display:flex;align-items:
       </div>
     </article>
     <article class="pc" data-tags="vege">
-      <div class="pc__img"><div class="img-ph">🫐</div><span class="pc__cat cat-vege">🌿 Végé</span></div>
+      <div class="pc__img"><img src="/assets/images/products/bircher-muesli.png" alt="Bircher Framboise" loading="lazy"><span class="pc__cat cat-vege">🌿 Végé</span></div>
       <div class="pc__body">
         <h3 class="pc__name" data-fr="Bircher Framboise" data-en="Raspberry Bircher">Bircher Framboise</h3>
         <p class="pc__desc" data-fr="Muesli Bircher à la framboise. Batch min. 42 portions." data-en="Bircher muesli with raspberry. Min. batch 42 portions.">Muesli Bircher à la framboise. Batch min. 42 portions.</p>
@@ -474,7 +548,7 @@ footer{background:#1c1007;margin-top:64px;padding:32px;display:flex;align-items:
   <div class="b2b">
     <div>
       <h3 data-fr="Événements & <em>Traiteur entreprises</em>" data-en="Events & <em>Corporate catering</em>">Événements & <em>Traiteur entreprises</em></h3>
-      <p data-fr="Apéro, lunch box, buffet ou coffee break — devis en 4 clics, livraison incluse." data-en="Cocktail, lunch box, buffet or coffee break — quote in 4 clicks, delivery included.">Apéro, lunch box, buffet ou coffee break — devis en 4 clics, livraison incluse.</p>
+      <p data-fr="Apéro, lunch box, buffet ou coffee break — devis en 4 clics." data-en="Cocktail, lunch box, buffet or coffee break — quote in 4 clicks.">Apéro, lunch box, buffet ou coffee break — devis en 4 clics.</p>
     </div>
     <a href="/entreprises/" class="b2b-btn" data-fr="🧮 Calculer mon événement" data-en="🧮 Calculate my event">🧮 Calculer mon événement</a>
   </div>
@@ -546,7 +620,7 @@ footer{background:#1c1007;margin-top:64px;padding:32px;display:flex;align-items:
     </article>
 
     <article class="pc" data-tags="vege halal">
-      <div class="pc__img"><div class="img-ph">🥟</div><span class="pc__cat cat-vege">🌿 Végé</span></div>
+      <div class="pc__img"><img src="/assets/images/products/samosa-legumes.png" alt="Samosa Légumes" loading="lazy"><span class="pc__cat cat-vege">🌿 Végé</span></div>
       <div class="pc__body">
         <h3 class="pc__name" data-fr="Samosa Légumes" data-en="Vegetable Samosa">Samosa Légumes</h3>
         <p class="pc__desc" data-fr="Pommes de terre et petits pois, épices indiennes. 🌶️ Moyen." data-en="Potatoes and peas with Indian spices. 🌶️ Medium.">Pommes de terre et petits pois, épices indiennes. 🌶️ Moyen.</p>
@@ -556,7 +630,7 @@ footer{background:#1c1007;margin-top:64px;padding:32px;display:flex;align-items:
     </article>
 
     <article class="pc" data-tags="vege halal">
-      <div class="pc__img"><div class="img-ph">🔺</div><span class="pc__cat cat-vege">🌿 Végé</span></div>
+      <div class="pc__img"><img src="/assets/images/products/triangle-feta-miel.jpeg" alt="Samosa Feta Miel" loading="lazy"><span class="pc__cat cat-vege">🌿 Végé</span></div>
       <div class="pc__body">
         <h3 class="pc__name" data-fr="Samosa Feta Miel" data-en="Feta Honey Samosa">Samosa Feta Miel</h3>
         <p class="pc__desc" data-fr="Triangle frit, farci à la feta grecque et au miel. Doux." data-en="Fried triangle with Greek feta and honey. Mild.">Triangle frit, farci à la feta grecque et au miel. Doux.</p>
@@ -566,7 +640,7 @@ footer{background:#1c1007;margin-top:64px;padding:32px;display:flex;align-items:
     </article>
 
     <article class="pc" data-tags="vege vegan halal">
-      <div class="pc__img"><div class="img-ph">🌿</div><span class="pc__cat cat-vegan">🌱 Vegan</span></div>
+      <div class="pc__img"><img src="/assets/images/products/pakora-legumes.jpeg" alt="Pakora de Légumes" loading="lazy"><span class="pc__cat cat-vegan">🌱 Vegan</span></div>
       <div class="pc__body">
         <h3 class="pc__name" data-fr="Pakora de Légumes" data-en="Vegetable Pakora">Pakora de Légumes</h3>
         <p class="pc__desc" data-fr="Beignets de légumes frits, farine de pois chiche. 🌶️ Moyen." data-en="Fried vegetable fritters in chickpea batter. 🌶️ Medium.">Beignets de légumes frits, farine de pois chiche. 🌶️ Moyen.</p>
@@ -576,7 +650,7 @@ footer{background:#1c1007;margin-top:64px;padding:32px;display:flex;align-items:
     </article>
 
     <article class="pc" data-tags="vege halal">
-      <div class="pc__img"><div class="img-ph">🍆</div><span class="pc__cat cat-vegan">🌱 Vegan</span></div>
+      <div class="pc__img"><img src="/assets/images/products/pakora.png" alt="Pakora d'Aubergine" loading="lazy"><span class="pc__cat cat-vegan">🌱 Vegan</span></div>
       <div class="pc__body">
         <h3 class="pc__name" data-fr="Pakora d'Aubergine" data-en="Aubergine Pakora">Pakora d'Aubergine</h3>
         <p class="pc__desc" data-fr="Beignet d'aubergine frit, farine de pois chiche. Doux." data-en="Fried aubergine fritter in chickpea flour. Mild.">Beignet d'aubergine frit, farine de pois chiche. Doux.</p>
@@ -586,7 +660,7 @@ footer{background:#1c1007;margin-top:64px;padding:32px;display:flex;align-items:
     </article>
 
     <article class="pc" data-tags="vege halal">
-      <div class="pc__img"><div class="img-ph">🫓</div><span class="pc__cat cat-vege">🌿 Végé</span></div>
+      <div class="pc__img"><img src="/assets/images/products/naan-fromage-real.jpeg" alt="Naan Fromage" loading="lazy"><span class="pc__cat cat-vege">🌿 Végé</span></div>
       <div class="pc__body">
         <h3 class="pc__name" data-fr="Naan Fromage" data-en="Cheese Naan">Naan Fromage</h3>
         <p class="pc__desc" data-fr="Pain indien fourré au fromage fondant. Doux." data-en="Indian bread stuffed with melted cheese. Mild.">Pain indien fourré au fromage fondant. Doux.</p>
@@ -596,7 +670,7 @@ footer{background:#1c1007;margin-top:64px;padding:32px;display:flex;align-items:
     </article>
 
     <article class="pc" data-tags="vege halal">
-      <div class="pc__img"><div class="img-ph">🧄</div><span class="pc__cat cat-halal">☪️ Halal</span></div>
+      <div class="pc__img"><img src="/assets/images/products/naan-ail.png" alt="Naan à l'Ail" loading="lazy"><span class="pc__cat cat-halal">☪️ Halal</span></div>
       <div class="pc__body">
         <h3 class="pc__name" data-fr="Naan à l'Ail" data-en="Garlic Naan">Naan à l'Ail</h3>
         <p class="pc__desc" data-fr="Pain indien cuit au tandoor, frotté à l'ail. Doux." data-en="Tandoor-baked Indian bread rubbed with garlic. Mild.">Pain indien cuit au tandoor, frotté à l'ail. Doux.</p>
@@ -606,7 +680,7 @@ footer{background:#1c1007;margin-top:64px;padding:32px;display:flex;align-items:
     </article>
 
     <article class="pc" data-tags="vege halal">
-      <div class="pc__img"><div class="img-ph">🫓</div><span class="pc__cat cat-halal">☪️ Halal</span></div>
+      <div class="pc__img"><img src="/assets/images/products/naan-nature.jpeg" alt="Naan Nature" loading="lazy"><span class="pc__cat cat-halal">☪️ Halal</span></div>
       <div class="pc__body">
         <h3 class="pc__name" data-fr="Naan Nature" data-en="Plain Naan">Naan Nature</h3>
         <p class="pc__desc" data-fr="Pain indien traditionnel cuit au tandoor. Doux." data-en="Traditional Indian bread baked in the tandoor. Mild.">Pain indien traditionnel cuit au tandoor. Doux.</p>
@@ -640,7 +714,7 @@ footer{background:#1c1007;margin-top:64px;padding:32px;display:flex;align-items:
     </article>
 
     <article class="pc" data-tags="halal">
-      <div class="pc__img"><div class="img-ph">🔺</div><span class="pc__cat cat-halal">☪️ Halal</span></div>
+      <div class="pc__img"><img src="/assets/images/products/samosa-viande.png" alt="Samosa Viande" loading="lazy"><span class="pc__cat cat-halal">☪️ Halal</span></div>
       <div class="pc__body">
         <h3 class="pc__name" data-fr="Samosa Viande" data-en="Meat Samosa">Samosa Viande</h3>
         <p class="pc__desc" data-fr="Bœuf haché, petits pois, épices douces. 🌶️ Moyen." data-en="Minced beef, peas, mild spices. 🌶️ Medium.">Bœuf haché, petits pois, épices douces. 🌶️ Moyen.</p>
@@ -650,7 +724,7 @@ footer{background:#1c1007;margin-top:64px;padding:32px;display:flex;align-items:
     </article>
 
     <article class="pc" data-tags="halal">
-      <div class="pc__img"><div class="img-ph">🍢</div><span class="pc__cat cat-halal">☪️ Halal</span></div>
+      <div class="pc__img"><img src="/assets/images/products/tandoori-chicken.jpeg" alt="Mini Brochettes Poulet" loading="lazy"><span class="pc__cat cat-halal">☪️ Halal</span></div>
       <div class="pc__body">
         <h3 class="pc__name" data-fr="Mini Brochettes Poulet" data-en="Mini Chicken Skewers">Mini Brochettes Poulet</h3>
         <p class="pc__desc" data-fr="Petites brochettes de poulet mariné aux épices. Doux." data-en="Small marinated chicken skewers. Mild.">Petites brochettes de poulet mariné aux épices. Doux.</p>
@@ -741,7 +815,7 @@ footer{background:#1c1007;margin-top:64px;padding:32px;display:flex;align-items:
     </article>
 
     <article class="pc" data-tags="vege vegan halal">
-      <div class="pc__img"><div class="img-ph">🥦</div><span class="pc__cat cat-vegan">🌱 Vegan</span></div>
+      <div class="pc__img"><img src="/assets/images/products/saag-aloo.png" alt="Aloo Gobi" loading="lazy"><span class="pc__cat cat-vegan">🌱 Vegan</span></div>
       <div class="pc__body">
         <h3 class="pc__name" data-fr="Aloo Gobi" data-en="Aloo Gobi">Aloo Gobi</h3>
         <p class="pc__desc" data-fr="Chou-fleur et pommes de terre au curcuma. Doux." data-en="Cauliflower and potatoes with turmeric. Mild.">Chou-fleur et pommes de terre au curcuma. Doux.</p>
@@ -750,7 +824,7 @@ footer{background:#1c1007;margin-top:64px;padding:32px;display:flex;align-items:
     </article>
 
     <article class="pc" data-tags="vege vegan halal">
-      <div class="pc__img"><div class="img-ph">🍚</div><span class="pc__cat cat-halal">☪️ Halal</span></div>
+      <div class="pc__img"><img src="/assets/images/products/riz-biryani.png" alt="Riz Basmati" loading="lazy"><span class="pc__cat cat-halal">☪️ Halal</span></div>
       <div class="pc__body">
         <h3 class="pc__name" data-fr="Riz Basmati" data-en="Basmati Rice">Riz Basmati</h3>
         <p class="pc__desc" data-fr="Riz basmati nature ou biryani, cuit à la vapeur. Doux." data-en="Plain or biryani basmati rice, steamed. Mild.">Riz basmati nature ou biryani, cuit à la vapeur. Doux.</p>
@@ -800,7 +874,7 @@ footer{background:#1c1007;margin-top:64px;padding:32px;display:flex;align-items:
     </article>
 
     <article class="pc" data-tags="halal">
-      <div class="pc__img"><div class="img-ph">🥩</div><span class="pc__cat cat-halal">☪️ Halal</span></div>
+      <div class="pc__img"><img src="/assets/images/products/boeuf-8-epices.jpeg" alt="Bœuf aux 8 Épices" loading="lazy"><span class="pc__cat cat-halal">☪️ Halal</span></div>
       <div class="pc__body">
         <h3 class="pc__name" data-fr="Bœuf aux 8 Épices" data-en="Beef 8-Spice">Bœuf aux 8 Épices</h3>
         <p class="pc__desc" data-fr="Bœuf mijoté aux 8 épices douces. Fondant. Doux." data-en="Beef slow-cooked with 8 mild spices. Tender. Mild.">Bœuf mijoté aux 8 épices douces. Fondant. Doux.</p>
@@ -809,7 +883,7 @@ footer{background:#1c1007;margin-top:64px;padding:32px;display:flex;align-items:
     </article>
 
     <article class="pc" data-tags="halal">
-      <div class="pc__img"><div class="img-ph">🥩</div><span class="pc__cat cat-halal">☪️ Halal</span></div>
+      <div class="pc__img"><img src="/assets/images/products/curry-rouge.png" alt="Agneau Madras" loading="lazy"><span class="pc__cat cat-halal">☪️ Halal</span></div>
       <div class="pc__body">
         <h3 class="pc__name" data-fr="Agneau Madras" data-en="Madras Lamb">Agneau Madras</h3>
         <p class="pc__desc" data-fr="Agneau mijoté aux épices Madras. 🌶️🌶️ Fort." data-en="Lamb in Madras spices. 🌶️🌶️ Hot.">Agneau mijoté aux épices Madras. 🌶️🌶️ Fort.</p>
@@ -818,7 +892,7 @@ footer{background:#1c1007;margin-top:64px;padding:32px;display:flex;align-items:
     </article>
 
     <article class="pc" data-tags="halal">
-      <div class="pc__img"><div class="img-ph">🦐</div><span class="pc__cat cat-halal">☪️ Halal</span></div>
+      <div class="pc__img"><img src="/assets/images/products/crevettes-curry.jpeg" alt="Crevettes Curry" loading="lazy"><span class="pc__cat cat-halal">☪️ Halal</span></div>
       <div class="pc__body">
         <h3 class="pc__name" data-fr="Crevettes Curry" data-en="Prawn Curry">Crevettes Curry</h3>
         <p class="pc__desc" data-fr="Crevettes, sauce curry et lait de coco. 🌶️🌶️ Fort." data-en="Prawns in curry and coconut milk sauce. 🌶️🌶️ Hot.">Crevettes, sauce curry et lait de coco. 🌶️🌶️ Fort.</p>
@@ -835,7 +909,7 @@ footer{background:#1c1007;margin-top:64px;padding:32px;display:flex;align-items:
 <section id="boxes" class="section">
   <div class="section-head">
     <div>
-      <span class="section-kicker p" data-fr="Livraison entreprises · Box en verre réutilisable · Lun · Mer · Sam" data-en="Corporate delivery · Reusable glass box · Mon · Wed · Sat">Livraison entreprises · Box en verre réutilisable · Lun · Mer · Sam</span>
+      <span class="section-kicker p" data-fr="Box en verre réutilisable · Lun · Mer · Sam" data-en="Reusable glass box · Mon · Wed · Sat">Box en verre réutilisable · Lun · Mer · Sam</span>
       <h2 class="section-title" data-fr="Lunch <em class='p'>Boxes</em>" data-en="Lunch <em class='p'>Boxes</em>">Lunch <em class="p">Boxes</em></h2>
     </div>
     <p class="section-desc" data-fr="3 compartiments : plat principal + riz + accompagnement. Minimum 10 personnes." data-en="3 compartments: main dish + rice + side. Minimum 10 persons.">3 compartiments : plat principal + riz + accompagnement. Minimum 10 personnes.</p>
@@ -843,7 +917,7 @@ footer{background:#1c1007;margin-top:64px;padding:32px;display:flex;align-items:
 </section>
 
 <div class="sub-sec">
-  <div class="box-note" data-fr="📦 <strong>Commandes B2B :</strong> Minimum 10 boxes · Livraison Lun/Mer/Sam avant 12h · Via WhatsApp ou app Choco · Composition personnalisable selon vos contraintes alimentaires." data-en="📦 <strong>B2B orders:</strong> Minimum 10 boxes · Delivery Mon/Wed/Sat before 12h · Via WhatsApp or Choco app · Composition customizable for dietary needs.">📦 <strong>Commandes B2B :</strong> Minimum 10 boxes · Livraison Lun/Mer/Sam avant 12h · Via WhatsApp ou app Choco · Composition personnalisable selon vos contraintes alimentaires.</div>
+  <div class="box-note" data-fr="📦 <strong>Commandes B2B :</strong> Minimum 10 boxes · Lun/Mer/Sam avant 12h · Via WhatsApp ou app Choco · Composition personnalisable selon vos contraintes alimentaires." data-en="📦 <strong>B2B orders:</strong> Minimum 10 boxes · Mon/Wed/Sat before 12h · Via WhatsApp or Choco app · Composition customizable for dietary needs.">📦 <strong>Commandes B2B :</strong> Minimum 10 boxes · Lun/Mer/Sam avant 12h · Via WhatsApp ou app Choco · Composition personnalisable selon vos contraintes alimentaires.</div>
   <div class="box-grid" style="margin-top:20px">
 
     <article class="box-card" data-tags="halal">
@@ -954,7 +1028,7 @@ footer{background:#1c1007;margin-top:64px;padding:32px;display:flex;align-items:
     </article>
 
     <article class="pc" data-tags="vege halal">
-      <div class="pc__img"><div class="img-ph">🫚</div><span class="pc__cat cat-vegan">🌱 Vegan</span></div>
+      <div class="pc__img"><img src="/assets/images/products/curry-doux.png" alt="Jus de Gingembre" loading="lazy"><span class="pc__cat cat-vegan">🌱 Vegan</span></div>
       <div class="pc__body">
         <h3 class="pc__name" data-fr="Jus de Gingembre" data-en="Ginger Juice">Jus de Gingembre</h3>
         <p class="pc__desc" data-fr="Jus frais pressé à froid. Énergisant et vivifiant. Doux." data-en="Fresh cold-pressed ginger juice. Energising. Mild.">Jus frais pressé à froid. Énergisant et vivifiant. Doux.</p>
@@ -963,7 +1037,7 @@ footer{background:#1c1007;margin-top:64px;padding:32px;display:flex;align-items:
     </article>
 
     <article class="pc" data-tags="vege halal">
-      <div class="pc__img"><div class="img-ph">🍮</div><span class="pc__cat cat-halal">☪️ Halal</span></div>
+      <div class="pc__img"><img src="/assets/images/products/curry-doux.png" alt="Gulab Jamun" loading="lazy"><span class="pc__cat cat-halal">☪️ Halal</span></div>
       <div class="pc__body">
         <h3 class="pc__name">Gulab Jamun</h3>
         <p class="pc__desc" data-fr="Boules de pâte au lait, frites et servies au sirop parfumé. Doux." data-en="Milk dough balls, fried and served in fragrant syrup. Mild.">Boules de pâte au lait, frites et servies au sirop parfumé. Doux.</p>
@@ -971,6 +1045,37 @@ footer{background:#1c1007;margin-top:64px;padding:32px;display:flex;align-items:
       </div>
     </article>
 
+  </div>
+</div>
+
+<!-- CART BADGE -->
+<button class="cart-badge" id="cart-badge" onclick="toggleCart()">
+  <span class="cart-badge__count" id="cart-count">0</span>
+  <span data-fr="Voir mon panier" data-en="View cart">Voir mon panier</span>
+  <span style="font-size:12px;opacity:.7" id="cart-total-badge"></span>
+</button>
+
+<!-- CART OVERLAY -->
+<div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
+
+<!-- CART PANEL -->
+<div class="cart-panel" id="cart-panel">
+  <div class="cart-panel__header">
+    <h3 class="cart-panel__title" data-fr="Mon panier" data-en="My cart">Mon panier</h3>
+    <button class="cart-panel__close" onclick="toggleCart()">&times;</button>
+  </div>
+  <div class="cart-panel__items" id="cart-items">
+    <div class="cart-empty" data-fr="Votre panier est vide" data-en="Your cart is empty">Votre panier est vide</div>
+  </div>
+  <div class="cart-panel__footer" id="cart-footer" style="display:none">
+    <div class="cart-total">
+      <span data-fr="Total" data-en="Total">Total</span>
+      <span class="cart-total__price" id="cart-total-price">CHF 0.00</span>
+    </div>
+    <button class="cart-wa-btn" id="cart-wa-btn" onclick="sendCartWhatsApp()">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+      <span data-fr="Commander via WhatsApp" data-en="Order via WhatsApp">Commander via WhatsApp</span>
+    </button>
   </div>
 </div>
 
@@ -1005,7 +1110,7 @@ function setLang(l) {
 setLang(lang);
 
 // SCROLL NAV
-function scrollTo(id) { document.getElementById(id)?.scrollIntoView({behavior:'smooth',block:'start'}); }
+function goTo(id) { const el = document.getElementById(id); if(el) { const offset = 130; const top = el.getBoundingClientRect().top + window.pageYOffset - offset; window.scrollTo({top, behavior:'smooth'}); } }
 const navSections = [
   {id:'sucres',tab:'nt-sucres'},{id:'collations',tab:'nt-collations'},
   {id:'plats',tab:'nt-plats'},{id:'boxes',tab:'nt-boxes'},{id:'boissons',tab:'nt-boissons'}
@@ -1026,6 +1131,148 @@ function filter(f, btn) {
     card.dataset.hidden = (f === 'all' || tags.includes(f)) ? 'false' : 'true';
   });
 }
+
+// CART
+const cart = {};
+function addToCart(name, price, unit) {
+  const key = name;
+  if (!cart[key]) cart[key] = {name, price: parseFloat(price), unit, qty: 0};
+  cart[key].qty++;
+  updateCartUI();
+  // Animate button
+  const btns = document.querySelectorAll(`[data-cart-name="${CSS.escape(name)}"]`);
+  btns.forEach(b => { b.classList.add('in-cart'); b.textContent = cart[key].qty; });
+}
+function removeFromCart(name) {
+  if (!cart[name]) return;
+  cart[name].qty--;
+  if (cart[name].qty <= 0) delete cart[name];
+  updateCartUI();
+  const btns = document.querySelectorAll(`[data-cart-name="${CSS.escape(name)}"]`);
+  btns.forEach(b => {
+    if (!cart[name]) { b.classList.remove('in-cart'); b.textContent = '+'; }
+    else b.textContent = cart[name].qty;
+  });
+}
+function updateCartUI() {
+  const items = Object.values(cart);
+  const totalQty = items.reduce((s, i) => s + i.qty, 0);
+  const totalPrice = items.reduce((s, i) => s + i.qty * i.price, 0);
+  const badge = document.getElementById('cart-badge');
+  const countEl = document.getElementById('cart-count');
+  const totalBadge = document.getElementById('cart-total-badge');
+  const itemsEl = document.getElementById('cart-items');
+  const footerEl = document.getElementById('cart-footer');
+  const totalPriceEl = document.getElementById('cart-total-price');
+
+  badge.classList.toggle('show', totalQty > 0);
+  countEl.textContent = totalQty;
+  totalBadge.textContent = '· CHF ' + totalPrice.toFixed(2);
+
+  if (items.length === 0) {
+    itemsEl.innerHTML = '<div class="cart-empty">Votre panier est vide</div>';
+    footerEl.style.display = 'none';
+    return;
+  }
+  footerEl.style.display = '';
+  totalPriceEl.textContent = 'CHF ' + totalPrice.toFixed(2);
+  itemsEl.innerHTML = items.map(i => `
+    <div class="cart-item">
+      <div class="cart-item__info">
+        <span class="cart-item__name">${i.name}</span>
+        <span class="cart-item__price">CHF ${i.price.toFixed(2)} / ${i.unit}</span>
+      </div>
+      <div class="cart-item__controls">
+        <button class="cart-item__qty-btn" onclick="removeFromCart('${i.name.replace(/'/g,"\\'")}')">−</button>
+        <span class="cart-item__qty">${i.qty}</span>
+        <button class="cart-item__qty-btn" onclick="addToCart('${i.name.replace(/'/g,"\\'")}',${i.price},'${i.unit}')">+</button>
+      </div>
+    </div>
+  `).join('');
+}
+function toggleCart() {
+  const panel = document.getElementById('cart-panel');
+  const overlay = document.getElementById('cart-overlay');
+  const isOpen = panel.classList.contains('open');
+  panel.classList.toggle('open', !isOpen);
+  overlay.classList.toggle('show', !isOpen);
+  document.body.style.overflow = isOpen ? '' : 'hidden';
+}
+function sendCartWhatsApp() {
+  const items = Object.values(cart);
+  if (!items.length) return;
+  const total = items.reduce((s, i) => s + i.qty * i.price, 0);
+  let msg = 'Bonjour Nimara 🙏\n\nJe souhaite commander :\n\n';
+  items.forEach(i => { msg += `• ${i.qty}× ${i.name} (CHF ${(i.qty * i.price).toFixed(2)})\n`; });
+  msg += `\nTotal : CHF ${total.toFixed(2)}\n\nMerci !`;
+  window.open('https://wa.me/41225576020?text=' + encodeURIComponent(msg), '_blank');
+}
+
+// PRICE REFERENCE (when not displayed on card)
+const PRICES = {
+  'Cinnamon Roll':3.50,'Banana Bread':3.50,'Brownie':4.50,'Brookie':4.50,
+  'Cheesecake Spéculoos':5.00,'Pecan Pie':5.00,'Cake Citron':3.50,'Cake Marbré':3.50,
+  'Carrot Cake':3.50,'Cake Pomme':3.50,'Bircher Mangue':4.50,'Bircher Framboise':4.50,
+  'Lentilles Jaunes (Dal)':14.90,'Lentilles Épinards':14.90,'Lentilles Brunes':14.90,
+  'Dal Noir (Urad Dal)':14.90,'Pois Chiche Masala':14.90,'Palak (Épinards)':14.90,
+  'Jalfrezi de Légumes':14.90,'Aloo Gobi':14.90,'Riz Basmati':5.00,
+  'Butter Chicken':15.90,'Poulet Tikka Masala':15.90,'Poulet Mangue':15.90,
+  'Poulet Vindaloo':15.90,'Bœuf aux 8 Épices':15.90,'Agneau Madras':15.90,
+  'Crevettes Curry':15.90,'Brochettes Poulet Poivrons':6.50,'Kofta Viande':6.50,
+  'Lassi Mangue':4.00,"Jus d'Hibiscus":4.00,'Jus de Gingembre':4.00,'Gulab Jamun':4.00,
+  'Aloo Tikki':4.50,'Palakopita':4.50,'Croquettes Épicées':4.50,"Rouleau d'Aubergine":3.50,
+  'Rouleau Champignons':3.50
+};
+
+// INIT: inject cart buttons into product cards
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.pc').forEach(card => {
+    const nameEl = card.querySelector('.pc__name');
+    if (!nameEl) return;
+    const name = nameEl.textContent.trim();
+    const priceEl = card.querySelector('.pc__price');
+    let price = 0;
+    if (priceEl) {
+      const m = priceEl.textContent.match(/[\d.]+/);
+      if (m) price = parseFloat(m[0]);
+    }
+    if (!price && PRICES[name]) price = PRICES[name];
+    if (!price) return; // skip if truly no price
+    const imgDiv = card.querySelector('.pc__img');
+    if (imgDiv) {
+      imgDiv.style.position = 'relative';
+      const btn = document.createElement('button');
+      btn.className = 'cart-add';
+      btn.setAttribute('data-cart-name', name);
+      btn.textContent = '+';
+      btn.onclick = (e) => { e.stopPropagation(); addToCart(name, price, 'pièce'); };
+      imgDiv.appendChild(btn);
+    }
+  });
+  // Also for box cards
+  document.querySelectorAll('.box-card').forEach(card => {
+    const nameEl = card.querySelector('.box-card__name');
+    if (!nameEl) return;
+    const name = nameEl.textContent.trim();
+    const priceEl = card.querySelector('.box-card__price');
+    let price = 0;
+    if (priceEl) {
+      const m = priceEl.textContent.match(/[\d.]+/);
+      if (m) price = parseFloat(m[0]);
+    }
+    if (!price) return;
+    const imgDiv = card.querySelector('.box-card__img');
+    if (imgDiv) {
+      imgDiv.style.position = 'relative';
+      const btn = document.createElement('button');
+      btn.className = 'cart-add';
+      btn.setAttribute('data-cart-name', name);
+      btn.textContent = '+';
+      btn.onclick = (e) => { e.stopPropagation(); addToCart(name, price, 'box'); };
+      imgDiv.appendChild(btn);
+    }
+  });
+});
 </script>
 </body>
 </html>
