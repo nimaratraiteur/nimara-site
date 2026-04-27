@@ -52,6 +52,8 @@ self.addEventListener('activate', e => {
 
 self.addEventListener('fetch', e => {
   const url = new URL(e.request.url);
+  // Bypass n8n requests — let them go straight to network
+  if (url.hostname.includes('n8n.cloud')) return;
   // Images: cache-first
   if (url.pathname.startsWith('/assets/images/')) {
     e.respondWith(
