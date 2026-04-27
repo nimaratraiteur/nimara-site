@@ -20,7 +20,8 @@
       'Horaires & contact'
     ],
     welcome: "Bonjour, je suis Vanessa, l'assistante IA de Nimara. Comment puis-je vous aider aujourd'hui ?",
-    storageKey: 'nimara_vanessa_session'
+    storageKey: 'nimara_vanessa_session',
+    stateKey: 'nimara_vanessa_state'
   };
 
   // -------- Génère un ID de session simple ------------------------------
@@ -31,6 +32,26 @@
       localStorage.setItem(CONFIG.storageKey, id);
     }
     return id;
+  }
+
+  // -------- Persistance de l'état du chat (pour survivre aux navigations)
+  function loadState() {
+    try {
+      const raw = sessionStorage.getItem(CONFIG.stateKey);
+      if (!raw) return { open: false, messages: [], greeted: false };
+      const parsed = JSON.parse(raw);
+      return {
+        open: !!parsed.open,
+        messages: Array.isArray(parsed.messages) ? parsed.messages : [],
+        greeted: !!parsed.greeted
+      };
+    } catch (e) {
+      return { open: false, messages: [], greeted: false };
+    }
+  }
+  function saveState(state) {
+    try { sessionStorage.setItem(CONFIG.stateKey, JSON.stringify(state)); }
+    catch (e) { /* quota ou storage indispo */ }
   }
 
   // -------- Échappe le HTML ---------------------------------------------
@@ -179,9 +200,25 @@
     const form        = root.querySelector('.van-input-area');
     const input       = root.querySelector('.van-input');
     const sessionId   = getSessionId();
+    const state       = loadState();
 
-    let isOpen = false;
-    let hasGreeted = false;
+    let isOpen     = state.open;
+    let hasGreeted = state.greeted;
+
+    // --- Persistance ---
+    function persist() {
+      const messages = Array.from(messagesEl.querySelectorAll('.van-msg:not(.van-msg--typing)'))
+        .map(el => ({
+          role: el.classList.contains('van-msg--user') ? 'user' : 'bot',
+          text: el.textContent
+        }));
+      saveState({ open: isOpen, messages, greeted: hasGreeted });
+    }
+
+    // --- Restauration de l'historique ---
+    function restoreMessages() {
+      state.messages.forEach(m => addMessage(m.text, m.role));
+    }
 
     // --- Ouvrir / fermer ---
     function openPanel() {
@@ -193,12 +230,14 @@
         renderQuickReplies();
         hasGreeted = true;
       }
+      persist();
       setTimeout(() => input.focus(), 100);
     }
     function closePanel() {
       panel.hidden = true;
       trigger.setAttribute('aria-expanded', 'false');
       isOpen = false;
+      persist();
       trigger.focus();
     }
     trigger.addEventListener('click', () => isOpen ? closePanel() : openPanel());
@@ -241,7 +280,16 @@
       return div;
     }
 
-    // --- Envoi vers n8n ---
+    // --- Récupère l'historique courant pour l'envoyer à Claude ---
+    function getHistory() {
+      return Array.from(messagesEl.querySelectorAll('.van-msg:not(.van-msg--typing)'))
+        .map(el => ({
+          role: el.classList.contains('van-msg--user') ? 'user' : 'assistant',
+          content: el.textContent
+        }));
+    }
+
+    // --- Envoi vers n8n (qui appelle ensuite Claude API) ---
     async function sendToBackend(message) {
       try {
         const res = await fetch(CONFIG.endpoint, {
@@ -250,7 +298,9 @@
           body: JSON.stringify({
             sessionId,
             message,
+            history: getHistory(),    // historique complet
             page: window.location.pathname,
+            referrer: document.referrer || null,
             timestamp: new Date().toISOString()
           })
         });
@@ -272,10 +322,12 @@
       clearQuickReplies();
       addUserMessage(clean);
       input.value = '';
+      persist();
       const typingEl = addTyping();
       const reply = await sendToBackend(clean);
       typingEl.remove();
       addBotMessage(reply);
+      persist();
     }
 
     form.addEventListener('submit', (e) => {
@@ -287,6 +339,21 @@
         input.value = input.value.slice(0, CONFIG.inputMaxLength);
       }
     });
+
+    // --- Restauration au chargement ---
+    if (state.messages.length) {
+      restoreMessages();
+    }
+    if (isOpen) {
+      panel.hidden = false;
+      trigger.setAttribute('aria-expanded', 'true');
+      if (!state.messages.length && !hasGreeted) {
+        addBotMessage(CONFIG.welcome);
+        renderQuickReplies();
+        hasGreeted = true;
+        persist();
+      }
+    }
   }
 
   // -------- Boot ---------------------------------------------------------
