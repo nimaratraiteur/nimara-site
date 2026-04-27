@@ -125,8 +125,13 @@
               </p>
             </div>
           </div>
+          <button class="van-minimize" type="button" aria-label="Réduire" style="background:transparent;border:0;color:#fff;cursor:pointer;padding:4px;display:flex;border-radius:4px;margin-right:4px;">
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" style="pointer-events:none">
+              <path d="M5 14h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/>
+            </svg>
+          </button>
           <button class="van-close" type="button" aria-label="Fermer le chat">
-            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" style="pointer-events:none">
               <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
             </svg>
           </button>
@@ -284,14 +289,28 @@
       trigger.focus();
     }
     trigger.addEventListener('click', () => isOpen ? closePanel() : openPanel());
-    // Délégation : peu importe où tu cliques (SVG, path, etc.) tant que c'est dans .van-close
-    panel.addEventListener('click', (e) => {
-      if (e.target.closest('.van-close')) {
+
+    // Délégation au niveau document — INFAILLIBLE, capture phase pour passer
+    // outre tout autre handler (y compris ceux du site qui pourraient bloquer)
+    document.addEventListener('click', (e) => {
+      const target = e.target;
+      if (!target || !target.closest) return;
+      // Bouton X — ferme et reset l'état
+      if (target.closest('.van-close')) {
         e.preventDefault();
         e.stopPropagation();
         closePanel();
+        return;
       }
-    });
+      // Bouton minimiser — ferme sans reset
+      if (target.closest('.van-minimize')) {
+        e.preventDefault();
+        e.stopPropagation();
+        closePanel();
+        return;
+      }
+    }, true); // capture: true → on attrape le clic AVANT tout autre handler
+
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && isOpen) closePanel();
     });
