@@ -74,7 +74,9 @@
               aria-label="Ouvrir le chat avec Vanessa"
               aria-controls="van-panel"
               aria-expanded="false">
-        <img src="${CONFIG.avatar}" alt="" class="van-trigger__avatar" aria-hidden="true">
+        <img src="${CONFIG.avatar}" alt="" class="van-trigger__avatar"
+             width="36" height="36"
+             onerror="this.style.display='none'">
         <span class="van-trigger__pulse" aria-hidden="true"></span>
         <span class="van-trigger__label">Vanessa</span>
       </button>
@@ -83,7 +85,9 @@
              role="dialog" aria-modal="true" aria-labelledby="van-title" hidden>
         <header class="van-header">
           <div class="van-header__left">
-            <img src="${CONFIG.avatar}" alt="" class="van-header__avatar" aria-hidden="true">
+            <img src="${CONFIG.avatar}" alt="" class="van-header__avatar"
+                 width="40" height="40"
+                 onerror="this.style.display='none'">
             <div>
               <p id="van-title" class="van-header__name">Vanessa</p>
               <p class="van-header__status">
@@ -129,21 +133,30 @@
     const style = document.createElement('style');
     style.textContent = `
       #vanessa-root { font-family: 'DM Sans', system-ui, sans-serif; }
-      .van-trigger { position: fixed; bottom: 24px; right: 24px; z-index: 9998;
-        background: #5B2C8D; color: #fff; border: 0; border-radius: 999px;
-        padding: 10px 18px 10px 10px; display: flex; align-items: center; gap: 10px;
-        box-shadow: 0 10px 30px rgba(91,44,141,.4); cursor: pointer; }
-      .van-trigger__avatar { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; }
-      .van-trigger__label { font-weight: 600; font-size: 14px; }
+      .van-trigger { position: fixed !important; bottom: 24px !important; right: 24px !important;
+        z-index: 9998 !important; background: #5B2C8D; color: #fff; border: 0; border-radius: 999px;
+        padding: 8px 18px 8px 8px; display: inline-flex; align-items: center; gap: 10px;
+        box-shadow: 0 10px 30px rgba(91,44,141,.4); cursor: pointer;
+        width: auto !important; height: auto !important; max-width: 220px; }
+      .van-trigger__avatar { display: block !important;
+        width: 36px !important; height: 36px !important; min-width: 36px; min-height: 36px;
+        max-width: 36px !important; max-height: 36px !important; flex-shrink: 0;
+        border-radius: 50%; object-fit: cover; object-position: center;
+        background: rgba(255,255,255,.18); }
+      .van-trigger__label { font-weight: 600; font-size: 14px; white-space: nowrap; }
       .van-panel { position: fixed; bottom: 90px; right: 24px; width: min(380px, calc(100vw - 32px));
         height: min(560px, calc(100vh - 120px)); background: #fff; border-radius: 18px;
         box-shadow: 0 20px 60px rgba(7,4,15,.25); display: flex; flex-direction: column;
         overflow: hidden; z-index: 9999; }
-      .van-panel[hidden] { display: none; }
+      .van-panel[hidden] { display: none !important; }
       .van-header { background: linear-gradient(135deg,#5B2C8D,#a78bfa); color: #fff;
         padding: 14px 16px; display: flex; justify-content: space-between; align-items: center; }
       .van-header__left { display: flex; gap: 10px; align-items: center; }
-      .van-header__avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover;
+      .van-header__avatar { display: block !important;
+        width: 40px !important; height: 40px !important; min-width: 40px; min-height: 40px;
+        max-width: 40px !important; max-height: 40px !important; flex-shrink: 0;
+        border-radius: 50%; object-fit: cover; object-position: center;
+        background: rgba(255,255,255,.22);
         border: 2px solid rgba(255,255,255,.3); }
       .van-header__name { margin: 0; font-weight: 600; font-size: 15px; }
       .van-header__status { margin: 2px 0 0; font-size: 12px; opacity: .9;
