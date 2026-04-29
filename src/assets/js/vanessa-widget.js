@@ -125,12 +125,16 @@
               </p>
             </div>
           </div>
-          <button class="van-minimize" type="button" aria-label="Réduire" style="background:transparent;border:0;color:#fff;cursor:pointer;padding:4px;display:flex;border-radius:4px;margin-right:4px;">
+          <button class="van-minimize" type="button" aria-label="Réduire"
+                  onclick="document.getElementById('van-panel').style.display='none';document.querySelector('.van-trigger').setAttribute('aria-expanded','false');try{sessionStorage.setItem('nimara_vanessa_state',JSON.stringify({open:false,messages:[],greeted:false}));}catch(e){};return false;"
+                  style="background:transparent;border:0;color:#fff;cursor:pointer;padding:6px;display:flex;border-radius:4px;margin-right:4px;pointer-events:auto;">
             <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" style="pointer-events:none">
               <path d="M5 14h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/>
             </svg>
           </button>
-          <button class="van-close" type="button" aria-label="Fermer le chat">
+          <button class="van-close" type="button" aria-label="Fermer le chat"
+                  onclick="document.getElementById('van-panel').style.display='none';document.querySelector('.van-trigger').setAttribute('aria-expanded','false');try{sessionStorage.setItem('nimara_vanessa_state',JSON.stringify({open:false,messages:[],greeted:false}));}catch(e){};return false;"
+                  style="background:transparent;border:0;color:#fff;cursor:pointer;padding:6px;border-radius:4px;pointer-events:auto;">
             <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" style="pointer-events:none">
               <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
             </svg>
@@ -271,6 +275,7 @@
     // --- Ouvrir / fermer ---
     function openPanel() {
       panel.hidden = false;
+      panel.style.display = 'flex';   // miroir du closePanel : on remet display
       trigger.setAttribute('aria-expanded', 'true');
       isOpen = true;
       if (!hasGreeted) {
@@ -283,6 +288,7 @@
     }
     function closePanel() {
       panel.hidden = true;
+      panel.style.display = 'none';   // double sécurité : si CSS override hidden, display reste
       trigger.setAttribute('aria-expanded', 'false');
       isOpen = false;
       persist();
