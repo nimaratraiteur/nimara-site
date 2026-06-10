@@ -429,6 +429,39 @@ body[data-mode="client"] .cart-note{display:block}
 .btn-confirm:hover{box-shadow:0 4px 16px rgba(16,185,129,.4);transform:translateY(-1px)}
 .btn-confirm:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
 
+/* ── Box options modal ── */
+.box-opt-head{display:flex;align-items:center;gap:.75rem}
+.box-opt-img{width:56px;height:56px;border-radius:var(--radius-sm);object-fit:cover;flex-shrink:0;background:var(--bg4)}
+.box-opt-name{font-size:1.05rem;font-weight:800;color:var(--text);line-height:1.2}
+.box-opt-group{display:flex;flex-direction:column;gap:.4rem}
+.box-opt-label{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.box-opt-row{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+.box-opt-row-3{grid-template-columns:1fr 1fr 1fr}
+.bopt{
+  display:flex;flex-direction:column;align-items:center;gap:.15rem;
+  padding:.7rem .5rem;border-radius:var(--radius-sm);border:2px solid var(--border2);
+  background:var(--bg4);color:var(--text);cursor:pointer;transition:all .12s;min-height:58px;justify-content:center;
+}
+.bopt:hover{border-color:var(--lavender-d)}
+.bopt.active{border-color:var(--violet-l);background:rgba(124,58,237,.18)}
+.bopt-t{font-size:.82rem;font-weight:700;line-height:1.1;text-align:center}
+.bopt-s{font-size:.62rem;color:var(--muted);text-align:center;line-height:1.1}
+.bopt.active .bopt-s{color:var(--lavender-l)}
+.box-opt-breakdown{
+  display:grid;grid-template-columns:1fr auto;gap:.3rem .5rem;
+  font-size:.82rem;color:var(--text2);
+  background:var(--bg4);border:1px solid var(--border);border-radius:var(--radius-sm);padding:.65rem .8rem;
+}
+.box-consigne-note{
+  font-size:.72rem;color:var(--gold);background:var(--gold-bg);
+  border:1px solid rgba(251,191,36,.25);border-radius:var(--radius-sm);padding:.55rem .7rem;line-height:1.4;
+}
+.box-opt-total{
+  display:flex;justify-content:space-between;align-items:baseline;
+  font-size:1.05rem;font-weight:700;color:var(--text);padding:.25rem 0;
+}
+.box-opt-total span:last-child{font-size:1.4rem;font-weight:800;color:var(--lavender-l)}
+
 /* ── Receipt modal ── */
 .receipt-items{
   background:var(--bg4);border:1px solid var(--border);border-radius:var(--radius-sm);
@@ -524,6 +557,60 @@ body[data-mode="client"] .cart-note{display:block}
 /* reuses form-group, form-input, form-label, btn-save */
 
 /* ══════════════════════════════════════════
+   STAND FICHE
+══════════════════════════════════════════ */
+#fiche{
+  position:fixed;inset:0;z-index:90;display:none;
+  background:radial-gradient(circle at 50% 0%,#3d1a6e 0%,#0e0b1a 70%);
+  flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:2rem;overflow-y:auto;
+}
+#fiche.open{display:flex}
+#fiche-close{
+  position:absolute;top:1.25rem;right:1.25rem;width:44px;height:44px;border-radius:50%;
+  border:1px solid var(--border2);background:rgba(255,255,255,.08);color:var(--text);
+  font-size:1.2rem;display:flex;align-items:center;justify-content:center;transition:background .15s;
+}
+#fiche-close:hover{background:rgba(255,255,255,.18)}
+#fiche-edit{
+  position:absolute;top:1.25rem;left:1.25rem;
+  padding:.6rem 1rem;border-radius:var(--radius-sm);border:1px solid var(--border2);
+  background:rgba(255,255,255,.08);color:var(--text);font-size:.8rem;font-weight:700;
+  transition:background .15s;display:none;
+}
+body[data-mode="vendeuse"] #fiche-edit,
+body[data-mode="admin"] #fiche-edit{display:block}
+#fiche-edit:hover{background:rgba(255,255,255,.18)}
+.fiche-badge{
+  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:10px;
+  padding:.4rem .9rem;font-size:.85rem;font-weight:800;letter-spacing:.15em;color:#fff;margin-bottom:1.5rem;
+}
+.fiche-today{font-size:clamp(1.6rem,4vw,2.6rem);font-weight:800;color:#fff;letter-spacing:.02em;line-height:1.1;margin-bottom:.4rem}
+.fiche-tagline{font-size:clamp(1rem,2.5vw,1.5rem);color:var(--lavender-l);font-style:italic;margin-bottom:2.5rem}
+.fiche-card{
+  background:rgba(255,255,255,.06);border:1.5px solid rgba(167,139,250,.35);border-radius:28px;
+  padding:clamp(1.75rem,5vw,3rem) clamp(2rem,7vw,4.5rem);
+  box-shadow:0 20px 80px rgba(0,0,0,.5);max-width:600px;width:100%;
+}
+.fiche-formule-label{font-size:clamp(.85rem,2vw,1.1rem);font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem}
+.fiche-day{font-size:clamp(1.8rem,5vw,3rem);font-weight:800;color:#fff;margin-bottom:.25rem}
+.fiche-dish{font-size:clamp(1rem,2.5vw,1.4rem);color:var(--lavender-l);font-weight:500;margin-bottom:1.25rem}
+.fiche-price{
+  font-size:clamp(3.5rem,12vw,6rem);font-weight:800;line-height:1;
+  background:linear-gradient(135deg,#fbbf24,#fcd34d);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.25rem;
+}
+.fiche-price .chf{font-size:.35em;font-weight:700;color:var(--gold);-webkit-text-fill-color:var(--gold);vertical-align:super}
+.fiche-combos{font-size:clamp(1rem,2.5vw,1.4rem);color:#fff;font-weight:600;margin-bottom:1.75rem}
+.fiche-combos .plus{color:var(--lavender)}
+.fiche-hours{
+  display:inline-flex;align-items:center;gap:.6rem;
+  background:rgba(167,139,250,.15);border:1px solid rgba(167,139,250,.3);border-radius:30px;
+  padding:.6rem 1.5rem;font-size:clamp(1rem,2.5vw,1.3rem);font-weight:700;color:var(--lavender-l);
+}
+.fiche-foot{margin-top:2.5rem;font-size:.85rem;color:var(--muted);letter-spacing:.1em}
+
+/* ══════════════════════════════════════════
    PRINT
 ══════════════════════════════════════════ */
 @media print{
@@ -532,6 +619,13 @@ body[data-mode="client"] .cart-note{display:block}
   .modal-backdrop:not(#receipt-modal){display:none!important}
   #receipt-modal{position:static!important;opacity:1!important;pointer-events:all!important;background:transparent}
   #receipt-modal .modal{box-shadow:none;border:none;max-width:100%;background:#fff;color:#000}
+  /* When the fiche is open, print it instead */
+  #fiche.open{position:static;background:#fff!important;display:flex!important;min-height:100vh}
+  #fiche.open ~ * ,#hdr,#filters,#products-panel,#cart-panel{display:none!important}
+  #fiche.open #fiche-close,#fiche.open #fiche-edit{display:none!important}
+  #fiche.open .fiche-today,#fiche.open .fiche-day,#fiche.open .fiche-combos{color:#5B2C8D!important}
+  #fiche.open .fiche-price{-webkit-text-fill-color:#5B2C8D!important;background:none!important;color:#5B2C8D!important}
+  #fiche.open .fiche-card{border-color:#5B2C8D!important;box-shadow:none}
 }
 
 /* ══════════════════════════════════════════
@@ -561,6 +655,7 @@ body[data-mode="client"] .cart-note{display:block}
   <div class="hdr-spacer"></div>
   <div id="daily-total">CA: CHF <span id="daily-total-val">0.00</span></div>
   <span id="mode-badge" class="client">Client</span>
+  <button class="hdr-btn" id="btn-fiche" title="Fiche stand" onclick="openFiche()">📋</button>
   <button class="hdr-btn" id="btn-summary" title="Bilan du jour" onclick="openModal('summary-modal')">📊</button>
   <button class="hdr-btn" title="Paramètres / Mode" onclick="openModal('pin-modal')">⚙️</button>
 </header>
@@ -651,6 +746,62 @@ body[data-mode="client"] .cart-note{display:block}
         <button class="pin-key" onclick="pinPress('0')">0</button>
         <button class="pin-key wide" onclick="switchToClient()" style="grid-column:3;font-size:.75rem">Mode Client</button>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     MODAL: BOX OPTIONS (taille + contenant)
+══════════════════════════════════════════ -->
+<div class="modal-backdrop" id="box-options-modal">
+  <div class="modal">
+    <div class="modal-hdr">
+      <span class="modal-title">📦 Composer la box</span>
+      <button class="modal-close" onclick="closeModal('box-options-modal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="box-opt-head">
+        <img id="box-options-img" class="box-opt-img" alt="" onerror="this.style.display='none'">
+        <div class="box-opt-name" id="box-options-name"></div>
+      </div>
+
+      <div class="box-opt-group">
+        <div class="box-opt-label">Taille</div>
+        <div class="box-opt-row">
+          <button class="bopt bopt-size active" data-size="petite" onclick="selectBoxSize(this)">
+            <span class="bopt-t">Petite</span><span class="bopt-s">viande 12.90 · végé 11.90</span>
+          </button>
+          <button class="bopt bopt-size" data-size="grande" onclick="selectBoxSize(this)">
+            <span class="bopt-t">Grande</span><span class="bopt-s">viande 15.90 · végé 14.90</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="box-opt-group">
+        <div class="box-opt-label">Contenant</div>
+        <div class="box-opt-row box-opt-row-3">
+          <button class="bopt bopt-cont active" data-cont="surplace" onclick="selectBoxCont(this)">
+            <span class="bopt-t">🍽 Sur place</span><span class="bopt-s">inclus</span>
+          </button>
+          <button class="bopt bopt-cont" data-cont="emporter" onclick="selectBoxCont(this)">
+            <span class="bopt-t">🥡 À emporter</span><span class="bopt-s">+1.–</span>
+          </button>
+          <button class="bopt bopt-cont" data-cont="verre" onclick="selectBoxCont(this)">
+            <span class="bopt-t">🫙 Box verre</span><span class="bopt-s">+10.– consigne</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="box-opt-breakdown" id="box-options-breakdown"></div>
+      <div class="box-consigne-note" id="box-consigne-note" style="display:none">
+        💡 La consigne de 10.– est remboursée au retour de la box en verre.
+      </div>
+
+      <div class="box-opt-total">
+        <span>Total</span>
+        <span>CHF <span id="box-options-total">0.00</span></span>
+      </div>
+      <button class="btn-confirm" onclick="confirmBoxOptions()">➕ Ajouter au panier</button>
     </div>
   </div>
 </div>
@@ -896,6 +1047,29 @@ body[data-mode="client"] .cart-note{display:block}
   </div>
 </div>
 
+<!-- ══════════════════════════════════════════
+     STAND FICHE (affichage client)
+══════════════════════════════════════════ -->
+<div id="fiche">
+  <button id="fiche-edit" onclick="editFormula()">✏️ Modifier la formule</button>
+  <button id="fiche-close" onclick="closeFiche()">✕</button>
+
+  <div class="fiche-badge">NIMARA · RUE DES DÉLICES</div>
+  <div class="fiche-today">Aujourd'hui au stand</div>
+  <div class="fiche-tagline">Une cuisine qui rassemble</div>
+
+  <div class="fiche-card">
+    <div class="fiche-formule-label">Formule du jour</div>
+    <div class="fiche-day" id="fiche-day">Menu du jour</div>
+    <div class="fiche-dish" id="fiche-dish"></div>
+    <div class="fiche-price" id="fiche-price"><span class="chf">CHF</span> 12.90</div>
+    <div class="fiche-combos">avec les <span class="plus">combos</span></div>
+    <div class="fiche-hours">🕚 11h00 → 19h00</div>
+  </div>
+
+  <div class="fiche-foot">VÉGÉ · VEGAN · HALAL — sur demande</div>
+</div>
+
 <script>
 /* ══════════════════════════════════════════
    EMBEDDED MENU DATA
@@ -925,15 +1099,15 @@ const MENU_DATA = {
     { id:12, category:"sale",     name:"Naans",                     desc:"Nature, ail ou fromage. Pâte fraîche chaque matin.", price:3.50, unit:"pièce", badges:[], vegetarian:true, vegan:false, halal:true, image:"/assets/images/products/Naan nature.jpeg" },
     { id:13, category:"sale",     name:"Samosas",                   desc:"Légumes, menthe fraîche. Croustillants et parfumés.", price:3.00, unit:"pièce", badges:[], vegetarian:true, vegan:false, halal:true, image:"/assets/images/products/Samosa aux légumes.jpeg" },
     { id:14, category:"sale",     name:"Pakora",                    desc:"Épinards, oignon, épices maison. Végétalien.", price:2.50, unit:"pièce", badges:[], vegetarian:true, vegan:true, halal:true, image:"/assets/images/products/Pakora aux legumes.jpeg" },
-    { id:15, category:"sale",     name:"Poulet Tikka Masala",       desc:"Mijoté lentement, épices maison torréfiées.", price:18.00, unit:"portion", badges:["signature"], vegetarian:false, vegan:false, halal:true, image:"/assets/images/products/tandoori chicken.jpeg" },
-    { id:16, category:"sale",     name:"Butter Chicken",            desc:"Sauce onctueuse à la tomate, crème et épices douces. Le classique indien.", price:18.00, unit:"portion", badges:["populaire"], vegetarian:false, vegan:false, halal:true, image:"/assets/images/products/butter-chicken.jpeg" },
-    { id:17, category:"sale",     name:"Boeuf aux 8 Épices",        desc:"Boeuf braisé, mélange maison de 8 épices torréfiées.", price:20.00, unit:"portion", badges:[], vegetarian:false, vegan:false, halal:true, image:"/assets/images/products/boeuf-8-epices.jpeg" },
-    { id:18, category:"sale",     name:"Poulet Vindaloo",           desc:"Relevé, vinaigré, épicé. Pour les amateurs de sensations.", price:18.00, unit:"portion", badges:[], vegetarian:false, vegan:false, halal:true, image:"/assets/images/products/poulet-vindaloo.jpeg" },
-    { id:19, category:"sale",     name:"Poulet Mangue",             desc:"Doux, fruité, mangue fraîche et épices légères.", price:18.00, unit:"portion", badges:[], vegetarian:false, vegan:false, halal:true, image:"/assets/images/products/poulet-mangue.jpeg" },
-    { id:20, category:"sale",     name:"Crevettes Curry",           desc:"Crevettes juteuses, sauce curry maison.", price:22.00, unit:"portion", badges:[], vegetarian:false, vegan:false, halal:true, image:"/assets/images/products/crevettes-curry.jpeg" },
-    { id:21, category:"sale",     name:"Curry Pois Chiches",        desc:"Réconfortant, épicé, 100% végétal.", price:14.00, unit:"portion", badges:[], vegetarian:true, vegan:true, halal:true, image:"/assets/images/products/pois-chiches.jpeg" },
-    { id:22, category:"sale",     name:"Saag Aloo",                 desc:"Épinards, pommes de terre, épices douces.", price:14.00, unit:"portion", badges:[], vegetarian:true, vegan:true, halal:true, image:"/assets/images/products/saag-epinards.png" },
-    { id:23, category:"sale",     name:"Dal Rouge",                 desc:"Lentilles corail, cumin, réconfortant.", price:12.00, unit:"portion", badges:[], vegetarian:true, vegan:true, halal:true, image:"/assets/images/products/dal-rouge.png" },
+    { id:15, category:"sale",     name:"Poulet Tikka Masala",       desc:"Mijoté lentement, épices maison torréfiées.", price:12.90, unit:"la box", boxMeal:true, boxTier:"meat", badges:["signature"], vegetarian:false, vegan:false, halal:true, image:"/assets/images/products/tandoori chicken.jpeg" },
+    { id:16, category:"sale",     name:"Butter Chicken",            desc:"Sauce onctueuse à la tomate, crème et épices douces. Le classique indien.", price:12.90, unit:"la box", boxMeal:true, boxTier:"meat", badges:["populaire"], vegetarian:false, vegan:false, halal:true, image:"/assets/images/products/butter-chicken.jpeg" },
+    { id:17, category:"sale",     name:"Boeuf aux 8 Épices",        desc:"Boeuf braisé, mélange maison de 8 épices torréfiées.", price:12.90, unit:"la box", boxMeal:true, boxTier:"meat", badges:[], vegetarian:false, vegan:false, halal:true, image:"/assets/images/products/boeuf-8-epices.jpeg" },
+    { id:18, category:"sale",     name:"Poulet Vindaloo",           desc:"Relevé, vinaigré, épicé. Pour les amateurs de sensations.", price:12.90, unit:"la box", boxMeal:true, boxTier:"meat", badges:[], vegetarian:false, vegan:false, halal:true, image:"/assets/images/products/poulet-vindaloo.jpeg" },
+    { id:19, category:"sale",     name:"Poulet Mangue",             desc:"Doux, fruité, mangue fraîche et épices légères.", price:12.90, unit:"la box", boxMeal:true, boxTier:"meat", badges:[], vegetarian:false, vegan:false, halal:true, image:"/assets/images/products/poulet-mangue.jpeg" },
+    { id:20, category:"sale",     name:"Crevettes Curry",           desc:"Crevettes juteuses, sauce curry maison.", price:12.90, unit:"la box", boxMeal:true, boxTier:"meat", badges:[], vegetarian:false, vegan:false, halal:true, image:"/assets/images/products/crevettes-curry.jpeg" },
+    { id:21, category:"sale",     name:"Curry Pois Chiches",        desc:"Réconfortant, épicé, 100% végétal.", price:11.90, unit:"la box", boxMeal:true, boxTier:"veg", badges:[], vegetarian:true, vegan:true, halal:true, image:"/assets/images/products/pois-chiches.jpeg" },
+    { id:22, category:"sale",     name:"Saag Aloo",                 desc:"Épinards, pommes de terre, épices douces.", price:11.90, unit:"la box", boxMeal:true, boxTier:"veg", badges:[], vegetarian:true, vegan:true, halal:true, image:"/assets/images/products/saag-epinards.png" },
+    { id:23, category:"sale",     name:"Dal Rouge",                 desc:"Lentilles corail, cumin, réconfortant.", price:11.90, unit:"la box", boxMeal:true, boxTier:"veg", badges:[], vegetarian:true, vegan:true, halal:true, image:"/assets/images/products/dal-rouge.png" },
     { id:24, category:"sale",     name:"Pâte Feuilletée Épinards Feta", desc:"Feuilletée, épinards frais et feta fondante.", price:5.00, unit:"pièce", badges:[], vegetarian:true, vegan:false, halal:true, image:"/assets/images/products/Triangle feta miel.jpeg" },
     { id:25, category:"formules", name:"Box Petit-Déjeuner",        desc:"Birchers, banana bread, cinnamon rolls, cakes. Dès 10 personnes.", price:15.00, unit:"par personne", badges:[], vegetarian:true, vegan:false, halal:false, image:"/assets/images/products/hero-patisseries.png" },
     { id:26, category:"formules", name:"Formule Déjeuner",          desc:"Curry, naans, riz, accompagnements. Dès 15 personnes.", price:24.00, unit:"par personne", badges:[], vegetarian:false, vegan:false, halal:true, image:"/assets/images/products/curry-poulet-epices.png" },
@@ -941,6 +1115,21 @@ const MENU_DATA = {
     { id:28, category:"formules", name:"Cocktail Saveurs du Monde", desc:"Samosas, pakora, naans, curries en mini-portions. Dès 30 personnes.", price:28.00, unit:"par personne", badges:[], vegetarian:false, vegan:false, halal:true, image:"/assets/images/products/hero-patisseries.png" }
   ]
 };
+
+/* ══════════════════════════════════════════
+   BOX MEAL PRICING
+   Petite/Grande × viande/végé, +1 à emporter,
+   +10 consigne pour box en verre (remboursée).
+══════════════════════════════════════════ */
+const BOX_PRICING = {
+  petite: { meat: 12.90, veg: 11.90 },
+  grande: { meat: 15.90, veg: 14.90 },
+  emporter: 1.00,
+  boxVerre: 10.00
+};
+function boxTierOf(p) {
+  return p.boxTier || ((p.vegan || p.vegetarian) ? 'veg' : 'meat');
+}
 
 /* ══════════════════════════════════════════
    STATE
@@ -1024,15 +1213,87 @@ function addToCart(id) {
   const btn = document.querySelector(`.pcard[data-id="${id}"]`);
   if (btn) { btn.style.transform = 'scale(.95)'; setTimeout(() => btn.style.transform = '', 150); }
 }
+/* Route an add request: box meals open the options picker, others add directly */
+function handleAdd(id) {
+  const p = getProduct(id);
+  if (!p) return;
+  if (p.boxMeal) { openBoxOptions(id); return; }
+  addToCart(id);
+}
+
+/* ── Box options picker ── */
+let boxChoice = { id: null, size: 'petite', container: 'surplace' };
+
+function openBoxOptions(id) {
+  const p = getProduct(id);
+  if (!p) return;
+  boxChoice = { id, size: 'petite', container: 'surplace' };
+  document.getElementById('box-options-name').textContent = p.name;
+  document.getElementById('box-options-img').src = p.image || '';
+  // reset active buttons
+  document.querySelectorAll('#box-options-modal .bopt-size').forEach(b => b.classList.toggle('active', b.dataset.size === 'petite'));
+  document.querySelectorAll('#box-options-modal .bopt-cont').forEach(b => b.classList.toggle('active', b.dataset.cont === 'surplace'));
+  updateBoxOptions();
+  openModal('box-options-modal');
+}
+
+function boxComputed() {
+  const p = getProduct(boxChoice.id);
+  const tier = boxTierOf(p);
+  let price = BOX_PRICING[boxChoice.size][tier];
+  let consigne = 0;
+  if (boxChoice.container === 'emporter') price += BOX_PRICING.emporter;
+  if (boxChoice.container === 'verre') consigne = BOX_PRICING.boxVerre;
+  return { price, consigne, total: price + consigne };
+}
+
+function updateBoxOptions() {
+  const { price, consigne, total } = boxComputed();
+  const breakdown = document.getElementById('box-options-breakdown');
+  let html = `<span>Plat (${boxChoice.size === 'grande' ? 'grande' : 'petite'} box)</span><span>CHF ${price.toFixed(2)}</span>`;
+  if (consigne > 0) html += `<span>🫙 Consigne box verre</span><span>CHF ${consigne.toFixed(2)}</span>`;
+  breakdown.innerHTML = html;
+  document.getElementById('box-options-total').textContent = total.toFixed(2);
+  document.getElementById('box-consigne-note').style.display = consigne > 0 ? 'block' : 'none';
+}
+
+function selectBoxSize(btn) {
+  boxChoice.size = btn.dataset.size;
+  document.querySelectorAll('#box-options-modal .bopt-size').forEach(b => b.classList.toggle('active', b === btn));
+  updateBoxOptions();
+}
+function selectBoxCont(btn) {
+  boxChoice.container = btn.dataset.cont;
+  document.querySelectorAll('#box-options-modal .bopt-cont').forEach(b => b.classList.toggle('active', b === btn));
+  updateBoxOptions();
+}
+
+function confirmBoxOptions() {
+  const p = getProduct(boxChoice.id);
+  if (!p) return;
+  const { total } = boxComputed();
+  const sizeLabel = boxChoice.size === 'grande' ? 'Grande' : 'Petite';
+  let contLabel = '';
+  if (boxChoice.container === 'emporter') contLabel = ', à emporter';
+  else if (boxChoice.container === 'verre') contLabel = ', box verre +10 consigne';
+  const lineId = `${boxChoice.id}::${boxChoice.size}::${boxChoice.container}`;
+  const name = `${p.name} (${sizeLabel}${contLabel})`;
+  const existing = state.cart.find(i => i.id === lineId);
+  if (existing) existing.qty++;
+  else state.cart.push({ id: lineId, name, price: total, unit: 'box', qty: 1 });
+  closeModal('box-options-modal');
+  renderCart();
+}
+
 function changeQty(id, delta) {
-  const item = state.cart.find(i => i.id === id);
+  const item = state.cart.find(i => String(i.id) === String(id));
   if (!item) return;
   item.qty += delta;
-  if (item.qty <= 0) state.cart = state.cart.filter(i => i.id !== id);
+  if (item.qty <= 0) state.cart = state.cart.filter(i => String(i.id) !== String(id));
   renderCart();
 }
 function removeFromCart(id) {
-  state.cart = state.cart.filter(i => i.id !== id);
+  state.cart = state.cart.filter(i => String(i.id) !== String(id));
   renderCart();
 }
 function newOrder() {
@@ -1085,7 +1346,7 @@ function renderProducts() {
 
     // Add button (client mode only)
     const addBtn = state.mode === 'client'
-      ? `<button class="pcard-add-btn" onclick="event.stopPropagation();addToCart(${p.id})" aria-label="Ajouter au panier">+</button>`
+      ? `<button class="pcard-add-btn" onclick="event.stopPropagation();handleAdd(${p.id})" aria-label="Ajouter au panier">+</button>`
       : '';
 
     // Admin bar
@@ -1120,8 +1381,8 @@ function renderProducts() {
           <div class="pcard-tags">${tags.join('')}</div>
           <div class="pcard-footer">
             <div>
-              <div class="pcard-price">CHF ${eff.price.toFixed(2)}</div>
-              <span class="pcard-unit">/ ${eff.unit}</span>
+              <div class="pcard-price">${eff.boxMeal ? 'dès ' : ''}CHF ${eff.price.toFixed(2)}</div>
+              <span class="pcard-unit">${eff.boxMeal ? 'petite / grande box' : '/ ' + eff.unit}</span>
             </div>
             ${addBtn}
           </div>
@@ -1134,7 +1395,7 @@ function renderProducts() {
 function handleCardClick(id) {
   if (state.mode === 'client') return; // client uses the + button
   if (stockStatus(id) === 'rupture' && state.mode !== 'admin') return;
-  addToCart(id);
+  handleAdd(id);
 }
 
 /* ══════════════════════════════════════════
@@ -1162,12 +1423,12 @@ function renderCart() {
         <div class="ci-unit-price">CHF ${item.price.toFixed(2)} / ${item.unit || 'pcs'}</div>
       </div>
       <div class="ci-qty">
-        <button class="ci-qty-btn" onclick="changeQty(${item.id},-1)" aria-label="Moins">−</button>
+        <button class="ci-qty-btn" onclick="changeQty('${item.id}',-1)" aria-label="Moins">−</button>
         <span class="ci-qty-num">${item.qty}</span>
-        <button class="ci-qty-btn" onclick="changeQty(${item.id},1)" aria-label="Plus">+</button>
+        <button class="ci-qty-btn" onclick="changeQty('${item.id}',1)" aria-label="Plus">+</button>
       </div>
       <span class="ci-total">CHF ${(item.price * item.qty).toFixed(2)}</span>
-      <button class="ci-remove" onclick="removeFromCart(${item.id})" aria-label="Supprimer">✕</button>
+      <button class="ci-remove" onclick="removeFromCart('${item.id}')" aria-label="Supprimer">✕</button>
     </div>`).join('');
 
   updateDailyTotal();
@@ -1567,6 +1828,45 @@ document.addEventListener('keydown', e => {
   if (e.key >= '0' && e.key <= '9') pinPress(e.key);
   if (e.key === 'Backspace') pinClear();
 });
+
+/* ══════════════════════════════════════════
+   STAND FICHE
+══════════════════════════════════════════ */
+let formula = Object.assign({ price: 12.90, dish: '' }, LS.get('pos_formula') || {});
+
+function renderFiche() {
+  let dayName;
+  try { dayName = new Date().toLocaleDateString('fr-FR', { weekday: 'long' }); }
+  catch (e) { dayName = ['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'][new Date().getDay()] || 'jour'; }
+  const dayCap = dayName.charAt(0).toUpperCase() + dayName.slice(1);
+  document.getElementById('fiche-day').textContent = 'Menu de ' + dayCap;
+
+  const dishEl = document.getElementById('fiche-dish');
+  dishEl.textContent = formula.dish || '';
+  dishEl.style.display = formula.dish ? 'block' : 'none';
+
+  document.getElementById('fiche-price').innerHTML =
+    '<span class="chf">CHF</span> ' + Number(formula.price).toFixed(2);
+}
+
+function openFiche() {
+  renderFiche();
+  document.getElementById('fiche').classList.add('open');
+}
+function closeFiche() {
+  document.getElementById('fiche').classList.remove('open');
+}
+function editFormula() {
+  const newDish = prompt('Plat de la formule du jour (optionnel) :', formula.dish || '');
+  if (newDish !== null) formula.dish = newDish.trim();
+  const newPrice = prompt('Prix de la formule (CHF) :', Number(formula.price).toFixed(2));
+  if (newPrice !== null) {
+    const v = parseFloat(String(newPrice).replace(',', '.'));
+    if (!isNaN(v) && v >= 0) formula.price = v;
+  }
+  LS.set('pos_formula', formula);
+  renderFiche();
+}
 
 /* ══════════════════════════════════════════
    INIT
