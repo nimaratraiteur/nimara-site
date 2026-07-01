@@ -461,6 +461,29 @@ body[data-mode="client"] .cart-note{display:block}
   font-size:1.05rem;font-weight:700;color:var(--text);padding:.25rem 0;
 }
 .box-opt-total span:last-child{font-size:1.4rem;font-weight:800;color:var(--lavender-l)}
+.box-extra-row{display:flex;gap:.5rem;flex-wrap:wrap}
+.box-extra{
+  flex:1;min-width:120px;display:flex;align-items:center;gap:.45rem;
+  padding:.6rem .7rem;border-radius:var(--radius-sm);border:1px solid var(--border2);
+  background:var(--bg4);font-size:.82rem;font-weight:600;color:var(--text);cursor:pointer;
+}
+.box-extra input{width:18px;height:18px;accent-color:var(--violet-l);cursor:pointer}
+.box-extra b{margin-left:auto;color:var(--muted);font-weight:700}
+
+/* ── Weigh modal ── */
+.weigh-rate-line{font-size:.78rem;color:var(--gold);font-weight:600;margin-top:.15rem}
+
+/* ── Combo modal ── */
+.combo-list{display:flex;flex-direction:column;gap:.35rem;max-height:160px;overflow-y:auto}
+.combo-opt{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:.55rem .75rem;border-radius:var(--radius-sm);border:1.5px solid var(--border2);
+  background:var(--bg4);color:var(--text);font-size:.85rem;font-weight:600;cursor:pointer;transition:all .12s;
+}
+.combo-opt span{color:var(--muted);font-weight:700;font-size:.8rem}
+.combo-opt:hover{border-color:var(--lavender-d)}
+.combo-opt.active{border-color:var(--violet-l);background:rgba(124,58,237,.18)}
+.combo-opt.active span{color:var(--lavender-l)}
 
 /* ── Receipt modal ── */
 .receipt-items{
@@ -667,7 +690,10 @@ body[data-mode="admin"] #fiche-edit{display:block}
   <button class="fil-btn active" data-filter="all">Tout</button>
   <button class="fil-btn" data-filter="sucre">🍰 Douceurs</button>
   <button class="fil-btn" data-filter="sale">🍛 Saveurs du Monde</button>
+  <button class="fil-btn" data-filter="boissons">🥤 Boissons</button>
+  <button class="fil-btn" data-filter="combos">🎁 Combos</button>
   <button class="fil-btn" data-filter="formules">🎉 Formules</button>
+  <button class="fil-btn" data-filter="extras">🥡 Extras</button>
   <div class="fil-sep"></div>
   <button class="fil-btn" data-filter="vegetarian">🌿 Végétarien</button>
   <button class="fil-btn" data-filter="vegan">🌱 Vegan</button>
@@ -784,11 +810,19 @@ body[data-mode="admin"] #fiche-edit{display:block}
             <span class="bopt-t">🍽 Sur place</span><span class="bopt-s">inclus</span>
           </button>
           <button class="bopt bopt-cont" data-cont="emporter" onclick="selectBoxCont(this)">
-            <span class="bopt-t">🥡 À emporter</span><span class="bopt-s">+1.–</span>
+            <span class="bopt-t">🥡 Box carton</span><span class="bopt-s">+1.– emporter</span>
           </button>
           <button class="bopt bopt-cont" data-cont="verre" onclick="selectBoxCont(this)">
             <span class="bopt-t">🫙 Box verre</span><span class="bopt-s">+10.– consigne</span>
           </button>
+        </div>
+      </div>
+
+      <div class="box-opt-group">
+        <div class="box-opt-label">Extras</div>
+        <div class="box-extra-row">
+          <label class="box-extra"><input type="checkbox" id="box-couverts" onchange="toggleBoxExtra('couverts',this.checked)"> 🍴 Couverts <b>+0.20</b></label>
+          <label class="box-extra"><input type="checkbox" id="box-sac" onchange="toggleBoxExtra('sac',this.checked)"> 🛍 Sac <b>+0.20</b></label>
         </div>
       </div>
 
@@ -802,6 +836,69 @@ body[data-mode="admin"] #fiche-edit{display:block}
         <span>CHF <span id="box-options-total">0.00</span></span>
       </div>
       <button class="btn-confirm" onclick="confirmBoxOptions()">➕ Ajouter au panier</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     MODAL: WEIGH (vente au poids / 100 g)
+══════════════════════════════════════════ -->
+<div class="modal-backdrop" id="weigh-modal">
+  <div class="modal">
+    <div class="modal-hdr">
+      <span class="modal-title">⚖️ Vente au poids</span>
+      <button class="modal-close" onclick="closeModal('weigh-modal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="box-opt-head">
+        <img id="weigh-img" class="box-opt-img" alt="" onerror="this.style.display='none'">
+        <div>
+          <div class="box-opt-name" id="weigh-name"></div>
+          <div class="weigh-rate-line">Tarif : CHF <span id="weigh-rate">0.00</span> / 100 g</div>
+        </div>
+      </div>
+
+      <div class="input-row">
+        <label class="input-label">Poids (grammes)</label>
+        <input type="number" class="pos-input" id="weigh-grams" placeholder="0" step="10" min="0" inputmode="numeric" oninput="weighCalc()">
+      </div>
+
+      <div class="box-opt-total">
+        <span>Total au poids</span>
+        <span>CHF <span id="weigh-total">0.00</span></span>
+      </div>
+      <button class="btn-confirm" onclick="confirmWeigh()">➕ Ajouter (au poids)</button>
+      <button class="btn-new-order" onclick="addWholeCake()">🎂 Vendre entier — CHF <span id="weigh-whole-price">0.00</span></button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     MODAL: COMBO (dessert + boisson −1.50)
+══════════════════════════════════════════ -->
+<div class="modal-backdrop" id="combo-modal">
+  <div class="modal">
+    <div class="modal-hdr">
+      <span class="modal-title">🎁 Combo −1.50</span>
+      <button class="modal-close" onclick="closeModal('combo-modal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="box-opt-group">
+        <div class="box-opt-label">1. Choisir un dessert</div>
+        <div class="combo-list" id="combo-desserts"></div>
+      </div>
+      <div class="box-opt-group">
+        <div class="box-opt-label">2. Choisir une boisson</div>
+        <div class="combo-list" id="combo-boissons"></div>
+      </div>
+      <div class="box-consigne-note" style="color:var(--green-l);background:var(--green-bg);border-color:var(--green-border)">
+        🎉 Remise combo de 1.50 appliquée automatiquement.
+      </div>
+      <div class="box-opt-total">
+        <span>Total combo</span>
+        <span>CHF <span id="combo-total">0.00</span></span>
+      </div>
+      <button class="btn-confirm" id="combo-confirm" onclick="confirmCombo()" disabled>➕ Ajouter le combo</button>
     </div>
   </div>
 </div>
@@ -1078,24 +1175,27 @@ const MENU_DATA = {
   categories: [
     { id: "sucre",    label: "Douceurs",           icon: "🍰" },
     { id: "sale",     label: "Saveurs du Monde",   icon: "🍛" },
-    { id: "formules", label: "Formules Événements",icon: "🎉" }
+    { id: "boissons", label: "Boissons",           icon: "🥤" },
+    { id: "combos",   label: "Combos",             icon: "🎁" },
+    { id: "formules", label: "Formules Événements",icon: "🎉" },
+    { id: "extras",   label: "Extras Emporter",    icon: "🥡" }
   ],
   allergenKeys: {
     gluten: "Gluten", lactose: "Lactose", oeufs: "Œufs",
     fruits_a_coque: "Fruits à coque", sesame: "Sésame"
   },
   products: [
-    { id:1,  category:"sucre",    name:"Banana Bread",              desc:"Moelleux, caramélisé, pépites de chocolat. Notre signature.", price:27.50, unit:"cake entier", badges:["signature"], vegetarian:true,  vegan:false, halal:false, image:"/assets/images/products/banana-bread.png" },
+    { id:1,  category:"sucre",    name:"Financiers Banane & Chocolat", desc:"Financiers moelleux à la banane et pépites de chocolat. Notre douceur signature.", price:3.50, unit:"pièce", badges:["signature"], vegetarian:true,  vegan:false, halal:false, image:"/assets/images/products/banana-bread.png" },
     { id:2,  category:"sucre",    name:"Bircher Muesli",            desc:"Frais, yaourt, fruits de saison. Disponible framboise et mangue.", price:5.50, unit:"portion", badges:[], vegetarian:true, vegan:false, halal:false, image:"/assets/images/products/bircher-muesli.png" },
     { id:3,  category:"sucre",    name:"Brookie",                   desc:"Le meilleur du brownie et du cookie réunis. Irrésistible.", price:4.50, unit:"pièce", badges:["populaire"], vegetarian:true, vegan:false, halal:false, image:"/assets/images/products/brookie.png" },
     { id:4,  category:"sucre",    name:"Brownie",                   desc:"Fondant, chocolat noir intense.", price:3.50, unit:"pièce", badges:[], vegetarian:true, vegan:false, halal:false, image:"/assets/images/products/brownie.png" },
-    { id:5,  category:"sucre",    name:"Cake Citron",               desc:"Acidulé, glaçage subtil. Fraîcheur garantie.", price:26.00, unit:"cake entier", badges:[], vegetarian:true, vegan:false, halal:false, image:"/assets/images/products/cake-citron.png" },
-    { id:6,  category:"sucre",    name:"Cake Marbré",               desc:"Vanille & chocolat, moelleux à souhait.", price:28.00, unit:"cake entier", badges:[], vegetarian:true, vegan:false, halal:false, image:"/assets/images/products/cake-marbre.png" },
-    { id:7,  category:"sucre",    name:"Cake Pomme",                desc:"Pommes caramélisées, cannelle douce.", price:26.00, unit:"cake entier", badges:[], vegetarian:true, vegan:false, halal:false, image:"/assets/images/products/cake-pomme-orange.png" },
-    { id:8,  category:"sucre",    name:"Carrot Cake",               desc:"Épices douces, cream cheese onctueux.", price:28.00, unit:"cake entier", badges:[], vegetarian:true, vegan:false, halal:false, image:"/assets/images/products/carrot-cake.png" },
-    { id:9,  category:"sucre",    name:"Cheesecake Spéculos",       desc:"Onctueux, base croustillante au spéculos.", price:32.00, unit:"pièce", badges:["populaire"], vegetarian:true, vegan:false, halal:false, image:"/assets/images/products/cheesecake-speculos.png" },
+    { id:5,  category:"sucre",    name:"Cake Citron",               desc:"Acidulé, glaçage subtil. Fraîcheur garantie.", price:36.40, unit:"cake entier", weighable:true, per100g:4.55, badges:[], vegetarian:true, vegan:false, halal:false, image:"/assets/images/products/cake-citron.png" },
+    { id:6,  category:"sucre",    name:"Cake Marbré",               desc:"Vanille & chocolat, moelleux à souhait.", price:39.20, unit:"cake entier", weighable:true, per100g:4.90, badges:[], vegetarian:true, vegan:false, halal:false, image:"/assets/images/products/cake-marbre.png" },
+    { id:7,  category:"sucre",    name:"Cake Pomme",                desc:"Pommes caramélisées, cannelle douce.", price:36.40, unit:"cake entier", weighable:true, per100g:4.55, badges:[], vegetarian:true, vegan:false, halal:false, image:"/assets/images/products/cake-pomme-orange.png" },
+    { id:8,  category:"sucre",    name:"Carrot Cake",               desc:"Épices douces, cream cheese onctueux.", price:39.20, unit:"cake entier", weighable:true, per100g:4.90, badges:[], vegetarian:true, vegan:false, halal:false, image:"/assets/images/products/carrot-cake.png" },
+    { id:9,  category:"sucre",    name:"Cheesecake Spéculos",       desc:"Onctueux, base croustillante au spéculos.", price:44.80, unit:"cake entier", weighable:true, per100g:5.60, badges:["populaire"], vegetarian:true, vegan:false, halal:false, image:"/assets/images/products/cheesecake-speculos.png" },
     { id:10, category:"sucre",    name:"Cinnamon Roll",             desc:"Cannelle, glaçage vanille.", price:4.00, unit:"pièce", badges:[], vegetarian:true, vegan:false, halal:false, image:"/assets/images/products/cinnamon-roll.png" },
-    { id:11, category:"sucre",    name:"Pecan Pie",                 desc:"Caramel, noix de pécan. Un classique américain revisité.", price:34.00, unit:"pièce", badges:["prestige"], vegetarian:true, vegan:false, halal:false, image:"/assets/images/products/pecan-pie.png" },
+    { id:11, category:"sucre",    name:"Pecan Pie",                 desc:"Caramel, noix de pécan. Un classique américain revisité.", price:47.60, unit:"cake entier", weighable:true, per100g:5.95, badges:["prestige"], vegetarian:true, vegan:false, halal:false, image:"/assets/images/products/pecan-pie.png" },
     { id:12, category:"sale",     name:"Naans",                     desc:"Nature, ail ou fromage. Pâte fraîche chaque matin.", price:3.50, unit:"pièce", badges:[], vegetarian:true, vegan:false, halal:true, image:"/assets/images/products/Naan nature.jpeg" },
     { id:13, category:"sale",     name:"Samosas",                   desc:"Légumes, menthe fraîche. Croustillants et parfumés.", price:3.00, unit:"pièce", badges:[], vegetarian:true, vegan:false, halal:true, image:"/assets/images/products/Samosa aux légumes.jpeg" },
     { id:14, category:"sale",     name:"Pakora",                    desc:"Épinards, oignon, épices maison. Végétalien.", price:2.50, unit:"pièce", badges:[], vegetarian:true, vegan:true, halal:true, image:"/assets/images/products/Pakora aux legumes.jpeg" },
@@ -1112,7 +1212,19 @@ const MENU_DATA = {
     { id:25, category:"formules", name:"Box Petit-Déjeuner",        desc:"Birchers, banana bread, cinnamon rolls, cakes. Dès 10 personnes.", price:15.00, unit:"par personne", badges:[], vegetarian:true, vegan:false, halal:false, image:"/assets/images/products/hero-patisseries.png" },
     { id:26, category:"formules", name:"Formule Déjeuner",          desc:"Curry, naans, riz, accompagnements. Dès 15 personnes.", price:24.00, unit:"par personne", badges:[], vegetarian:false, vegan:false, halal:true, image:"/assets/images/products/curry-poulet-epices.png" },
     { id:27, category:"formules", name:"Buffet Complet",            desc:"Sucré & salé, curries, pâtisseries, boissons. Dès 20 personnes.", price:42.00, unit:"par personne", badges:["prestige"], vegetarian:false, vegan:false, halal:false, image:"/assets/images/products/plat-indien-fumant.png" },
-    { id:28, category:"formules", name:"Cocktail Saveurs du Monde", desc:"Samosas, pakora, naans, curries en mini-portions. Dès 30 personnes.", price:28.00, unit:"par personne", badges:[], vegetarian:false, vegan:false, halal:true, image:"/assets/images/products/hero-patisseries.png" }
+    { id:28, category:"formules", name:"Cocktail Saveurs du Monde", desc:"Samosas, pakora, naans, curries en mini-portions. Dès 30 personnes.", price:28.00, unit:"par personne", badges:[], vegetarian:false, vegan:false, halal:true, image:"/assets/images/products/hero-patisseries.png" },
+
+    // ── Boissons ──
+    { id:40, category:"boissons", name:"Lassi à la Mangue",          desc:"Boisson yaourt & mangue, douce et fraîche.", price:5.00, unit:"pièce", badges:["populaire"], vegetarian:true, vegan:false, halal:true, image:"" },
+    { id:41, category:"boissons", name:"Jus d'Hibiscus",             desc:"Bissap maison, floral et désaltérant. Vegan.", price:5.00, unit:"pièce", badges:[], vegetarian:true, vegan:true, halal:true, image:"" },
+    { id:42, category:"boissons", name:"Jus de Gingembre",           desc:"Gingembre frais pressé, vif et tonique. Vegan.", price:5.00, unit:"pièce", badges:[], vegetarian:true, vegan:true, halal:true, image:"" },
+
+    // ── Combo (ouvre le sélecteur dessert + boisson) ──
+    { id:60, category:"combos",   name:"Combo Dessert + Boisson",    desc:"Un dessert au choix + une boisson au choix. Économisez 1.50 !", price:0, unit:"combo", comboPicker:true, badges:["populaire"], vegetarian:true, vegan:false, halal:true, image:"" },
+
+    // ── Extras à emporter ──
+    { id:50, category:"extras",   name:"Couverts",                   desc:"Set de couverts jetables.", price:0.20, unit:"pièce", badges:[], vegetarian:true, vegan:true, halal:true, image:"" },
+    { id:51, category:"extras",   name:"Sac",                        desc:"Sac pour l'emporter.", price:0.20, unit:"pièce", badges:[], vegetarian:true, vegan:true, halal:true, image:"" }
   ]
 };
 
@@ -1124,9 +1236,11 @@ const MENU_DATA = {
 const BOX_PRICING = {
   petite: { meat: 12.90, veg: 11.90 },
   grande: { meat: 15.90, veg: 14.90 },
-  emporter: 1.00,
-  boxVerre: 10.00
+  emporter: 1.00,   // box carton usage unique
+  boxVerre: 10.00   // consigne remboursée au retour
 };
+const EXTRA_PRICE = { couverts: 0.20, sac: 0.20 };
+const COMBO_DISCOUNT = 1.50;
 function boxTierOf(p) {
   return p.boxTier || ((p.vegan || p.vegetarian) ? 'veg' : 'meat');
 }
@@ -1174,7 +1288,8 @@ function stockStatus(id) {
 function filteredProducts() {
   let products = allProducts();
   const f = state.filter;
-  if (f === 'sucre' || f === 'sale' || f === 'formules') {
+  const catIds = MENU_DATA.categories.map(c => c.id);
+  if (catIds.includes(f)) {
     products = products.filter(p => p.category === f);
   } else if (f === 'vegetarian') {
     products = products.filter(p => p.vegetarian);
@@ -1213,26 +1328,30 @@ function addToCart(id) {
   const btn = document.querySelector(`.pcard[data-id="${id}"]`);
   if (btn) { btn.style.transform = 'scale(.95)'; setTimeout(() => btn.style.transform = '', 150); }
 }
-/* Route an add request: box meals open the options picker, others add directly */
+/* Route an add request: box meals / weighables / combos open a picker, others add directly */
 function handleAdd(id) {
   const p = getProduct(id);
   if (!p) return;
+  if (p.comboPicker) { openCombo(); return; }
   if (p.boxMeal) { openBoxOptions(id); return; }
+  if (p.weighable) { openWeigh(id); return; }
   addToCart(id);
 }
 
 /* ── Box options picker ── */
-let boxChoice = { id: null, size: 'petite', container: 'surplace' };
+let boxChoice = { id: null, size: 'petite', container: 'surplace', couverts: false, sac: false };
 
 function openBoxOptions(id) {
   const p = getProduct(id);
   if (!p) return;
-  boxChoice = { id, size: 'petite', container: 'surplace' };
+  boxChoice = { id, size: 'petite', container: 'surplace', couverts: false, sac: false };
   document.getElementById('box-options-name').textContent = p.name;
   document.getElementById('box-options-img').src = p.image || '';
-  // reset active buttons
+  // reset active buttons + checkboxes
   document.querySelectorAll('#box-options-modal .bopt-size').forEach(b => b.classList.toggle('active', b.dataset.size === 'petite'));
   document.querySelectorAll('#box-options-modal .bopt-cont').forEach(b => b.classList.toggle('active', b.dataset.cont === 'surplace'));
+  document.getElementById('box-couverts').checked = false;
+  document.getElementById('box-sac').checked = false;
   updateBoxOptions();
   openModal('box-options-modal');
 }
@@ -1244,13 +1363,21 @@ function boxComputed() {
   let consigne = 0;
   if (boxChoice.container === 'emporter') price += BOX_PRICING.emporter;
   if (boxChoice.container === 'verre') consigne = BOX_PRICING.boxVerre;
+  if (boxChoice.couverts) price += EXTRA_PRICE.couverts;
+  if (boxChoice.sac) price += EXTRA_PRICE.sac;
   return { price, consigne, total: price + consigne };
 }
 
 function updateBoxOptions() {
-  const { price, consigne, total } = boxComputed();
+  const p = getProduct(boxChoice.id);
+  const tier = boxTierOf(p);
+  const base = BOX_PRICING[boxChoice.size][tier];
+  const { consigne, total } = boxComputed();
   const breakdown = document.getElementById('box-options-breakdown');
-  let html = `<span>Plat (${boxChoice.size === 'grande' ? 'grande' : 'petite'} box)</span><span>CHF ${price.toFixed(2)}</span>`;
+  let html = `<span>Plat (${boxChoice.size === 'grande' ? 'grande' : 'petite'} box)</span><span>CHF ${base.toFixed(2)}</span>`;
+  if (boxChoice.container === 'emporter') html += `<span>🥡 Box carton</span><span>CHF ${BOX_PRICING.emporter.toFixed(2)}</span>`;
+  if (boxChoice.couverts) html += `<span>🍴 Couverts</span><span>CHF ${EXTRA_PRICE.couverts.toFixed(2)}</span>`;
+  if (boxChoice.sac) html += `<span>🛍 Sac</span><span>CHF ${EXTRA_PRICE.sac.toFixed(2)}</span>`;
   if (consigne > 0) html += `<span>🫙 Consigne box verre</span><span>CHF ${consigne.toFixed(2)}</span>`;
   breakdown.innerHTML = html;
   document.getElementById('box-options-total').textContent = total.toFixed(2);
@@ -1267,21 +1394,116 @@ function selectBoxCont(btn) {
   document.querySelectorAll('#box-options-modal .bopt-cont').forEach(b => b.classList.toggle('active', b === btn));
   updateBoxOptions();
 }
+function toggleBoxExtra(kind, checked) {
+  boxChoice[kind] = checked;
+  updateBoxOptions();
+}
 
 function confirmBoxOptions() {
   const p = getProduct(boxChoice.id);
   if (!p) return;
   const { total } = boxComputed();
   const sizeLabel = boxChoice.size === 'grande' ? 'Grande' : 'Petite';
-  let contLabel = '';
-  if (boxChoice.container === 'emporter') contLabel = ', à emporter';
-  else if (boxChoice.container === 'verre') contLabel = ', box verre +10 consigne';
-  const lineId = `${boxChoice.id}::${boxChoice.size}::${boxChoice.container}`;
-  const name = `${p.name} (${sizeLabel}${contLabel})`;
+  const parts = [sizeLabel];
+  if (boxChoice.container === 'emporter') parts.push('box carton');
+  else if (boxChoice.container === 'verre') parts.push('box verre +10 consigne');
+  if (boxChoice.couverts) parts.push('couverts');
+  if (boxChoice.sac) parts.push('sac');
+  const lineId = `${boxChoice.id}::${boxChoice.size}::${boxChoice.container}::${boxChoice.couverts?1:0}${boxChoice.sac?1:0}`;
+  const name = `${p.name} (${parts.join(', ')})`;
   const existing = state.cart.find(i => i.id === lineId);
   if (existing) existing.qty++;
   else state.cart.push({ id: lineId, name, price: total, unit: 'box', qty: 1 });
   closeModal('box-options-modal');
+  renderCart();
+}
+
+/* ══════════════════════════════════════════
+   WEIGHT SALE (vente au poids, prix / 100 g)
+══════════════════════════════════════════ */
+let weighId = null;
+function openWeigh(id) {
+  const p = getProduct(id);
+  if (!p) return;
+  weighId = id;
+  document.getElementById('weigh-name').textContent = p.name;
+  document.getElementById('weigh-img').src = p.image || '';
+  document.getElementById('weigh-rate').textContent = Number(p.per100g || 0).toFixed(2);
+  document.getElementById('weigh-whole-price').textContent = Number(p.price).toFixed(2);
+  document.getElementById('weigh-grams').value = '';
+  document.getElementById('weigh-total').textContent = '0.00';
+  openModal('weigh-modal');
+  setTimeout(() => document.getElementById('weigh-grams').focus(), 60);
+}
+function weighCalc() {
+  const p = getProduct(weighId);
+  const g = parseFloat(document.getElementById('weigh-grams').value) || 0;
+  const total = (p.per100g || 0) * (g / 100);
+  document.getElementById('weigh-total').textContent = total.toFixed(2);
+  return total;
+}
+function confirmWeigh() {
+  const p = getProduct(weighId);
+  const g = parseFloat(document.getElementById('weigh-grams').value) || 0;
+  if (g <= 0) { alert('Entrez un poids en grammes'); return; }
+  const total = Math.round((p.per100g || 0) * (g / 100) * 20) / 20; // arrondi 0.05
+  const lineId = `${weighId}::${g}g::${Date.now()}`;
+  state.cart.push({ id: lineId, name: `${p.name} (${g} g)`, price: total, unit: `${g} g`, qty: 1 });
+  closeModal('weigh-modal');
+  renderCart();
+}
+function addWholeCake() {
+  addToCart(weighId);
+  closeModal('weigh-modal');
+}
+
+/* ══════════════════════════════════════════
+   COMBO (dessert + boisson, −1.50)
+══════════════════════════════════════════ */
+let comboChoice = { dessert: null, boisson: null };
+function dessertsList() { return allProducts().filter(p => p.category === 'sucre' && !p.weighable); }
+function boissonsList() { return allProducts().filter(p => p.category === 'boissons'); }
+
+function openCombo() {
+  comboChoice = { dessert: null, boisson: null };
+  const dWrap = document.getElementById('combo-desserts');
+  const bWrap = document.getElementById('combo-boissons');
+  dWrap.innerHTML = dessertsList().map(p =>
+    `<button class="combo-opt" data-cid="${p.id}" onclick="selectCombo('dessert',${p.id},this)">${p.name}<span>CHF ${p.price.toFixed(2)}</span></button>`
+  ).join('');
+  bWrap.innerHTML = boissonsList().map(p =>
+    `<button class="combo-opt" data-cid="${p.id}" onclick="selectCombo('boisson',${p.id},this)">${p.name}<span>CHF ${p.price.toFixed(2)}</span></button>`
+  ).join('');
+  updateCombo();
+  openModal('combo-modal');
+}
+function selectCombo(kind, id, btn) {
+  comboChoice[kind] = id;
+  const wrap = kind === 'dessert' ? document.getElementById('combo-desserts') : document.getElementById('combo-boissons');
+  wrap.querySelectorAll('.combo-opt').forEach(b => b.classList.toggle('active', b === btn));
+  updateCombo();
+}
+function comboComputed() {
+  const d = getProduct(comboChoice.dessert);
+  const b = getProduct(comboChoice.boisson);
+  if (!d || !b) return { total: 0, ok: false, d, b };
+  const total = Math.max(0, d.price + b.price - COMBO_DISCOUNT);
+  return { total, ok: true, d, b };
+}
+function updateCombo() {
+  const { total, ok } = comboComputed();
+  document.getElementById('combo-total').textContent = total.toFixed(2);
+  document.getElementById('combo-confirm').disabled = !ok;
+}
+function confirmCombo() {
+  const { total, ok, d, b } = comboComputed();
+  if (!ok) return;
+  const lineId = `combo::${d.id}::${b.id}`;
+  const name = `Combo: ${d.name} + ${b.name}`;
+  const existing = state.cart.find(i => i.id === lineId);
+  if (existing) existing.qty++;
+  else state.cart.push({ id: lineId, name, price: total, unit: 'combo', qty: 1 });
+  closeModal('combo-modal');
   renderCart();
 }
 
@@ -1336,7 +1558,8 @@ function renderProducts() {
     const imgHtml = eff.image
       ? `<img src="${eff.image}" alt="${eff.name}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
       : '';
-    const placeholderIcon = eff.category === 'sucre' ? '🍰' : eff.category === 'sale' ? '🍛' : '🎉';
+    const catObj = MENU_DATA.categories.find(c => c.id === eff.category);
+    const placeholderIcon = catObj ? catObj.icon : '🍽';
 
     // Tags
     const tags = [];
@@ -1381,8 +1604,13 @@ function renderProducts() {
           <div class="pcard-tags">${tags.join('')}</div>
           <div class="pcard-footer">
             <div>
-              <div class="pcard-price">${eff.boxMeal ? 'dès ' : ''}CHF ${eff.price.toFixed(2)}</div>
-              <span class="pcard-unit">${eff.boxMeal ? 'petite / grande box' : '/ ' + eff.unit}</span>
+              ${eff.comboPicker
+                ? `<div class="pcard-price">🎁 −${COMBO_DISCOUNT.toFixed(2)}</div><span class="pcard-unit">dessert + boisson</span>`
+                : eff.boxMeal
+                ? `<div class="pcard-price">dès CHF ${eff.price.toFixed(2)}</div><span class="pcard-unit">petite / grande box</span>`
+                : eff.weighable
+                ? `<div class="pcard-price">CHF ${eff.price.toFixed(2)}</div><span class="pcard-unit">entier · ${Number(eff.per100g||0).toFixed(2)}/100g</span>`
+                : `<div class="pcard-price">CHF ${eff.price.toFixed(2)}</div><span class="pcard-unit">/ ${eff.unit}</span>`}
             </div>
             ${addBtn}
           </div>
@@ -1878,6 +2106,16 @@ function init() {
 }
 
 init();
+
+/* ══════════════════════════════════════════
+   SERVICE WORKER — chargement instantané + hors-ligne
+   Indispensable : écran de caisse peu puissant, internet lent.
+══════════════════════════════════════════ */
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/delices-pos-sw.js').catch(() => {});
+  });
+}
 </script>
 </body>
 </html>
